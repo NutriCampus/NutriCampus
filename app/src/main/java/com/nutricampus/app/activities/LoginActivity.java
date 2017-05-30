@@ -8,6 +8,10 @@ import android.view.View;
 
 import com.nutricampus.app.R;
 
+/**
+ * @author Paulo Mateus <paulomatew@gmail.com> on 29/05/17.
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override

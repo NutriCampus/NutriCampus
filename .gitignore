@@ -12,7 +12,7 @@
 hs_err_pid*
 
 
-*.iml
+#*.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
