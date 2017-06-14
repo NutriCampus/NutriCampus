@@ -9,7 +9,9 @@ import android.view.View;
 import com.nutricampus.app.R;
 
 /**
- * @author Paulo Mateus <paulomatew@gmail.com> on 29/05/17.
+ * Created by Mateus on 29/05/2017.
+ * For project NutriCampus.
+ * Contact: <paulomatew@gmail.com>
  */
 
 public class LoginActivity extends AppCompatActivity {

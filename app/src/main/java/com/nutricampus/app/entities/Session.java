@@ -7,4 +7,5 @@ package com.nutricampus.app.entities;
  */
 
 public class Session {
+    public static final boolean DEBBUG = true;
 }

@@ -16,7 +16,9 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.entities.ActionBarManager;
 
 /**
- * @author Paulo Mateus <paulomatew@gmail.com> on 29/05/17.
+ * Created by Mateus on 29/05/2017.
+ * For project NutriCampus.
+ * Contact: <paulomatew@gmail.com>
  */
 
 public class MainActivity extends AppCompatActivity
@@ -33,60 +35,6 @@ public class MainActivity extends AppCompatActivity
 
         actionBar = new ActionBarManager(this, toolbar);
 
-        /*new DrawerBuilder().withActivity(this).build();
-
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .withTranslucentStatusBar(false)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("João da Silva").withEmail("jsilva@email.com")
-                        //.withIcon(getResources().getDrawable(R.drawable.profile))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-
-
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
-                .addDrawerItems(
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_home),
-                        new SectionDrawerItem().withName("Controle"),
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
-                        new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_home),
-                        new SectionDrawerItem().withName("Licença"),
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Compras").withIcon(FontAwesome.Icon.faw_shopping_cart),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
-                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
-                        new SecondaryDrawerItem().withIdentifier(7).withName("Sobre").withIcon(FontAwesome.Icon.faw_bullhorn)
-
-                )
-                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(8).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog))
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-                        return false;
-                    }
-                })
-                .build();*/
-
-        //actionBar = new ActionBarManager(MainActivity.this, toolbar);
-        ///actionBar.setTitleActionBar(getResources().getString(R.string.app_name));
-        //actionBar.setTitleActionBar("AAAAAAAAAAAA");
-        //actionBar.mActionBar.openDrawer();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +44,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
     }
 
     @Override

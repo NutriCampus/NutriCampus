@@ -18,7 +18,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 
 /**
- * @author Paulo Mateus <paulomatew@gmail.com> on 29/05/17.
+ * Created by Mateus on 29/05/2017.
+ * For project NutriCampus.
+ * Contact: <paulomatew@gmail.com>
  */
 
 public class ActionBarManager {
@@ -36,7 +38,6 @@ public class ActionBarManager {
 
     private void initActionBar() {
         new DrawerBuilder().withActivity(_act).build();
-
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(_act)
@@ -61,17 +62,17 @@ public class ActionBarManager {
                 .withAccountHeader(headerResult)
                 .addDrawerItems(
                         new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
-                        /*separator*/new SectionDrawerItem().withName("Controle"),
-                        new SecondaryDrawerItem().withIdentifier(1).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(2).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
-                        new SecondaryDrawerItem().withIdentifier(3).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
-                        new SecondaryDrawerItem().withIdentifier(4).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
-                        /*separator*/new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(5).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
-                        new SecondaryDrawerItem().withIdentifier(6).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
-                        /*separator*/new SectionDrawerItem().withName("Licença"),
-                        new SecondaryDrawerItem().withIdentifier(7).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
-                        /*separator*/ new DividerDrawerItem(),
+                        new SectionDrawerItem().withName("Controle"),
+                        new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
+                        new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
+                        new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
+                        new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
+                        new SectionDrawerItem().withName("Relatórios"),
+                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
+                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
+                        new SectionDrawerItem().withName("Licença"),
+                        new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
+                        new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
                         new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
                         new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
