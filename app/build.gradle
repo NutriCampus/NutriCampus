@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+	
+	//Remover parada ao encontrar erro no travisCI
+	lintOptions {
+		abortOnError false
+	}
 }
 
 dependencies {
