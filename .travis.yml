@@ -24,15 +24,17 @@ android:
     # if you need to run emulator(s) during your tests
     #- sys-img-armeabi-v7a-android-22
     #- sys-img-armeabi-v7a-android-25
+    
+#tem q ter
 before_install:
-    - chmod +x gradlew
+    - chmod +x gradlew 
+licenses:
+    - android-sdk-license-.+
+    
 script: ./gradlew build connectedCheck
 
-#sudo: required
-
+#tem q ter
 jdk: oraclejdk8
-    
-#install: ./gradlew assemble --stacktrace
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -42,5 +44,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
+    
+#install: ./gradlew assemble --stacktrace
     
