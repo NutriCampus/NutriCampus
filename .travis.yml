@@ -26,15 +26,13 @@ android:
     #- sys-img-armeabi-v7a-android-25
 before_install:
     - chmod +x gradlew
-script:
-    - chmod +x gradlew
-    - ./gradlew build connectedCheck
+script: ./gradlew build connectedCheck
 
 #sudo: required
 
 jdk: oraclejdk8
     
-install: ./gradlew assemble --stacktrace
+#install: ./gradlew assemble --stacktrace
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
