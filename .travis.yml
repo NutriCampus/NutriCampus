@@ -3,9 +3,9 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-     - tools
-     - platform-tools
-     - tools
+     #- tools
+     #- platform-tools
+     #- tools
 
     # The BuildTools version used by your project
     - build-tools-26.0.0
@@ -24,7 +24,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-26
+    #- sys-img-armeabi-v7a-android-26
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -50,6 +50,15 @@ jdk: oraclejdk8
     
 script: ./gradlew build connectedCheck --stacktrace --info
 
-before_script:
-    - mkdir -p "$ANDROID_HOME/licenses"
-    - cp /licenses/ "$ANDROID_HOME/licenses/"
+#before_script:
+#    - mkdir -p "$ANDROID_HOME/licenses"
+#    - cp /licenses/ "$ANDROID_HOME/licenses/"
+
+install:
+  - echo y | android update sdk -u -a -t tools
+  - echo y | android update sdk -u -a -t platform-tools
+  - echo y | android update sdk -u -a -t build-tools-26.0.0
+  - echo y | android update sdk -u -a -t android-26
+  - echo y | android update sdk -u -a -t extra-android-support
+  - echo y | android update sdk -u -a -t extra-google-m2repository
+  - echo y | android update sdk -u -a -t extra-android-m2repository
