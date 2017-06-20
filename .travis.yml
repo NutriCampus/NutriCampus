@@ -26,9 +26,10 @@ android:
     # if you need to run emulator(s) during your tests
     #- sys-img-armeabi-v7a-android-26
   licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+    - '.+'
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -51,7 +52,8 @@ before_install:
     
 jdk: oraclejdk8
     
-script: ./gradlew build connectedCheck --stacktrace --info
+#script: ./gradlew build connectedCheck --stacktrace --info
+script: ./gradlew build connectedCheck
 
 #before_script:
 #    - mkdir -p "$ANDROID_HOME/licenses"
