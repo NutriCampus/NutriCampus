@@ -34,6 +34,7 @@ cache:
     - $HOME/.android/build-cache
     
 before_script:
+    # Emulator Management: Create, Start and Wait
     - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
@@ -42,7 +43,9 @@ before_script:
 #   - cp /licenses/ "$ANDROID_HOME/licenses/"
     
 #script: ./gradlew build connectedCheck --stacktrace --info
-script: ./gradlew build connectedCheck
+script: 
+    - android list target
+    - ./gradlew build connectedCheck -PdisablePreDex
     
 before_install:
     - chmod +x gradlew 
@@ -59,3 +62,8 @@ before_install:
   #- echo y | android update sdk -u -a -t extra-android-support
   #- echo y | android update sdk -u -a -t extra-google-m2repository
   #- echo y | android update sdk -u -a -t extra-android-m2repository
+
+env:
+  global:
+    # install timeout in minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=10
