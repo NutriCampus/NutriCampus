@@ -32,4 +32,4 @@ sudo: required
 jdk:
     - oraclejdk8
     
-install: true
+install: ./gradlew assemble --stacktrace
