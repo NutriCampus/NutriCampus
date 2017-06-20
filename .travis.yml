@@ -3,7 +3,7 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-    # - tools
+     - tools
     # - platform-tools
 
     # The BuildTools version used by your project
@@ -25,18 +25,6 @@ android:
     #- sys-img-armeabi-v7a-android-22
     #- sys-img-armeabi-v7a-android-25
     
-#tem q ter
-before_install:
-    - chmod +x gradlew 
-licenses:
-    - 'android-sdk-license-.+'
-    - 'android-sdk-preview-license-.+'
-    
-script: ./gradlew build connectedCheck
-
-#tem q ter
-jdk: oraclejdk8
-
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -47,4 +35,13 @@ cache:
     - $HOME/.android/build-cache
     
 #install: ./gradlew assemble --stacktrace
+#obrigatório
+before_install:
+    - chmod +x gradlew 
+licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+jdk: oraclejdk8
     
+script: ./gradlew build connectedCheck
