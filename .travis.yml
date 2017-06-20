@@ -25,6 +25,10 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     #- sys-img-armeabi-v7a-android-26
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -42,10 +46,6 @@ sudo: required
 before_install:
     - chmod +x gradlew 
     
-licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 jdk: oraclejdk8
     
 script: ./gradlew build connectedCheck --stacktrace --info
@@ -54,11 +54,11 @@ script: ./gradlew build connectedCheck --stacktrace --info
 #    - mkdir -p "$ANDROID_HOME/licenses"
 #    - cp /licenses/ "$ANDROID_HOME/licenses/"
 
-install:
-  - echo y | android update sdk -u -a -t tools
-  - echo y | android update sdk -u -a -t platform-tools
-  - echo y | android update sdk -u -a -t build-tools-26.0.0
-  - echo y | android update sdk -u -a -t android-26
-  - echo y | android update sdk -u -a -t extra-android-support
-  - echo y | android update sdk -u -a -t extra-google-m2repository
-  - echo y | android update sdk -u -a -t extra-android-m2repository
+#install:
+  #- echo y | android update sdk -u -a -t tools
+  #- echo y | android update sdk -u -a -t platform-tools
+  #- echo y | android update sdk -u -a -t build-tools-26.0.0
+  #- echo y | android update sdk -u -a -t android-26
+  #- echo y | android update sdk -u -a -t extra-android-support
+  #- echo y | android update sdk -u -a -t extra-google-m2repository
+  #- echo y | android update sdk -u -a -t extra-android-m2repository
