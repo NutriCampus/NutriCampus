@@ -50,4 +50,4 @@ script: ./gradlew build connectedCheck --stacktrace --info
 
 before_script:
     - mkdir -p "$ANDROID_HOME/licenses"
-    - cp ./licenses/ "$ANDROID_HOME/licenses/"
+    - cp /licenses/ "$ANDROID_HOME/licenses/"
