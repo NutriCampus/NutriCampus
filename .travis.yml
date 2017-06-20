@@ -13,11 +13,11 @@ android:
     - android-25
 
     # Additional components
-    - extra
+    #- extra
     #- extra-google-google_play_services
     #- extra-google-m2repository
     #- extra-android-m2repository
-    #- extra-android-support
+    - extra-android-support
     #- addon-google_apis-google-19
 
     # Specify at least one system image,
@@ -39,8 +39,9 @@ before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
-    apt: true
+    #apt: true
     directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
