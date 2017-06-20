@@ -1,5 +1,7 @@
-sudo: false
 language: android
+jdk: oraclejdk8
+sudo: false
+
 android:
   components:
     # The BuildTools version used by your project
@@ -30,32 +32,24 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
-#script: ./gradlew build connectedCheck --stacktrace --info
-script: ./gradlew build connectedCheck
-
-    
-#obrigatório
-#sudo: required
-
-before_install:
-    - chmod +x gradlew 
-    - mkdir "$ANDROID_HOME/licenses" || true
-    - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-    - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
     
 before_script:
     - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
+#   - mkdir -p "$ANDROID_HOME/licenses"
+#   - cp /licenses/ "$ANDROID_HOME/licenses/"
     
-jdk: oraclejdk8
-
-#before_script:
-#    - mkdir -p "$ANDROID_HOME/licenses"
-#    - cp /licenses/ "$ANDROID_HOME/licenses/"
-
+#script: ./gradlew build connectedCheck --stacktrace --info
+script: ./gradlew build connectedCheck
+    
+before_install:
+    - chmod +x gradlew 
+    - mkdir "$ANDROID_HOME/licenses" || true
+    - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+    - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+    
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
   #- echo y | android update sdk -u -a -t tools
