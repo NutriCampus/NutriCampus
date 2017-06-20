@@ -25,7 +25,6 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-26
 
-sudo: required
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -37,11 +36,18 @@ cache:
     
 #install: ./gradlew assemble --stacktrace
 #obrigatório
+sudo: required
+
 before_install:
     - chmod +x gradlew 
+    
 licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
 jdk: oraclejdk8
     
 script: ./gradlew build connectedCheck --stacktrace --info
+
+before_script:
+    - mkdir -p "$ANDROID_HOME/licenses"
+    - cp ./licenses/ "$ANDROID_HOME/licenses/"
