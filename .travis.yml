@@ -3,8 +3,8 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-     - tools
-    # - platform-tools
+    # - tools
+     - platform-tools
 
     # The BuildTools version used by your project
     - build-tools-26.0.0
@@ -13,11 +13,11 @@ android:
     - android-25
 
     # Additional components
-    #- extra
+    - extra
     #- extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - extra-android-support
+    #- extra-google-m2repository
+    #- extra-android-m2repository
+    #- extra-android-support
     #- addon-google_apis-google-19
 
     # Specify at least one system image,
@@ -26,5 +26,10 @@ android:
     #- sys-img-armeabi-v7a-android-25
 before_script:
     - chmod +x gradlew
-    
+
 sudo: required
+
+jdk:
+    - oraclejdk8
+    
+install: required
