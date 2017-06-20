@@ -43,4 +43,4 @@ licenses:
     - 'android-sdk-license-.+'
 jdk: oraclejdk8
     
-script: ./gradlew build connectedCheck
+script: ./gradlew build connectedCheck --stacktrace --info
