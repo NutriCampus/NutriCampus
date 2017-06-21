@@ -9,6 +9,8 @@ pathprojetoreport=$pathprojeto'NutriCampusUnitTestReport/'
 pathreport=$pathprojeto'app/build/reports/tests/testDebugUnitTest/'
 pathindexfile=$pathreport'index.html'
 pathindexfiletemp=$pathreport'temp'
+githubmainproject='https://github.com/NutriCampus/NutriCampus'
+githubreportproject='https://github.com/TroniPM/NutriCampusUnitTestReport'
 
 #pego os dados do commit principal
 commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
@@ -22,8 +24,8 @@ then
 	tofind1='<h1>Test Summary</h1>'
 	tofind2='<div id="footer">'
 
-	replacewith1='<h1>Test Summary</h1 <h4>main commit: <a href="https://github.com/NutriCampus/NutriCampus/commit/'$commitidLONG'" target="_blank">'$commitidSHORT'<a></h4>'
-	replacewith2='<div id="footer"> Main project  @ <a href="https://github.com/NutriCampus/NutriCampus" target="_blank">NutriCampus</a><br /> Reports hosted @ <a href="https://github.com/TroniPM/NutriCampusUnitTestReport" target="_blank">NutriCampusUnitTestReport</a>'
+	replacewith1='<h1>Test Summary</h1 <h4>main commit: <a href="'$githubmainproject'/commit/'$commitidLONG'" target="_blank">'$commitidSHORT'<a></h4>'
+	replacewith2='<div id="footer"> Main project  @ <a href="'$githubmainproject'" target="_blank">NutriCampus</a><br /> Reports hosted @ <a href="'$githubreportproject'" target="_blank">NutriCampusUnitTestReport</a>'
 	#escrevo o conteudo no novo arquivo
 	cat $pathindexfile | while read line
 	do
@@ -39,21 +41,21 @@ then
 	done
 
 	#passo para o arquivo original
-	#indexhtml=`cat $pathindexfiletemp`
-	#echo $indexhtml > $pathindexfile
+	indexhtml=`cat $pathindexfiletemp`
+	echo $indexhtml > $pathindexfile
 
 	#excluo arquivo tmeporario
-	#rm $pathindexfiletemp
+	rm $pathindexfiletemp
 
 	#fazer clone na raiz
-	#cd $pathprojeto
+	cd $pathprojeto
 	
 	#apago conteúdo para alocar o novo conteúdo
-	#`rm -rf $pathprojetoreport`
-	#`git clone https://github.com/TroniPM/NutriCampusUnitTestReport.git && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete`
+	`rm -rf $pathprojetoreport`
+	`git clone https://github.com/TroniPM/NutriCampusUnitTestReport.git && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete`
 
 	#copiar arquivos
-	#cp -a $pathreport. $pathprojetoreport
+	cp -a $pathreport. $pathprojetoreport
 
 	cd $pathprojetoreport
 

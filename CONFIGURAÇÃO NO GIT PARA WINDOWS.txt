@@ -1,2 +1,0 @@
-#Remove line ending convertion on windows: Unix style (LF) to Windows style (CRLF).
-git config core.autocrlf false
