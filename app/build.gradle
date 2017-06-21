@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
@@ -49,9 +48,3 @@ sourceSets {
         java.srcDir file('src/androidTest/java')
     }
 }
-/*test {
-    reports {
-        junitXml.enabled = false
-        html.enabled = true
-    }
-}*/
