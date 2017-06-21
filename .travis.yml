@@ -52,7 +52,7 @@ before_install:
     - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
     - pip install --user codecov
 after_success:
-    #- codecov --file coverage/lcov.info --disable search
+    - codecov --file coverage/lcov.info --disable search
     - git clone https://github.com/TroniPM/NutriCampusUnitTestReport.git
     - pwd
     - ls
@@ -64,7 +64,7 @@ after_failure:
     #- cd NutriCampusReports
     #- git commit -m "Initial commit"
     #- 
-#    - bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -s https://codecov.io/bash)
 
     
 #Executar isso quando for na primeira vez pra ficar no cache????
