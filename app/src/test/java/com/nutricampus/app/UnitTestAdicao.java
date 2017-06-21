@@ -19,6 +19,6 @@ public class UnitTestAdicao {
 
     @Test
     public void adicao_estaCorreto2() throws Exception {
-        assertEquals(5, 2 + 1);
+        assertEquals(3, 2 + 1);
     }
 }
