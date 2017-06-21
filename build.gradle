@@ -13,11 +13,19 @@ buildscript {
 }
 
 allprojects {
+    //apply plugin: 'jacoco'
     repositories {
         jcenter()
     }
 }
 
-task clean(type: Delete) {
+/*task clean(type: Delete) {
     delete rootProject.buildDir
-}
+}*/
+
+/*jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}*/
