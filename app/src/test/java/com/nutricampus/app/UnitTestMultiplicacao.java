@@ -12,6 +12,6 @@ import static org.junit.Assert.assertEquals;
 public class UnitTestMultiplicacao {
     @Test
     public void subtracao_estaCorreto() throws Exception {
-        assertEquals(1, 2 * 3);
+        assertEquals(6, 2 * 3);
     }
 }

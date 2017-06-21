@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class UnitTestAdicao {
     @Test
     public void adicao_estaCorreto1() throws Exception {
-        assertEquals(3, 2 + 2);
+        assertEquals(4, 2 + 2);
     }
 
     @Test
