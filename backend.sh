@@ -77,11 +77,11 @@ echo "-------------------------------------------------------------------"
 cd $pathprojeto
 
 #apago pasta se já existir
-`rm -rf $pathprojetoreport`
+rm -rf $pathprojetoreport
 echo "PASTA "$pathprojetoreport" APAGADA (SE EXISTIR)"
 
 #clono repositorio novamente e deleto tudo de dentro exceto pasta .git e README.md
-`git clone $githubreportproject'.git' && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete`
+git clone $githubreportproject'.git' && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete
 echo "PROJETO "$reportprojname" (GITHUB) CLONADO E CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
 
 #copiar arquivos da pasta dos relatórios para pasta clonada
