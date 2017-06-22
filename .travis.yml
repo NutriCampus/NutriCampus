@@ -46,11 +46,15 @@ before_install:
     - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
     - pip install --user codecov
 after_success:
-    #- RODARBASH para commitar pagina
     - bash <(curl -s https://codecov.io/bash)
+    #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
+    - chmod +x backend 
+    - ./backend.sh
 after_failure:
-    #- RODARBASH para commitar pagina
     - bash <(curl -s https://codecov.io/bash)
+    #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
+    - chmod +x backend 
+    - ./backend.sh
 
     
 #Executar isso quando for na primeira vez pra ficar no cache????
