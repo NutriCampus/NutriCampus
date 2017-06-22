@@ -35,10 +35,6 @@ echo "commit id SHORT: "$commitidSHORT
 
 echo "current branch (BRANCH ENVIRONMENT VARIABLE): "$branch
 
-echo "COMPARE =="
-echo "::"$branch"::"
-echo "::master::"
-
 if [ "$branch" = "master" ];
 then
 
@@ -83,21 +79,42 @@ then
 	cd $pathprojeto
 
 	#apago pasta se já existir
-	rm -rf $pathprojetoreport
-	echo "PASTA "$pathprojetoreport" APAGADA (SE EXISTIR)"
+	rm -rf $pathprojetoreport && echo "PASTA "$pathprojetoreport" APAGADA"
 
 	#clono repositorio novamente e deleto tudo de dentro exceto pasta .git e README.md
-	git clone $githubreportproject'.git' && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete
-	echo "PROJETO "$reportprojname" (GITHUB) CLONADO E CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
+	echo "SETANDO CONFIGURAÇÕES DO GIT username E email"
+	git config user.email "builds@travis-ci.org"
+	git config user.name "Travis CI"
+	
+	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
+	
+	cd $pathprojetoreport
+	echo "---------------------------------"
+	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
+	ls
+	echo "---------------------------------"
+	
+	commitauxidlong=`cd $pathprojetoreport && git rev-parse HEAD`
+	echo $reportprojname" commit id LONG: "$commitidLONG
+	commitauxidshort=`cd $pathprojetoreport && git rev-parse --short HEAD`
+	echo $reportprojname" commit id SHORT: "$commitidSHORT
+	
+	find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
+	
+	echo "---------------------------------"
+	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
+	ls
+	echo "---------------------------------"
 
 	#copiar arquivos da pasta dos relatórios para pasta clonada
-	cp -a $pathreport. $pathprojetoreport
-	echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
-
+	#cp -a $pathreport. $pathprojetoreport
+	cp -a $pathreport $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
+	
 	#acessar pasta do repositório report e commitar mudanças
-	cd $pathprojetoreport
-	git add -A && git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG
-	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "COMMITADO COM SUCESSO!!"
+	#cd $pathprojetoreport
+	git add -A && echo "GIT ADD SUCCESSFULLY"
+	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
+	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "GIT PUSH SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"
