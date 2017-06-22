@@ -1,21 +1,48 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'jacoco-android'
+//https://github.com/codecov/example-android/blob/master/sample-app/build.gradle
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    //compileSdkVersion 26
+    //buildToolsVersion '26.0.0'
+    compileSdkVersion configCompileSdkVersion
+    buildToolsVersion configBuildToolsVersion
     defaultConfig {
-        applicationId "com.nutricampus.app"
+        /*applicationId "com.nutricampus.app"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"*/
+        minSdkVersion 16
+        targetSdkVersion configTargetSdkVersion
+        versionCode 1
+        versionName project.version
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
+
+    /*productFlavors {
+        free {
+            applicationId 'com.dicedmelon.example.android.free'
+        }
+        paid {
+            applicationId 'com.dicedmelon.example.android'
+        }
+    }*/
+
     buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+            testCoverageEnabled true
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 	
 	//Remover parada ao encontrar erro no travisCI

@@ -37,7 +37,7 @@ before_script:
 script: 
     - ./gradlew test
     - ./gradlew build connectedCheck -PdisablePreDex
-    #- ./gradlew build jacocoTestReport assembleAndroidTest
+    - ./gradlew build jacocoTestReport assembleAndroidTest
 
 before_install:
     - chmod +x gradlew 
