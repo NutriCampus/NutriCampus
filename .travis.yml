@@ -50,12 +50,14 @@ after_success:
     - bash <(curl -s https://codecov.io/bash)
     #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
     - chmod +x backend.sh
-    - ./backend.sh
+    #passo senha como hash (variavel de ambiente do travis)
+    - ./backend.sh $GITHUB_PASSHASH_PM
 after_failure:
     - bash <(curl -s https://codecov.io/bash)
     #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
     - chmod +x backend.sh
-    - ./backend.sh
+    #passo senha como hash (variavel de ambiente do travis)
+    - ./backend.sh $GITHUB_PASSHASH_PM
 
     
 #Executar isso quando for na primeira vez pra ficar no cache????
