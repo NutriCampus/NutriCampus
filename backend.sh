@@ -19,8 +19,11 @@ pathindexfiletemp=$pathreport'temp'
 
 #pego os dados do commit principal
 commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
+echo "commit id LONG: "$commitidLONG
 commitidSHORT=`cd $pathprojeto && git rev-parse  --short HEAD`
+echo "commit id SHORT: "$commitidSHORT
 ismaster=`cd $pathprojeto && git rev-parse --abbrev-ref HEAD`
+echo "current branch: "$ismaster
 
 #só faz o deployment do report se for o branch master que foi atualizado
 if [ "$ismaster" = "master" ];
