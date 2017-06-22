@@ -97,14 +97,14 @@ then
 	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
 	ls
 	echo "---------------------------------"
+	find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
 	
 	commitauxidlong=`cd $pathprojetoreport && git rev-parse HEAD`
 	echo $reportprojname" commit id LONG: "$commitidLONG
 	commitauxidshort=`cd $pathprojetoreport && git rev-parse --short HEAD`
 	echo $reportprojname" commit id SHORT: "$commitidSHORT
 	
-	find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
-	
+
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
 	ls
@@ -121,7 +121,7 @@ then
 	#acessar pasta do repositório report e commitar mudanças
 	git add -A && echo "GIT ADD SUCCESSFULLY"
 	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
-	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "GIT PUSH SUCCESSFULLY"
+	git push --force https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "GIT PUSH SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"
