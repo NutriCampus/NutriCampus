@@ -48,16 +48,14 @@ after_success:
     - bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
-    - 'if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-    echo `./backend.sh $GITHUB_PASSHASH_PM`
-    fi'
+    - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+    - ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
 after_failure:
     - bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
-    - 'if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-    echo `./backend.sh $GITHUB_PASSHASH_PM`
-    fi'
+    - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+    - ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
     
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
