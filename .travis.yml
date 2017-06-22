@@ -48,12 +48,12 @@ before_install:
 after_success:
     - bash <(curl -s https://codecov.io/bash)
     #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
-    - chmod +x backend 
+    - chmod +x backend.sh
     - ./backend.sh
 after_failure:
     - bash <(curl -s https://codecov.io/bash)
     #RODAR BASH PARA ALTERAR ARQUIVOS DE RELATÓRIOS E COMMITAR NO PROJETO REPORT
-    - chmod +x backend 
+    - chmod +x backend.sh
     - ./backend.sh
 
     
@@ -70,5 +70,5 @@ after_failure:
 env:
   global:
     # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=10
+    - ADB_INSTALL_TIMEOUT=20
 
