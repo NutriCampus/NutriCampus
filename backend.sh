@@ -9,13 +9,14 @@ reportprojname='NutriCampusUnitTestReport'
 githubmainproject='https://github.com/'$username'/'$mainprojname
 githubreportproject='https://github.com/'$username'/'$reportprojname
 echo "github projeto: "$githubmainproject
-echo "github projeto report"$githubreportproject
+echo "github projeto report: "$githubreportproject
 
 #pathprojeto='/home/matt/IDEs_workspaces/AndroidStudioProjects/'$mainprojname'/' #comentar essa linha quando rodar no travis
 pathprojeto='/home/travis/build/'$username'/'$mainprojname'/' #comentar essa linha quando rodar localmente
 echo "path home do projeto no travis: "$pathprojeto
 
 pathprojetoreport=$pathprojeto$reportprojname'/'
+echo "path home do projeto report no travis: "$pathprojetoreport
 pathreport=$pathprojeto'app/build/reports/tests/testDebugUnitTest/'
 pathindexfile=$pathreport'index.html'
 pathindexfiletemp=$pathreport'temp'
@@ -26,12 +27,12 @@ echo "commit id LONG: "$commitidLONG
 commitidSHORT=`cd $pathprojeto && git rev-parse --short HEAD`
 echo "commit id SHORT: "$commitidSHORT
 #ismaster=`cd $pathprojeto && git rev-parse --abbrev-ref HEAD`
-#forma diferente de pegar o branch name
-ismaster=`cd $pathprojeto && git branch | grep \* | cut -d ' ' -f2`
+#ismaster=`cd $pathprojeto && git branch | grep \* | cut -d ' ' -f2`
+ismaster=`cd $pathprojeto && git branch`
 echo "current branch: "$ismaster
 
 #só faz o deployment do report se for o branch master que foi atualizado
-if [ "$ismaster" = "master" ];
+if [ "$ismaster" = "* master" ];
 then
 	echo "is Master, then do scheme"
 	#regex
@@ -61,12 +62,16 @@ then
 	#passo para o arquivo original
 	indexhtml=`cat $pathindexfiletemp`
 	echo $indexhtml > $pathindexfile
-	echo "CONTAÚDO DO ARQUIVO TEMPORÁRIO PASSADO PARA O index.html"
+	echo "CONTEÚDO DO ARQUIVO TEMPORÁRIO PASSADO PARA O index.html"
 
 	#excluo arquivo tmeporario
 	rm $pathindexfiletemp
 	echo "ARQUIVO TEMPORÁRIO DELETADO"
 
+
+	echo "-------------------------------------------------------------------"
+	echo $indexhtml
+	echo "-------------------------------------------------------------------"
 	#fazer clone na raiz
 	cd $pathprojeto
 	
