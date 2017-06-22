@@ -34,7 +34,7 @@ echo "current branch (git branch): "$ismaster
 echo "* (detached from "$commitidSHORT") master"
 #só faz o deployment do report se for o branch master que foi atualizado
 #não utilizo só master pq de alguma forma o travis faz alteração no remote, então tem q ser um detached
-ifcond = "* (detached from "$commitidSHORT") master"
+ifcond="* (detached from "$commitidSHORT") master"
 
 echo "::::"$ismaster" == "$ifcond"::::"
 if [ "$ismaster" = "$ifcond" ];
