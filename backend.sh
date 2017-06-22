@@ -2,15 +2,19 @@
 # 1- esse bash altera o index.html do report para colocar o commit id e link do commit
 # 2- faz commit com uma deploy key para o projeto de reports no github
 
-pathprojeto='/home/matt/IDEs_workspaces/AndroidStudioProjects/NutriCampus/' #comentar essa linha quando rodar no travis
-#pathprojeto='/home/travis/build/ddefb/NutriCampus/' #comentar essa linha quando rodar localmente
+username='NutriCampus'
+mainprojname='NutriCampus'
+reportprojname='NutriCampusUnitTestReport'
+githubmainproject='https://github.com/'$username'/'$mainprojname
+githubreportproject='https://github.com/'$username'/'$reportprojname
 
-pathprojetoreport=$pathprojeto'NutriCampusUnitTestReport/'
+#pathprojeto='/home/matt/IDEs_workspaces/AndroidStudioProjects/'$mainprojname'/' #comentar essa linha quando rodar no travis
+pathprojeto='/home/travis/build/'$username'/'$mainprojname'/' #comentar essa linha quando rodar localmente
+
+pathprojetoreport=$pathprojeto$reportprojname'/'
 pathreport=$pathprojeto'app/build/reports/tests/testDebugUnitTest/'
 pathindexfile=$pathreport'index.html'
 pathindexfiletemp=$pathreport'temp'
-githubmainproject='https://github.com/NutriCampus/NutriCampus'
-githubreportproject='https://github.com/TroniPM/NutriCampusUnitTestReport'
 
 #pego os dados do commit principal
 commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
@@ -25,7 +29,7 @@ then
 	tofind2='<div id="footer">'
 
 	replacewith1='<h1>Test Summary</h1 <h4>main commit: <a href="'$githubmainproject'/commit/'$commitidLONG'" target="_blank">'$commitidSHORT'<a></h4>'
-	replacewith2='<div id="footer"> Main project  @ <a href="'$githubmainproject'" target="_blank">NutriCampus</a><br /> Reports hosted @ <a href="'$githubreportproject'" target="_blank">NutriCampusUnitTestReport</a>'
+	replacewith2='<div id="footer"> Main project  @ <a href="'$githubmainproject'" target="_blank">'$mainprojname'</a><br /> Reports hosted @ <a href="'$githubreportproject'" target="_blank">'$reportprojname'</a>'
 	#escrevo o conteudo no novo arquivo
 	cat $pathindexfile | while read line
 	do
@@ -52,7 +56,7 @@ then
 	
 	#apago conteúdo para alocar o novo conteúdo
 	`rm -rf $pathprojetoreport`
-	`git clone https://github.com/TroniPM/NutriCampusUnitTestReport.git && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete`
+	`git clone $githubreportproject'.git' && cd $pathprojetoreport && find . \! -name '.git'  \! -name 'README.md' -delete`
 
 	#copiar arquivos
 	cp -a $pathreport. $pathprojetoreport
