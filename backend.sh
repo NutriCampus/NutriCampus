@@ -35,6 +35,10 @@ echo "commit id SHORT: "$commitidSHORT
 
 echo "current branch (BRANCH ENVIRONMENT VARIABLE): "$branch
 
+echo "COMPARE =="
+echo "::"$branch"::"
+echo "::master::"
+
 if [ "$branch" = "master" ];
 then
 
@@ -107,11 +111,14 @@ then
 	echo "---------------------------------"
 
 	#copiar arquivos da pasta dos relatórios para pasta clonada
-	#cp -a $pathreport. $pathprojetoreport
-	cp -a $pathreport $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
+	cp -a $pathreport. $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
+	
+	echo "---------------------------------"
+	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS CONTEÚDO COPIADO"
+	ls
+	echo "---------------------------------"
 	
 	#acessar pasta do repositório report e commitar mudanças
-	#cd $pathprojetoreport
 	git add -A && echo "GIT ADD SUCCESSFULLY"
 	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
 	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "GIT PUSH SUCCESSFULLY"
