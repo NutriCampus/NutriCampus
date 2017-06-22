@@ -28,17 +28,16 @@ commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
 echo "commit id LONG: "$commitidLONG
 commitidSHORT=`cd $pathprojeto && git rev-parse --short HEAD`
 echo "commit id SHORT: "$commitidSHORT
-#ismaster=`cd $pathprojeto && git rev-parse --abbrev-ref HEAD`
-#echo "current branch (git rev-parse --abbrev-ref HEAD): "$ismaster
-#ismaster=`cd $pathprojeto && git branch | grep \* | cut -d ' ' -f2`
-#echo "current branch (git branch | grep \* | cut -d ' ' -f2): "$ismaster
 ismaster=`cd $pathprojeto && git branch`
 echo "current branch (git branch): "$ismaster
 
 echo "* (detached from "$commitidSHORT") master"
 #só faz o deployment do report se for o branch master que foi atualizado
 #não utilizo só master pq de alguma forma o travis faz alteração no remote, então tem q ser um detached
-if [ "$ismaster" = "* (detached from "$commitidSHORT") master" ];
+ifcond = "* (detached from "$commitidSHORT") master"
+
+echo "::::"$ismaster" == "$ifcond"::::"
+if [ "$ismaster" = "$ifcond" ];
 then
 	echo "is Master, then do scheme"
 	#regex
