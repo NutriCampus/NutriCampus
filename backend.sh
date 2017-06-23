@@ -25,7 +25,7 @@ pathreport=$pathprojeto'app/build/reports/tests/testDebugUnitTest/'
 pathindexfile=$pathreport'index.html'
 pathindexfiletemp=$pathreport'temp'
 pathlint=$pathprojeto'app/build/reports/'
-lintindex=$pathlint'lint-results.index'
+lintindex=$pathlint'lint-results.html'
 lintresult=$pathlint'lint-results.xml'
 
 #pego os dados do commit principal
@@ -37,10 +37,6 @@ echo "commit id SHORT: "$commitidSHORT
 #echo "current branch (git branch): "$ismaster
 
 echo "current branch (BRANCH ENVIRONMENT VARIABLE): "$branch
-
-echo "COMPARE =="
-echo "::"$branch"::"
-echo "::master::"
 
 if [ "$branch" = "master" ];
 then
@@ -92,11 +88,11 @@ then
 	echo "SETANDO CONFIGURAÇÕES DO GIT username E email"
 	git config user.email "builds@travis-ci.org"
 	git config user.name "Travis CI"
+	git config --global push.default simple
 	
 	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 	
 	cd $pathprojetoreport
-	mkdir 'lint'
 
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
@@ -109,12 +105,12 @@ then
 	commitauxidshort=`cd $pathprojetoreport && git rev-parse --short HEAD`
 	echo $reportprojname" commit id SHORT: "$commitidSHORT
 	
-
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
 	ls -a
 	echo "---------------------------------"
 
+	mkdir 'lint'
 	#copiar arquivos da pasta dos relatórios para pasta clonada
 	cp -a $pathreport. $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
 	cp -a $lintindex $pathprojetoreport"lint/index.html" && echo "COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
