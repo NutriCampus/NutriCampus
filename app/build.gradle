@@ -1,14 +1,15 @@
+plugins {
+    id "org.sonarqube" version "2.2"
+}
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
-//https://github.com/codecov/example-android/blob/master/sample-app/build.gradle
+
 android {
-    //compileSdkVersion 26
-    //buildToolsVersion '26.0.0'
     compileSdkVersion configCompileSdkVersion
     buildToolsVersion configBuildToolsVersion
     defaultConfig {
-        /*applicationId "com.nutricampus.app"
-        minSdkVersion 16
+        applicationId "com.nutricampus.app"
+        /*minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -44,11 +45,10 @@ android {
     dataBinding {
         enabled = true
     }
-	
-	//Remover parada ao encontrar erro no travisCI
-	lintOptions {
-		abortOnError false
-	}
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -73,6 +73,13 @@ dependencies {
     //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     //androidTestCompile "junit:junit:4.12"
     //androidTestCompile "com.android.support.test:runner:0.5"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Java Gradle-based project analyzed on SonarCloud using Travis"
+        property "sonar.projectKey", "tronipm.com.nutricampus.app"
+    }
 }
 
 sourceSets {

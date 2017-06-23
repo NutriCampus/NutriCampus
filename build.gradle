@@ -1,5 +1,5 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 //https://github.com/codecov/example-android/blob/master/build.gradle
+//https://github.com/SonarSource/sq-com_example_java-gradle-travis
 buildscript {
     repositories {
         jcenter()
@@ -7,9 +7,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
