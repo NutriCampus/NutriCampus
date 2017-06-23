@@ -5,6 +5,8 @@
 
 # Package Files #
 *.jar
+#Não remover o jar do gradlew#
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.ear
 
@@ -12,7 +14,7 @@
 hs_err_pid*
 
 
-#*.iml
+*.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
