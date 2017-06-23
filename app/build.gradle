@@ -69,26 +69,16 @@ dependencies {
     compile 'codelight.studios:android-smart-login:1.2'
     testCompile 'junit:junit:4.12'
 
-    // Testing-only dependencies
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    //androidTestCompile "junit:junit:4.12"
-    //androidTestCompile "com.android.support.test:runner:0.5"
 }
 
 sonarqube {
     properties {
-        property "sonar.projectName", "NutriCampus (TroniPM)"
+        property "sonar.projectName", "NutriCampus"
         property "sonar.projectKey", "tronipm.com.nutricampus.app"//Cuidado, esse será o id do projeto no sonarqube
         property "sonar.projectVersion", "1.0.0"
-        property "sonar.junit.reportsPath", "./app/build/test-results/testDebugUnitTest"
-        property "sonar.jacoco.reportPaths", "./app/build/jacoco/testDebugUnitTest.exec, ./app/build/jacoco/testReleaseUnitTest.exec"
-        property "sonar.jacoco.reportPath", "./app/build/jacoco/testDebugUnitTest.exec, ./app/build/jacoco/testReleaseUnitTest.exec"//versao prior to 6.2
-
-        //Comma-separated paths to directories with sources (required)
-        //property "sonar.sources", "app/src/main/java"
-        //Language
-        //property "sonar.language"  ,"java"
-        //Encoding of the source files
+        //property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest"
+        property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"//versao prior to 6.2
         property "sonar.sourceEncoding", "UTF-8"
     }
 }
