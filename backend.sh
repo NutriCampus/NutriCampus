@@ -91,8 +91,8 @@ then
 	git config --global push.default simple
 	
 	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
-	
 	cd $pathprojetoreport
+	git checkout master
 
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
@@ -124,7 +124,7 @@ then
 	#acessar pasta do repositório report e commitar mudanças
 	git add -A && echo "GIT ADD SUCCESSFULLY"
 	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
-	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git --force && echo "GIT PUSH SUCCESSFULLY"
+	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:master --force && echo "GIT PUSH SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"
