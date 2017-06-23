@@ -34,7 +34,8 @@ before_script:
     - adb shell input keyevent 82 &
     
 script: 
-    - ./gradlew build sonarqube jacocoTestReport assembleAndroidTest connectedCheck -PdisablePreDex
+    - ./gradlew build sonarqube jacocoTestReport connectedCheck -PdisablePreDex 
+    #assembleAndroidTest
 
 before_install:
     - chmod +x gradlew 
@@ -55,7 +56,8 @@ addons:
     sonarcloud:
         organization: "tronipm-github"
         token:
-            secure: $SQ_PM
+            secure: $SonarQube
+            #secure: $SQ_PM
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
   #- echo y | android update sdk -u -a -t tools
