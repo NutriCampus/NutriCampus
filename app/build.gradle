@@ -78,11 +78,11 @@ dependencies {
 sonarqube {
     properties {
         property "sonar.projectName", "NutriCampus (TroniPM)"
-        property "sonar.projectKey", "tronipm.com.nutricampus.app"
+        property "sonar.projectKey", "tronipm.com.nutricampus.app"//Cuidado, esse será o id do projeto no sonarqube
         property "sonar.projectVersion", "1.0.0"
-        property "sonar.junit.reportsPath", "app/build/test-results/testDebugUnitTest"
-        property "sonar.jacoco.reportPaths", "app/build/jacoco"
-        property "sonar.jacoco.reportPath", "app/build/jacoco"//versao prior to 6.2
+        property "sonar.junit.reportsPath", "./app/build/test-results/testDebugUnitTest"
+        property "sonar.jacoco.reportPaths", "./app/build/jacoco/testDebugUnitTest.exec, ./app/build/jacoco/testReleaseUnitTest.exec"
+        property "sonar.jacoco.reportPath", "./app/build/jacoco/testDebugUnitTest.exec, ./app/build/jacoco/testReleaseUnitTest.exec"//versao prior to 6.2
 
         //Comma-separated paths to directories with sources (required)
         //property "sonar.sources", "app/src/main/java"
