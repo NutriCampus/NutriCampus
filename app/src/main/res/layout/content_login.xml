@@ -1,116 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center"
-    android:fitsSystemWindows="true"
-    android:gravity="center"
-    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="NutriCampus LOGO"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_height="435dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="50dp"
+        android:weightSum="1">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_margin="16dp"
-        android:background="@color/white"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="8dp">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/logo"
+            android:layout_weight="0.12" />
 
-        <LinearLayout
+        <!--  Email Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
-                android:id="@+id/email_edittext"
+                android:id="@+id/input_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="E-mail"
-                android:inputType="textEmailAddress" />
+                android:hint="Usuário"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
-                android:id="@+id/password_edittext"
+                android:id="@+id/input_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:hint="Senha"
                 android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:layout_marginTop="18dp"
+            android:padding="12dp"
+            android:text="Entrar" />
 
-                <Button
-                    android:id="@+id/custom_signin_button"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:onClick="signInOnClick"
-                    android:tag="custom_login_button"
-                    android:text="@string/sign_in"
-                    android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/link_esqueceu_senha"
+            android:layout_width="fill_parent"
+            android:layout_height="24dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:text="Esqueci minha senha"
+            android:textSize="16dip" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.77"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-                <Button
-                    android:id="@+id/custom_signup_button"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:onClick="signUpOnClick"
-                    android:tag="custom_signup_button"
-                    android:text="@string/sign_up"
-                    android:textColor="@color/white" />
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#ff6600"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="22dp"/>
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/facebook_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_facebook_white_36dp"
-                    android:drawableStart="@drawable/ic_facebook_white_36dp"
-                    android:tag="facebook_login_button"
-                    android:text="@string/sign_in_facebook"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/google_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_google_plus_white_36dp"
-                    android:drawableStart="@drawable/ic_google_plus_white_36dp"
-                    android:tag="google_login_button"
-                    android:text="@string/sign_in_google"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
+        <TextView
+            android:id="@+id/link_cadastro"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Não é cadastrado? Crie sua conta"
+            android:textSize="16dip"
+            android:layout_weight="0.67" />
+    </LinearLayout>
 
 </LinearLayout>
