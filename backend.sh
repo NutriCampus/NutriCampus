@@ -24,6 +24,9 @@ echo "path home do projeto report no travis: "$pathprojetoreport
 pathreport=$pathprojeto'app/build/reports/tests/testDebugUnitTest/'
 pathindexfile=$pathreport'index.html'
 pathindexfiletemp=$pathreport'temp'
+pathlint=$pathprojeto'app/build/reports/'
+lintindex=$pathlint'lint-results.index'
+lintresult=$pathlint'lint-results.xml'
 
 #pego os dados do commit principal
 commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
@@ -93,9 +96,11 @@ then
 	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 	
 	cd $pathprojetoreport
+	mkdir 'lint'
+
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
-	ls
+	ls -a
 	echo "---------------------------------"
 	find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
 	
@@ -107,21 +112,23 @@ then
 
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
-	ls
+	ls -a
 	echo "---------------------------------"
 
 	#copiar arquivos da pasta dos relatórios para pasta clonada
 	cp -a $pathreport. $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
+	cp -a $lintindex $pathprojetoreport"lint/index.html" && echo "COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
+	#cp -a $lintresult $pathprojetoreport"lint/" && echo "COPIADO "$lintresult" PARA "$pathprojetoreport"lint/"
 	
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS CONTEÚDO COPIADO"
-	ls
+	ls -a
 	echo "---------------------------------"
 	
 	#acessar pasta do repositório report e commitar mudanças
 	git add -A && echo "GIT ADD SUCCESSFULLY"
 	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
-	git push --force https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git && 	echo "GIT PUSH SUCCESSFULLY"
+	git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git --force && echo "GIT PUSH SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"
