@@ -85,10 +85,6 @@ then
 	rm -rf $pathprojetoreport && echo "PASTA "$pathprojetoreport" APAGADA"
 
 	#clono repositorio novamente e deleto tudo de dentro exceto pasta .git e README.md
-	echo "SETANDO CONFIGURAÇÕES DO GIT username E email"
-	git config user.email "builds@travis-ci.org"
-	git config user.name "Travis CI"
-	git config --global push.default simple
 	
 	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 	cd $pathprojetoreport
@@ -104,16 +100,22 @@ then
 	commitauxidshort=`cd $pathprojetoreport && git rev-parse --short HEAD`
 	echo $reportprojname" commit id SHORT: "$commitidSHORT
 	
-	echo "---------------------------------"
-	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
-	ls -a
-	echo "---------------------------------"
+	#echo "---------------------------------"
+	#echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS LIMPEZA NA PASTA"
+	#ls -a
+	#echo "---------------------------------"
 
+	echo "---------------------------------"
 	#tirar erro de branch com mudanças locais
-	git pull
+	echo "SETANDO CONFIGURAÇÕES DO GIT username E email"
+	git config user.email "builds@travis-ci.org"
+	git config user.name "Travis CI"
+	git config push.default simple
+	#git pull
 	git checkout master
 	
-	mkdir 'lint'
+	echo "---------------------------------"
+	mkdir 'lint'  && echo "PASTA 'lint' CRIADA"
 	#copiar arquivos da pasta dos relatórios para pasta clonada
 	cp -a $pathreport. $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
 	cp -a $lintindex $pathprojetoreport"lint/index.html" && echo "COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
@@ -123,7 +125,9 @@ then
 	echo "IMPRIMINDO NOMES DE ARQUIVOS APÓS CONTEÚDO COPIADO"
 	ls -a
 	echo "---------------------------------"
-	
+	echo "IMPRIMINDO DIFERENÇAS: "
+	git commit
+	echo "---------------------------------"
 	#acessar pasta do repositório report e commitar mudanças
 	git add -A && echo "GIT ADD SUCCESSFULLY"
 	git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"

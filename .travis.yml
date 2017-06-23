@@ -33,9 +33,9 @@ before_script:
     - adb shell input keyevent 82 &
     
 script: 
-    - ./gradlew build jacocoTestReport assembleAndroidTest
-    - ./gradlew test
-    - ./gradlew build connectedCheck -PdisablePreDex
+    - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck -PdisablePreDex
+    #- ./gradlew test
+    #- ./gradlew build connectedCheck -PdisablePreDex
     
 
 before_install:
@@ -49,13 +49,15 @@ after_success:
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-    - ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
+    #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH
 after_failure:
     - bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-    - ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
+    #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH
     
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
