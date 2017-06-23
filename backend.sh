@@ -92,13 +92,12 @@ then
 	
 	git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 	cd $pathprojetoreport
-	git checkout master
-
+	
 	echo "---------------------------------"
 	echo "IMPRIMINDO NOMES DE ARQUIVOS DO COMMIT ATUAL"
 	ls -a
 	echo "---------------------------------"
-	find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
+	#find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
 	
 	commitauxidlong=`cd $pathprojetoreport && git rev-parse HEAD`
 	echo $reportprojname" commit id LONG: "$commitidLONG
@@ -110,6 +109,10 @@ then
 	ls -a
 	echo "---------------------------------"
 
+	#tirar erro de branch com mudanças locais
+	git pull
+	git checkout master
+	
 	mkdir 'lint'
 	#copiar arquivos da pasta dos relatórios para pasta clonada
 	cp -a $pathreport. $pathprojetoreport && echo "COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
