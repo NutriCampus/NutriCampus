@@ -9,19 +9,5 @@ import java.util.ArrayList;
  */
 
 public class Proprietario {
-    public int id = 0;
-    public String nome = null;
-    public String cpf = null;
-    public ArrayList<String> telefones = new ArrayList<>();
 
-    public Proprietario(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-    }
-
-    public Proprietario(int id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-    }
 }
