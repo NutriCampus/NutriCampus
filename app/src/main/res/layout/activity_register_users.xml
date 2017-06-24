@@ -35,7 +35,7 @@
         android:layout_marginTop="8dp">
 
         <EditText
-            android:id="@+id/edtName"
+            android:id="@+id/edtNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
@@ -66,7 +66,7 @@
         android:layout_marginTop="8dp">
 
         <EditText
-            android:id="@+id/edtRegister"
+            android:id="@+id/edtRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="CRZ/CRMV"
@@ -96,7 +96,7 @@
         android:layout_marginTop="8dp">
 
         <EditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
@@ -116,7 +116,7 @@
             android:layout_weight="1"
             android:text="@string/save"
             android:drawableLeft="@drawable/save"
-            android:onClick="createUser"/>
+            android:onClick="criarUsuario"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
             android:layout_weight="1"
             android:text="@string/cancel"
             android:drawableLeft="@drawable/cancel"
-            android:onClick="cancelCreateUser"/>
+            android:onClick="cancelarCriarUsuario"/>
     </LinearLayout>
 
 

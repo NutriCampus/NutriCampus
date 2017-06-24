@@ -10,7 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public abstract class Mask {
+public abstract class Mascara {
     public static String CPF_MASK       = "###.###.###-##";
     public static String CELULAR_MASK   = "(##) ##### ####";
     public static String CEP_MASK       = "#####-###";
@@ -22,7 +22,7 @@ public abstract class Mask {
                 .replaceAll(",", "");
     }
 
-    public static boolean isASign(char c) {
+    public static boolean isSinal(char c) {
         if (c == '.' || c == '-' || c == '/' || c == '(' || c == ')' || c == ',' || c == ' ') {
             return true;
         } else {
@@ -30,7 +30,7 @@ public abstract class Mask {
         }
     }
 
-    public static String mask(String mask, String text) {
+    public static String mascarar(String mask, String text) {
         int i = 0;
         String mascara = "";
         for (char m : mask.toCharArray()) {
@@ -55,7 +55,7 @@ public abstract class Mask {
             String old = "";
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String str = Mask.unmask(s.toString());
+                String str = Mascara.unmask(s.toString());
                 String mascara = "";
                 if (isUpdating) {
                     old = str;
@@ -86,7 +86,7 @@ public abstract class Mask {
                 if (mascara.length() > 0) {
                     char last_char = mascara.charAt(mascara.length() - 1);
                     boolean hadSign = false;
-                    while (isASign(last_char) && str.length() == old.length()) {
+                    while (isSinal(last_char) && str.length() == old.length()) {
                         mascara = mascara.substring(0, mascara.length() - 1);
                         last_char = mascara.charAt(mascara.length() - 1);
                         hadSign = true;
@@ -108,7 +108,7 @@ public abstract class Mask {
         };
     }
 
-    public static boolean validateCpf(String cpfComplete) {
+    public static boolean validarCpf(String cpfComplete) {
         String cpf = "";
 
         for (char c : cpfComplete.toCharArray()) {
