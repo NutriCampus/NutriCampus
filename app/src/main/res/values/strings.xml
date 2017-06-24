@@ -11,4 +11,14 @@
     <string name="sign_in">Acessar</string>
     <string name="sign_up">Cadastrar</string>
     <string name="logout_text">Sair</string>
+
+    <string name="register_user">Cadastro Usuário</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="msg_erro_email">Email inválido</string>
+    <string name="msg_erro_campo">Campo obrigatório</string>
+    <string name="msg_erro_cpf_1">CPF incompleto</string>
+    <string name="msg_erro_cpf_2">CPF inválido</string>
+    <string name="msg_erro_senha">"Senha deve ter no mínimo 5 caracteres"</string>
 </resources>
