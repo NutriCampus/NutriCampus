@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioUsuario;
+import com.nutricampus.app.database.SQLiteManager;
+import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,39 +49,46 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
-
         Intent intent = new Intent(this, RegisterUsersActivity.class);
         startActivity(intent);
-
+        this.finish();
     }
 
     @OnClick(R.id.btn_login)
     void entrarOnClick() {
-        if(!validaDados()){
-            falhaLogin();
-            return;
-        }
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
-
-    }
-
-    public void login() {
         Log.d(TAG, "Login");
 
         if (!validaDados()) {
-            falhaLogin();
+            falhaLogin("");
             return;
         }
 
         _entrarButton.setEnabled(false);
 
+        String usuario = this._usuarioText.getText().toString();
+        String senha = this._senhaText.getText().toString();
 
-        String email = this._usuarioText.getText().toString();
-        String password = this._senhaText.getText().toString();
+        if(login(usuario, senha)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
+        else{
+            falhaLogin("usuário não cadastrado");
+        }
 
+    }
+
+    public boolean login(String usuarioValor, String senhaValor) {
+
+        RepositorioUsuario repoUsuario = new RepositorioUsuario();
+        Toast.makeText(getBaseContext(), "Fa", Toast.LENGTH_LONG).show();
+        Usuario usuario = repoUsuario.buscarUsuario(usuarioValor);
+
+        if(usuario != null)
+            return true;
+        else
+            return false;
     }
 
     public void sucessoLogin() {
@@ -86,8 +96,9 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void falhaLogin() {
-        Toast.makeText(getBaseContext(), "Falha no login", Toast.LENGTH_LONG).show();
+    public void falhaLogin(String mensagem) {
+        String msg = (mensagem.isEmpty()) ? "" : ("," + mensagem);
+        Toast.makeText(getBaseContext(), "Falha no login" + msg, Toast.LENGTH_LONG).show();
 
         _entrarButton.setEnabled(true);
     }
@@ -99,21 +110,21 @@ public class LoginActivity extends AppCompatActivity {
         String password = this._senhaText.getText().toString();
 
         if (usuario.isEmpty()){
-            this._usuarioText.setError("Campo obrigatório");
+            this._usuarioText.setError(getString(R.string.msg_erro_campo));
             valido = false;}
-        else if(usuario.length() < 5) {
-            this._usuarioText.setError("Nome de usuário inválido, mínimo de 5 caracteres");
+        else if(usuario.length() < 4) {
+            this._usuarioText.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
             this._usuarioText.setError(null);
         }
 
         if (password.isEmpty()){
-            this._senhaText.setError("Campo obrigatório");
+            this._senhaText.setError(getString(R.string.msg_erro_campo));
             valido = false;
         }
-        else if(password.length() < 5) {
-            this._senhaText.setError("Senha deve ter no mínimo 5 caracteres");
+        else if(password.length() < 6) {
+            this._senhaText.setError("Senha deve ter no mínimo 6 caracteres");
             valido = false;
         } else {
             this._senhaText.setError(null);

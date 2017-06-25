@@ -8,14 +8,20 @@
 
     <string name="sign_in_facebook">Acessar com Facebook</string>
     <string name="sign_in_google">Acessar com Google</string>
-    <string name="sign_in">Acessar</string>
-    <string name="sign_up">Cadastrar</string>
     <string name="logout_text">Sair</string>
 
     <string name="register_user">Cadastro Usuário</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
 
+    <string name="entrar">Entrar</string>
+    <string name="senha">Senha</string>
+    <string name="crz_crmv">CRZ/CRMV</string>
+
+    <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
+    <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
+
+    <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
     <string name="msg_erro_email">Email inválido</string>
     <string name="msg_erro_campo">Campo obrigatório</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>

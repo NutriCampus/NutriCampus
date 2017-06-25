@@ -35,7 +35,7 @@
                 android:id="@+id/input_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Usuário"
+                android:hint="@string/crz_crmv"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -50,9 +50,11 @@
                 android:id="@+id/input_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Senha"
+                android:hint="@string/senha"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
+
+
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"
@@ -61,7 +63,7 @@
             android:layout_marginBottom="18dp"
             android:layout_marginTop="18dp"
             android:padding="12dp"
-            android:text="Entrar" />
+            android:text="@string/entrar" />
 
         <TextView
             android:id="@+id/link_esqueceu_senha"
@@ -69,32 +71,47 @@
             android:layout_height="24dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Esqueci minha senha"
+            android:text="@string/link_esqueceu_senha"
             android:textSize="16dip" />
     </LinearLayout>
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.77"
+        android:layout_weight="0.44"
         android:gravity="center|bottom"
         android:orientation="vertical"
         android:weightSum="1">
 
         <View
+            android:id="@+id/view2"
             android:layout_width="300dp"
             android:layout_height="1dp"
-            android:background="#ff6600"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="22dp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginBottom="42dp"
+            android:background="#8f8f8f" />
 
         <TextView
             android:id="@+id/link_cadastro"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Não é cadastrado? Crie sua conta"
-            android:textSize="16dip"
-            android:layout_weight="0.67" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginBottom="9dp"
+            android:layout_weight="0.67"
+            android:text="@string/link_novo_cadastro"
+            android:textAlignment="center"
+            android:textSize="16dip" />
+    </RelativeLayout>
+
 
 </LinearLayout>
