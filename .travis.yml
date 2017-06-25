@@ -1,7 +1,7 @@
-#https://docs.travis-ci.com/user/customizing-the-build/ variaveis
 language: android
 jdk: oraclejdk8
 sudo: false
+install: true
 
 android:
   components:
@@ -22,22 +22,20 @@ before_cache:
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
     directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - $HOME/.gradle/
     - $HOME/.android/build-cache
+    - $HOME/.sonar/cache
+    - $HOME/.m2/repository
     
 before_script:
-    - android list target
-    # Emulator Management: Create, Start and Wait
     - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
     
 script: 
-    - ./gradlew test
-    - ./gradlew build connectedCheck -PdisablePreDex
-    - ./gradlew build jacocoTestReport assembleAndroidTest
+    - ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex 
+    #assembleAndroidTest
 
 before_install:
     - chmod +x gradlew 
@@ -46,13 +44,20 @@ before_install:
     - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
     - pip install --user codecov
 after_success:
-    #- RODARBASH para commitar pagina
     - bash <(curl -s https://codecov.io/bash)
+    - chmod +x backend.sh
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH
 after_failure:
-    #- RODARBASH para commitar pagina
     - bash <(curl -s https://codecov.io/bash)
-
+    - chmod +x backend.sh
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH
     
+addons:
+    sonarcloud:
+        organization: "nutricampus"
+        token:
+            secure: $SonarQube
+            #secure: $SQ_PM
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
   #- echo y | android update sdk -u -a -t tools
@@ -65,6 +70,5 @@ after_failure:
 
 env:
   global:
-    # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=10
+    - ADB_INSTALL_TIMEOUT=20
 
