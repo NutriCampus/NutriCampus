@@ -72,18 +72,7 @@ public class RegisterUsersActivity extends AppCompatActivity {
 
         Usuario usuario = new Usuario(cpf, email, registro, nome, registro);
 
-        //Caixa de Dialogo
-        AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterUsersActivity.this);
-        dialog.setTitle("Cadastro");
-        dialog.setMessage(String.format(
-                "Usuário %s cadastrado com sucesso !", usuario.getNome()));
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                carregarLogin();
-            }
-        });
-        dialog.show();
+        
     }
 
 

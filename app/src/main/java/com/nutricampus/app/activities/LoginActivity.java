@@ -1,10 +1,9 @@
 package com.nutricampus.app.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioUsuario;
+import com.nutricampus.app.entities.Usuario;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
  * Created by Mateus on 29/05/2017.
@@ -47,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
 
-        Intent intent = new Intent(this, RegisterUsersActivity.class);
+        Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
         startActivity(intent);
 
     }
@@ -59,10 +61,24 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
+        Usuario usuario = repositorioUsuario.buscarUsuario(_usuarioText.getText().toString());
 
+        if(usuario == null) {
+
+            Toast.makeText(this, getString(R.string.msg_erro_login_usuario), Toast.LENGTH_LONG).show();
+
+        } else {
+
+            if(usuario.getSenha().equals(_senhaText.getText().toString())){
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
+                this.finish();
+            } else {
+                Toast.makeText(this, getString(R.string.msg_erro_senha_usuario), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     public void login() {
@@ -75,10 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
         _entrarButton.setEnabled(false);
 
-
         String email = this._usuarioText.getText().toString();
         String password = this._senhaText.getText().toString();
-
     }
 
     public void sucessoLogin() {
@@ -121,4 +135,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return valido;
     }
+
+
 }
