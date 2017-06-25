@@ -47,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
 
-        this.finish();
+        Intent intent = new Intent(this, RegisterUsersActivity.class);
+        startActivity(intent);
+
     }
 
     @OnClick(R.id.btn_login)
