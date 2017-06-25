@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.nutricampus.app.entities.Session;
+import com.nutricampus.app.entities.Usuario;
+
 import java.util.ArrayList;
 
 /**
@@ -76,6 +79,40 @@ public class SqliteManager {
     public void close() {
         banco.close();
         banco = null;
+    }
+
+    public boolean inserirUsuario(Usuario usuario) {
+
+        ContentValues dados = new ContentValues();
+
+        dados.put(SQLiteManager.usuario_col_crmv, usuario.getCRMV());
+        dados.put(SQLiteManager.usuario_col_cpf, usuario.getCpf());
+        dados.put(SQLiteManager.usuario_col_nome, usuario.getNome());
+        dados.put(SQLiteManager.usuario_col_email, usuario.getEmail());
+        dados.put(SQLiteManager.usuario_col_senha, usuario.getSenha());
+
+        long retorno;
+        try {
+            retorno = SQLiteManager.banco.insertOrThrow(SQLiteManager.tabelaUsuario, null, dados);
+        } catch (Exception e) {
+            retorno = 0;
+        }
+
+        if (retorno != 0 && retorno != -1) {
+            if (Session.DEBBUG)
+                Log.v(this.getClass().getName(), "inserirUsuario(): " +
+                        "CRMV=" + usuario.getCRMV() +
+                        " | Nome= " + usuario.getNome() +
+                        " | E-mail= " + usuario.getEmail());
+
+            System.out.println("Inserido com sucesso!");
+
+            return true;
+
+        } else {
+
+            return false;
+        }
     }
 
     /**
