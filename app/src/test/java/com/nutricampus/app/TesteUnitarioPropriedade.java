@@ -1,6 +1,6 @@
 package com.nutricampus.app;
 
-import com.nutricampus.app.entities.Grupo;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
 import org.junit.Test;
@@ -12,10 +12,15 @@ import static org.junit.Assert.assertNotNull;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class UnitTestGrupo {
+public class TesteUnitarioPropriedade {
     @Test
-    public void constructorGrupo0Arguments() throws Exception {
-        Grupo p1 = new Grupo();
-        assertNotNull(p1);
+    public void testarConstrutorSemArgumentos() throws Exception {
+        Propriedade p2 = new Propriedade();
+        assertNotNull(p2);
+
+        p2 = new Propriedade();
+        assertNotNull(p2);
+
     }
+
 }

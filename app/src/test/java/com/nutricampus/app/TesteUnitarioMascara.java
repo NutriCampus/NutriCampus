@@ -11,7 +11,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by Felipe on 23/06/2017.
  */
 
-public class UnitTestMascara {
+public class TesteUnitarioMascara {
 
     @Test
     public void testeCpfValido() {
