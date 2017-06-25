@@ -15,9 +15,7 @@ public class Usuario {
     private String email;
     private String senha;
 
-    public Usuario() {
-
-    }
+    public Usuario() { }
 
     public Usuario(String crmv, String cpf, String nome, String email, String senha) {
         this.crmv = crmv;

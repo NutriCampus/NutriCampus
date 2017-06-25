@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.nutricampus.app.activities.CadastrarUsuarioActivity;
-import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.entities.Usuario;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class RepositorioUsuario {
         bancoDados = gerenciador.getWritableDatabase();
 
         ContentValues dados = new ContentValues();
-        dados.put(SQLiteManager.USUARIO_COL_CRMV, usuario.getCrmv());
+        dados.put(SQLiteManager.USUARIO_COL_CRMV, usuario.getCRMV());
         dados.put(SQLiteManager.USUARIO_COL_CPF, usuario.getCpf());
         dados.put(SQLiteManager.USUARIO_COL_NOME, usuario.getNome());
         dados.put(SQLiteManager.USUARIO_COL_EMAIL, usuario.getEmail());
@@ -51,7 +49,19 @@ public class RepositorioUsuario {
     }
 
     public Usuario buscarUsuario(String crmv) {
+        return buscarUsuario(crmv,null);
+    }
+
+    public Usuario buscarUsuario(String crmv, String senha) {
         bancoDados = gerenciador.getReadableDatabase();
+
+        String colunas_where = SQLiteManager.USUARIO_COL_CRMV + "= ?";
+        String[] valores_where = new String[] { String.valueOf(crmv)};
+
+        if(senha != null){
+            colunas_where += " AND " +SQLiteManager.USUARIO_COL_SENHA + "= ?";
+            valores_where = new String[] { String.valueOf(crmv),String.valueOf(senha)};
+        }
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_USUARIO, new String[] {
                         SQLiteManager.USUARIO_COL_ID,
@@ -59,8 +69,9 @@ public class RepositorioUsuario {
                         SQLiteManager.USUARIO_COL_NOME,
                         SQLiteManager.USUARIO_COL_CPF,
                         SQLiteManager.USUARIO_COL_EMAIL,
-                        SQLiteManager.USUARIO_COL_SENHA}, SQLiteManager.USUARIO_COL_CRMV + "=?",
-                new String[] { String.valueOf(crmv) }, null, null, null, null);
+                        SQLiteManager.USUARIO_COL_SENHA},
+                        colunas_where,
+                        valores_where, null, null, null, null);
 
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -92,7 +103,7 @@ public class RepositorioUsuario {
                 do {
                     Usuario u = new Usuario();
                     u.setId(c.getInt(c.getColumnIndex(SQLiteManager.USUARIO_COL_ID)));
-                    u.setCrmv(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)));
+                    u.setCRMV(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)));
                     u.setCpf(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CPF)));
                     u.setNome(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_NOME)));
                     u.setEmail(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_EMAIL)));
@@ -139,8 +150,8 @@ public class RepositorioUsuario {
     public void removerUsuario(Usuario usuario) {
         bancoDados = gerenciador.getWritableDatabase();
         bancoDados.delete(SQLiteManager.TABELA_USUARIO,
-                          SQLiteManager.USUARIO_COL_ID + " = ? ",
-                          new String[]{String.valueOf(usuario.getId())});
+                SQLiteManager.USUARIO_COL_ID + " = ? ",
+                new String[]{String.valueOf(usuario.getId())});
 
         bancoDados.close();
     }

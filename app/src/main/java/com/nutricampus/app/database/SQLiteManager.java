@@ -10,9 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * Created by Felipe on 25/06/2017.
+ * Created by Diego Bezerra on 20/06/2017.
  * For project NutriCampus.
- * Contact: <felipeguimaraes540@gmail.com>
+ * Contact: <diego.defb@gmail.com>
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
