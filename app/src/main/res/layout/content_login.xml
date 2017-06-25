@@ -76,7 +76,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="1dip"
         android:layout_weight="0.44"
         android:gravity="center|bottom"
         android:orientation="vertical"
@@ -92,7 +92,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal|center"
-            android:layout_marginBottom="42dp"
+            android:layout_marginBottom="52dp"
             android:background="#8f8f8f" />
 
         <TextView
@@ -105,7 +105,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal|center"
-            android:layout_marginBottom="9dp"
+            android:layout_marginBottom="15dp"
             android:layout_weight="0.67"
             android:text="@string/link_novo_cadastro"
             android:textAlignment="center"
