@@ -1,10 +1,8 @@
 package com.nutricampus.app.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,35 +12,32 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
-import com.nutricampus.app.database.SQLiteManager;
 import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
- * Created by Mateus on 29/05/2017.
+ * Created by Kellison on 21/06/2017.
  * For project NutriCampus.
- * Contact: <paulomatew@gmail.com>
  */
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    // PEga a referência para as views
+    // Pega a referência para as views
     @BindView(R.id.input_usuario) EditText _usuarioText;
     @BindView(R.id.input_senha) EditText _senhaText;
     @BindView(R.id.btn_login)   Button _entrarButton;
     @BindView(R.id.link_cadastro) TextView _cadastroLink;
+    @BindView(R.id.link_esqueceu_senha) TextView _esqueceuLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ButterKnife.bind(this);
 
     }
@@ -52,6 +47,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterUsersActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    @OnClick(R.id.link_esqueceu_senha)
+    public void recuperarSenhaOnClick(View view) {
+        Intent intent = new Intent(this, RecuperarSenhaActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_login)
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         if(login(usuario, senha)){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            Toast.makeText(getBaseContext(), "Bem-vindo ao NutriCampus", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         }
         else{
