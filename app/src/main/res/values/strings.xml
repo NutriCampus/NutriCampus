@@ -26,5 +26,7 @@
     <string name="msg_erro_campo">Campo obrigatório</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>
     <string name="msg_erro_cpf_2">CPF inválido</string>
-    <string name="msg_erro_senha">"Senha deve ter no mínimo 5 caracteres"</string>
+    <string name="msg_erro_senha">Senha deve ter no mínimo 5 caracteres</string>
+    <string name="msg_falha_login">Falha no login</string>
+    <string name="msg_usuario_nao_cadastrado">usuário não cadastrado</string>
 </resources>

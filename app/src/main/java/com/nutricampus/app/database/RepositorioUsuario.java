@@ -49,7 +49,19 @@ public class RepositorioUsuario {
     }
 
     public Usuario buscarUsuario(String crmv) {
+        return buscarUsuario(crmv,null);
+    }
+
+    public Usuario buscarUsuario(String crmv, String senha) {
         bancoDados = gerenciador.getReadableDatabase();
+
+        String colunas_where = SQLiteManager.USUARIO_COL_CRMV + "= ?";
+        String[] valores_where = new String[] { String.valueOf(crmv)};
+
+        if(senha != null){
+            colunas_where += " AND " +SQLiteManager.USUARIO_COL_SENHA + "= ?";
+            valores_where = new String[] { String.valueOf(crmv),String.valueOf(senha)};
+        }
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_USUARIO, new String[] {
                         SQLiteManager.USUARIO_COL_ID,
@@ -57,8 +69,9 @@ public class RepositorioUsuario {
                         SQLiteManager.USUARIO_COL_NOME,
                         SQLiteManager.USUARIO_COL_CPF,
                         SQLiteManager.USUARIO_COL_EMAIL,
-                        SQLiteManager.USUARIO_COL_SENHA}, SQLiteManager.USUARIO_COL_CRMV + "=?",
-                new String[] { String.valueOf(crmv) }, null, null, null, null);
+                        SQLiteManager.USUARIO_COL_SENHA},
+                        colunas_where,
+                        valores_where, null, null, null, null);
 
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();

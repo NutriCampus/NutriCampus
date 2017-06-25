@@ -71,19 +71,19 @@ public class LoginActivity extends AppCompatActivity {
         if(login(usuario, senha)){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            Toast.makeText(getBaseContext(), "Bem-vindo ao NutriCampus", Toast.LENGTH_LONG).show();
             this.finish();
         }
         else{
-            falhaLogin("usuário não cadastrado");
+            falhaLogin(getString(R.string.msg_usuario_nao_cadastrado));
         }
 
     }
 
     public boolean login(String usuarioValor, String senhaValor) {
 
-        RepositorioUsuario repoUsuario = new RepositorioUsuario();
-        Toast.makeText(getBaseContext(), "Fa", Toast.LENGTH_LONG).show();
-        Usuario usuario = repoUsuario.buscarUsuario(usuarioValor);
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
+        Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
 
         if(usuario != null)
             return true;
@@ -91,14 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             return false;
     }
 
-    public void sucessoLogin() {
-        _entrarButton.setEnabled(true);
-        finish();
-    }
-
     public void falhaLogin(String mensagem) {
-        String msg = (mensagem.isEmpty()) ? "" : ("," + mensagem);
-        Toast.makeText(getBaseContext(), "Falha no login" + msg, Toast.LENGTH_LONG).show();
+        String msg = (mensagem.isEmpty()) ? "" : (", " + mensagem);
+        Toast.makeText(getBaseContext(), getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
 
         _entrarButton.setEnabled(true);
     }
@@ -123,8 +118,8 @@ public class LoginActivity extends AppCompatActivity {
             this._senhaText.setError(getString(R.string.msg_erro_campo));
             valido = false;
         }
-        else if(password.length() < 6) {
-            this._senhaText.setError("Senha deve ter no mínimo 6 caracteres");
+        else if(password.length() < 5) {
+            this._senhaText.setError(getString(R.string.msg_erro_senha));
             valido = false;
         } else {
             this._senhaText.setError(null);
