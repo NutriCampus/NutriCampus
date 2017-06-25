@@ -15,9 +15,7 @@ public class Usuario {
     private String email;
     private String senha;
 
-    public Usuario() {
-
-    }
+    public Usuario() { }
 
     public Usuario(String CRMV, String cpf, String nome, String email, String senha) {
         this.CRMV = CRMV;
@@ -94,53 +92,5 @@ public class Usuario {
                 ", Email: '" + email + '\'' +
                 ", Senha: '" + senha + '\'' +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getRegistro() {
-        return registro;
-    }
-
-    public void setRegistro(String registro) {
-        this.registro = registro;
     }
 }
