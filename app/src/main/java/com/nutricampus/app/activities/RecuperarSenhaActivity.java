@@ -61,6 +61,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
                     new Runnable() {
                         public void run() {
                             Toast.makeText(getBaseContext(),"Senha enviada por e-mail",Toast.LENGTH_LONG).show();
+
                         }
                     }, 3000);
         }
