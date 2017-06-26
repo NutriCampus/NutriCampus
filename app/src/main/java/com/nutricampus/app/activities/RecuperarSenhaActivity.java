@@ -1,6 +1,5 @@
 package com.nutricampus.app.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,8 +66,8 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
         }
         else{
             Toast.makeText(getBaseContext(),
-                    getString(R.string.msg_usuario_nao_cadastrado).substring(0, 1).toUpperCase() +
-                            getString(R.string.msg_usuario_nao_cadastrado).substring(1),
+                    getString(R.string.msg_dados_login_invalidos).substring(0, 1).toUpperCase() +
+                            getString(R.string.msg_dados_login_invalidos).substring(1),
                     Toast.LENGTH_LONG).show();
         }
         _recuperaBtn.setEnabled(true);

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
+    SharedPreferencesManager session;
+
     // Pega a referência para as views
     @BindView(R.id.input_usuario) EditText _usuarioText;
     @BindView(R.id.input_senha) EditText _senhaText;
@@ -37,6 +40,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        session = new SharedPreferencesManager(this);
+
+        if(session.isLoggedIn()){
+            //session.createLoginSession("0",usuario,"joao@gmail.com",senha);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
+            this.finish();
+        }
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -46,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     public void cadastroOnClick(View view) {
         Intent intent = new Intent(this, RegisterUsersActivity.class);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     @OnClick(R.id.link_esqueceu_senha)
@@ -68,28 +81,27 @@ public class LoginActivity extends AppCompatActivity {
 
         String usuario = this._usuarioText.getText().toString();
         String senha = this._senhaText.getText().toString();
+        Usuario usuarioLogado = login(usuario, senha);
 
-        if(login(usuario, senha)){
+        if(usuarioLogado != null){
+            session.createLoginSession(usuarioLogado.getId(),usuarioLogado.getNome(),usuarioLogado.getEmail(),usuarioLogado.getSenha());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         }
         else{
-            falhaLogin(getString(R.string.msg_usuario_nao_cadastrado));
+            falhaLogin(getString(R.string.msg_dados_login_invalidos));
         }
 
     }
 
-    public boolean login(String usuarioValor, String senhaValor) {
+    public Usuario login(String usuarioValor, String senhaValor) {
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
         Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
 
-        if(usuario != null)
-            return true;
-        else
-            return false;
+        return usuario;
     }
 
     public void falhaLogin(String mensagem) {

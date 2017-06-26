@@ -1,7 +1,11 @@
 package com.nutricampus.app.database;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+
+import com.nutricampus.app.activities.LoginActivity;
 
 /**
  * Created by Mateus on 14/06/2017.
@@ -27,8 +31,11 @@ public class SharedPreferencesManager {
     public final String PREF_NAME = UNIQ_KEY + "NutriCampus";
 
     /*KEYS para o sharedpreferences*/
-    private final String KEY_USERSIGA = PREF_NAME + "sigaUser";
-    private final String KEY_PWDSIGA = PREF_NAME + "sigaPwd";
+    private final String KEY_USUARIONC = PREF_NAME + "usuarioNC";
+    private final String KEY_SENHANC = PREF_NAME + "senhaNC";
+    private final String KEY_EMAILNC = PREF_NAME + "emailNC";
+    private final String KEY_IDNC = PREF_NAME + "idUsuarioNC";
+    private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {
         this._context = context;
@@ -60,21 +67,94 @@ public class SharedPreferencesManager {
         pref = null;
     }
 
-    public String getUserSiga() {
-        return pref.getString(KEY_USERSIGA, "");
+    public String getUsuarioNC() {
+        return pref.getString(KEY_USUARIONC, "");
     }
 
-    public void setUserSiga(String keyUsersiga) {
-        editor.putString(KEY_USERSIGA, keyUsersiga);
+    public void setUsuarioNC(String keyUsuarioNC) {
+        editor.putString(KEY_USUARIONC, keyUsuarioNC);
         editor.commit();
     }
 
-    public String getPwdSiga() {
-        return pref.getString(KEY_PWDSIGA, "");
+    public String getSenhaNC() {
+        return pref.getString(KEY_SENHANC, "");
     }
 
-    public void setPwdSiga(String keyPwdsiga) {
-        editor.putString(KEY_PWDSIGA, keyPwdsiga);
+    public void setSenhaNC(String keySenhaNC) {
+        editor.putString(KEY_SENHANC, keySenhaNC);
         editor.commit();
+    }
+
+    public String getEmailNC() {
+        return pref.getString(KEY_EMAILNC, "");
+    }
+
+    public void setEmailNC(String keyEmailNC) {
+        editor.putString(KEY_EMAILNC, keyEmailNC);
+        editor.commit();
+    }
+
+    public String getIdNC() {
+        return pref.getString(KEY_IDNC, "");
+    }
+
+    public void setIdNC(String keyIdNC) {
+        editor.putString(KEY_IDNC, keyIdNC);
+        editor.commit();
+    }
+
+    public void createLoginSession(int id, String name, String email, String senha){
+        // Storing login value as TRUE
+        editor.putBoolean(KEY_LOGADO, true);
+
+        // Storing name in pref
+        editor.putString(KEY_USUARIONC, name);
+
+        // Storing email in pref
+        editor.putString(KEY_EMAILNC, email);
+        editor.putString(KEY_SENHANC, senha);
+        editor.putString(KEY_IDNC, id+"");
+
+        // commit changes
+        editor.commit();
+    }
+    public void checkLogin(){
+        // Check login status
+        if(!this.isLoggedIn()){
+            // user is not logged in redirect him to Login Activity
+            Intent i = new Intent(_context, LoginActivity.class);
+            // Closing all the Activities
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            // Add new Flag to start new Activity
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Staring Login Activity
+            _context.startActivity(i);
+
+        }
+    }
+
+
+    public void logoutUser(){
+        // Clearing all data from Shared Preferences
+        editor.clear();
+        editor.commit();
+
+        // After logout redirect user to Loing Activity
+        Intent i = new Intent(_context, LoginActivity.class);
+        // Closing all the Activities
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        // Add new Flag to start new Activity
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Staring Login Activity
+        _context.startActivity(i);
+    }
+
+
+    public boolean isLoggedIn(){
+        return pref.getBoolean(KEY_LOGADO, false);
     }
 }

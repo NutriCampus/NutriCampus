@@ -2,6 +2,7 @@ package com.nutricampus.app.entities;
 
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -16,6 +17,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
  * Created by Mateus on 29/05/2017.
@@ -26,8 +28,9 @@ import com.nutricampus.app.R;
 public class ActionBarManager {
     private Activity _act;
     private Toolbar toolbar;
-
     public Drawer mActionBar;
+
+    SharedPreferencesManager session;
 
     public ActionBarManager(Activity _act, Toolbar toolbar) {
         this._act = _act;
@@ -37,6 +40,7 @@ public class ActionBarManager {
     }
 
     private void initActionBar() {
+        session = new SharedPreferencesManager(_act);
         new DrawerBuilder().withActivity(_act).build();
 
         AccountHeader headerResult = new AccountHeaderBuilder()
@@ -44,7 +48,7 @@ public class ActionBarManager {
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("João da Silva").withEmail("jsilva@email.com")
+                        new ProfileDrawerItem().withName(session.getUsuarioNC()).withEmail(session.getEmailNC())
                         //.withIcon(getResources().getDrawable(R.drawable.profile))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -75,14 +79,17 @@ public class ActionBarManager {
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
                         new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
-                        new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
-
+                        new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle),
+                        new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out)
                 )
                 .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
+                        if(position == 16){
+                            session.logoutUser();
+                            _act.finish();
+                        }
                         return false;
                     }
                 })
