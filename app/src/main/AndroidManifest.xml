@@ -26,8 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegisterUsersActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:theme="@style/AppTheme.NoActionBar"
             android:name=".activities.RecuperarSenhaActivity"
@@ -39,6 +37,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.LoginActivity" />></activity>
+        <activity android:name=".activities.CadastrarUsuarioActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

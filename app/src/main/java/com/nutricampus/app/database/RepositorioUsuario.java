@@ -31,7 +31,7 @@ public class RepositorioUsuario {
         bancoDados = gerenciador.getWritableDatabase();
 
         ContentValues dados = new ContentValues();
-        dados.put(SQLiteManager.USUARIO_COL_CRMV, usuario.getCRMV());
+        dados.put(SQLiteManager.USUARIO_COL_CRMV, usuario.getCrmv());
         dados.put(SQLiteManager.USUARIO_COL_CPF, usuario.getCpf());
         dados.put(SQLiteManager.USUARIO_COL_NOME, usuario.getNome());
         dados.put(SQLiteManager.USUARIO_COL_EMAIL, usuario.getEmail());
@@ -70,8 +70,8 @@ public class RepositorioUsuario {
                         SQLiteManager.USUARIO_COL_CPF,
                         SQLiteManager.USUARIO_COL_EMAIL,
                         SQLiteManager.USUARIO_COL_SENHA},
-                        colunas_where,
-                        valores_where, null, null, null, null);
+                colunas_where,
+                valores_where, null, null, null, null);
 
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -103,7 +103,7 @@ public class RepositorioUsuario {
                 do {
                     Usuario u = new Usuario();
                     u.setId(c.getInt(c.getColumnIndex(SQLiteManager.USUARIO_COL_ID)));
-                    u.setCRMV(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)));
+                    u.setCrmv(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)));
                     u.setCpf(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_CPF)));
                     u.setNome(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_NOME)));
                     u.setEmail(c.getString(c.getColumnIndex(SQLiteManager.USUARIO_COL_EMAIL)));

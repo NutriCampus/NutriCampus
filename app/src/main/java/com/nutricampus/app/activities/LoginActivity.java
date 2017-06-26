@@ -2,6 +2,7 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -57,7 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
-        Intent intent = new Intent(this, RegisterUsersActivity.class);
+        Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
+
         startActivity(intent);
         //this.finish();
     }
@@ -105,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void falhaLogin(String mensagem) {
-        String msg = (mensagem.isEmpty()) ? "" : (", " + mensagem);
+        String msg = mensagem.isEmpty() ? "" : (", " + mensagem);
         Toast.makeText(getBaseContext(), getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
 
         _entrarButton.setEnabled(true);
@@ -140,4 +142,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return valido;
     }
+
+
 }

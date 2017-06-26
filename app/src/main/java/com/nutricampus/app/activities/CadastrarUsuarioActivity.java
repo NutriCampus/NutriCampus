@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.model.Mascara;
 import com.nutricampus.app.entities.Usuario;
 
@@ -20,7 +21,7 @@ import com.nutricampus.app.entities.Usuario;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
-public class RegisterUsersActivity extends AppCompatActivity {
+public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     EditText edtNome,
              edtCpf,
@@ -38,7 +39,7 @@ public class RegisterUsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_users);
+        setContentView(R.layout.activity_cadastrar_usuario);
 
         edtNome = (EditText) findViewById(R.id.edtNome);
         edtCpf = (EditText) findViewById(R.id.edtCpf);
@@ -60,7 +61,7 @@ public class RegisterUsersActivity extends AppCompatActivity {
     }
 
     public void criarUsuario(View v) {
-        if(!validaDados()) {
+        if(!validarDados()) {
             Toast.makeText(getBaseContext(), "Campos inválidos", Toast.LENGTH_LONG).show();
             return;
         }
@@ -70,24 +71,33 @@ public class RegisterUsersActivity extends AppCompatActivity {
             return;
         }
 
-        Usuario usuario = new Usuario(cpf, email, registro, nome, registro);
+        Usuario usuario = new Usuario(registro, cpf, nome, email, senha);
 
-        //Caixa de Dialogo
-        AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterUsersActivity.this);
-        dialog.setTitle("Cadastro");
-        dialog.setMessage(String.format(
-                "Usuário %s cadastrado com sucesso !", usuario.getNome()));
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                carregarLogin();
-            }
-        });
-        dialog.show();
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
+        boolean f = repositorioUsuario.inserirUsuario(usuario);
+
+
+        if(f) {
+            //Caixa de Dialogo
+            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
+            dialog.setTitle("Cadastro");
+            dialog.setMessage(String.format(
+                    "Usuário %s cadastrado com sucesso !", usuario.getNome()));
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    carregarLogin();
+                }
+            });
+            dialog.show();
+        } else {
+            Toast.makeText(this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
-    public boolean validaDados() {
+    public boolean validarDados() {
 
         boolean valido = true;
 

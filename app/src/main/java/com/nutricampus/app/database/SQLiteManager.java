@@ -10,12 +10,11 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * Created by Diego Bezerra on 20/06/2017.
+ * Created by Felipe on 25/06/2017.
  * For project NutriCampus.
- * Contact: <diego.defb@gmail.com>
+ * Contact: <felipeguimaraes540@gmail.com>
  */
-
-public class SQLiteManager extends SQLiteOpenHelper{
+public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
@@ -30,6 +29,8 @@ public class SQLiteManager extends SQLiteOpenHelper{
      * 2 - Modo escrita para todos (outras aplicações podem usar o banco). */
     private final int DATABASE_ACESS = 0;
 
+
+    /* SQL de criação de tabelas. */
     protected static Context context;
     public static final String TABELA_USUARIO = "usuario";
     public static final String USUARIO_COL_ID = "_id";
@@ -48,10 +49,11 @@ public class SQLiteManager extends SQLiteOpenHelper{
             USUARIO_COL_SENHA + " TEXT NOT NULL);";
 
     public SQLiteManager(Context context) {
-        super(context, NOME_BANCO, null,VERSAO_BANCO);
+        super(context, NOME_BANCO, null, VERSAO_BANCO);
         this.context = context;
     }
 
+    /* SQL de criação de tabelas. */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_USUARIO);
@@ -61,19 +63,4 @@ public class SQLiteManager extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-
-
-    /*
-    public void removerBdVersoesAnteriores() {
-        final String bd1 = "nutriCampusDB";
-        final String bd2 = "y=03p*48$4Zay;.9NutriCampusDB";
-
-        if (NOME_BANCO.equals(bd1)) {
-            this.context.deleteDatabase(bd1);
-        } else if (NOME_BANCO.equals(bd2)) {
-            this.context.deleteDatabase(bd2);
-        }
-    }
-    */
-
 }

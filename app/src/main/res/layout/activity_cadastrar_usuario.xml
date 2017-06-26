@@ -9,7 +9,7 @@
     android:paddingRight="30dp"
     android:paddingTop="05dp"
     android:weightSum="1">
-    tools:context="com.nutricampus.app.activities.RegisterUsersActivity">
+    tools:context="com.nutricampus.app.activities.CadastrarUsuarioActivity">
 
     <TextView
         android:layout_width="wrap_content"

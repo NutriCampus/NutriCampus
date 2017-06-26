@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NutriCampus</string>
     <string name="recuperar_senha_titulo">Recuperar Senha</string>
-
+    <string name="welcome">Bem-vindo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -32,4 +32,7 @@
     <string name="msg_falha_login">Falha no login</string>
     <string name="msg_dados_login_invalidos">usuário ou senha inválidos</string>
     <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+    <string name="msg_erro_login_usuario">Usuário inválido</string>
+    <string name="msg_erro_senha_usuario">Senha inválido</string>
+    <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
 </resources>
