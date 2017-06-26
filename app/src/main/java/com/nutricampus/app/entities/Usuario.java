@@ -93,4 +93,17 @@ public class Usuario {
                 ", Senha: '" + senha + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Usuario objeto = (Usuario) obj;
+        if( (objeto.getCrmv().equals(this.getCrmv())) &&
+                (objeto.getCpf().equals(this.getCpf()))  &&
+                (objeto.getNome().equals(this.getNome()))  &&
+                (objeto.getEmail().equals(this.getEmail()))  &&
+                (objeto.getSenha().equals(this.getSenha()))    )
+            return true;
+
+        return false;
+    }
 }
