@@ -74,10 +74,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.6.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'javax.mail:mail:1.4.7'
-    compile files('libs/activation.jar')
-    compile files('libs/additionnal.jar')
-    compile files('libs/mail.jar')
+    compile 'javax.mail:mail:1.5.0-b01'
 }
 
 sonarqube {
