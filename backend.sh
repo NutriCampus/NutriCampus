@@ -43,6 +43,9 @@ echo ">>>>>>> commit id LONG: "$commitidLONG
 commitidSHORT=`cd $pathprojeto && git rev-parse --short HEAD`
 echo ">>>>>>> commit id SHORT: "$commitidSHORT
 echo ">>>>>>> current branch (BRANCH ENVIRONMENT VARIABLE): "$branch
+
+horalocal= `TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
+echo ">>>>>>> current local datetime: "$horalocal
 echo "##################################################################"
 echo "##################################################################"
 
@@ -54,7 +57,7 @@ then
 	tofind2='<div id="footer">'
 
 	replacewith1='<h1>Test Summary</h1 <h4>main commit: <a href="'$githubmainproject'/commit/'$commitidLONG'" target="_blank">'$commitidSHORT'<a></h4>'
-	replacewith2='<div id="footer"> Main project  @ <a href="'$githubmainproject'" target="_blank">'$mainprojname'</a><br /> Reports hosted @ <a href="'$githubreportproject'" target="_blank">'$reportprojname'</a>'
+	replacewith2='<div id="footer"> Main project  @ <a href="'$githubmainproject'" target="_blank">'$mainprojname'</a><br /> Reports hosted @ <a href="'$githubreportproject'" target="_blank">'$reportprojname'</a><br /> Local datetime @ '$horalocal
 	#escrevo o conteudo no novo arquivo
 	echo "-----ALTERANDO ARQUIVO index.html-----"
 	cat $pathindexfile | while read line
