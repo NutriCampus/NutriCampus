@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
 
         startActivity(intent);
-        //this.finish();
+        this.finish();
     }
 
     @OnClick(R.id.link_esqueceu_senha)
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         String usuario = this._usuarioText.getText().toString();
         String senha = this._senhaText.getText().toString();
-        Usuario usuarioLogado = login(usuario, senha);
+        Usuario usuarioLogado = buscarUsuario(usuario, senha);
 
         if(usuarioLogado != null){
             session.createLoginSession(usuarioLogado.getId(),usuarioLogado.getNome(),usuarioLogado.getEmail(),usuarioLogado.getSenha());
@@ -94,11 +94,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             falhaLogin(getString(R.string.msg_dados_login_invalidos));
+            _entrarButton.setEnabled(true);
         }
 
     }
 
-    public Usuario login(String usuarioValor, String senhaValor) {
+    public Usuario buscarUsuario(String usuarioValor, String senhaValor) {
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
         Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
