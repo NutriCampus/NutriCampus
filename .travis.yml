@@ -4,7 +4,7 @@ jdk: oraclejdk8
 sudo: false
 
 env:
-    - datahoralocal=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
+    - datahoralocal=
 
 
 android:
@@ -55,14 +55,14 @@ after_success:
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
     #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH $datahoralocal
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH `TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
 after_failure:
     #- bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
     #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH $datahoralocal
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH `TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
     
 #Executar isso quando for na primeira vez pra ficar no cache????
 #install:
