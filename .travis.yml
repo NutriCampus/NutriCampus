@@ -56,7 +56,8 @@ after_success:
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
     #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH $datahora
+    - echo $datahora
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 after_failure:
     #- bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
@@ -64,7 +65,8 @@ after_failure:
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
     #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH $datahora
+    - echo $datahora
+    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 after_failure:
     
 #Executar isso quando for na primeira vez pra ficar no cache????
