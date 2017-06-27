@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">NutriCampus</string>
-
+    <string name="recuperar_senha_titulo">Recuperar Senha</string>
+    <string name="welcome">Bem-vindo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -8,7 +9,30 @@
 
     <string name="sign_in_facebook">Acessar com Facebook</string>
     <string name="sign_in_google">Acessar com Google</string>
-    <string name="sign_in">Acessar</string>
-    <string name="sign_up">Cadastrar</string>
     <string name="logout_text">Sair</string>
+
+    <string name="register_user">Cadastro Usuário</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="entrar">Entrar</string>
+    <string name="senha">Senha</string>
+    <string name="crz_crmv">CRZ/CRMV</string>
+    <string name="recuperar_senha">Recuperar senha</string>
+
+    <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
+    <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
+
+    <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
+    <string name="msg_erro_email">Email inválido</string>
+    <string name="msg_erro_campo">Campo obrigatório</string>
+    <string name="msg_erro_cpf_1">CPF incompleto</string>
+    <string name="msg_erro_cpf_2">CPF inválido</string>
+    <string name="msg_erro_senha">Senha deve ter no mínimo 5 caracteres</string>
+    <string name="msg_falha_login">Falha no login</string>
+    <string name="msg_dados_login_invalidos">usuário ou senha inválidos</string>
+    <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+    <string name="msg_erro_login_usuario">Usuário inválido</string>
+    <string name="msg_erro_senha_usuario">Senha inválido</string>
+    <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
 </resources>
