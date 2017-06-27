@@ -45,9 +45,11 @@ before_install:
     - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
     - pip install --user codecov
 after_success:
+    - bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 after_failure:
+    - bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 addons:
