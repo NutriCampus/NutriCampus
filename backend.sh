@@ -44,7 +44,7 @@ commitidSHORT=`cd $pathprojeto && git rev-parse --short HEAD`
 echo ">>>>>>> commit id SHORT: "$commitidSHORT
 echo ">>>>>>> current branch (BRANCH ENVIRONMENT VARIABLE): "$branch
 
-horalocal= `TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
+horalocal=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
 echo ">>>>>>> current local datetime: "$horalocal
 echo "##################################################################"
 echo "##################################################################"
