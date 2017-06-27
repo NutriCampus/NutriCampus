@@ -9,17 +9,17 @@ env:
 
 android:
   components:
-    - build-tools-26.0.0
-    - android-26
-    - extra-android-m2repository
-    - extra-android-support
-    - extra-google-m2repository
-    - sys-img-armeabi-v7a-android-26
+    #- build-tools-26.0.0
+    #- android-26
+    #- extra-android-m2repository
+    #- extra-android-support
+    #- extra-google-m2repository
+    #- sys-img-armeabi-v7a-android-26
   licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-    - '.+'
+    #- android-sdk-preview-license-.+
+    #- android-sdk-license-.+
+    #- google-gdk-license-.+
+    #- '.+'
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -31,32 +31,33 @@ cache:
     - $HOME/.android/build-cache
     
 before_script:
-    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-    - emulator -avd test -no-skin -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
+    #- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+    #- emulator -avd test -no-skin -no-audio -no-window &
+    #- android-wait-for-emulator
+    #- adb shell input keyevent 82 &
     
 script: 
-    - ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck -PdisablePreDex
+    - echo $datahoralocal
+    #- ./gradlew build jacocoTestReport assembleAndroidTest connectedCheck -PdisablePreDex
     #- ./gradlew test
     #- ./gradlew build connectedCheck -PdisablePreDex
     
 
 before_install:
-    - chmod +x gradlew 
-    - mkdir "$ANDROID_HOME/licenses" || true
-    - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-    - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-    - pip install --user codecov
+    #- chmod +x gradlew 
+    #- mkdir "$ANDROID_HOME/licenses" || true
+    #- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+    #- echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+   # - pip install --user codecov
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+    #- bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
     #- ./backend.sh $GITHUB_PASSHASH_PM $BRANCH
     - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH $datahoralocal
 after_failure:
-    - bash <(curl -s https://codecov.io/bash)
+    #- bash <(curl -s https://codecov.io/bash)
     - chmod +x backend.sh
     #SE É O BRANCH MASTER: passo senha como hash (variavel de ambiente do travis)
     #- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
