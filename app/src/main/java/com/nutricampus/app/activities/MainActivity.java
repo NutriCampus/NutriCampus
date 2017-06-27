@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,11 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public ActionBarManager getActionBarMainActivity() {
+        return actionBar;
+    }
+
     private ActionBarManager actionBar;
 
     SharedPreferencesManager session;
