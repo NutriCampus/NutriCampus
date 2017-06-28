@@ -35,8 +35,7 @@ before_script:
     
 script: 
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    - ./gradlew sonarqube -PdisablePreDex 
-    #- ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex 
+    - ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex 
     #assembleAndroidTest
 
 before_install:
