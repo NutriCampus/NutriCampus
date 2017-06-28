@@ -12,4 +12,4 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 
 ## Última release
 
-[![release]([![GitHub release](https://img.shields.io/github/release/tony19/x-user-dropdown.svg?maxAge=2592000)](https://github.com/NutriCampus/NutriCampus/releases/latest)
+[![release](https://img.shields.io/github/release/tony19/x-user-dropdown.svg?maxAge=2592000)](https://github.com/NutriCampus/NutriCampus/releases/latest)
