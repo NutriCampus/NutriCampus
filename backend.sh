@@ -154,7 +154,7 @@ git config user.name "Travis CI"
 git config push.default simple
 #git pull
 git checkout master
-
+#git checkout -b iss53
 echo ">>>>>>> ----------------------------------------------------------"
 mkdir 'lint'  && echo "PASTA 'lint' CRIADA"
 mkdir 'apk'  && echo "PASTA 'apk' CRIADA"
@@ -162,8 +162,6 @@ mkdir 'apk'  && echo "PASTA 'apk' CRIADA"
 cp -a $pathreport. $pathprojetoreport"unit/" && echo ">>>>>>> COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
 cp -a $lintindex $pathprojetoreport"lint/index.html" && echo ">>>>>>> COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
 cp -a $pathinstrumented. $pathprojetoreport"instrumented/" && echo ">>>>>>> COPIADO "$pathinstrumented" PARA "$pathprojetoreport"instrumented/"
-cp -a $apkfile $pathprojetoreport"apk/"$mainprojname".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
-#cp -a $lintresult $pathprojetoreport"lint/" && echo "COPIADO "$lintresult" PARA "$pathprojetoreport"lint/"
 
 echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS CONTEÚDO COPIADO"
@@ -178,8 +176,16 @@ echo "##################################################################"
 echo ">>>>>>> COMEÇANDO ENVIO DE DADOS PARA REPOSITÓRIO DE REPORT"
 
 git add -A && echo "GIT ADD SUCCESSFULLY"
-git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT SUCCESSFULLY"
-git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:master --force && echo "GIT PUSH SUCCESSFULLY"
+git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT MASTER SUCCESSFULLY"
+git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:master --force && echo "GIT PUSH MASTER SUCCESSFULLY"
+
+echo "##################################################################"
+echo "##################################################################"
+echo ">>>>>>> COMMITAR APK NO BRANCH: "
+git checkout apk 
+cp -a $apkfile $pathprojetoreport"apk/"$mainprojname".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
+git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT APK SUCCESSFULLY"
+git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:apk --force && echo "GIT PUSH APK SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"
