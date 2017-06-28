@@ -40,6 +40,9 @@ lintresult=$pathlint'lint-results.xml'
 pathinstrumented=$pathprojeto'app/build/reports/androidTests/connected/'
 instrumentedindex=$pathinstrumented'index.html'
 instrumentedindextemp=$pathinstrumented'temp'
+apkpath=$pathprojeto'app/build/outputs/apk/'
+apkfile=$apkpath'app-debug.apk'
+
 
 #pego os dados do commit principal
 commitidLONG=`cd $pathprojeto && git rev-parse HEAD`
@@ -154,10 +157,12 @@ git checkout master
 
 echo ">>>>>>> ----------------------------------------------------------"
 mkdir 'lint'  && echo "PASTA 'lint' CRIADA"
+mkdir 'apk'  && echo "PASTA 'apk' CRIADA"
 #copiar arquivos da pasta dos relatórios para pasta clonada
 cp -a $pathreport. $pathprojetoreport"unit/" && echo ">>>>>>> COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
 cp -a $lintindex $pathprojetoreport"lint/index.html" && echo ">>>>>>> COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
 cp -a $pathinstrumented. $pathprojetoreport"instrumented/" && echo ">>>>>>> COPIADO "$pathinstrumented" PARA "$pathprojetoreport"instrumented/"
+cp -a $apkfile $pathprojetoreport"apk/"$mainprojname".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
 #cp -a $lintresult $pathprojetoreport"lint/" && echo "COPIADO "$lintresult" PARA "$pathprojetoreport"lint/"
 
 echo ">>>>>>> ----------------------------------------------------------"
