@@ -91,7 +91,7 @@ sonarqube {
         property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
                 "${project.buildDir}/test-results/testReleaseUnitTest/TEST-*.xml , " +
                 "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "
-        property "sonar.coverageReportPaths", "${project.buildDir}/reports/coverage/debug/report.xml"
+        //"${project.buildDir}/reports/coverage/debug/report.xml"
         property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
                 "${project.buildDir}/jacoco/testReleaseUnitTest.exec"
 

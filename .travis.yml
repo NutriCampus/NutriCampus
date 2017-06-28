@@ -35,7 +35,7 @@ before_script:
     
 script: 
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    - ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex 
+    - ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex && chmod +x backend.sh && ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
     #assembleAndroidTest
 
 before_install:
@@ -46,12 +46,12 @@ before_install:
     - pip install --user codecov
 after_success:
     - bash <(curl -s https://codecov.io/bash)
-    - chmod +x backend.sh
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
+    #- chmod +x backend.sh
+    #- ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 after_failure:
     - bash <(curl -s https://codecov.io/bash)
-    - chmod +x backend.sh
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
+    #- chmod +x backend.sh
+    #- ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
 addons:
     sonarcloud:
         organization: "nutricampus"
