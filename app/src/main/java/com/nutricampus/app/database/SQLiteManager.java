@@ -50,7 +50,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
-        this.context = context;
     }
 
     /* SQL de criação de tabelas. */
