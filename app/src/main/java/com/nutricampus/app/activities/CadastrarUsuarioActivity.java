@@ -23,17 +23,17 @@ import com.nutricampus.app.entities.Usuario;
 
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
-    EditText edtNome,
-             edtCpf,
-             edtRegistro,
-             edtEmail,
-             edtSenha;
+    EditText edtNome;
+    EditText edtCpf;
+    EditText edtRegistro;
+    EditText edtEmail;
+    EditText edtSenha;
 
-    String nome,
-           cpf,
-           registro,
-           email,
-           senha;
+    String nome;
+    String cpf;
+    String registro;
+    String email;
+    String senha;
 
 
     @Override
