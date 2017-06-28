@@ -88,13 +88,17 @@ sonarqube {
         property "sonar.projectVersion", "1.0.0"
 
 
-        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
+        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/, " +
+                "${project.buildDir}/test-results/testReleaseUnitTest/, " +
+                "${project.buildDir}/outputs/androidTest-results/connected/ "
+
+        /*property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
                 "${project.buildDir}/test-results/testReleaseUnitTest/TEST-*.xml , " +
-                "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "
+                "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "*/
         //"${project.buildDir}/reports/coverage/debug/report.xml"
         property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
                 "${project.buildDir}/jacoco/testReleaseUnitTest.exec"
-
+    //[![Sonarqube Coverage](https://sonarcloud.io/api/badges/measure?key=com.nutricampus.app&metric=coverage)](https://sonarcloud.io/component_measures/domain/Coverage?id=com.nutricampus.app)
         property "sonar.sourceEncoding", "UTF-8"
     }
 }

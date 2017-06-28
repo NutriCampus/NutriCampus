@@ -8,7 +8,6 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 [![JUnit](https://img.shields.io/badge/tests-status-yellow.svg?style=flat)](https://NutriCampus.github.io/NutriCampusUnitTestReport)
 [![codecov](https://codecov.io/gh/NutriCampus/NutriCampus/branch/master/graph/badge.svg)](https://codecov.io/gh/NutriCampus/NutriCampus)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.nutricampus.app)](https://sonarcloud.io/dashboard/index/com.nutricampus.app)
-[![Sonarqube Coverage](https://sonarcloud.io/api/badges/measure?key=com.nutricampus.app&metric=coverage)](https://sonarcloud.io/component_measures/domain/Coverage?id=com.nutricampus.app)
 
 ## Última release
 
