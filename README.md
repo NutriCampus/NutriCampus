@@ -7,7 +7,6 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 [![PivotalTracker](https://img.shields.io/badge/Pivotal%20Tracker-userstories-orange.svg)](https://www.pivotaltracker.com/n/projects/2025941)
 [![JUnit](https://img.shields.io/badge/tests-status-yellow.svg?style=flat)](https://NutriCampus.github.io/NutriCampusUnitTestReport)
 [![codecov](https://codecov.io/gh/NutriCampus/NutriCampus/branch/master/graph/badge.svg)](https://codecov.io/gh/NutriCampus/NutriCampus)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.nutricampus.app)](https://sonarcloud.io/dashboard/index/com.nutricampus.app)
 
 ## Release
 
