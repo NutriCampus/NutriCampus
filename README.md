@@ -12,6 +12,6 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 
 ## Última release
 
-[![release](https://img.shields.io/github/release/ddefb/log-courier.svg?style=flat)](https://github.com/NutriCampus/NutriCampus/releases/latest)
+[![release](https://img.shields.io/github/release/NutriCampus/log-courier.svg?style=flat)](https://github.com/NutriCampus/NutriCampus/releases/latest)
 
 
