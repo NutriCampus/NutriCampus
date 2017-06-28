@@ -12,4 +12,4 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 
 ## Última release
 
-[![release](http://github-release-version.herokuapp.com/github/allure-framework/allure-core/release.svg?style=flat)](https://github.com/NutriCampus/NutriCampus/releases/latest)
+[![release](https://github.com/NutriCampus/NutriCampus/release.svg?style=flat)](https://github.com/NutriCampus/NutriCampus/releases/latest)
