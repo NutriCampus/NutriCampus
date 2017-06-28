@@ -82,7 +82,11 @@ dependencies {
 
 sonarqube {
     properties {
-        todosOsXmls = "${project.buildDir}/test-results/testDebugUnitTest/," +
+        property "sonar.projectName", "NutriCampus"
+        property "sonar.projectKey", "com.nutricampus.app"
+        property "sonar.projectVersion", "1.0.0"
+
+        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/," +
                 "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
                 "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
                 "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
@@ -105,23 +109,100 @@ sonarqube {
                 "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
                 "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
                 "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
-                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml"
-        xmlDoJacoco = "${project.buildDir}/outputs/code-coverage/connected/, " +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml" + "," + "${project.buildDir}/outputs/code-coverage/connected/, " +
+                "${project.buildDir}/outputs/androidTest-results/connected/, " +
+                "${project.buildDir}/reports/coverage/debug/, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml, " +
+                "${project.buildDir}/reports/coverage/debug/report.xml"
+        property "sonar.java.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml" + "," + "${project.buildDir}/outputs/code-coverage/connected/, " +
+                "${project.buildDir}/outputs/androidTest-results/connected/, " +
+                "${project.buildDir}/reports/coverage/debug/, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml, " +
+                "${project.buildDir}/reports/coverage/debug/report.xml"
+        property "sonar.jacoco.reportPaths", "${project.buildDir}/test-results/testDebugUnitTest/," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml" + "," + "${project.buildDir}/outputs/code-coverage/connected/, " +
+                "${project.buildDir}/outputs/androidTest-results/connected/, " +
+                "${project.buildDir}/reports/coverage/debug/, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml, " +
+                "${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml, " +
+                "${project.buildDir}/reports/coverage/debug/report.xml"
+        property "sonar.java.jacoco.reportPaths", "${project.buildDir}/test-results/testDebugUnitTest/," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testDebugUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioAnimal.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioCompostoAlimentar.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDadosComplAnimais.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDescendentes.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioDieta.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioGrupo.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioMascara.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProducaoDeLeite.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioPropriedade.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioProprietario.xml," +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-com.nutricampus.app.TesteUnitarioUsuario.xml" + "," + "${project.buildDir}/outputs/code-coverage/connected/, " +
                 "${project.buildDir}/outputs/androidTest-results/connected/, " +
                 "${project.buildDir}/reports/coverage/debug/, " +
                 "${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml, " +
                 "${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml, " +
                 "${project.buildDir}/reports/coverage/debug/report.xml"
 
-        property "sonar.projectName", "NutriCampus"
-        property "sonar.projectKey", "com.nutricampus.app"
-        property "sonar.projectVersion", "1.0.0"
-
-        property "sonar.junit.reportsPath", todosOsXmls + "," + xmlDoJacoco
-        property "sonar.java.junit.reportsPath", todosOsXmls + "," + xmlDoJacoco
-        property "sonar.jacoco.reportPaths", todosOsXmls + "," + xmlDoJacoco
-        property "sonar.java.jacoco.reportPaths", todosOsXmls + "," + xmlDoJacoco
-    
         /*property "sonar.junit.reportsPath", "${project.buildDir}/outputs/code-coverage/connected/, ${project.buildDir}/outputs/androidTest-results/connected/, ${project.buildDir}/reports/coverage/debug/"
         property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"
