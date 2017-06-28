@@ -2,6 +2,7 @@ plugins {
     id "org.sonarqube" version "2.5"
 }
 apply plugin: 'com.android.application'
+//apply plugin: 'jacoco'
 apply plugin: 'jacoco-android'
 
 android {
@@ -86,10 +87,14 @@ sonarqube {
         property "sonar.projectKey", "com.nutricampus.app"
         property "sonar.projectVersion", "1.0.0"
 
-        property "sonar.jacoco.reportPaths", fileTree(dir: ${project.buildDir}, includes: ['**/*.exec', "**/*.ec"])
-        property "sonar.java.jacoco.reportPaths", fileTree(dir: ${project.buildDir}, includes: ['**/*.exec', "**/*.ec"])//['**/*.exec, **/*.ec']
-        //property "sonar.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml, ${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml,, ${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml"
-        //property "sonar.java.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml, ${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml,, ${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml"
+
+        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
+                "${project.buildDir}/test-results/testReleaseUnitTest/TEST-*.xml , " +
+                "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "
+        property "sonar.genericcoverage.itReportPaths", "${project.buildDir}/reports/coverage/debug/report.xml"
+        property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
+                "${project.buildDir}/jacoco/testReleaseUnitTest.exec"
+
         property "sonar.sourceEncoding", "UTF-8"
     }
 }
@@ -99,3 +104,8 @@ sourceSets {
         java.srcDir file('src/androidTest/java')
     }
 }
+/*jacoco {
+    toolVersion = "0.7.6.201602180812"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+
+}*/
