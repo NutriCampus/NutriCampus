@@ -84,11 +84,10 @@ sonarqube {
     properties {
         property "sonar.projectName", "NutriCampus"
         property "sonar.projectKey", "com.nutricampus.app"
-//Cuidado, esse será o id do projeto no sonarqube
         property "sonar.projectVersion", "1.0.0"
-        
-        property "sonar.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml"
-        property "sonar.java.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml"
+
+        property "sonar.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml, ${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml,, ${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml"
+        property "sonar.java.jacoco.reportPaths", "${project.buildDir}/reports/coverage/debug/report.xml, ${project.buildDir}/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml,, ${project.buildDir}/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml"
         property "sonar.sourceEncoding", "UTF-8"
     }
 }
