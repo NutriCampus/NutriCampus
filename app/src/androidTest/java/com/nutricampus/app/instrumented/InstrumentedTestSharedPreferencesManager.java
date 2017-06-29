@@ -1,16 +1,10 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Context;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.nutricampus.app.activities.LoginActivity;
-import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
-import com.nutricampus.app.entities.Usuario;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +22,7 @@ import static org.junit.Assert.assertNull;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class TesteIntegracaoSharedPreferencesManager {
+public class InstrumentedTestSharedPreferencesManager {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private SharedPreferencesManager session = new SharedPreferencesManager(appContext);
 

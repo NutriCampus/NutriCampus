@@ -187,6 +187,11 @@ rm -rf $pathprojetoreport && echo "PASTA "$pathprojetoreport" APAGADA"
 git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 cd $pathprojetoreport
 
+echo ">>>>>>> SETANDO CONFIGURAÇÕES DO GIT username E email"
+git config user.email "builds@travis-ci.org"
+git config user.name "Travis CI"
+git config push.default simple
+
 git checkout apk && echo ">>>>>>> BRANCH APK SELECIONADO"
 echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS SELEÇÃO DE BRANCH"
@@ -194,7 +199,7 @@ ls -a
 echo ">>>>>>> ----------------------------------------------------------"
 cp -a $apkfile $pathprojetoreport"apk/"$mainprojname".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
 git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT APK SUCCESSFULLY"
-git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git origin apk --force && echo "GIT PUSH APK SUCCESSFULLY"
+git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:apk --force && echo "GIT PUSH APK SUCCESSFULLY"
 
 fi
 echo "FINALIZOU ARQUIVO BACKEND.SH"

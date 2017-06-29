@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
 
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     @OnClick(R.id.link_esqueceu_senha)

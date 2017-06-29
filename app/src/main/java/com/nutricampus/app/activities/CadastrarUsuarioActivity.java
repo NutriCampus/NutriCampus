@@ -24,16 +24,16 @@ import com.nutricampus.app.entities.Usuario;
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     EditText edtNome,
-             edtCpf,
-             edtRegistro,
-             edtEmail,
-             edtSenha;
+            edtCpf,
+            edtRegistro,
+            edtEmail,
+            edtSenha;
 
     String nome,
-           cpf,
-           registro,
-           email,
-           senha;
+            cpf,
+            registro,
+            email,
+            senha;
 
 
     @Override
@@ -61,12 +61,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
     }
 
     public void criarUsuario(View v) {
-        if(!validarDados()) {
+        if (!validarDados()) {
             Toast.makeText(getBaseContext(), "Campos inválidos", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(!Mascara.validarCpf(cpf)) {
+        if (!Mascara.validarCpf(cpf)) {
             Toast.makeText(getBaseContext(), getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
             return;
         }
@@ -77,7 +77,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         boolean f = repositorioUsuario.inserirUsuario(usuario);
 
 
-        if(f) {
+        if (f) {
             //Caixa de Dialogo
             AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
             dialog.setTitle("Cadastro");
@@ -86,7 +86,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    carregarLogin();
+                    //carregarLogin();
+                    CadastrarUsuarioActivity.this.finish();
                 }
             });
             dialog.show();
@@ -131,7 +132,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             this.edtRegistro.setError(null);
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             edtEmail.setError(getString(R.string.msg_erro_email));
             valido = false;
         }

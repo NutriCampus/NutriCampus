@@ -1,14 +1,12 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.AppCompatButton;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.nutricampus.app.R;
 import com.nutricampus.app.activities.LoginActivity;
-import com.nutricampus.app.activities.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

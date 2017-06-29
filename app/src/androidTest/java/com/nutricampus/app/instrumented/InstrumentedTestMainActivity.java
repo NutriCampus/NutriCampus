@@ -1,14 +1,12 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
 import android.support.design.widget.NavigationView;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.nutricampus.app.activities.CadastrarUsuarioActivity;
+import com.nutricampus.app.R;
 import com.nutricampus.app.activities.MainActivity;
 
 import org.junit.Rule;

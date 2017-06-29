@@ -1,9 +1,8 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.entities.Usuario;
@@ -23,7 +22,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class TesteIntegracaoRepositorioUsuario {
+public class InstrumentedTestRepositorioUsuario {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioUsuario repositorio = new RepositorioUsuario(appContext);
 

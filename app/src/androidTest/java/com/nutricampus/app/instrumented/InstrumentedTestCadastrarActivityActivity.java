@@ -1,13 +1,12 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.AppCompatButton;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarUsuarioActivity;
-import com.nutricampus.app.activities.LoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class InstrumentedCadastrarActivityActivity {
+public class InstrumentedTestCadastrarActivityActivity {
     @Rule
     public ActivityTestRule<CadastrarUsuarioActivity> rule = new ActivityTestRule<>(CadastrarUsuarioActivity.class);
 
