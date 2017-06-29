@@ -81,6 +81,7 @@
         android:layout_weight="0.44"
         android:gravity="center|bottom"
         android:orientation="vertical"
+        android:id="@+id/rlayout_faca_login"
         android:weightSum="1">
 
         <View
