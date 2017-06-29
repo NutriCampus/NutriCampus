@@ -19,6 +19,7 @@ android {
         versionCode 1
         versionName project.version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //multiDexEnabled true //important
     }
 
     /*productFlavors {
@@ -68,8 +69,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'design'
     })
-    //androidTestCompile 'info.cukes:cucumber-java:1.2.4'
+    //androidTestCompile 'info.cukes:cucumber-java:1.2.5'
+    //androidTestCompile 'info.cukes:cucumber-core:1.2.5'
+    //androidTestCompile 'info.cukes:cucumber-junit:1.2.5'
     //androidTestCompile 'info.cukes:cucumber-junit:1.2.4'
+    //compile 'com.android.support:multidex:1.0.1'
 
     compile('com.mikepenz:materialdrawer:5.9.2@aar') {
         transitive = true

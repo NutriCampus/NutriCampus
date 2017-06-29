@@ -104,8 +104,8 @@ public class AcceptanceTestLoginActicity {
     public void attempToLoginSuccessfuly() throws Exception {
         doLogout();
 
-        /*PRECISA CRIAR USUÀRIO PRIMEIRO*/
-        onView(withText("Não é cadastrado? Crie sua conta")).perform(click());
+        //PRECISA CRIAR USUÀRIO PRIMEIRO
+        onView(withId(R.id.link_cadastro)).perform(click());
 
         onView(withId(R.id.edtNome))
                 .perform(typeText("Vinicius attempToLoginSuccessfuly"));
@@ -127,7 +127,7 @@ public class AcceptanceTestLoginActicity {
         onView(withText("OK")).perform(pressBack());
         onView(withId(R.id.edtNome)).perform(pressBack());
 
-        /*VOLTOU PARA TELA INICIAL*/
+        //VOLTOU PARA TELA INICIAL
         onView(withId(R.id.input_usuario))
                 .perform(typeText("63876813590"));
         closeSoftKeyboard();
@@ -138,10 +138,9 @@ public class AcceptanceTestLoginActicity {
         onView(withId(R.id.btn_login)).perform(click());
 
         new ToastMatcher().isToastMessageDisplayed("Bem-vindo ao NutriCampus");
+        doLogout();
 
         Thread.sleep(3000);
-
-        doLogout();
     }
 
     private void doLogout() throws Exception {
