@@ -59,4 +59,4 @@ addons:
             secure: $SonarQube
 env:
   global:
-- ADB_INSTALL_TIMEOUT=20
+    - ADB_INSTALL_TIMEOUT=20
