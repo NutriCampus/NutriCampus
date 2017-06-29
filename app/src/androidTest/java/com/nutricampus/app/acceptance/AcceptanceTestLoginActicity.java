@@ -105,7 +105,7 @@ public class AcceptanceTestLoginActicity {
         doLogout();
 
         //PRECISA CRIAR USUÀRIO PRIMEIRO
-        onView(withId(R.id.rlayout_faca_login)).perform(click());
+        onView(withText(R.string.link_novo_cadastro)).perform(click());
 
         onView(withId(R.id.edtNome))
                 .perform(typeText("Vinicius attempToLoginSuccessfuly"));
