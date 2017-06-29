@@ -187,6 +187,11 @@ rm -rf $pathprojetoreport && echo "PASTA "$pathprojetoreport" APAGADA"
 git clone $githubreportproject'.git' && echo "PROJETO "$reportprojname" (GITHUB) CLONADO"
 cd $pathprojetoreport
 
+echo ">>>>>>> SETANDO CONFIGURAÇÕES DO GIT username E email"
+git config user.email "builds@travis-ci.org"
+git config user.name "Travis CI"
+git config push.default simple
+
 git checkout apk && echo ">>>>>>> BRANCH APK SELECIONADO"
 echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS SELEÇÃO DE BRANCH"
