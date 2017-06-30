@@ -138,10 +138,15 @@ public class AcceptanceTestLoginActicity {
         closeKeyboard();
 
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
-        onView(withText("OK")).perform(pressBack());
-        Thread.sleep(1000);
-        onView(withId(R.id.edtNome)).perform(pressBack());
-        Thread.sleep(1000);
+        Thread.sleep(500);//abrir dialog
+        onView(withId(android.R.id.content)).perform(pressBack());//fecha dialog
+        Thread.sleep(500);//fechar dialog
+        onView(withId(android.R.id.content)).perform(pressBack());//fecha activity
+
+        //mActivityRule.getActivity().onBackPressed();//fecho dialog, automaticamente volta pra tela de login
+        //Thread.sleep(1000);
+        //onView(withId(R.id.edtNome)).perform(pressBack());
+        Thread.sleep(500);//espera activity fechar
 
         //VOLTOU PARA TELA INICIAL
         onView(withId(R.id.input_usuario))
@@ -163,8 +168,8 @@ public class AcceptanceTestLoginActicity {
         /*
         * Não estou checando pelo toast pq o toast corresponde a LoginActivity (q após o login é
         * finalizada), porém qnd o teste é feito, ele pega as views da MAINACTIVITY, assim sendo,
-         * o toast fazia parte da LOGINACTIVITY, ou seja, vai procurar um toast na view antiga,
-         * gerando assim SEMPRE erro. ISSO SÓ ACONTECE NO TRAVIS CI.
+        * o toast fazia parte da LOGINACTIVITY, ou seja, vai procurar um toast na view antiga,
+        * enquanto está sendo mostrada outrra, gerando assim SEMPRE erro. ISSO SÓ ACONTECE NO TRAVIS CI.
         * */
         //new ToastMatcher().isToastMessageDisplayedWithText("Bem-vindo ao NutriCampus");//funciona localmente
         //onView(withText("Bem-vindo ao NutriCampus")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
