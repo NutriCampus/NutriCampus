@@ -16,6 +16,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -24,14 +25,12 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -56,8 +55,9 @@ import java.util.Collection;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class AcceptanceTestLoginActicity {
+public class AcceptanceTestLoginActivity {
     private Activity currentActivity;
+    private static final String TAG = "AcceptanceTestLogin";
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
@@ -121,45 +121,40 @@ public class AcceptanceTestLoginActicity {
         onView(withId(R.id.rlayout_faca_login)).perform(click());
         Thread.sleep(1000);
 
-        onView(withId(R.id.edtNome))
-                .perform(typeText("attempToLoginSuccessfully"));
+        onView(withId(R.id.edtNome)).perform(typeText("attempToLoginSuccessfully"));
         closeKeyboard();
-        onView(withId(R.id.edtCpf))
-                .perform(typeText("63876813590"));
+        onView(withId(R.id.edtCpf)).perform(typeText("63876813590"));
         closeKeyboard();
-        onView(withId(R.id.edtRegistro))
-                .perform(typeText("63876813590"));
+        onView(withId(R.id.edtRegistro)).perform(typeText("63876813590"));
         closeKeyboard();
-        onView(withId(R.id.edtEmail))
-                .perform(typeText("attempToLoginSuccessfully@email.com"));
+        onView(withId(R.id.edtEmail)).perform(typeText("attempToLoginSuccessfully@email.com"));
         closeKeyboard();
-        onView(withId(R.id.edtSenha))
-                .perform(typeText("12345"));
+        onView(withId(R.id.edtSenha)).perform(typeText("12345"));
         closeKeyboard();
 
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
-        Thread.sleep(500);//abrir dialog
+        Thread.sleep(1000);//abrir dialog do cadastro confirmado
         onView(withId(android.R.id.content)).perform(pressBack());//fecha dialog
-        Thread.sleep(500);//fechar dialog
-        onView(withId(android.R.id.content)).perform(pressBack());//fecha activity
-
         //mActivityRule.getActivity().onBackPressed();//fecho dialog, automaticamente volta pra tela de login
-        //Thread.sleep(1000);
-        //onView(withId(R.id.edtNome)).perform(pressBack());
-        Thread.sleep(500);//espera activity fechar
+        Thread.sleep(1000);//fechar dialog
+        onView(withId(android.R.id.content)).perform(pressBack());//fecha activity
+        //mActivityRule.getActivity().onBackPressed();//fecho dialog, automaticamente volta pra tela de login
+
+        Thread.sleep(1000);//espera activity fechar
 
         //VOLTOU PARA TELA INICIAL
-        onView(withId(R.id.input_usuario))
-                .perform(typeText("63876813590"));
+        onView(withId(R.id.input_usuario)).perform(typeText("63876813590"));
         closeKeyboard();
-        onView(withId(R.id.input_senha))
-                .perform(typeText("12345"));
+        onView(withId(R.id.input_senha)).perform(typeText("12345"));
         closeKeyboard();
 
         onView(withId(R.id.btn_login)).perform(click());
-
         Thread.sleep(1000);//espera 1s p activity abrir
-        if (getActivityInstance() instanceof MainActivity) {
+
+        Activity actv = getActivityInstance();
+        Thread.sleep(1000);
+
+        if (actv instanceof MainActivity) {
             assertTrue(true);
         } else {
             assertTrue(false);
@@ -179,11 +174,11 @@ public class AcceptanceTestLoginActicity {
 
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
-            Log.e(AcceptanceTestLoginActicity.class.getName(), "Activity MAIN");
+            //Log.e(AcceptanceTestLoginActivity.class.getName(), "Activity MAIN");
             new SharedPreferencesManager(mActivityRule.getActivity()).logoutUser();
             currentActivity.finish();
         } else {
-            Log.e(AcceptanceTestLoginActicity.class.getName(), "Activity __NÃO__ é main");
+            //Log.e(AcceptanceTestLoginActivity.class.getName(), "Activity __NÃO__ é main");
         }
     }
 
