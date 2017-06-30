@@ -154,9 +154,7 @@ public class AcceptanceTestLoginActivity {
         Activity actv = getActivityInstance();
         Thread.sleep(1000);
 
-        if (actv instanceof MainActivity) {
-            assertTrue(true);
-        } else {
+        if (!actv.getClass().getName().equals(MainActivity.class.getName())) {
             assertTrue(false);
         }
 
@@ -169,7 +167,7 @@ public class AcceptanceTestLoginActivity {
         //new ToastMatcher().isToastMessageDisplayedWithText("Bem-vindo ao NutriCampus");//funciona localmente
         //onView(withText("Bem-vindo ao NutriCampus")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
     }
 
     public void doLogout() throws Exception {

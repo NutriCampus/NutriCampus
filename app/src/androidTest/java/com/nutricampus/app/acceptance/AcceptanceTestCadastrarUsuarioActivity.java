@@ -92,11 +92,8 @@ public class AcceptanceTestCadastrarUsuarioActivity {
 
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
-            //Log.e(AcceptanceTestLoginActivity.class.getName(), "Activity MAIN");
             new SharedPreferencesManager(mActivityRule.getActivity()).logoutUser();
             currentActivity.finish();
-        } else {
-            //Log.e(AcceptanceTestLoginActivity.class.getName(), "Activity __NÃO__ é main");
         }
     }
 
