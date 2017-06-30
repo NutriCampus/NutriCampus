@@ -202,7 +202,7 @@ echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS SELEÇÃO DE BRANCH"
 ls -a
 echo ">>>>>>> ----------------------------------------------------------"
 #rm -f app-debug.apk && echo "app-debug.apk APAGADO"
-rm * && echo "app-debug.apk APAGADO"
+rm -rf * && echo "app-debug.apk APAGADO"
 cp -a $apkfile $pathprojetoreport"apk/"$mainprojname"_"$commitidSHORT".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
 git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT APK SUCCESSFULLY"
 git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:apk --force && echo "GIT PUSH APK SUCCESSFULLY"
