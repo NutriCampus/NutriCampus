@@ -143,9 +143,9 @@ echo ">>>>>>> ----------------------------------------------------------"
 #find . \! -name '.git' \! -name 'README.md' -delete && 	echo "CONTEÚDO APAGADO, EXCETO PASTA .git|README.md"
 
 commitauxidlong=`cd $pathprojetoreport && git rev-parse HEAD`
-echo ">>>>>>> "$reportprojname" commit id LONG: "$commitidLONG
+echo ">>>>>>> "$reportprojname" commit id LONG: "$commitauxidlong
 commitauxidshort=`cd $pathprojetoreport && git rev-parse --short HEAD`
-echo ">>>>>>> "$reportprojname" commit id SHORT: "$commitidSHORT
+echo ">>>>>>> "$reportprojname" commit id SHORT: "$commitauxidshort
 
 #tirar erro de branch com mudanças locais
 echo ">>>>>>> SETANDO CONFIGURAÇÕES DO GIT username E email"
@@ -162,6 +162,10 @@ mkdir 'lint'  && echo "PASTA 'lint' CRIADA"
 cp -a $pathreport. $pathprojetoreport"unit/" && echo ">>>>>>> COPIADO CONTEÚDO DE "$pathreport" PARA "$pathprojetoreport
 cp -a $lintindex $pathprojetoreport"lint/index.html" && echo ">>>>>>> COPIADO "$lintindex" PARA "$pathprojetoreport"lint/index.html"
 cp -a $pathinstrumented. $pathprojetoreport"instrumented/" && echo ">>>>>>> COPIADO "$pathinstrumented" PARA "$pathprojetoreport"instrumented/"
+
+txtatualizarversaoindex='Updated: '$horalocal' | From commit: '$commitidSHORT
+echo $txtatualizarversaoindex > 'versao.txt'
+
 
 echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS CONTEÚDO COPIADO"
@@ -197,6 +201,7 @@ echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS SELEÇÃO DE BRANCH"
 ls -a
 echo ">>>>>>> ----------------------------------------------------------"
+rm -f app-debug.apk && echo "app-debug.apk APAGADO"
 cp -a $apkfile $pathprojetoreport"apk/"$mainprojname".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
 git commit -m "From commit: "$githubmainproject"/commit/"$commitidLONG && echo "GIT COMMIT APK SUCCESSFULLY"
 git push https://$usernameofpersonalkey:$password@github.com/$username/$reportprojname.git HEAD:apk --force && echo "GIT PUSH APK SUCCESSFULLY"

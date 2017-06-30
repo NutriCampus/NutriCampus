@@ -3,10 +3,13 @@ package com.nutricampus.app.acceptance;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarUsuarioActivity;
+import com.nutricampus.app.activities.LoginActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +37,19 @@ public class AcceptanceTestCadastrarUsuarioActivity {
     @Rule
     public ActivityTestRule<CadastrarUsuarioActivity> mActivityRule = new ActivityTestRule<>(
             CadastrarUsuarioActivity.class);
+
+    @Before
+    public void unlockScreen() {
+        final CadastrarUsuarioActivity activity = mActivityRule.getActivity();
+        Runnable wakeUpDevice = new Runnable() {
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        };
+        activity.runOnUiThread(wakeUpDevice);
+    }
 
     @Test
     public void attempToCreatAccountSuccessfully() throws Exception {
