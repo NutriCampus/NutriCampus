@@ -203,7 +203,10 @@ ls -a
 echo ">>>>>>> ----------------------------------------------------------"
 #rm -f app-debug.apk && echo "app-debug.apk APAGADO"
 rm -rf * && echo "app-debug.apk APAGADO"
-cp -a $apkfile $pathprojetoreport"apk/"$mainprojname"_"$commitidSHORT".apk" && echo ">>>>>>> COPIADO "$apkfile" PARA "$pathprojetoreport"apk/"$mainprojname".apk"
+cp -a $apkpath. $pathprojetoreport && echo ">>>>>>> COPIADO "$apkpath" PARA "$pathprojetoreport
+nomeapk=$mainprojname"_"$commitidSHORT".apk"
+cp "app-debug.apk" $nomeapk  &&  echo ">>>>>>> ALTERADO NOME DO APK PARA "$nomeapk
+find . \! -name '.git' \! -name $nomeapk -delete && echo "CONTEÚDO APAGADO, EXCETO PASTA .git|"$nomeapk
 echo ">>>>>>> ----------------------------------------------------------"
 echo ">>>>>>> IMPRIMINDO NOMES DE ARQUIVOS APÓS APK COPIADO"
 ls -a
