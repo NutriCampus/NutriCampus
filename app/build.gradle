@@ -43,6 +43,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 
     dataBinding {
         enabled = true
@@ -60,6 +65,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile ('com.android.support.test:runner:0.5', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.2', {

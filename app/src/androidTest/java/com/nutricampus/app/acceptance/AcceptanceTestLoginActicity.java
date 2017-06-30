@@ -70,10 +70,10 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.input_usuario))
                 .perform(typeText(mLoginToBeTyped));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.input_senha))
                 .perform(typeText(mPasswordToBeTyped));
-        closeSoftKeyboard();
+        closeKeyboard();
 
         onView(withId(R.id.btn_login)).perform(click());
 
@@ -88,10 +88,10 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.input_usuario))
                 .perform(typeText("12345"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.input_senha))
                 .perform(typeText("123"));
-        closeSoftKeyboard();
+        closeKeyboard();
 
         onView(withId(R.id.btn_login)).perform(click());
 
@@ -109,19 +109,19 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.edtNome))
                 .perform(typeText("Vinicius attempToLoginSuccessfuly"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.edtCpf))
                 .perform(typeText("63876813590"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.edtRegistro))
                 .perform(typeText("63876813590"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.edtEmail))
                 .perform(typeText("vini_attempToLoginSuccessfuly@email.com"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.edtSenha))
                 .perform(typeText("12345"));
-        closeSoftKeyboard();
+        closeKeyboard();
 
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
         onView(withText("OK")).perform(pressBack());
@@ -130,10 +130,10 @@ public class AcceptanceTestLoginActicity {
         //VOLTOU PARA TELA INICIAL
         onView(withId(R.id.input_usuario))
                 .perform(typeText("63876813590"));
-        closeSoftKeyboard();
+        closeKeyboard();
         onView(withId(R.id.input_senha))
                 .perform(typeText("12345"));
-        closeSoftKeyboard();
+        closeKeyboard();
 
         onView(withId(R.id.btn_login)).perform(click());
 
@@ -169,5 +169,10 @@ public class AcceptanceTestLoginActicity {
         });
 
         return currentActivity;
+    }
+
+    public void closeKeyboard() throws Exception {
+        closeSoftKeyboard();
+        Thread.sleep(1000);
     }
 }
