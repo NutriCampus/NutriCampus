@@ -62,12 +62,6 @@ public class AcceptanceTestLoginActicity {
             LoginActivity.class);
 
     @Before
-    public void initValidString() {
-        mLoginToBeTyped = "asd123a8125";
-        mPasswordToBeTyped = "321login";
-    }
-
-    @Before
     public void unlockScreen() {
         final LoginActivity activity = mActivityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
@@ -85,10 +79,10 @@ public class AcceptanceTestLoginActicity {
         doLogout();
 
         onView(withId(R.id.input_usuario))
-                .perform(typeText(mLoginToBeTyped));
+                .perform(typeText("asd123a8125"));
         closeKeyboard();
         onView(withId(R.id.input_senha))
-                .perform(typeText(mPasswordToBeTyped));
+                .perform(typeText("321login"));
         closeKeyboard();
 
         onView(withId(R.id.btn_login)).perform(click());
@@ -117,14 +111,16 @@ public class AcceptanceTestLoginActicity {
     }
 
     @Test
-    public void attempToLoginSuccessfuly() throws Exception {
+    public void attempToLoginSuccessfully() throws Exception {
         doLogout();
 
         //PRECISA CRIAR USUÀRIO PRIMEIRO
+        Thread.sleep(1000);
         onView(withId(R.id.rlayout_faca_login)).perform(click());
+        Thread.sleep(1000);
 
         onView(withId(R.id.edtNome))
-                .perform(typeText("Vinicius attempToLoginSuccessfuly"));
+                .perform(typeText("attempToLoginSuccessfully"));
         closeKeyboard();
         onView(withId(R.id.edtCpf))
                 .perform(typeText("63876813590"));
@@ -133,7 +129,7 @@ public class AcceptanceTestLoginActicity {
                 .perform(typeText("63876813590"));
         closeKeyboard();
         onView(withId(R.id.edtEmail))
-                .perform(typeText("vini_attempToLoginSuccessfuly@email.com"));
+                .perform(typeText("attempToLoginSuccessfully@email.com"));
         closeKeyboard();
         onView(withId(R.id.edtSenha))
                 .perform(typeText("12345"));
@@ -142,6 +138,7 @@ public class AcceptanceTestLoginActicity {
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
         onView(withText("OK")).perform(pressBack());
         onView(withId(R.id.edtNome)).perform(pressBack());
+        Thread.sleep(1000);
 
         //VOLTOU PARA TELA INICIAL
         onView(withId(R.id.input_usuario))

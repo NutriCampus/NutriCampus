@@ -10,6 +10,8 @@ import com.nutricampus.app.entities.Usuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -142,5 +144,26 @@ public class InstrumentedTestRepositorioUsuario {
 
         assertNull(usuarioEncontrado);
 
+    }
+
+
+    @Test
+    public void testarbuscarTodosUsuarios() {
+        Usuario usuario = new Usuario("147852", "987.654.321-00", "testarbuscarTodosUsuarios",
+                "testarbuscarTodosUsuarios@email.com", "mortadela");
+
+        repositorio.inserirUsuario(usuario);
+
+        ArrayList<Usuario> usuarioArrayList = repositorio.buscarTodosUsuarios();
+
+        boolean found = false;
+        for (Usuario in : usuarioArrayList) {
+            if (in.getCpf().equals("987.654.321-00") &&
+                    in.getEmail().equals("testarbuscarTodosUsuarios@email.com") &&
+                    in.getNome().equals("testarbuscarTodosUsuarios")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 }

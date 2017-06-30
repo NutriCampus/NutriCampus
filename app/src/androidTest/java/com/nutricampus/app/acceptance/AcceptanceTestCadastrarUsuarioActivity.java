@@ -52,9 +52,9 @@ public class AcceptanceTestCadastrarUsuarioActivity {
     }
 
     @Test
-    public void attempToCreatAccountSuccessfully() throws Exception {
+    public void attempToCreateAccountSuccessfully() throws Exception {
         onView(withId(R.id.edtNome))
-                .perform(typeText("Vinicius attempToCreatAccountSuccessfully"));
+                .perform(typeText("attempToCreatAccountSuccessfully"));
         closeKeyboard();
         onView(withId(R.id.edtCpf))
                 .perform(typeText("44502396605"));
@@ -63,7 +63,7 @@ public class AcceptanceTestCadastrarUsuarioActivity {
                 .perform(typeText("44502396605"));
         closeKeyboard();
         onView(withId(R.id.edtEmail))
-                .perform(typeText("vini_attempToCreatAccountSuccessfully@email.com"));
+                .perform(typeText("attempToCreatAccountSuccessfully@email.com"));
         closeKeyboard();
         onView(withId(R.id.edtSenha))
                 .perform(typeText("12345"));
