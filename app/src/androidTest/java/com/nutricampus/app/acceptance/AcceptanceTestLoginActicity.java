@@ -139,6 +139,7 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
         onView(withText("OK")).perform(pressBack());
+        Thread.sleep(1000);
         onView(withId(R.id.edtNome)).perform(pressBack());
         Thread.sleep(1000);
 
