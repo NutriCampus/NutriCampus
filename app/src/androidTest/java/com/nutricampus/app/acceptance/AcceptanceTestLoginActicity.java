@@ -24,11 +24,15 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -54,8 +58,6 @@ import java.util.Collection;
 @LargeTest
 public class AcceptanceTestLoginActicity {
     private Activity currentActivity;
-    private String mLoginToBeTyped;
-    private String mPasswordToBeTyped;
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
@@ -150,10 +152,23 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_login)).perform(click());
 
-        //Thread.sleep(1000);//espera 1s pelo toast
-        new ToastMatcher().isToastMessageDisplayedWithText("Bem-vindo ao NutriCampus");
+        Thread.sleep(1000);//espera 1s p activity abrir
+        if (getActivityInstance() instanceof MainActivity) {
+            assertTrue(true);
+        } else {
+            assertTrue(false);
+        }
 
-        Thread.sleep(3000);
+        /*
+        * Não estou checando pelo toast pq o toast corresponde a LoginActivity (q após o login é
+        * finalizada), porém qnd o teste é feito, ele pega as views da MAINACTIVITY, assim sendo,
+         * o toast fazia parte da LOGINACTIVITY, ou seja, vai procurar um toast na view antiga,
+         * gerando assim SEMPRE erro. ISSO SÓ ACONTECE NO TRAVIS CI.
+        * */
+        //new ToastMatcher().isToastMessageDisplayedWithText("Bem-vindo ao NutriCampus");//funciona localmente
+        //onView(withText("Bem-vindo ao NutriCampus")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        Thread.sleep(2000);
     }
 
     public void doLogout() throws Exception {
