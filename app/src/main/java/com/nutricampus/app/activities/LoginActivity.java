@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             //session.createLoginSession("0",usuario,"joao@gmail.com",senha);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         }
 
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
             session.createLoginSession(usuarioLogado.getId(), usuarioLogado.getNome(), usuarioLogado.getEmail(), usuarioLogado.getSenha());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         } else {
             falhaLogin(getString(R.string.msg_dados_login_invalidos));
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void falhaLogin(String mensagem) {
         String msg = mensagem.isEmpty() ? "" : (", " + mensagem);
-        Toast.makeText(getBaseContext(), getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
 
         _entrarButton.setEnabled(true);
     }

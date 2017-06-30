@@ -156,7 +156,7 @@ public class AcceptanceTestLoginActicity {
         Thread.sleep(3000);
     }
 
-    private void doLogout() throws Exception {
+    public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             Log.e(AcceptanceTestLoginActicity.class.getName(), "Activity MAIN");
             new SharedPreferencesManager(mActivityRule.getActivity()).logoutUser();

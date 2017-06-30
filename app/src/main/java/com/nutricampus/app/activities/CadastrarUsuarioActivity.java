@@ -62,12 +62,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     public void criarUsuario(View v) {
         if (!validarDados()) {
-            Toast.makeText(getBaseContext(), "Campos inválidos", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarUsuarioActivity.this, "Campos inválidos", Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!Mascara.validarCpf(cpf)) {
-            Toast.makeText(getBaseContext(), getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -92,7 +92,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             });
             dialog.show();
         } else {
-            Toast.makeText(this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }
 
     }
