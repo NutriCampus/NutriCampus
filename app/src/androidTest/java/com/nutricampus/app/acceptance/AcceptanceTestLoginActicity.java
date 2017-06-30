@@ -121,7 +121,7 @@ public class AcceptanceTestLoginActicity {
         doLogout();
 
         //PRECISA CRIAR USUÀRIO PRIMEIRO
-        onView(withText(R.string.link_novo_cadastro)).perform(click());
+        onView(withId(R.id.rlayout_faca_login)).perform(click());
 
         onView(withId(R.id.edtNome))
                 .perform(typeText("Vinicius attempToLoginSuccessfuly"));
@@ -153,9 +153,8 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_login)).perform(click());
 
-        Thread.sleep(1000);//espera 1s pelo toast
+        //Thread.sleep(1000);//espera 1s pelo toast
         new ToastMatcher().isToastMessageDisplayed("Bem-vindo ao NutriCampus");
-        doLogout();
 
         Thread.sleep(3000);
     }

@@ -32,18 +32,23 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferencesManager session;
 
     // Pega a referência para as views
-    @BindView(R.id.input_usuario) EditText _usuarioText;
-    @BindView(R.id.input_senha) EditText _senhaText;
-    @BindView(R.id.btn_login)   Button _entrarButton;
-    @BindView(R.id.link_cadastro) TextView _cadastroLink;
-    @BindView(R.id.link_esqueceu_senha) TextView _esqueceuLink;
+    @BindView(R.id.input_usuario)
+    EditText _usuarioText;
+    @BindView(R.id.input_senha)
+    EditText _senhaText;
+    @BindView(R.id.btn_login)
+    Button _entrarButton;
+    @BindView(R.id.link_cadastro)
+    TextView _cadastroLink;
+    @BindView(R.id.link_esqueceu_senha)
+    TextView _esqueceuLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SharedPreferencesManager(this);
 
-        if(session.isLoggedIn()){
+        if (session.isLoggedIn()) {
             //session.createLoginSession("0",usuario,"joao@gmail.com",senha);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -56,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.link_cadastro)
+    //@OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
         Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
 
@@ -64,14 +69,14 @@ public class LoginActivity extends AppCompatActivity {
         //this.finish();
     }
 
-    @OnClick(R.id.link_esqueceu_senha)
+    //@OnClick(R.id.link_esqueceu_senha)
     public void recuperarSenhaOnClick(View view) {
         Intent intent = new Intent(this, RecuperarSenhaActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_login)
-    void entrarOnClick() {
+    //@OnClick(R.id.btn_login)
+    public void entrarOnClick(View view) {
         Log.d(TAG, "Login");
 
         if (!validaDados()) {
@@ -85,14 +90,13 @@ public class LoginActivity extends AppCompatActivity {
         String senha = this._senhaText.getText().toString();
         Usuario usuarioLogado = buscarUsuario(usuario, senha);
 
-        if(usuarioLogado != null){
-            session.createLoginSession(usuarioLogado.getId(),usuarioLogado.getNome(),usuarioLogado.getEmail(),usuarioLogado.getSenha());
+        if (usuarioLogado != null) {
+            session.createLoginSession(usuarioLogado.getId(), usuarioLogado.getNome(), usuarioLogado.getEmail(), usuarioLogado.getSenha());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
-        }
-        else{
+        } else {
             falhaLogin(getString(R.string.msg_dados_login_invalidos));
             _entrarButton.setEnabled(true);
         }
@@ -102,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     public Usuario buscarUsuario(String usuarioValor, String senhaValor) {
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
-        Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
+        Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor, senhaValor);
 
         return usuario;
     }
@@ -120,21 +124,20 @@ public class LoginActivity extends AppCompatActivity {
         String usuario = this._usuarioText.getText().toString();
         String password = this._senhaText.getText().toString();
 
-        if (usuario.isEmpty()){
+        if (usuario.isEmpty()) {
             this._usuarioText.setError(getString(R.string.msg_erro_campo));
-            valido = false;}
-        else if(usuario.length() < 4) {
+            valido = false;
+        } else if (usuario.length() < 4) {
             this._usuarioText.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
             this._usuarioText.setError(null);
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             this._senhaText.setError(getString(R.string.msg_erro_campo));
             valido = false;
-        }
-        else if(password.length() < 5) {
+        } else if (password.length() < 5) {
             this._senhaText.setError(getString(R.string.msg_erro_senha));
             valido = false;
         } else {
