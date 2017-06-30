@@ -153,6 +153,7 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_login)).perform(click());
 
+        Thread.sleep(1000);//espera 1s pelo toast
         new ToastMatcher().isToastMessageDisplayed("Bem-vindo ao NutriCampus");
         doLogout();
 
