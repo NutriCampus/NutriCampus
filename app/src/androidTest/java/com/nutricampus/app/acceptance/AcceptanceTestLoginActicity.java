@@ -40,7 +40,9 @@ import com.nutricampus.app.database.SharedPreferencesManager;
 
 import java.util.Collection;
 
-//import cucumber.api.java.en.Given;
+//https://github.com/travis-ci/travis-ci/issues/6340
+//https://github.com/thyrlian/AwesomeValidation/blob/master/.travis.yml
+//https://stackoverflow.com/questions/26065596/how-to-run-travis-ci-and-espresso-test
 
 /**
  * Created by Mateus on 29/06/2017.
