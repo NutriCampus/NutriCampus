@@ -19,12 +19,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class ToastMatcher {
     //private static final int LONG_DELAY = 3500; // 3.5 seconds
     //private static final int SHORT_DELAY = 2000; // 2 seconds
-    public void isToastMessageDisplayed(int textId) throws Exception {
+    /*public void isToastMessageDisplayed(int textId) throws Exception {
         onView(withId(textId)).inRoot(new ToastMatcher1()).check(matches(isDisplayed()));
-    }
+    }*/
 
     public void isToastMessageDisplayed(String textId) throws Exception {
         onView(withText(textId)).inRoot(new ToastMatcher1()).check(matches(isDisplayed()));
+    }
+
+    public void isToastMessageDisplayedWithText(String textId) throws Exception {
+        onView(withText(textId)).inRoot(new ToastMatcher1()).check(matches(withText(textId)));
     }
 
     private class ToastMatcher1 extends TypeSafeMatcher<Root> {

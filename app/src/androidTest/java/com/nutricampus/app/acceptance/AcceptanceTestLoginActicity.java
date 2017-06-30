@@ -87,7 +87,7 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_login)).perform(click());
 
-        new ToastMatcher().isToastMessageDisplayed("Falha no login, usuário ou senha inválidos");
+        new ToastMatcher().isToastMessageDisplayedWithText("Falha no login, usuário ou senha inválidos");
 
         Thread.sleep(3000);
     }
@@ -105,7 +105,7 @@ public class AcceptanceTestLoginActicity {
 
         onView(withId(R.id.btn_login)).perform(click());
 
-        new ToastMatcher().isToastMessageDisplayed("Falha no login");
+        new ToastMatcher().isToastMessageDisplayedWithText("Falha no login");
         Thread.sleep(3000);
 
     }
@@ -151,7 +151,7 @@ public class AcceptanceTestLoginActicity {
         onView(withId(R.id.btn_login)).perform(click());
 
         //Thread.sleep(1000);//espera 1s pelo toast
-        new ToastMatcher().isToastMessageDisplayed("Bem-vindo ao NutriCampus");
+        new ToastMatcher().isToastMessageDisplayedWithText("Bem-vindo ao NutriCampus");
 
         Thread.sleep(3000);
     }
