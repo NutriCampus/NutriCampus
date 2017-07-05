@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -154,7 +155,7 @@ public class InstrumentedTestRepositorioUsuario {
 
         repositorio.inserirUsuario(usuario);
 
-        ArrayList<Usuario> usuarioArrayList = repositorio.buscarTodosUsuarios();
+        List<Usuario> usuarioArrayList = repositorio.buscarTodosUsuarios();
 
         boolean found = false;
         for (Usuario in : usuarioArrayList) {
