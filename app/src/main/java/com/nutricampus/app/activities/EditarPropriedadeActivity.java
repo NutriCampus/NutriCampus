@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
@@ -18,7 +19,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
     }
 
     @Override
-    protected void salvar() {
+    protected void salvar(View view) {
 
     }
 }

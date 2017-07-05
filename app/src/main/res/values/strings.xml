@@ -28,6 +28,7 @@
     <string name="msg_erro_campo">Campo obrigatório</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>
     <string name="msg_erro_cpf_2">CPF inválido</string>
+    <string name="msg_erro_telefone">Número de telefone inválido</string>
     <string name="msg_erro_senha">Senha deve ter no mínimo 5 caracteres</string>
     <string name="msg_falha_login">Falha no login</string>
     <string name="msg_dados_login_invalidos">usuário ou senha inválidos</string>
@@ -35,6 +36,7 @@
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
+    <string name="msg_erro_cadastro_geral">Campos inválidos</string>
 
     <!-- Strings: Propriedade e proprietário -->
     <string name="campo_nome_propriedade">Nome da Propriedade</string>

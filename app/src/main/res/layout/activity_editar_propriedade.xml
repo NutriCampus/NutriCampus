@@ -7,6 +7,6 @@
     tools:context="com.nutricampus.app.activities.EditarPropriedadeActivity">
 
 
-    <include layout="@layout/content_cadastrar_propriedade"></include>
+    <include layout="@layout/content_form_propriedade"></include>
 
 </android.support.constraint.ConstraintLayout>

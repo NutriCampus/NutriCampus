@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.entities.ActionBarManager;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +60,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         inputCidade.setAdapter(adapterCidades);
 
     }
-
 
     protected String carregaJSONAssets(String arquivo) throws IOException {
         String json = "";
@@ -113,17 +116,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         return lista;
     }
 
-    public String[] listaEstados(){
-        ArrayList<HashMap<String, String>> estados = estruturaEstados();
-        String[] lista = new String[estados.size()];
-        for (int i = 0; i < estados.size();i++){
-            lista[i] = estados.get(i).get("nome");
-        }
-
-        return lista;
-    }
-
-
     protected ArrayList<HashMap<String, String>> estruturaCidades(){
         ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
 
@@ -159,6 +151,85 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         return lista;
     }
 
+    protected void salvar(View view){
+        if (!validaDados()) {
+            Toast.makeText(CadastrarPropriedadeActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            return;
+        }
+    }
+
+    protected boolean validaDados(){
+        boolean valido = true;
+
+        if (inputNome.getText().toString().isEmpty()) {
+            inputNome.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputNome.setError(null);
+        }
+
+        if (inputTelefone.getText().toString().isEmpty()) {
+            inputTelefone.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputTelefone.setError(null);
+        }
+
+        if (inputRua.getText().toString().isEmpty()) {
+            inputRua.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputRua.setError(null);
+        }
+
+        if (inputBairro.getText().toString().isEmpty()) {
+            inputBairro.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputBairro.setError(null);
+        }
+
+        if (inputNumero.getText().toString().isEmpty()) {
+            inputNumero.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputNumero.setError(null);
+        }
+
+        if (inputCep.getText().toString().isEmpty()) {
+            inputCep.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputCep.setError(null);
+        }
+
+        if (inputCidade.getText().toString().isEmpty()) {
+            inputCidade.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputCidade.setError(null);
+        }
+
+        if (inputEstado.getText().toString().isEmpty()) {
+            inputEstado.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else {
+            inputEstado.setError(null);
+        }
+
+        return valido;
+    }
+
+    public String[] listaEstados(){
+        ArrayList<HashMap<String, String>> estados = estruturaEstados();
+        String[] lista = new String[estados.size()];
+        for (int i = 0; i < estados.size();i++){
+            lista[i] = estados.get(i).get("nome");
+        }
+
+        return lista;
+    }
+
     public String[] listaCidades(){
         ArrayList<HashMap<String, String>> cidades = estruturaCidades();
         String[] lista = new String[cidades.size()];
@@ -169,7 +240,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         return lista;
     }
 
-    protected void salvar(){
 
-    }
+
 }
