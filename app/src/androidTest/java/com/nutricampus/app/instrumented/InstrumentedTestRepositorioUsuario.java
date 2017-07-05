@@ -1,15 +1,16 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.entities.Usuario;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class TesteIntegracaoRepositorioUsuario {
+public class InstrumentedTestRepositorioUsuario {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioUsuario repositorio = new RepositorioUsuario(appContext);
 
@@ -143,5 +144,26 @@ public class TesteIntegracaoRepositorioUsuario {
 
         assertNull(usuarioEncontrado);
 
+    }
+
+
+    @Test
+    public void testarbuscarTodosUsuarios() {
+        Usuario usuario = new Usuario("147852", "987.654.321-00", "testarbuscarTodosUsuarios",
+                "testarbuscarTodosUsuarios@email.com", "mortadela");
+
+        repositorio.inserirUsuario(usuario);
+
+        ArrayList<Usuario> usuarioArrayList = repositorio.buscarTodosUsuarios();
+
+        boolean found = false;
+        for (Usuario in : usuarioArrayList) {
+            if (in.getCpf().equals("987.654.321-00") &&
+                    in.getEmail().equals("testarbuscarTodosUsuarios@email.com") &&
+                    in.getNome().equals("testarbuscarTodosUsuarios")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 }

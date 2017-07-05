@@ -1,14 +1,9 @@
-package com.nutricampus.app;
+package com.nutricampus.app.instrumented;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Context;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.nutricampus.app.activities.LoginActivity;
-import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Usuario;
 
@@ -28,23 +23,47 @@ import static org.junit.Assert.assertNull;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class TesteIntegracaoSharedPreferencesManager {
+public class InstrumentedTestSharedPreferencesManager {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private SharedPreferencesManager session = new SharedPreferencesManager(appContext);
 
     @Test
-    public void testarCriarSessaoLogin(){
-        session.createLoginSession(1,"usuario","usuario@mail.com","123456");
+    public void testarCriarSessaoLogin() {
+        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456");
 
         assertTrue(session.isLoggedIn());
     }
 
     @Test
-    public void testarRealizarLogout(){
-        session.createLoginSession(1,"usuario","usuario@mail.com","123456");
+    public void testarRealizarLogout() {
+        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456");
         session.logoutUser();
 
         assertFalse(session.isLoggedIn());
+    }
+
+    @Test
+    public void testarSetarUsuarioNC() {
+        session.setUsuarioNC("teste123");
+        assertEquals("teste123", session.getUsuarioNC());
+    }
+
+    @Test
+    public void testarSetarSenhaNC() {
+        session.setSenhaNC("senha123");
+        assertEquals("senha123", session.getSenhaNC());
+    }
+
+    @Test
+    public void testarSetarIdNC() {
+        session.setIdNC("9999");
+        assertEquals("9999", session.getIdNC());
+    }
+
+    @Test
+    public void testarSetarEmailNC() {
+        session.setEmailNC("testarSetarEmailNC@email.com");
+        assertEquals("testarSetarEmailNC@email.com", session.getEmailNC());
     }
 
 }

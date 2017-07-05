@@ -1,5 +1,5 @@
 plugins {
-    id "org.sonarqube" version "2.2"
+    id "org.sonarqube" version "2.5"
 }
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
@@ -19,6 +19,7 @@ android {
         versionCode 1
         versionName project.version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //multiDexEnabled true //important
     }
 
     /*productFlavors {
@@ -38,8 +39,14 @@ android {
         }
         release {
             minifyEnabled true
+            testCoverageEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 
     dataBinding {
@@ -49,6 +56,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -56,19 +67,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //IconsCore
-    //FontAwesome
-    compile('com.mikepenz:materialdrawer:5.9.2@aar') {//navdrawer
+    androidTestCompile('com.android.support.test:runner:0.5', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompact-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'design'
+    })
+    //androidTestCompile 'com.android.support:support-annotations:25.3.1'
+    //androidTestCompile 'info.cukes:cucumber-java:1.2.5'
+    //androidTestCompile 'info.cukes:cucumber-core:1.2.5'
+    //androidTestCompile 'info.cukes:cucumber-junit:1.2.5'
+    //androidTestCompile 'info.cukes:cucumber-junit:1.2.4'
+    //compile 'com.android.support:multidex:1.0.1'
+
+    compile('com.mikepenz:materialdrawer:5.9.2@aar') {
         transitive = true
     }
-
-    // Testing-only dependencies
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    //androidTestCompile "junit:junit:4.12"
-    //androidTestCompile "com.android.support.test:runner:0.5"
-    compile files('libs/activation.jar')
-    compile files('libs/additionnal.jar')
-    compile files('libs/mail.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -76,27 +94,55 @@ dependencies {
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile group: 'org.json', name: 'json', version: '20170516'
-
+    compile files('libs/activation.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/mail.jar')
+    //androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-}
 
-sonarqube {
-    properties {
-        property "sonar.projectName", "NutriCampus"
-        property "sonar.projectKey", "com.nutricampus.app"
-//Cuidado, esse será o id do projeto no sonarqube
-        property "sonar.projectVersion", "1.0.0"
-        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest, ${project.buildDir}/test-results/testReleaseUnitTest"
-        property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"
-        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/testDebugUnitTest.exec, ${project.buildDir}/jacoco/testReleaseUnitTest.exec"
-//versao prior to 6.2
-        property "sonar.sourceEncoding", "UTF-8"
+    annotationProcessor('com.jakewharton:butterknife-compiler:8.6.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    sonarqube {
+        properties {
+            property "sonar.projectName", "NutriCampus"
+            property "sonar.projectKey", "com.nutricampus.app"
+            property "sonar.projectVersion", "1.0.0"
+
+            /*property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
+                    "${project.buildDir}/test-results/testReleaseUnitTest/TEST-*.xml , " +
+                    "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "
+
+            property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
+                    "${project.buildDir}/jacoco/testReleaseUnitTest.exec"*/
+
+            property "sonar.sourceEncoding", "UTF-8"
+        }
+    }
+
+    sourceSets {
+        unitTest {
+            java.srcDir file('src/androidTest/java')
+        }
     }
 }
 
-sourceSets {
-    unitTest {
-        java.srcDir file('src/androidTest/java')
+configurations.all {
+    resolutionStrategy {
+        // fail eagerly on version conflict (includes transitive dependencies)
+        // e.g. multiple different versions of the same dependency (group and name are equal)
+        //failOnVersionConflict()
+
+        // force certain versions of dependencies (including transitive)
+        //  *append new forced modules:
+        force 'com.android.support:support-annotations:25.3.1'//, 'com.squareup.retrofit:retrofit:1.9.0'
+        //  *replace existing forced modules with new ones:
+        forcedModules = ['com.android.support:support-annotations:25.3.1']//, 'com.squareup.retrofit:retrofit:1.9.0']
+
+        // cache dynamic versions for 10 minutes
+        cacheDynamicVersionsFor 10 * 60, 'seconds'
+        // don't cache changing modules at all
+        cacheChangingModulesFor 0, 'seconds'
     }
 }

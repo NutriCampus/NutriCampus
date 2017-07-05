@@ -22,6 +22,10 @@ import com.nutricampus.app.entities.ActionBarManager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public ActionBarManager getActionBarMainActivity() {
+        return actionBar;
+    }
+
     private ActionBarManager actionBar;
 
     SharedPreferencesManager session;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    android:id="@+id/tela_loginactivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +21,8 @@
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/logo"
-            android:layout_weight="0.12" />
+            android:layout_weight="0.12"
+            android:src="@drawable/logo" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -54,13 +54,13 @@
         </android.support.design.widget.TextInputLayout>
 
 
-
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
             android:layout_marginTop="18dp"
+            android:onClick="entrarOnClick"
             android:padding="12dp"
             android:text="@string/entrar" />
 
@@ -70,16 +70,19 @@
             android:layout_height="24dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
+            android:onClick="recuperarSenhaOnClick"
             android:text="@string/link_esqueceu_senha"
             android:textSize="16dip" />
 
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rlayout_faca_login"
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_weight="0.44"
         android:gravity="center|bottom"
+        android:onClick="cadastroOnClick"
         android:orientation="vertical"
         android:weightSum="1">
 
