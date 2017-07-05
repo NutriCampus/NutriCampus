@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -27,22 +27,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.RecuperarSenhaActivity"
-            android:label="Recuperar senha"
+            android:label="@string/titulo_recuperar_senha"
             android:parentActivityName=".activities.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.CadastrarUsuarioActivity"
+            android:label="@string/titulo_novo_usuario"
+            android:parentActivityName=".activities.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.CadastrarPropriedadeActivity"
-            android:screenOrientation="portrait"
-            android:label="Cadastrar Propriedade"
-            android:parentActivityName=".activities.MainActivity"/>
-        <activity android:name=".activities.EditarPropriedadeActivity"
-            android:screenOrientation="portrait"
-            android:label="Editar Propriedade"
-            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity
+            android:name=".activities.CadastrarPropriedadeActivity"
+            android:label="@string/titulo_add_propriedade"
+            android:parentActivityName=".activities.ListaPropriedadesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditarPropriedadeActivity"
+            android:label="@string/titulo_editar_propriedade"
+            android:parentActivityName=".activities.ListaPropriedadesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ListaPropriedadesActivity"
+            android:label="@string/titulo_lista_propriedade"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

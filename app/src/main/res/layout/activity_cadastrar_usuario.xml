@@ -10,33 +10,18 @@
     android:weightSum="1">
     tools:context="com.nutricampus.app.activities.CadastrarUsuarioActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/register_user"
-        android:textAlignment="center"
-        android:textSize="@dimen/txt_size" />
-
-    <View
-        android:layout_width="250dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="22dp"
-        android:layout_marginTop="20dp"
-        android:background="#ff6600" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
 
         <EditText
             android:id="@+id/edtNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"
+            android:hint="@string/campo_nome"
             android:imeOptions="actionNext"
             android:inputType="textCapWords" />
     </android.support.design.widget.TextInputLayout>
@@ -44,14 +29,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
 
         <EditText
             android:id="@+id/edtCpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="CPF"
+            android:hint="@string/campo_cpf"
             android:imeOptions="actionNext"
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
@@ -59,14 +44,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
 
         <EditText
             android:id="@+id/edtRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="CRZ/CRMV"
+            android:hint="@string/campo_crz_crmv"
             android:imeOptions="actionNext"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
@@ -74,14 +59,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
 
         <EditText
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/campo_email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
@@ -89,14 +74,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
 
         <EditText
             android:id="@+id/edtSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha"
+            android:hint="@string/campo_senha"
             android:imeOptions="actionDone"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
@@ -104,7 +89,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="25dp">
 
         <Button
             android:id="@+id/btn_salvar_cadastro"

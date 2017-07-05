@@ -6,10 +6,13 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -46,8 +49,15 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_cadastrar_propriedade);
+
         ButterKnife.bind(this);
+
+        addAutoCompletes();
+    }
+
+    private void addAutoCompletes(){
 
         // Autocomplete para o campo estado
         ArrayAdapter<String> adapterEstados = new ArrayAdapter<String>(this,
@@ -219,6 +229,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
 
         return valido;
     }
+
 
     public String[] listaEstados(){
         ArrayList<HashMap<String, String>> estados = estruturaEstados();

@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.activities.EditarPropriedadeActivity;
+import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -90,7 +91,7 @@ public class ActionBarManager {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         switch ((int) drawerItem.getIdentifier()){
                             case 1:
-                                Intent intent = new Intent(_act, CadastrarPropriedadeActivity.class);
+                                Intent intent = new Intent(_act, ListaPropriedadesActivity.class);
                                 _act.startActivity(intent);
                                 break;
                             case 12: // Sair
