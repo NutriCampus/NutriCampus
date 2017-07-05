@@ -29,6 +29,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
                 new AdapterListaPropriedades(listaPropriedades(), this);
 
         lista.setAdapter(adapter);
+
     }
 
     @Override
@@ -53,6 +54,8 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     private List<Propriedade> listaPropriedades(){
         ArrayList<Propriedade> l = new ArrayList<>();

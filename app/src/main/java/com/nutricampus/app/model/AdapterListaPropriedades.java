@@ -1,6 +1,7 @@
 package com.nutricampus.app.model;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.EditarPropriedadeActivity;
 import com.nutricampus.app.entities.Propriedade;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class AdapterListaPropriedades extends BaseAdapter {
     public View getView(int indice, View convertView, ViewGroup viewGroup) {
         View view = act.getLayoutInflater()
                 .inflate(R.layout.lista_propriedade_personalizada, viewGroup, false);
-        Propriedade propriedade = propriedades.get(indice);
+        final Propriedade propriedade = propriedades.get(indice);
 
         //pegando as referências das Views
         TextView id = (TextView)
@@ -65,6 +67,26 @@ public class AdapterListaPropriedades extends BaseAdapter {
         cidade.setText(propriedade.getCidade());
         estado.setText(propriedade.getEstado());
 
+        view.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View v) {
+                act.startActivity(getIntent(propriedade));
+            }
+        });
+
         return view;
+    }
+
+    private Intent getIntent(Propriedade propriedade){
+        Intent intent = new Intent(act, EditarPropriedadeActivity.class);
+            intent.putExtra("id",propriedade.getId());
+            intent.putExtra("nome",propriedade.getNome());
+            intent.putExtra("telefone",propriedade.getTelefone());
+            intent.putExtra("rua",propriedade.getRua());
+            intent.putExtra("bairro",propriedade.getBairro());
+            intent.putExtra("numero",propriedade.getNumero());
+            intent.putExtra("cep",propriedade.getCep());
+            intent.putExtra("cidade",propriedade.getCidade());
+            intent.putExtra("estado",propriedade.getEstado());
+        return intent;
     }
 }
