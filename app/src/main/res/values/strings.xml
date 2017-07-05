@@ -35,4 +35,16 @@
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
+
+    <!-- Strings: Propriedade e proprietário -->
+    <string name="campo_nome_propriedade">Nome da Propriedade</string>
+    <string name="campo_telefone">Telefone</string>
+
+
+    <string name="campo_rua">Rua</string>
+    <string name="campo_bairro">Bairro</string>
+    <string name="campo_cidade">Cidade</string>
+    <string name="campo_uf">Estado</string>
+    <string name="campo_numero">Número</string>
+    <string name="campo_cep">CEP</string>
 </resources>

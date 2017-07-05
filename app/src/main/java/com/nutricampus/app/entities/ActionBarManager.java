@@ -1,8 +1,8 @@
 package com.nutricampus.app.entities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -17,6 +17,8 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
+import com.nutricampus.app.activities.EditarPropriedadeActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -79,16 +81,22 @@ public class ActionBarManager {
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
                         new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
-                        new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle),
-                        new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out)
+                        new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
                 )
-                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog))
+                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog),
+                        new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if(position == 16){
-                            session.logoutUser();
-                            _act.finish();
+                        switch ((int) drawerItem.getIdentifier()){
+                            case 1:
+                                Intent intent = new Intent(_act, CadastrarPropriedadeActivity.class);
+                                _act.startActivity(intent);
+                                break;
+                            case 12: // Sair
+                                session.logoutUser();
+                                _act.finish();
+                                break;
                         }
                         return false;
                     }
