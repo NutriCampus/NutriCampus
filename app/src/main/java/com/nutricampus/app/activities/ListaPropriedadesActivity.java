@@ -2,24 +2,16 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.model.AdapterListaPropriedades;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,14 +54,14 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
         }
     }
 
-    public List<Propriedade> listaPropriedades(){
+    private List<Propriedade> listaPropriedades(){
         ArrayList<Propriedade> l = new ArrayList<>();
         Propriedade p = new Propriedade(1,"Chacara Paraiso","","","","","Garanhuns","Pernambuco","");
         l.add(p);
         p = new Propriedade(2,"Fazendo Bela Vida","","","","","Canhotinho","Pernambuco","");
         l.add(p);
 
-        return  (List<Propriedade>)l;
+        return l;
     }
 
 
