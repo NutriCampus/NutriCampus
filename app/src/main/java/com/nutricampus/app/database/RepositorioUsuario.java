@@ -2,15 +2,14 @@ package com.nutricampus.app.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.nutricampus.app.entities.Usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,29 +40,26 @@ public class RepositorioUsuario {
         long retorno = bancoDados.insert(SQLiteManager.TABELA_USUARIO, null, dados);
         bancoDados.close();
 
-        if(retorno == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        // if retorno == -1, then false
+        return !(retorno == -1);
     }
 
     public Usuario buscarUsuario(String crmv) {
-        return buscarUsuario(crmv,null);
+        return buscarUsuario(crmv, null);
     }
 
     public Usuario buscarUsuario(String crmv, String senha) {
         bancoDados = gerenciador.getReadableDatabase();
 
         String colunas_where = SQLiteManager.USUARIO_COL_CRMV + "= ?";
-        String[] valores_where = new String[] { String.valueOf(crmv)};
+        String[] valores_where = new String[]{String.valueOf(crmv)};
 
-        if(senha != null){
-            colunas_where += " AND " +SQLiteManager.USUARIO_COL_SENHA + "= ?";
-            valores_where = new String[] { String.valueOf(crmv),String.valueOf(senha)};
+        if (senha != null) {
+            colunas_where += " AND " + SQLiteManager.USUARIO_COL_SENHA + "= ?";
+            valores_where = new String[]{String.valueOf(crmv), String.valueOf(senha)};
         }
 
-        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_USUARIO, new String[] {
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_USUARIO, new String[]{
                         SQLiteManager.USUARIO_COL_ID,
                         SQLiteManager.USUARIO_COL_CRMV,
                         SQLiteManager.USUARIO_COL_NOME,
@@ -73,9 +69,9 @@ public class RepositorioUsuario {
                 colunas_where,
                 valores_where, null, null, null, null);
 
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            Usuario usuario = new Usuario(
+            return new Usuario(
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_ID)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CPF)),
@@ -83,13 +79,12 @@ public class RepositorioUsuario {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_SENHA)));
 
-            return usuario;
         }
         cursor.close();
         return null;
     }
 
-    public ArrayList<Usuario> buscarTodosUsuarios() {
+    public List<Usuario> buscarTodosUsuarios() {
 
         bancoDados = gerenciador.getReadableDatabase();
 
@@ -114,15 +109,14 @@ public class RepositorioUsuario {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            Log.i("RepositorioUsuario", e.toString());
+            return Collections.emptyList();
         } finally {
             bancoDados.close();
         }
 
         return usuarios;
     }
-
 
 
     public boolean atualizarUsuario(Usuario usuario) {
@@ -139,11 +133,8 @@ public class RepositorioUsuario {
                 new String[]{String.valueOf(usuario.getId())});
 
         bancoDados.close();
-        if(retorno > 0) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (retorno > 0);
 
     }
 

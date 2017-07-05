@@ -3,7 +3,6 @@ package com.nutricampus.app.database;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.nutricampus.app.activities.LoginActivity;
 
@@ -113,7 +112,7 @@ public class SharedPreferencesManager {
         // Storing email in pref
         editor.putString(KEY_EMAILNC, email);
         editor.putString(KEY_SENHANC, senha);
-        editor.putString(KEY_IDNC, id+"");
+        editor.putString(KEY_IDNC, new Integer(id).toString());
 
         // commit changes
         editor.commit();
