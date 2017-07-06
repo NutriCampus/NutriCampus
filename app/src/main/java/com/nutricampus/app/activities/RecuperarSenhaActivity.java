@@ -1,6 +1,5 @@
 package com.nutricampus.app.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +21,8 @@ import butterknife.OnClick;
 
 public class RecuperarSenhaActivity extends AppCompatActivity  {
 
-    @BindView(R.id.input_usuario_recupera) EditText _usuarioText;
-    @BindView(R.id.btn_recuperar) Button _recuperaBtn;
+    @BindView(R.id.input_usuario_recupera) EditText textEditUsuario;
+    @BindView(R.id.btn_recuperar) Button buttonRecuperarSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +30,6 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_recuperar_senha);
 
         ButterKnife.bind(this);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -50,9 +40,9 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
             return;
         }
 
-        _recuperaBtn.setEnabled(false);
+        buttonRecuperarSenha.setEnabled(false);
 
-        String usuarioValor = this._usuarioText.getText().toString();
+        String usuarioValor = this.textEditUsuario.getText().toString();
         Usuario usuarioDados = buscaUsuario(usuarioValor);
 
         if( usuarioDados != null){
@@ -60,33 +50,34 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
-                            Toast.makeText(getBaseContext(),"Senha enviada por e-mail",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RecuperarSenhaActivity.this,"Senha enviada por e-mail",Toast.LENGTH_LONG).show();
+
                         }
                     }, 3000);
         }
         else{
             Toast.makeText(getBaseContext(),
-                    getString(R.string.msg_usuario_nao_cadastrado).substring(0, 1).toUpperCase() +
-                            getString(R.string.msg_usuario_nao_cadastrado).substring(1),
+                    getString(R.string.msg_dados_login_invalidos).substring(0, 1).toUpperCase() +
+                            getString(R.string.msg_dados_login_invalidos).substring(1),
                     Toast.LENGTH_LONG).show();
         }
-        _recuperaBtn.setEnabled(true);
+        buttonRecuperarSenha.setEnabled(true);
     }
 
 
     public boolean validaDados() {
         boolean valido = true;
 
-        String usuario = this._usuarioText.getText().toString();
+        String usuario = this.textEditUsuario.getText().toString();
 
         if (usuario.isEmpty()){
-            this._usuarioText.setError(getString(R.string.msg_erro_campo));
+            this.textEditUsuario.setError(getString(R.string.msg_erro_campo));
             valido = false;}
         else if(usuario.length() < 4) {
-            this._usuarioText.setError(getString(R.string.msg_erro_crz));
+            this.textEditUsuario.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
-            this._usuarioText.setError(null);
+            this.textEditUsuario.setError(null);
         }
 
         return valido;
@@ -95,9 +86,8 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
     public Usuario buscaUsuario(String usuarioValor){
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
-        Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor);
+        return repositorioUsuario.buscarUsuario(usuarioValor);
 
-        return usuario;
     }
 
     public void enviaEmail(Usuario usuario){

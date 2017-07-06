@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nutricampus.app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -14,30 +14,47 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.CadastrarUsuarioActivity" 
-             android:screenOrientation="portrait"/>
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
             android:name=".activities.RecuperarSenhaActivity"
-            android:label="Recuperar senha"
-            android:parentActivityName=".activities.LoginActivity" >
+            android:label="@string/titulo_recuperar_senha"
+            android:parentActivityName=".activities.LoginActivity"
+            android:screenOrientation="portrait" />
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.LoginActivity" />></activity>
+        <activity
+            android:name=".activities.CadastrarUsuarioActivity"
+            android:label="@string/titulo_novo_usuario"
+            android:parentActivityName=".activities.LoginActivity"
+            android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activities.CadastrarPropriedadeActivity"
+            android:label="@string/titulo_add_propriedade"
+            android:parentActivityName=".activities.ListaPropriedadesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditarPropriedadeActivity"
+            android:label="@string/titulo_editar_propriedade"
+            android:parentActivityName=".activities.ListaPropriedadesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ListaPropriedadesActivity"
+            android:label="@string/titulo_lista_propriedade"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

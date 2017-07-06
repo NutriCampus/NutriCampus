@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
@@ -25,38 +26,47 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
+
+    SharedPreferencesManager session;
 
     // Pega a referência para as views
-    @BindView(R.id.input_usuario) EditText _usuarioText;
-    @BindView(R.id.input_senha) EditText _senhaText;
-    @BindView(R.id.btn_login)   Button _entrarButton;
-    @BindView(R.id.link_cadastro) TextView _cadastroLink;
-    @BindView(R.id.link_esqueceu_senha) TextView _esqueceuLink;
+
+    @BindView(R.id.input_usuario) EditText editTextUsuario;
+    @BindView(R.id.input_senha) EditText editTextSenha;
+    @BindView(R.id.btn_login)   Button buttonEntrar;
+    @BindView(R.id.link_cadastro) TextView linkCadastro;
+    @BindView(R.id.link_esqueceu_senha) TextView linkEsqueceuSeha;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        session = new SharedPreferencesManager(this);
+
+        if (session.isLoggedIn()) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
+            this.finish();
+        }
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
     }
 
-    @OnClick(R.id.link_cadastro)
     public void cadastroOnClick(View view) {
         Intent intent = new Intent(this, CadastrarUsuarioActivity.class);
+
         startActivity(intent);
-        this.finish();
     }
 
-    @OnClick(R.id.link_esqueceu_senha)
     public void recuperarSenhaOnClick(View view) {
         Intent intent = new Intent(this, RecuperarSenhaActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_login)
-    void entrarOnClick() {
+    public void entrarOnClick(View view) {
         Log.d(TAG, "Login");
 
         if (!validaDados()) {
@@ -64,68 +74,67 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        _entrarButton.setEnabled(false);
+        buttonEntrar.setEnabled(false);
 
-        String usuario = this._usuarioText.getText().toString();
-        String senha = this._senhaText.getText().toString();
+        String usuario = this.editTextUsuario.getText().toString();
+        String senha = this.editTextSenha.getText().toString();
+        Usuario usuarioLogado = buscarUsuario(usuario, senha);
 
-        if(login(usuario, senha)){
+        if (usuarioLogado != null) {
+            session.createLoginSession(usuarioLogado.getId(), usuarioLogado.getNome(), usuarioLogado.getEmail(), usuarioLogado.getSenha());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            Toast.makeText(getBaseContext(), getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
-        }
-        else{
-            falhaLogin(getString(R.string.msg_usuario_nao_cadastrado));
+        } else {
+            falhaLogin(getString(R.string.msg_dados_login_invalidos));
+            buttonEntrar.setEnabled(true);
         }
 
     }
 
-    public boolean login(String usuarioValor, String senhaValor) {
-
+    public Usuario buscarUsuario(String usuarioValor, String senhaValor) {
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
-        Usuario usuario = repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
 
-        if(usuario != null)
-            return true;
-        else
-            return false;
+        return repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
     }
 
     public void falhaLogin(String mensagem) {
-        String msg = (mensagem.isEmpty()) ? "" : (", " + mensagem);
-        Toast.makeText(getBaseContext(), getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
+        String msg = mensagem.isEmpty() ? "" : (", " + mensagem);
+        Toast.makeText(LoginActivity.this, getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
 
-        _entrarButton.setEnabled(true);
+        buttonEntrar.setEnabled(true);
     }
 
     public boolean validaDados() {
         boolean valido = true;
 
-        String usuario = this._usuarioText.getText().toString();
-        String password = this._senhaText.getText().toString();
+        String usuario = this.editTextUsuario.getText().toString();
+        String password = this.editTextSenha.getText().toString();
 
         if (usuario.isEmpty()){
-            this._usuarioText.setError(getString(R.string.msg_erro_campo));
+            this.editTextUsuario.setError(getString(R.string.msg_erro_campo));
             valido = false;}
         else if(usuario.length() < 4) {
-            this._usuarioText.setError(getString(R.string.msg_erro_crz));
+            this.editTextUsuario.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
-            this._usuarioText.setError(null);
+            this.editTextUsuario.setError(null);
         }
 
         if (password.isEmpty()){
-            this._senhaText.setError(getString(R.string.msg_erro_campo));
+            this.editTextSenha.setError(getString(R.string.msg_erro_campo));
             valido = false;
         }
         else if(password.length() < 5) {
-            this._senhaText.setError(getString(R.string.msg_erro_senha));
+            this.editTextSenha.setError(getString(R.string.msg_erro_senha));
             valido = false;
         } else {
-            this._senhaText.setError(null);
+            this.editTextSenha.setError(null);
         }
 
         return valido;
     }
+
+
 }

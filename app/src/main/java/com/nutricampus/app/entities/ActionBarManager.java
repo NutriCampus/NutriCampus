@@ -1,6 +1,7 @@
 package com.nutricampus.app.entities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -16,6 +17,10 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
+import com.nutricampus.app.activities.EditarPropriedadeActivity;
+import com.nutricampus.app.activities.ListaPropriedadesActivity;
+import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
  * Created by Mateus on 29/05/2017.
@@ -26,8 +31,9 @@ import com.nutricampus.app.R;
 public class ActionBarManager {
     private Activity _act;
     private Toolbar toolbar;
-
     public Drawer mActionBar;
+
+    SharedPreferencesManager session;
 
     public ActionBarManager(Activity _act, Toolbar toolbar) {
         this._act = _act;
@@ -37,6 +43,7 @@ public class ActionBarManager {
     }
 
     private void initActionBar() {
+        session = new SharedPreferencesManager(_act);
         new DrawerBuilder().withActivity(_act).build();
 
         AccountHeader headerResult = new AccountHeaderBuilder()
@@ -44,7 +51,7 @@ public class ActionBarManager {
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("João da Silva").withEmail("jsilva@email.com")
+                        new ProfileDrawerItem().withName(session.getUsuarioNC()).withEmail(session.getEmailNC())
                         //.withIcon(getResources().getDrawable(R.drawable.profile))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -76,13 +83,22 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
                         new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
                         new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
-
                 )
-                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog))
+                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog),
+                        new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
+                        switch ((int) drawerItem.getIdentifier()){
+                            case 1:
+                                Intent intent = new Intent(_act, ListaPropriedadesActivity.class);
+                                _act.startActivity(intent);
+                                break;
+                            case 12: // Sair
+                                session.logoutUser();
+                                _act.finish();
+                                break;
+                        }
                         return false;
                     }
                 })

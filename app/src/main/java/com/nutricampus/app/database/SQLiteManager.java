@@ -1,18 +1,13 @@
 package com.nutricampus.app.database;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 /**
- * Created by Diego Bezerra on 20/06/2017.
+ * Created by Felipe on 25/06/2017.
  * For project NutriCampus.
- * Contact: <diego.defb@gmail.com>
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
@@ -50,7 +45,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
-        this.context = context;
     }
 
     /* SQL de criação de tabelas. */
@@ -59,8 +53,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_USUARIO);
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        // A implementar
     }
 }
