@@ -2,12 +2,9 @@ package com.nutricampus.app.model;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nutricampus.app.R;
@@ -81,7 +78,7 @@ public class AdapterListaPropriedades extends BaseAdapter {
             intent.putExtra("id",propriedade.getId());
             intent.putExtra("nome",propriedade.getNome());
             intent.putExtra("telefone",propriedade.getTelefone());
-            intent.putExtra("rua",propriedade.getRua());
+            intent.putExtra("rua",propriedade.getLogradouro());
             intent.putExtra("bairro",propriedade.getBairro());
             intent.putExtra("numero",propriedade.getNumero());
             intent.putExtra("cep",propriedade.getCep());

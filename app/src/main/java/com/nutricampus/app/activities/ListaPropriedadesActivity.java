@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.model.AdapterListaPropriedades;
 
@@ -58,13 +59,18 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
 
 
     private List<Propriedade> listaPropriedades(){
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+        ArrayList<Propriedade> propriedades = (ArrayList<Propriedade>) repositorioPropriedade.buscarTodasPropriedades();
+
+        return propriedades;
+        /*
         ArrayList<Propriedade> l = new ArrayList<>();
         Propriedade p = new Propriedade(1,"Chacara Paraiso","","","","","Garanhuns","Pernambuco","");
         l.add(p);
         p = new Propriedade(2,"Fazendo Bela Vida","","","","","Canhotinho","Pernambuco","");
         l.add(p);
-
         return l;
+        */
     }
 
 
