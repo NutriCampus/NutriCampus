@@ -11,17 +11,20 @@ public class Propriedade {
     private int id;
     private String nome;
     private String telefone;
-    private String rua;
+    private String logradouro;
     private String bairro;
     private String cep;
     private String cidade;
     private String estado;
     private String numero;
+    private Proprietario proprietario;
 
-    public Propriedade(String nome, String telefone, String rua, String bairro, String cep, String cidade, String estado, String numero) {
+    public Propriedade() {}
+
+    public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
         this.nome = nome;
         this.telefone = telefone;
-        this.rua = rua;
+        this.logradouro = logradouro;
         this.bairro = bairro;
         this.cep = cep;
         this.cidade = cidade;
@@ -29,8 +32,8 @@ public class Propriedade {
         this.numero = numero;
     }
 
-    public Propriedade(int id, String nome, String telefone, String rua, String bairro, String cep, String cidade, String estado, String numero) {
-        this(nome, telefone, rua, bairro, cep, cidade, estado,numero);
+    public Propriedade(int id, String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
+        this(nome, telefone, logradouro, bairro, cep, cidade, estado,numero);
         this.id = id;
     }
 
@@ -59,12 +62,12 @@ public class Propriedade {
         this.telefone = telefone;
     }
 
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getBairro() {
@@ -105,5 +108,11 @@ public class Propriedade {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public Proprietario getProprietario() { return proprietario; }
+
+    public void setProprietario(Proprietario proprietario) {
+        this.proprietario = proprietario;
     }
 }
