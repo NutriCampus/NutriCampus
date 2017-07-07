@@ -2,6 +2,7 @@ package com.nutricampus.app.model;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -75,6 +76,7 @@ public class AdapterListaPropriedades extends BaseAdapter {
 
     private Intent getIntent(Propriedade propriedade){
         Intent intent = new Intent(act, EditarPropriedadeActivity.class);
+        Log.i("ADAPTER",propriedade.getId()+" O ");
             intent.putExtra("id",propriedade.getId());
             intent.putExtra("nome",propriedade.getNome());
             intent.putExtra("telefone",propriedade.getTelefone());
@@ -84,6 +86,7 @@ public class AdapterListaPropriedades extends BaseAdapter {
             intent.putExtra("cep",propriedade.getCep());
             intent.putExtra("cidade",propriedade.getCidade());
             intent.putExtra("estado",propriedade.getEstado());
+            intent.putExtra("idProprietario",propriedade.getIdProprietario());
         return intent;
     }
 }

@@ -16,20 +16,20 @@ public class TesteUnitarioPropriedade {
     @Test
     public void testarConstrutorComId() throws Exception {
 
-        Propriedade p2 = new Propriedade(1,"Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A");
+        Propriedade p2 = new Propriedade(1,"Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A",1);
         assertNotNull(p2);
 
-        p2 =  new Propriedade(2,"Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A");
+        p2 =  new Propriedade(2,"Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A",1);
         assertNotNull(p2);
 
     }
     @Test
     public void testarConstrutorSemId() throws Exception {
 
-        Propriedade p2 = new Propriedade("Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A");
+        Propriedade p2 = new Propriedade("Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A",1);
         assertNotNull(p2);
 
-        p2 =  new Propriedade("Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A");
+        p2 =  new Propriedade("Joao","000000","Avenida X","Bairro Y","00000000","Cidade Z","UF", "000A",1);
         assertNotNull(p2);
 
     }

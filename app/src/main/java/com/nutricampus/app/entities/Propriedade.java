@@ -18,10 +18,11 @@ public class Propriedade {
     private String estado;
     private String numero;
     private Proprietario proprietario;
+    private int idProprietario;
 
     public Propriedade() {}
 
-    public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
+    public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero, int idProprietario) {
         this.nome = nome;
         this.telefone = telefone;
         this.logradouro = logradouro;
@@ -30,10 +31,13 @@ public class Propriedade {
         this.cidade = cidade;
         this.estado = estado;
         this.numero = numero;
+        this.idProprietario = idProprietario;
     }
 
-    public Propriedade(int id, String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
-        this(nome, telefone, logradouro, bairro, cep, cidade, estado,numero);
+
+    public Propriedade(int id, String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado,
+                       String numero, int idProprietario) {
+        this(nome, telefone, logradouro, bairro, cep, cidade, estado,numero,idProprietario);
         this.id = id;
     }
 
@@ -114,5 +118,13 @@ public class Propriedade {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
+    }
+
+    public int getIdProprietario() {
+        return idProprietario;
+    }
+
+    public void setIdProprietario(int idProprietario) {
+        this.idProprietario = idProprietario;
     }
 }

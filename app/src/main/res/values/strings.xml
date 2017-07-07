@@ -71,6 +71,8 @@
     <string name="campo_numero">Número</string>
     <string name="campo_cep">CEP</string>
 
+    <string name="campo_spinner_proprietario">Selecione o proprietário...</string>
+
     <string name="campo_proprietario">Nome do Proprietário</string>
     <string name="campo_nome_proprietario">Proprietário</string>
 
@@ -78,6 +80,7 @@
     <string name="titulo_recuperar_senha">Recuperar Senha</string>
 
     <string name="titulo_novo_usuario">Novo usuário</string>
+    <string name="titulo_novo_proprietario">Novo proprietário</string>
 
 
 

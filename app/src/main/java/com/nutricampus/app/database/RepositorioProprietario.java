@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
 import java.util.ArrayList;
@@ -74,6 +75,35 @@ public class RepositorioProprietario {
         return null;
     }
 
+    public Proprietario buscarProprietario(Integer id) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        String colunas_where = SQLiteManager.PROPRIETARIO_COL_ID + "= ?";
+        String[] valores_where = new String[]{String.valueOf(id)};
+
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIETARIO, new String[]{
+                        SQLiteManager.PROPRIETARIO_COL_ID,
+                        SQLiteManager.PROPRIETARIO_COL_CPF,
+                        SQLiteManager.PROPRIETARIO_COL_NOME,
+                        SQLiteManager.PROPRIETARIO_COL_EMAIL,
+                        SQLiteManager.PROPRIETARIO_COL_TELEFONE},
+                colunas_where,
+                valores_where, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return new Proprietario(
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_ID)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_CPF)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_NOME)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_TELEFONE)));
+        }
+        cursor.close();
+
+        return null;
+    }
+
     public List<Proprietario> buscarTodosProprietarios() {
 
         bancoDados = gerenciador.getReadableDatabase();
@@ -107,7 +137,16 @@ public class RepositorioProprietario {
         return proprietarios;
     }
 
+    public List<String> listarProprietariosNome(){
+        List<String > lista = new ArrayList<>();
+        for (Proprietario proprietario: buscarTodosProprietarios()) {
+            lista.add(proprietario.getNome());
+        }
 
+        return lista;
+    }
+    
+    
     public boolean atualizarProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
 

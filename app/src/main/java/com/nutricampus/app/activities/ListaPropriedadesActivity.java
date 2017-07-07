@@ -3,33 +3,42 @@ package com.nutricampus.app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.AdapterListaPropriedades;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ListaPropriedadesActivity extends AppCompatActivity {
+
+    @BindView(R.id.listaPropriedades) ListView listPropriedades;
+    @BindView(R.id.input_pesquisar_propriedade)
+    EditText inputPesquisaPropriedade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_propriedades);
-
-        ListView lista = (ListView) findViewById(R.id.listaPropriedades);
-
+        ButterKnife.bind(this);
 
         AdapterListaPropriedades adapter =
-                new AdapterListaPropriedades(listaPropriedades(), this);
+                new AdapterListaPropriedades(buscarPropriedades(), this);
 
-        lista.setAdapter(adapter);
+        listPropriedades.setAdapter(adapter);
 
     }
 
@@ -58,20 +67,24 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
 
 
 
-    private List<Propriedade> listaPropriedades(){
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
-        ArrayList<Propriedade> propriedades = (ArrayList<Propriedade>) repositorioPropriedade.buscarTodasPropriedades();
+    public void atualizaListaPropriedades(View view){
 
-        return propriedades;
-        /*
-        ArrayList<Propriedade> l = new ArrayList<>();
-        Propriedade p = new Propriedade(1,"Chacara Paraiso","","","","","Garanhuns","Pernambuco","");
-        l.add(p);
-        p = new Propriedade(2,"Fazendo Bela Vida","","","","","Canhotinho","Pernambuco","");
-        l.add(p);
-        return l;
-        */
+        AdapterListaPropriedades adapter =
+                new AdapterListaPropriedades(buscarPropriedades(), this);
+
+        listPropriedades.setAdapter(adapter);
     }
+
+
+    public List<Propriedade> buscarPropriedades(){
+        String nome = inputPesquisaPropriedade.getText().toString();
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+        List<Propriedade> propriedades = repositorioPropriedade.buscarPropriedadesPorNome(nome);
+        return propriedades;
+
+    }
+
+
 
 
 

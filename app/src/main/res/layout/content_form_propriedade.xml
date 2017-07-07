@@ -19,95 +19,49 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_criar_proprietario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:drawableLeft="@drawable/add"
-            android:onClick="criarProprietario"
-            android:text="@string/cadastrar_proprietario" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginTop="@dimen/margin_inputs_form"
-                android:layout_weight="2">
-
-                <EditText
-                    android:id="@+id/search_cpf_proprietario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/campo_buscar_proprietario"
-                    android:imeOptions="actionDone"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/btn_pesquisar_proprietario"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/search"
-                android:onClick="buscarProprietario"
-                android:text="!" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginTop="@dimen/margin_inputs_form"
-                android:layout_weight="2">
-
-                <EditText
-                    android:id="@+id/result_nome_proprietario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="true"
-                    android:focusable="false"
-                    android:hint="@string/campo_nome_proprietario"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/btn_editar_proprietario"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/edit"
-                android:onClick="editarProprietario"
-                android:text="!" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="250dp"
-            android:layout_height="1dp"
-            android:background="#5F9EA0"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="22dp"
-            android:layout_gravity="center"/>
-
         <EditText
             android:id="@+id/input_id_propriedade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType=""
             android:visibility="gone" />
+        <EditText
+            android:id="@+id/input_id_proprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType=""
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/campo_spinner_proprietario"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+            <Spinner
+                android:id="@+id/spinner_proprietario"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:prompt="@string/campo_spinner_proprietario"
+                android:spinnerMode="dialog" />
+            <Button
+                android:text=""
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/btn_add_proprietario"
+                android:drawableLeft="@drawable/add">
+            </Button>
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

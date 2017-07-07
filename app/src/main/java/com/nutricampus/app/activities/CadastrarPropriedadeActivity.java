@@ -1,18 +1,17 @@
 package com.nutricampus.app.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -30,14 +29,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CadastrarPropriedadeActivity extends AppCompatActivity {
+public class CadastrarPropriedadeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     @BindView(R.id.input_id_propriedade) EditText inputId;
+    @BindView(R.id.input_id_proprietario) EditText inputIdProprietario;
     @BindView(R.id.input_nome_propriedade) EditText inputNome;
     @BindView(R.id.input_cep) EditText inputCep;
     @BindView(R.id.input_rua) EditText inputRua;
@@ -47,10 +48,13 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
     @BindView(R.id.input_cidade) AutoCompleteTextView inputCidade;
     @BindView(R.id.input_estado) AutoCompleteTextView inputEstado;
     @BindView(R.id.btn_salvar_propriedade) Button buttonSalvar;
-    @BindView(R.id.search_cpf_proprietario) EditText pesquisarCpf;
-    @BindView(R.id.result_nome_proprietario) EditText nomeProprietario;
+    @BindView(R.id.spinner_proprietario)
+    Spinner spinnerProprietario;
+    @BindView(R.id.btn_add_proprietario)
+    Button buttonAddProprietario;
 
-    private Proprietario proprietario;
+    ArrayAdapter<Proprietario> spinnerProprietarioAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +68,53 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
 
         inputTelefone.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputTelefone));
         inputCep.addTextChangedListener(Mascara.insert(Mascara.CEP_MASK, inputCep));
-        pesquisarCpf.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, pesquisarCpf));
 
+        spinnerProprietario.setOnItemSelectedListener(this);
+
+        // Loading spinner data from database
+        preencherSpinnerListaProprietario();
+        buttonAddProprietario.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                criarProprietario(view);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        preencherSpinnerListaProprietario();
+    }
+
+    public void preencherSpinnerListaProprietario() {
+
+        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
+        List<Proprietario> proprietarios = repositorioProprietario.buscarTodosProprietarios();
+
+        List<Proprietario> lista = new  ArrayList<>();
+        for (Proprietario proprietario: repositorioProprietario.buscarTodosProprietarios()) {
+            lista.add(proprietario);
+        }
+
+       spinnerProprietarioAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, repositorioProprietario.buscarTodosProprietarios());
+
+        spinnerProprietarioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
+
+
+        int val;
+        String idProprietario = inputIdProprietario.getText().toString();
+        if(idProprietario.isEmpty())
+            val = 0;
+        else {
+            val = spinnerProprietarioAdapter.getPosition(repositorioProprietario.buscarProprietario(Integer.parseInt(idProprietario)));
+        }
+
+        spinnerProprietario.setSelection(val);
     }
 
     private void addAutoCompletes(){
@@ -170,7 +219,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
             Toast.makeText(CadastrarPropriedadeActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
-
+        Proprietario proprietario = (Proprietario) spinnerProprietario.getSelectedItem();
         Propriedade propriedade = new Propriedade(
                 inputNome.getText().toString(),
                 inputTelefone.getText().toString(),
@@ -179,10 +228,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
                 inputCep.getText().toString(),
                 inputCidade.getText().toString(),
                 inputEstado.getText().toString(),
-                inputNumero.getText().toString());
+                inputNumero.getText().toString(),
+                ((Proprietario) spinnerProprietario.getSelectedItem()).getId());
 
         propriedade.setProprietario(proprietario);
-
+        Log.i("KK",propriedade.getProprietario().getNome());
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         int idPropriedade = repositorioPropriedade.inserirPropriedade(propriedade);
 
@@ -201,32 +251,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    public void buscarProprietario(View v) {
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
-        proprietario = repositorioProprietario.buscarProprietario(pesquisarCpf.getText().toString());
 
-        if(proprietario == null) {
-            Toast.makeText(CadastrarPropriedadeActivity.this, getString(R.string.msg_erro_busca_proprietario),
-                    Toast.LENGTH_LONG).show();
-        } else {
-            nomeProprietario.setText(proprietario.getNome());
-        }
-    }
-
-    public void editarProprietario(View v) {
-        if(nomeProprietario.getText().toString().equals("")) {
-            Toast.makeText(CadastrarPropriedadeActivity.this, getString(R.string.msg_erro_editar_proprietario),
-                    Toast.LENGTH_LONG).show();
-        } else {
-            Intent it = new Intent(CadastrarPropriedadeActivity.this, EditarProprietarioActivity.class);
-            it.putExtra("proprietario", proprietario);
-            pesquisarCpf.setText("");
-            nomeProprietario.setText("");
-            startActivity(it);
-        }
-    }
-
-    private boolean validaDados(){
+    protected boolean validaDados(){
         boolean valido = true;
 
         if (inputNome.getText().toString().isEmpty()) {
@@ -285,20 +311,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
             inputEstado.setError(null);
         }
 
-        if (pesquisarCpf.getText().toString().isEmpty()) {
-            this.pesquisarCpf.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else if (pesquisarCpf.getText().toString().length() < 14) {
-            this.pesquisarCpf.setError(getString(R.string.msg_erro_cpf_1));
-            valido = false;
-        } else {
-            this.pesquisarCpf.setError(null);
-        }
-
-        if(nomeProprietario.getText().toString().isEmpty() && pesquisarCpf.getText().toString().length() == 14) {
-            this.pesquisarCpf.setError(getString(R.string.msg_erro_editar_proprietario));
-            valido = false;
-        }
 
         return valido;
     }
@@ -324,4 +336,18 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity {
         return lista;
     }
 
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        String label = parent.getItemAtPosition(position).toString();
+        Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
