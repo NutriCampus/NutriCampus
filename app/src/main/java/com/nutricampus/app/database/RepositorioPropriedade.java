@@ -203,13 +203,15 @@ public class RepositorioPropriedade {
 
     }
 
-    public void removerPropriedade(Propriedade propriedade) {
+    public int removerPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
+        int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
                 SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
                 new String[]{String.valueOf(propriedade.getId())});
 
         bancoDados.close();
+
+        return result;
     }
 
 

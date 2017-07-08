@@ -21,6 +21,7 @@
 
     <string name="menu_adicionar">Adicionar</string>
     <string name="menu_excluir">Excluir</string>
+    <string name="menu_editar">Editar</string>
 
     <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
@@ -51,6 +52,8 @@
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
     <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
 
+    <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
+    <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
     <string name="campo_nome">Nome</string>
     <string name="crz_crmv">CRZ/CRMV</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>

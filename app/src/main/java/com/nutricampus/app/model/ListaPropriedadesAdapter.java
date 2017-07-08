@@ -2,7 +2,11 @@ package com.nutricampus.app.model;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.EditarPropriedadeActivity;
+import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.entities.Propriedade;
 
 import java.util.List;
@@ -18,12 +23,12 @@ import java.util.List;
  * Created by kellison on 05/07/17.
  */
 
-public class AdapterListaPropriedades extends BaseAdapter {
+public class ListaPropriedadesAdapter extends BaseAdapter {
 
     private final List<Propriedade> propriedades;
     private final Activity act;
 
-    public AdapterListaPropriedades(List<Propriedade> propriedades, Activity act) {
+    public ListaPropriedadesAdapter(List<Propriedade> propriedades, Activity act) {
         this.propriedades = propriedades;
         this.act = act;
     }
@@ -44,20 +49,16 @@ public class AdapterListaPropriedades extends BaseAdapter {
     }
 
     @Override
-    public View getView(int indice, View convertView, ViewGroup viewGroup) {
-        View view = act.getLayoutInflater()
+    public View getView(int indice, final View convertView, ViewGroup viewGroup) {
+        final View view = act.getLayoutInflater()
                 .inflate(R.layout.lista_propriedade_personalizada, viewGroup, false);
         final Propriedade propriedade = propriedades.get(indice);
 
         //pegando as referências das Views
-        TextView id = (TextView)
-                view.findViewById(R.id.lista_propriedade_id);
-        TextView nome = (TextView)
-                view.findViewById(R.id.lista_propriedade_nome);
-        TextView cidade = (TextView)
-                view.findViewById(R.id.lista_propriedade_cidade);
-        TextView estado = (TextView)
-                view.findViewById(R.id.lista_propriedade_estado);
+        TextView id = view.findViewById(R.id.lista_propriedade_id);
+        TextView nome = view.findViewById(R.id.lista_propriedade_nome);
+        TextView cidade = view.findViewById(R.id.lista_propriedade_cidade);
+        TextView estado = view.findViewById(R.id.lista_propriedade_estado);
 
         //populando as Views
         id.setText(String.valueOf(propriedade.getId()));
@@ -65,18 +66,19 @@ public class AdapterListaPropriedades extends BaseAdapter {
         cidade.setText(propriedade.getCidade());
         estado.setText(propriedade.getEstado());
 
-        view.setOnClickListener(new View.OnClickListener() {
+        /*view.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
                 act.startActivity(getIntent(propriedade));
             }
-        });
+        });*/
+
+        //act.registerForContextMenu(view);
 
         return view;
     }
 
-    private Intent getIntent(Propriedade propriedade){
+    public Intent getIntent(Propriedade propriedade){
         Intent intent = new Intent(act, EditarPropriedadeActivity.class);
-        Log.i("ADAPTER",propriedade.getId()+" O ");
             intent.putExtra("id",propriedade.getId());
             intent.putExtra("nome",propriedade.getNome());
             intent.putExtra("telefone",propriedade.getTelefone());
@@ -89,4 +91,6 @@ public class AdapterListaPropriedades extends BaseAdapter {
             intent.putExtra("idProprietario",propriedade.getIdProprietario());
         return intent;
     }
+
+
 }
