@@ -118,7 +118,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_contexto_crud, menu);
+        getMenuInflater().inflate(R.menu.menu_crud, menu);
         return true;
     }
 
