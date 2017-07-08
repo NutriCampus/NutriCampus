@@ -5,11 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="368dp"
     android:layout_height="0dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginRight="30dp"
     android:orientation="vertical"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
     android:paddingTop="1dp"
     android:weightSum="1"
     tools:context="com.nutricampus.app.activities.CadastrarPropriedadeActivity">
@@ -17,25 +13,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingRight="@dimen/margin_form"
+        android:paddingLeft="@dimen/margin_form"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/input_id_propriedade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType=""
+            android:inputType="text"
+            android:text=""
             android:visibility="gone" />
         <EditText
             android:id="@+id/input_id_proprietario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType=""
+            android:inputType="text"
+            android:text=""
             android:visibility="gone" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/campo_spinner_proprietario"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
@@ -45,19 +41,19 @@
             <Spinner
                 android:id="@+id/spinner_proprietario"
                 android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="74dp"
                 android:layout_width="fill_parent"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form"
-                android:prompt="@string/campo_spinner_proprietario"
                 android:spinnerMode="dialog" />
             <Button
                 android:text=""
                 android:textSize="18dp"
                 android:layout_marginTop="10dp"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/btn_add_proprietario"
                 android:drawableLeft="@drawable/add">
             </Button>
@@ -74,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/campo_nome_propriedade"
-                android:inputType="text" />
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -102,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/campo_rua"
-                android:inputType="text" />
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -116,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/campo_bairro"
-                android:inputType="text" />
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

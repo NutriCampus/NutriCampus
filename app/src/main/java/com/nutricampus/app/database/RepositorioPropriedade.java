@@ -1,6 +1,5 @@
 package com.nutricampus.app.database;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,10 +22,8 @@ public class RepositorioPropriedade {
 
     private SQLiteManager gerenciador;
     private SQLiteDatabase bancoDados;
-    Context context;
 
     public RepositorioPropriedade(Context context) {
-        this.context = context;
         gerenciador = new SQLiteManager(context);
     }
 
@@ -60,12 +56,12 @@ public class RepositorioPropriedade {
     public Propriedade buscarPropriedade(String nome, String bairro) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunas_where = SQLiteManager.PROPRIEDADE_COL_NOME + "= ?";
-        String[] valores_where = new String[]{String.valueOf(nome)};
+        String colunasWhere = SQLiteManager.PROPRIEDADE_COL_NOME + "= ?";
+        String[] valoresWhere = new String[]{String.valueOf(nome)};
 
         if (bairro != null) {
-            colunas_where += " AND " + SQLiteManager.PROPRIEDADE_COL_BAIRRO + "= ?";
-            valores_where = new String[]{String.valueOf(nome), String.valueOf(bairro)};
+            colunasWhere += " AND " + SQLiteManager.PROPRIEDADE_COL_BAIRRO + "= ?";
+            valoresWhere = new String[]{String.valueOf(nome), String.valueOf(bairro)};
         }
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIEDADE, new String[]{
@@ -78,8 +74,8 @@ public class RepositorioPropriedade {
                         SQLiteManager.PROPRIEDADE_COL_CIDADE,
                         SQLiteManager.PROPRIEDADE_COL_ESTADO,
                         SQLiteManager.PROPRIEDADE_COL_CEP,},
-                colunas_where,
-                valores_where, null, null, null, null);
+                colunasWhere,
+                valoresWhere, null, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -123,7 +119,6 @@ public class RepositorioPropriedade {
                     p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
                     p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
                     p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
-                    Log.d("KK", c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID)));
 
                     //Verificar o atributo id_proprietario
                     propriedades.add(p);
@@ -148,7 +143,7 @@ public class RepositorioPropriedade {
         ArrayList<Propriedade> propriedades = new ArrayList<>();
         String getPropriedades = "SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
                 " WHERE " + SQLiteManager.PROPRIEDADE_COL_NOME + " LIKE '%" + nome + "%'";
-        Log.i("L",getPropriedades);
+
         try {
             Cursor c = bancoDados.rawQuery(getPropriedades, null);
 
@@ -165,9 +160,7 @@ public class RepositorioPropriedade {
                     p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
                     p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
                     p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
-                    Log.d("KK", c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID)));
 
-                    //Verificar o atributo id_proprietario
                     propriedades.add(p);
                 } while (c.moveToNext());
                 c.close();

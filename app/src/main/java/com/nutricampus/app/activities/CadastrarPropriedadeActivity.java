@@ -1,7 +1,7 @@
 package com.nutricampus.app.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -53,8 +54,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @BindView(R.id.btn_add_proprietario)
     Button buttonAddProprietario;
 
-    ArrayAdapter<Proprietario> spinnerProprietarioAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,30 +90,40 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public void preencherSpinnerListaProprietario() {
 
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
-        List<Proprietario> proprietarios = repositorioProprietario.buscarTodosProprietarios();
+        List<Proprietario> todosProprietarios = repositorioProprietario.buscarTodosProprietarios();
 
-        List<Proprietario> lista = new  ArrayList<>();
-        for (Proprietario proprietario: repositorioProprietario.buscarTodosProprietarios()) {
-            lista.add(proprietario);
+        if(todosProprietarios.size() > 0) {
+
+            // Adiciona a msg de "Selecione..." no spinner do proprietario
+            Proprietario posZero = new Proprietario(0,"",getString(R.string.msg_spinner_proprietario),"","");
+            todosProprietarios.add(0,posZero);
+
+            ArrayAdapter<Proprietario> spinnerProprietarioAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, todosProprietarios);
+
+            spinnerProprietarioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
+
+
+            int posicao;
+            String idProprietario = inputIdProprietario.getText().toString();
+
+            if (idProprietario.isEmpty())
+                posicao = 0;
+            else
+                posicao = spinnerProprietarioAdapter.getPosition(repositorioProprietario.buscarProprietario(Integer.parseInt(idProprietario)));
+
+
+            spinnerProprietario.setSelection(posicao);
         }
-
-       spinnerProprietarioAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, repositorioProprietario.buscarTodosProprietarios());
-
-        spinnerProprietarioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
+        else{
+            ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, new String[]{"<< " + R.string.msg_cadastre_proprietario + " >>"});
+            spinnerProprietario.setAdapter(adapter);
 
 
-        int val;
-        String idProprietario = inputIdProprietario.getText().toString();
-        if(idProprietario.isEmpty())
-            val = 0;
-        else {
-            val = spinnerProprietarioAdapter.getPosition(repositorioProprietario.buscarProprietario(Integer.parseInt(idProprietario)));
         }
-
-        spinnerProprietario.setSelection(val);
     }
 
     private void addAutoCompletes(){
@@ -140,11 +149,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
             byte[] buffer = new byte[tamanho];
 
-            @SuppressWarnings("UnusedAssignment")
-            int result = is.read(buffer);
+
+            if (is.read(buffer) > 0);
+                json = new String(buffer, "UTF-8");
 
             is.close();
-            json = new String(buffer, "UTF-8");
         } catch (IOException ex) {
             Log.i("IOException",ex.toString());
             return null;
@@ -219,7 +228,9 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             Toast.makeText(CadastrarPropriedadeActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
+
         Proprietario proprietario = (Proprietario) spinnerProprietario.getSelectedItem();
+
         Propriedade propriedade = new Propriedade(
                 inputNome.getText().toString(),
                 inputTelefone.getText().toString(),
@@ -232,21 +243,22 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 ((Proprietario) spinnerProprietario.getSelectedItem()).getId());
 
         propriedade.setProprietario(proprietario);
-        Log.i("KK",propriedade.getProprietario().getNome());
+
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+
         int idPropriedade = repositorioPropriedade.inserirPropriedade(propriedade);
 
         if(idPropriedade > 0) {
-            Toast.makeText(CadastrarPropriedadeActivity.this, "Propriedade gravada com sucesso", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
         } else {
-            Toast.makeText(CadastrarPropriedadeActivity.this, "Erro ao gravar Propriedade", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
         }
 
 
     }
 
-    public void criarProprietario(View v) {
+    public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         startActivity(it);
     }
@@ -260,6 +272,17 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             valido = false;
         } else {
             inputNome.setError(null);
+        }
+
+        if (spinnerProprietario.getSelectedItemPosition() == 0) {
+            TextView text = (TextView) spinnerProprietario.getSelectedView();
+            text.setError("");
+            text.setTextColor(Color.RED);
+            valido = false;
+        } else {
+            TextView text = (TextView) spinnerProprietario.getSelectedView();
+            text.setError(null);
+            text.setTextColor(Color.BLACK);
         }
 
         if (inputTelefone.getText().toString().isEmpty()) {
@@ -341,13 +364,15 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
-        String label = parent.getItemAtPosition(position).toString();
-        Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
 
+        if(parent.getItemAtPosition(position) instanceof Proprietario){
+            Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
+            inputIdProprietario.setText(String.valueOf(proprietario.getId()));
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // Implementação necessário por causa da Interface usada nesta classe
     }
 }
