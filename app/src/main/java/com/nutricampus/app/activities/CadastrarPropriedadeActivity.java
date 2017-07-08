@@ -119,7 +119,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         }
         else{
             ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, new String[]{"<< " + R.string.msg_cadastre_proprietario + " >>"});
+                    android.R.layout.simple_spinner_item, new String[]{"<< " + getString(R.string.msg_cadastre_proprietario) + " >>"});
             spinnerProprietario.setAdapter(adapter);
 
 

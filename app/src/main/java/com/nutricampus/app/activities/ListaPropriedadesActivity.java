@@ -3,21 +3,19 @@ package com.nutricampus.app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.AdapterListaPropriedades;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,6 +24,10 @@ import butterknife.ButterKnife;
 public class ListaPropriedadesActivity extends AppCompatActivity {
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
+    @BindView(R.id.text_quantidade_encontrados)
+    TextView mensagemQuantidade;
+    @BindView(R.id.linha)
+    View linha;
     @BindView(R.id.input_pesquisar_propriedade)
     EditText inputPesquisaPropriedade;
 
@@ -35,10 +37,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_propriedades);
         ButterKnife.bind(this);
 
-        AdapterListaPropriedades adapter =
-                new AdapterListaPropriedades(buscarPropriedades(), this);
-
-        listPropriedades.setAdapter(adapter);
+        carregaListView();
 
     }
 
@@ -68,11 +67,26 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
 
 
     public void atualizaListaPropriedades(View view){
+        carregaListView();
+    }
+
+    private void carregaListView() {
+        List<Propriedade> lista = buscarPropriedades();
 
         AdapterListaPropriedades adapter =
                 new AdapterListaPropriedades(buscarPropriedades(), this);
 
         listPropriedades.setAdapter(adapter);
+
+        mensagemQuantidade.setText(lista.size() + " " + getString(R.string.campo_texto_lista_encontrados));
+
+        if (lista.size() == 0) {
+            mensagemQuantidade.setVisibility(View.VISIBLE);
+            linha.setVisibility(View.GONE);
+        } else{
+            mensagemQuantidade.setVisibility(View.VISIBLE);
+            linha.setVisibility(View.VISIBLE);
+        }
     }
 
 
