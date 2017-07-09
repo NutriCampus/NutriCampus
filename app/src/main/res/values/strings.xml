@@ -46,6 +46,7 @@
     <string name="msg_erro_editar_proprietario">Pesquise um proprietário</string>
     <string name="msg_erro_atualizar_proprietario">Erro ao atualizar o proprietário</string>
     <string name="msg_erro_spinner_proprietario">Selecione uma propriedade</string>
+    <string name="msg_erro_cep_incompleto">CEP incompleto</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastro_erro">Erro ao tentar realizar o cadastro</string>

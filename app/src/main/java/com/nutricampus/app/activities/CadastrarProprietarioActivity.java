@@ -44,6 +44,11 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
             return;
         }
 
+        if (!Mascara.validarCpf(inputCpfProprietario.getText().toString())) {
+            Toast.makeText(CadastrarProprietarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Proprietario proprietario = new Proprietario(
                 inputCpfProprietario.getText().toString(),
                 inputNomeProprietario.getText().toString(),
