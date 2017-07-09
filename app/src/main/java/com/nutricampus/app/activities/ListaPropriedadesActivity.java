@@ -1,16 +1,21 @@
 package com.nutricampus.app.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -30,14 +35,13 @@ import butterknife.ButterKnife;
 public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
-    @BindView(R.id.text_quantidade_encontrados)
-    TextView mensagemQuantidade;
-    @BindView(R.id.linha)
-    View linha;
-    @BindView(R.id.input_pesquisar_propriedade)
-    EditText inputPesquisaPropriedade;
+    @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
+    @BindView(R.id.linha) View linha;
+    @BindView(R.id.input_pesquisar_propriedade)   EditText inputPesquisaPropriedade;
 
-    public  static int quantidadeItemSelecionados;
+    private MenuItem mSearchAction;
+    private boolean isSearchOpened = false;
+    private EditText inputPesquisaPropriedades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         setContentView(R.layout.activity_lista_propriedades);
         ButterKnife.bind(this);
         registerForContextMenu(listPropriedades);
-        carregaListView();
+        carregaListView("");
 
         listPropriedades.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -54,11 +58,21 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 abreTelaEditar(position);
             }
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_proprietario);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void abreTelaEditar(int posicao){
-        Propriedade item = (Propriedade) listPropriedades.getItemAtPosition(posicao);
-        startActivity(getIntent(item));
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mSearchAction = menu.findItem(R.id.action_search);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -74,6 +88,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_adicionar:
+
                 Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
                 return true;
@@ -90,6 +105,34 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                gerenciaFuncaoPesquisar();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isSearchOpened) {
+            gerenciaFuncaoPesquisar();
+            return;
+        }
+        super.onBackPressed();
+    }
+
     private void confirmarExcluir(final Propriedade propriedade){
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.msg_excluir_confirmar) + " a \"" + propriedade.getNome() + "\" ?" )
@@ -104,7 +147,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                             Toast.makeText(ListaPropriedadesActivity.this,
                                     getString(R.string.msg_excluir_propriedade_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregaListView();
+                            carregaListView("");
                         }
                         else{
                             Toast.makeText(ListaPropriedadesActivity.this,
@@ -116,40 +159,65 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 .show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_crud, menu);
-        return true;
-    }
+    protected void gerenciaFuncaoPesquisar(){
+        ActionBar action = getSupportActionBar(); //get the actionbar
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menu_opc_adicionar:
-                Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(isSearchOpened){ //test if the search is open
+
+            if (action != null) {
+                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
+                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+            }
+            //hides the keyboard
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(inputPesquisaPropriedades.getWindowToken(), 0);
+
+            //add the search icon in the action bar
+            mSearchAction.setIcon(R.drawable.ic_search_light);
+
+            isSearchOpened = false;
+        } else { //open the search entry
+
+            action.setDisplayShowCustomEnabled(true); //enable it to display a
+            // custom view in the action bar.
+            action.setCustomView(R.layout.search_bar);//add the custom view
+            action.setDisplayShowTitleEnabled(false); //hide the title
+
+            inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
+
+            //this is a listener to do a search when the user clicks on search button
+            inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if (i == EditorInfo.IME_ACTION_SEARCH) {
+                        carregaListView(inputPesquisaPropriedades.getText().toString());
+                        return true;
+                    }
+                    return false;
+                }
+
+            });
+
+
+            inputPesquisaPropriedades.requestFocus();
+
+            //open the keyboard focused in the edtSearch
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(inputPesquisaPropriedades, InputMethodManager.SHOW_IMPLICIT);
+
+
+            //add the close icon
+            mSearchAction.setIcon(R.drawable.ic_close);
+
+            isSearchOpened = true;
         }
     }
 
-
-    public  static void count(){
-        quantidadeItemSelecionados++;
-        Log.i("QuantItemSelec", String.valueOf(quantidadeItemSelecionados));
-    }
-
-    public void atualizaListaPropriedades(View view){
-        carregaListView();
-    }
-
-    private void carregaListView() {
-        List<Propriedade> lista = buscarPropriedades();
+    private void carregaListView(String nome) {
+        List<Propriedade> lista = buscarPropriedades(nome);
 
         ListaPropriedadesAdapter adapter =
-                new ListaPropriedadesAdapter(buscarPropriedades(), this);
+                new ListaPropriedadesAdapter(buscarPropriedades(nome), this);
 
         listPropriedades.setAdapter(adapter);
 
@@ -165,16 +233,12 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     }
 
-
-    public List<Propriedade> buscarPropriedades(){
-        String nome = inputPesquisaPropriedade.getText().toString();
+    public List<Propriedade> buscarPropriedades(String nome){
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
-        List<Propriedade> propriedades = repositorioPropriedade.buscarPropriedadesPorNome(nome);
-        return propriedades;
-
+        return repositorioPropriedade.buscarPropriedadesPorNome(nome);
     }
 
-    public Intent getIntent(Propriedade propriedade){
+    private Intent getIntent(Propriedade propriedade){
         Intent intent = new Intent(this, EditarPropriedadeActivity.class);
         intent.putExtra("id",propriedade.getId());
         intent.putExtra("nome",propriedade.getNome());
@@ -187,5 +251,10 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         intent.putExtra("estado",propriedade.getEstado());
         intent.putExtra("idProprietario",propriedade.getIdProprietario());
         return intent;
+    }
+
+    private void abreTelaEditar(int posicao){
+        Propriedade item = (Propriedade) listPropriedades.getItemAtPosition(posicao);
+        startActivity(getIntent(item));
     }
 }

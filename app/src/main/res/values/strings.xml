@@ -65,7 +65,7 @@
     <string name="campo_nome_propriedade">Nome da Propriedade</string>
     <string name="campo_telefone">Telefone</string>
 
-    <string name="campo_texto_lista_encontrados">registros encontrado (s).</string>
+    <string name="campo_texto_lista_encontrados">registro(s) encontrado(s)</string>
 
     <string name="titulo_lista_propriedade">Propriedades</string>
     <string name="titulo_add_propriedade">Nova Propriedade</string>

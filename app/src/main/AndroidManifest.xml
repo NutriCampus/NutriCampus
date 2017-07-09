@@ -51,7 +51,13 @@
             android:name=".activities.ListaPropriedadesActivity"
             android:label="@string/titulo_lista_propriedade"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable">
+            </meta-data>
+        </activity>
         <activity android:name=".activities.CadastrarProprietarioActivity" />
         <activity android:name=".activities.EditarProprietarioActivity"/>
     </application>

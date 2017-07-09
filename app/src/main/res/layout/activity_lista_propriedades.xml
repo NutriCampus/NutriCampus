@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/telaListaPropriedades"
     tools:context="com.nutricampus.app.activities.ListaPropriedadesActivity">
 
 
     <include layout="@layout/content_lista_propriedades" />
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_proprietario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add_light"/>
 
 </android.support.design.widget.CoordinatorLayout>

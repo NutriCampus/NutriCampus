@@ -6,74 +6,82 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.nutricampus.app.activities.ListaPropriedadesActivity"
-    tools:showIn="@layout/activity_lista_propriedades">
+    tools:showIn="@layout/activity_lista_propriedades"
+    android:background="#e4e4e4">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="55dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_margin="@dimen/margin_form"
+            android:visibility="gone"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/caixa_arredondada">
 
             <EditText
-                android:layout_alignParentLeft="true"
-                android:hint="@string/campo_nome_propriedade"
-                android:layout_weight="1"
                 android:id="@+id/input_pesquisar_propriedade"
-                android:layout_height="62dp"
-                android:layout_width="fill_parent">
-            </EditText>
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:hint="@string/campo_nome_propriedade"></EditText>
 
             <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_search"
                 android:text=""
                 android:id="@+id/btn_pesquisar_propriedade"
-                android:textSize="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_height="55dp"
-                android:layout_width="55dp"
-                android:layout_gravity="center|center_vertical|center_horizontal"
-                android:onClick="atualizaListaPropriedades">
-            </Button>
+                android:onClick="atualizaListaPropriedades"/>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_quantidade_encontrados"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="23dp"
-            android:hint="@string/campo_texto_lista_encontrados"
-            android:textAlignment="center"
-            android:textSize="17dp"></TextView>
-
-        <View
-            android:id="@+id/linha"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary"
-            android:layout_marginBottom="10dp"
-            />
+            android:layout_height="match_parent"
+            android:background="@drawable/caixa_arredondada"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_form"
+            android:id="@+id/resultado_busca_propriedades">
 
+            <TextView
+                android:id="@+id/text_quantidade_encontrados"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="23dp"
+                android:hint="@string/campo_texto_lista_encontrados"
+                android:textAlignment="center"
+                android:textSize="17dp"/>
 
-        <ListView
-            android:id="@+id/listaPropriedades"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:choiceMode="multipleChoice"
-            android:listSelector="@color/colorItemListSelected"
-            android:longClickable="true"
-            />
+            <View
+                android:id="@+id/linha"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLinha"
+                android:layout_marginBottom="10dp"
+                />
+            <ListView
+                android:id="@+id/listaPropriedades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="multipleChoice"
+                android:listSelector="@color/colorItemListSelected"
+                android:longClickable="true"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>
