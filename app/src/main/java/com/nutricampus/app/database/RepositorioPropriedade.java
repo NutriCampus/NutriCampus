@@ -40,6 +40,7 @@ public class RepositorioPropriedade {
         dados.put(SQLiteManager.PROPRIEDADE_COL_ESTADO, propriedade.getEstado());
         dados.put(SQLiteManager.PROPRIEDADE_COL_CEP, propriedade.getCep());
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO, propriedade.getIdProprietario());
+        dados.put(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO, propriedade.getIdUsuario());
 
 
         long retorno = bancoDados.insert(SQLiteManager.TABELA_PROPRIEDADE, null, dados);
@@ -73,7 +74,9 @@ public class RepositorioPropriedade {
                         SQLiteManager.PROPRIEDADE_COL_BAIRRO,
                         SQLiteManager.PROPRIEDADE_COL_CIDADE,
                         SQLiteManager.PROPRIEDADE_COL_ESTADO,
-                        SQLiteManager.PROPRIEDADE_COL_CEP,},
+                        SQLiteManager.PROPRIEDADE_COL_CEP,
+                        SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO,
+                        SQLiteManager.PROPRIEDADE_COL_ID_USUARIO},
                 colunasWhere,
                 valoresWhere, null, null, null, null);
 
@@ -90,7 +93,8 @@ public class RepositorioPropriedade {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CIDADE)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NUMERO)),
-                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)),
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO)));
         }
         cursor.close();
         return null;
@@ -119,6 +123,7 @@ public class RepositorioPropriedade {
                     p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
                     p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
                     p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
+                    p.setIdUsuario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO)));
 
                     //Verificar o atributo id_proprietario
                     propriedades.add(p);
@@ -136,13 +141,21 @@ public class RepositorioPropriedade {
         return propriedades;
     }
 
-    public List<Propriedade> buscarPropriedadesPorNome(String nome) {
+    /**
+     * Busca pelas propriedades que contem 'o valor de <b>nome</b> e pertencem ao usuario <b>usuario</b>
+     *
+     * @param nome      Nome da propriedade
+     * @param idUsuario id do usuario logado no app
+     * @return List
+     */
+    public List<Propriedade> buscarPropriedadesPorNome(String nome, int idUsuario) {
 
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Propriedade> propriedades = new ArrayList<>();
         String getPropriedades = "SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
-                " WHERE " + SQLiteManager.PROPRIEDADE_COL_NOME + " LIKE '%" + nome + "%'";
+                " WHERE (" + SQLiteManager.PROPRIEDADE_COL_ID_USUARIO + " = " + idUsuario + ") AND (" +
+                SQLiteManager.PROPRIEDADE_COL_NOME + " LIKE '%" + nome + "%')";
 
         try {
             Cursor c = bancoDados.rawQuery(getPropriedades, null);
@@ -160,6 +173,7 @@ public class RepositorioPropriedade {
                     p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
                     p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
                     p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
+                    p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO)));
 
                     propriedades.add(p);
                 } while (c.moveToNext());
@@ -191,11 +205,12 @@ public class RepositorioPropriedade {
         dados.put(SQLiteManager.PROPRIEDADE_COL_ESTADO, propriedade.getEstado());
         dados.put(SQLiteManager.PROPRIEDADE_COL_CEP, propriedade.getCep());
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO, propriedade.getIdProprietario());
-        Log.i("I",propriedade.getId() + "  " + propriedade.getIdProprietario());
+        dados.put(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO, propriedade.getIdUsuario());
 
         int retorno = bancoDados.update(SQLiteManager.TABELA_PROPRIEDADE,
-                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ?",
-                new String[]{String.valueOf(propriedade.getId())});
+                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
+                new String[]{String.valueOf(propriedade.getId()),
+                        String.valueOf(propriedade.getIdProprietario())});
 
         bancoDados.close();
 
@@ -206,8 +221,9 @@ public class RepositorioPropriedade {
     public int removerPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
-                SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
-                new String[]{String.valueOf(propriedade.getId())});
+                SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
+                new String[]{String.valueOf(propriedade.getId()),
+                        String.valueOf(propriedade.getIdProprietario())});
 
         bancoDados.close();
 

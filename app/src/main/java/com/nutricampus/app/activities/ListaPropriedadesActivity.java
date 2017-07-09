@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
@@ -39,6 +40,8 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     @BindView(R.id.linha) View linha;
     @BindView(R.id.input_pesquisar_propriedade)   EditText inputPesquisaPropriedade;
 
+    SharedPreferencesManager session;
+
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText inputPesquisaPropriedades;
@@ -46,6 +49,9 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        session = new SharedPreferencesManager(getApplicationContext());
+        session.checkLogin();
 
         setContentView(R.layout.activity_lista_propriedades);
         ButterKnife.bind(this);
@@ -178,11 +184,12 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             isSearchOpened = false;
         } else { //open the search entry
 
-            action.setDisplayShowCustomEnabled(true); //enable it to display a
-            // custom view in the action bar.
-            action.setCustomView(R.layout.search_bar);//add the custom view
-            action.setDisplayShowTitleEnabled(false); //hide the title
-
+            if (action != null) {
+                action.setDisplayShowCustomEnabled(true); //enable it to display a
+                // custom view in the action bar.
+                action.setCustomView(R.layout.search_bar);//add the custom view
+                action.setDisplayShowTitleEnabled(false); //hide the title
+            }
             inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
 
             //this is a listener to do a search when the user clicks on search button
@@ -235,7 +242,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     public List<Propriedade> buscarPropriedades(String nome){
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
-        return repositorioPropriedade.buscarPropriedadesPorNome(nome);
+        return repositorioPropriedade.buscarPropriedadesPorNome(nome, Integer.parseInt(session.getIdNC()));
     }
 
     private Intent getIntent(Propriedade propriedade){

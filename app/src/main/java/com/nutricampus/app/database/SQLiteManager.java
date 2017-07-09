@@ -5,8 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.nutricampus.app.entities.Propriedade;
-
 /**
  * Created by Felipe on 25/06/2017.
  * For project NutriCampus.
@@ -60,6 +58,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROPRIEDADE_COL_ESTADO = "estado";
     public static final String PROPRIEDADE_COL_CEP = "cep";
     public static final String PROPRIEDADE_COL_ID_PROPRIETARIO = "id_proprietario";
+    public static final String PROPRIEDADE_COL_ID_USUARIO = "id_usuario";
 
     /* SQL de criação de tabelas. */
     private final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
@@ -88,7 +87,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PROPRIEDADE_COL_ESTADO + " TEXT NOT NULL, " +
             PROPRIEDADE_COL_CEP + " TEXT NOT NULL, " +
             PROPRIEDADE_COL_ID_PROPRIETARIO + " INTEGER NOT NULL, " +
-            "FOREIGN KEY(" + PROPRIEDADE_COL_ID_PROPRIETARIO + ") REFERENCES " + TABELA_PROPRIETARIO + "(" + PROPRIETARIO_COL_ID + "));";
+            PROPRIEDADE_COL_ID_USUARIO + " INTEGER NOT NULL, " +
+            "FOREIGN KEY(" + PROPRIEDADE_COL_ID_PROPRIETARIO + ") REFERENCES " + TABELA_PROPRIETARIO + "(" + PROPRIETARIO_COL_ID + ")" +
+            "FOREIGN KEY(" + PROPRIEDADE_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
 
 
 
