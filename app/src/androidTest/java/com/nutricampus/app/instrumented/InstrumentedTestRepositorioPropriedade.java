@@ -117,6 +117,18 @@ public class InstrumentedTestRepositorioPropriedade {
     }
 
     @Test
+    public void testarIsPropriedadeProprietario() {
+        int idProprietario = 2;
+
+        Propriedade propriedade = new Propriedade("XXXX", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", idProprietario);
+        int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
+
+        boolean isPropriedadeEncontrada = repositorio.isPropriedadeProprietario(idProprietario);
+
+        assertTrue(isPropriedadeEncontrada);
+    }
+
+    @Test
     public void testarbuscarTodosPropriedades() {
         Propriedade propriedade = new Propriedade("Sítio Vasc", "3761-4040", "Rua Sete", "Cohab III", "77777-777", "Gus", "Pernambuco", "numero", 1);
         repositorio.inserirPropriedade(propriedade);
