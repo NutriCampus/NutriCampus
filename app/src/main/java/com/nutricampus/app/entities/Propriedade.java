@@ -157,7 +157,7 @@ public class Propriedade {
                 (objeto.getEstado().equals(this.getEstado()))  &&
                 (objeto.getNumero().equals(this.getNumero()))  &&
                 (objeto.getIdProprietario() == (this.getIdProprietario())) &&
-            (objeto.getIdUsuario() == (this.getIdUsuario())))
+                (objeto.getIdUsuario() == (this.getIdUsuario())))
             return true;
 
         return false;

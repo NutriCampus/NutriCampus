@@ -2,12 +2,13 @@ package com.nutricampus.app.instrumented;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.util.Log;
 
 import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.entities.Usuario;
 
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -27,11 +27,18 @@ public class InstrumentedTestRepositorioPropriedade {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioPropriedade repositorio = new RepositorioPropriedade(appContext);
 
+    int idUsuario = 77;
+
+    @Before
+    public void adicionarUsuarioParaTestes() {
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario(appContext);
+        repositorioUsuario.inserirUsuario(new Usuario(idUsuario, "12345", "Usuario", "000000", "", ""));
+    }
 
     @Test
     public void testarInserePropriedadeInexistente() {
 
-        Propriedade propriedade = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2);
+        Propriedade propriedade = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
         int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
 
         boolean resultado = resultNovaPropriedade > 0;
@@ -44,7 +51,7 @@ public class InstrumentedTestRepositorioPropriedade {
 
         String nome = "Fazenda ZZZ";
 
-        Propriedade propriedade = new Propriedade(nome, "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2);
+        Propriedade propriedade = new Propriedade(nome, "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
         int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
 
         Propriedade propriedadeEncontrada = repositorio.buscarPropriedade(nome);
@@ -55,11 +62,11 @@ public class InstrumentedTestRepositorioPropriedade {
     @Test
     public void testarAtualizacaoDeDadosSemIDPropriedade() {
         boolean result;
-        Propriedade propriedade = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Cohab I", "55555-555", "Gus", "Pernambuco", "numero", 2);
+        Propriedade propriedade = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Cohab I", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
         repositorio.inserirPropriedade(propriedade);
 
         // Testa a atualização em um registro sem passar o id
-        Propriedade propriedadeDadosAlterados = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Cohab II", "99999-999", "Garanhuns", "Pernambuco", "numero", 2);
+        Propriedade propriedadeDadosAlterados = new Propriedade("propriedade", "1234-5678", "Rua XYZ", "Cohab II", "99999-999", "Garanhuns", "Pernambuco", "numero", 2, idUsuario);
         result = repositorio.atualizarPropriedade(propriedadeDadosAlterados);
 
         assertFalse(result);
@@ -71,7 +78,7 @@ public class InstrumentedTestRepositorioPropriedade {
         boolean result;
         Propriedade propriedade;
 
-        propriedade = new Propriedade("Fazenda", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2);
+        propriedade = new Propriedade("Fazenda", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
         repositorio.inserirPropriedade(propriedade);
 
         propriedade.setTelefone("9876-5432");
@@ -94,7 +101,7 @@ public class InstrumentedTestRepositorioPropriedade {
         boolean result;
         Propriedade propriedadeAlterada;
 
-        propriedadeAlterada = new Propriedade("propriedade Q", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2);
+        propriedadeAlterada = new Propriedade("propriedade Q", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
         result = repositorio.atualizarPropriedade(propriedadeAlterada);
 
         assertFalse(result);
@@ -103,7 +110,7 @@ public class InstrumentedTestRepositorioPropriedade {
     @Test
     public void testarBuscarPropriedadesPorNome() {
         String nome = "Faz";
-        List<Propriedade> propriedadesList = repositorio.buscarPropriedadesPorNome(nome);
+        List<Propriedade> propriedadesList = repositorio.buscarPropriedadesPorNome(nome, idUsuario);
 
         boolean contem = true;
         for(Propriedade p : propriedadesList) {
@@ -120,7 +127,7 @@ public class InstrumentedTestRepositorioPropriedade {
     public void testarIsPropriedadeProprietario() {
         int idProprietario = 2;
 
-        Propriedade propriedade = new Propriedade("XXXX", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", idProprietario);
+        Propriedade propriedade = new Propriedade("XXXX", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", idProprietario, idUsuario);
         int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
 
         boolean isPropriedadeEncontrada = repositorio.isPropriedadeProprietario(idProprietario);
@@ -130,7 +137,7 @@ public class InstrumentedTestRepositorioPropriedade {
 
     @Test
     public void testarbuscarTodosPropriedades() {
-        Propriedade propriedade = new Propriedade("Sítio Vasc", "3761-4040", "Rua Sete", "Cohab III", "77777-777", "Gus", "Pernambuco", "numero", 1);
+        Propriedade propriedade = new Propriedade("Sítio Vasc", "3761-4040", "Rua Sete", "Cohab III", "77777-777", "Gus", "Pernambuco", "numero", 1, idUsuario);
         repositorio.inserirPropriedade(propriedade);
 
         repositorio.inserirPropriedade(propriedade);

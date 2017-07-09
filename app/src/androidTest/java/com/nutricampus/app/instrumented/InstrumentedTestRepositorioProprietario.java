@@ -10,10 +10,13 @@ import com.nutricampus.app.entities.Proprietario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Felipe on 08/07/2017.
@@ -29,12 +32,14 @@ public class InstrumentedTestRepositorioProprietario {
     @Test
     public void testarInsereProprietarioInexistente() {
 
-        Proprietario proprietario = new Proprietario("111.111.111-19", "proprietario", "proprietario@email.com", "1234-5678");
+        Proprietario proprietario = new Proprietario("XXX.XXX.XXX-XX", "proprietario", "proprietario@email.com", "1234-5678");
         int resultNovoProprietario = repositorio.inserirProprietario(proprietario);
 
         boolean resultado = resultNovoProprietario > 0;
 
         assertTrue(resultado);
+
+        repositorio.removerProprietario(repositorio.buscarProprietario("XXX.XXX.XXX-XX"));
     }
 
     @Test
@@ -55,12 +60,14 @@ public class InstrumentedTestRepositorioProprietario {
 
         int id = 1;
 
-        Proprietario proprietario = new Proprietario("777.777.777-77", "proprietario", "proprietario@email.com", "1234-5678");
+        Proprietario proprietario = new Proprietario("777.888.999.000-00", "proprietario", "proprietario@email.com", "1234-5678");
         repositorio.inserirProprietario(proprietario);
 
         Proprietario proprietarioEncontrado = repositorio.buscarProprietario(id);
 
         assertNotNull(proprietarioEncontrado);
+
+        repositorio.removerProprietario(proprietario);
     }
 
 

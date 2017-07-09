@@ -242,7 +242,7 @@ public class RepositorioPropriedade {
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO, propriedade.getIdUsuario());
 
         int retorno = bancoDados.update(SQLiteManager.TABELA_PROPRIEDADE,
-                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
+                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = ? ",
                 new String[]{String.valueOf(propriedade.getId()),
                         String.valueOf(propriedade.getIdProprietario())});
 
