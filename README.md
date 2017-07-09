@@ -10,6 +10,5 @@ Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bachare
 [![codecov](https://codecov.io/gh/NutriCampus/NutriCampus/branch/master/graph/badge.svg)](https://codecov.io/gh/NutriCampus/NutriCampus)
 
 ## Release
-
 [![release](http://github-release-version.herokuapp.com/github/NutriCampus/NutriCampus/release.svg?style=flat)](https://github.com/NutriCampus/NutriCampus/releases/latest)
 
