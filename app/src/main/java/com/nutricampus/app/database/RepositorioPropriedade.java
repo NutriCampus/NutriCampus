@@ -177,6 +177,47 @@ public class RepositorioPropriedade {
         return propriedades;
     }
 
+    public boolean isPropriedadeProprietario(int idProprietario) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        ArrayList<Propriedade> propriedades = new ArrayList<>();
+        String getPropriedades = "SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
+                " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario;
+
+        try {
+            Cursor c = bancoDados.rawQuery(getPropriedades, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Propriedade p = new Propriedade();
+                    p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID)));
+                    p.setNome(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NOME)));
+                    p.setTelefone(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_TELEFONE)));
+                    p.setLogradouro(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_LOGRADOURO)));
+                    p.setNumero(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NUMERO)));
+                    p.setBairro(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_BAIRRO)));
+                    p.setCidade(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CIDADE)));
+                    p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
+                    p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
+                    p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
+
+                    propriedades.add(p);
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            Log.i("RepositorioPropriedade", e.toString());
+        } finally {
+            bancoDados.close();
+        }
+
+        Log.d("FGP", ">>>> " + propriedades.size());
+        return propriedades.size() > 1;
+        //return propriedades;
+
+    }
+
 
     public boolean atualizarPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
