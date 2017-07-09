@@ -2,8 +2,8 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.Mascara;
@@ -54,10 +55,14 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @BindView(R.id.btn_add_proprietario)
     Button buttonAddProprietario;
 
+    SharedPreferencesManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        session = new SharedPreferencesManager(getApplicationContext());
+        session.checkLogin();
 
         setContentView(R.layout.activity_cadastrar_propriedade);
 
@@ -118,7 +123,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             spinnerProprietario.setSelection(posicao);
         }
         else{
-            ArrayAdapter adapter = new ArrayAdapter<String>(this,
+            ArrayAdapter adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, new String[]{"<< " + getString(R.string.msg_cadastre_proprietario) + " >>"});
             spinnerProprietario.setAdapter(adapter);
 
@@ -141,7 +146,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     }
 
     private String carregaJSONAssets(String arquivo) {
-        String json;
+        String json = new String("");
 
         try {
             InputStream is = getAssets().open(arquivo);
@@ -150,7 +155,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             byte[] buffer = new byte[tamanho];
 
 
-            if (is.read(buffer) > 0);
+            if (is.read(buffer) > 0)
                 json = new String(buffer, "UTF-8");
 
             is.close();
@@ -240,7 +245,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 inputCidade.getText().toString(),
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
-                ((Proprietario) spinnerProprietario.getSelectedItem()).getId());
+                ((Proprietario) spinnerProprietario.getSelectedItem()).getId(),
+                Integer.parseInt(session.getIdNC()));
 
         propriedade.setProprietario(proprietario);
 
