@@ -75,10 +75,8 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
             });
             dialog.show();
 
-
-
         } else {
-            Toast.makeText(CadastrarProprietarioActivity.this, "Erro ao gravar Proprietário", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarProprietarioActivity.this, getString(R.string.msg_erro_cadastro_proprietario), Toast.LENGTH_LONG).show();
         }
 
 
@@ -112,6 +110,9 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
         if (inputFoneProprietario.getText().toString().isEmpty()) {
             inputFoneProprietario.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else if (inputFoneProprietario.getText().toString().length() < 14) {
+            inputFoneProprietario.setError(getString(R.string.msg_erro_telefone_incompleto));
             valido = false;
         } else {
             inputFoneProprietario.setError(null);

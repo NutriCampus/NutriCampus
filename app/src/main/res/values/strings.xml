@@ -39,6 +39,7 @@
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
+    <string name="msg_erro_cadastro_proprietario">CPF já cadastrado !</string>
     <string name="msg_erro_cadastro_geral">Campos inválidos</string>
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
@@ -47,6 +48,8 @@
     <string name="msg_erro_atualizar_proprietario">Erro ao atualizar o proprietário</string>
     <string name="msg_erro_spinner_proprietario">Selecione uma propriedade</string>
     <string name="msg_erro_cep_incompleto">CEP incompleto</string>
+    <string name="msg_erro_telefone_incompleto">Telefone incompleto</string>
+    <string name="msg_erro_gravar_propriedade">Erro ao gravar Propriedade</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastro_erro">Erro ao tentar realizar o cadastro</string>
