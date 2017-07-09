@@ -71,4 +71,35 @@ public class Proprietario implements Serializable {
         this.email = email;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if( (obj == null) || !(obj instanceof Usuario))
+            return false;
+
+        Proprietario objeto = (Proprietario) obj;
+
+        if((objeto.getId() == (this.getId())) &&
+                (objeto.getCpf().equals(this.getCpf()))  &&
+                (objeto.getNome().equals(this.getNome()))  &&
+                (objeto.getEmail().equals(this.getEmail()))  &&
+                (objeto.getTelefone().equals(this.getTelefone())) ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + String.valueOf(this.getId()).hashCode();
+        result = 31 * result + this.getCpf().hashCode();
+        result = 31 * result + this.getNome().hashCode();
+        result = 31 * result + this.getEmail().hashCode();
+        result = 31 * result + this.getTelefone().hashCode();
+
+        return result;
+
+    }
 }
