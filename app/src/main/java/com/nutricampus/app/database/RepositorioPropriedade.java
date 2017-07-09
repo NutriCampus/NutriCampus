@@ -51,19 +51,11 @@ public class RepositorioPropriedade {
     }
 
     public Propriedade buscarPropriedade(String nome) {
-        return buscarPropriedade(nome, null);
-    }
-
-    public Propriedade buscarPropriedade(String nome, String bairro) {
         bancoDados = gerenciador.getReadableDatabase();
 
         String colunasWhere = SQLiteManager.PROPRIEDADE_COL_NOME + "= ?";
         String[] valoresWhere = new String[]{String.valueOf(nome)};
 
-        if (bairro != null) {
-            colunasWhere += " AND " + SQLiteManager.PROPRIEDADE_COL_BAIRRO + "= ?";
-            valoresWhere = new String[]{String.valueOf(nome), String.valueOf(bairro)};
-        }
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIEDADE, new String[]{
                         SQLiteManager.PROPRIEDADE_COL_ID,
@@ -188,6 +180,48 @@ public class RepositorioPropriedade {
         }
 
         return propriedades;
+    }
+
+    public boolean isPropriedadeProprietario(int idProprietario) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        ArrayList<Propriedade> propriedades = new ArrayList<>();
+        String getPropriedades = "SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
+                " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario;
+
+        try {
+            Cursor c = bancoDados.rawQuery(getPropriedades, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Propriedade p = new Propriedade();
+                    p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID)));
+                    p.setNome(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NOME)));
+                    p.setTelefone(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_TELEFONE)));
+                    p.setLogradouro(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_LOGRADOURO)));
+                    p.setNumero(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NUMERO)));
+                    p.setBairro(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_BAIRRO)));
+                    p.setCidade(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CIDADE)));
+                    p.setEstado(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)));
+                    p.setCep(c.getString(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)));
+                    p.setIdProprietario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)));
+                    p.setIdUsuario(c.getInt(c.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO)));
+
+                    propriedades.add(p);
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            Log.i("RepositorioPropriedade", e.toString());
+        } finally {
+            bancoDados.close();
+        }
+
+        Log.d("FGP", ">>>> " + propriedades.size());
+        return propriedades.size() > 1;
+        //return propriedades;
+
     }
 
 

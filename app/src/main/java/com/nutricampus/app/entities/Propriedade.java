@@ -139,4 +139,45 @@ public class Propriedade {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+    @Override
+    public boolean equals(Object obj) {
+
+        if( (obj == null) || !(obj instanceof Propriedade))
+            return false;
+
+        Propriedade objeto = (Propriedade) obj;
+
+        if( (objeto.getId() == (this.getId())) &&
+                (objeto.getNome().equals(this.getNome()))  &&
+                (objeto.getTelefone().equals(this.getTelefone())) &&
+                (objeto.getLogradouro().equals(this.getLogradouro())) &&
+                (objeto.getBairro().equals(this.getBairro()))  &&
+                (objeto.getCep().equals(this.getCep()))  &&
+                (objeto.getCidade().equals(this.getCidade()))  &&
+                (objeto.getEstado().equals(this.getEstado()))  &&
+                (objeto.getNumero().equals(this.getNumero()))  &&
+                (objeto.getIdProprietario() == (this.getIdProprietario())) &&
+            (objeto.getIdUsuario() == (this.getIdUsuario())))
+            return true;
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + String.valueOf(this.getId()).hashCode();
+        result = 31 * result + this.getNome().hashCode();
+        result = 31 * result + this.getTelefone().hashCode();
+        result = 31 * result + this.getLogradouro().hashCode();
+        result = 31 * result + this.getBairro().hashCode();
+        result = 31 * result + this.getCep().hashCode();
+        result = 31 * result + this.getCidade().hashCode();
+        result = 31 * result + this.getEstado().hashCode();
+        result = 31 * result + this.getNumero().hashCode();
+        result = 31 * result + String.valueOf(this.getIdProprietario()).hashCode();
+        result = 31 * result + String.valueOf(this.getIdUsuario()).hashCode();
+
+        return result;
+    }
 }

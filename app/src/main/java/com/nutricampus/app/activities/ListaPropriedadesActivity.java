@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
 import java.util.List;
@@ -146,12 +148,23 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
                         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+
+                        Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
+                        boolean isdeleteProprietario = repositorioPropriedade.isPropriedadeProprietario(proprietario.getId());
+
                         int result = repositorioPropriedade.removerPropriedade(propriedade);
 
                         if (result > 0) {
                             Toast.makeText(ListaPropriedadesActivity.this,
                                     getString(R.string.msg_excluir_propriedade_sucesso), Toast.LENGTH_LONG).show();
+
+                            /*Excluirá o proprietário da propriedade por ultimo excluída,
+                            caso ele não possua mais nenhuma propriedade*/
+                            if (!isdeleteProprietario) {
+                                repositorioProprietario.removerProprietario(proprietario);
+                            }
 
                             carregaListView("");
                         }

@@ -99,6 +99,7 @@ public class RepositorioProprietario {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_TELEFONE)));
         }
+        
         cursor.close();
 
         return null;

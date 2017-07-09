@@ -1,5 +1,6 @@
 package com.nutricampus.app.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
+import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
@@ -67,7 +69,10 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         boolean result = repositorioPropriedade.atualizarPropriedade(propriedade);
 
         if(result) {
-            Toast.makeText(EditarPropriedadeActivity.this, "Propriedade gravada com sucesso", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditarPropriedadeActivity.this, getString(R.string.msg_sucesso_atualizar, "Propriedade", propriedade.getNome()),
+                    Toast.LENGTH_LONG).show();
+            Intent it = new Intent(EditarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+            startActivity(it);
         } else {
             Toast.makeText(EditarPropriedadeActivity.this, "Erro ao gravar Propriedade", Toast.LENGTH_LONG).show();
         }
