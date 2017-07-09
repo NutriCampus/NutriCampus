@@ -18,10 +18,11 @@ public class Propriedade {
     private String estado;
     private String numero;
     private Proprietario proprietario;
+    private int idProprietario;
 
     public Propriedade() {}
 
-    public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
+    public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero, int idProprietario) {
         this.nome = nome;
         this.telefone = telefone;
         this.logradouro = logradouro;
@@ -30,10 +31,13 @@ public class Propriedade {
         this.cidade = cidade;
         this.estado = estado;
         this.numero = numero;
+        this.idProprietario = idProprietario;
     }
 
-    public Propriedade(int id, String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado, String numero) {
-        this(nome, telefone, logradouro, bairro, cep, cidade, estado,numero);
+
+    public Propriedade(int id, String nome, String telefone, String logradouro, String bairro, String cep, String cidade, String estado,
+                       String numero, int idProprietario) {
+        this(nome, telefone, logradouro, bairro, cep, cidade, estado,numero,idProprietario);
         this.id = id;
     }
 
@@ -114,5 +118,53 @@ public class Propriedade {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
+    }
+
+    public int getIdProprietario() {
+        return idProprietario;
+    }
+
+    public void setIdProprietario(int idProprietario) {
+        this.idProprietario = idProprietario;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if( (obj == null) || !(obj instanceof Propriedade))
+            return false;
+
+        Propriedade objeto = (Propriedade) obj;
+
+        if( (objeto.getId() == (this.getId())) &&
+                (objeto.getNome().equals(this.getNome()))  &&
+                (objeto.getTelefone().equals(this.getTelefone())) &&
+                (objeto.getLogradouro().equals(this.getLogradouro())) &&
+                (objeto.getBairro().equals(this.getBairro()))  &&
+                (objeto.getCep().equals(this.getCep()))  &&
+                (objeto.getCidade().equals(this.getCidade()))  &&
+                (objeto.getEstado().equals(this.getEstado()))  &&
+                (objeto.getNumero().equals(this.getNumero()))  &&
+                (objeto.getIdProprietario() == (this.getIdProprietario())))
+            return true;
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + String.valueOf(this.getId()).hashCode();
+        result = 31 * result + this.getNome().hashCode();
+        result = 31 * result + this.getTelefone().hashCode();
+        result = 31 * result + this.getLogradouro().hashCode();
+        result = 31 * result + this.getBairro().hashCode();
+        result = 31 * result + this.getCep().hashCode();
+        result = 31 * result + this.getCidade().hashCode();
+        result = 31 * result + this.getEstado().hashCode();
+        result = 31 * result + this.getNumero().hashCode();
+        result = 31 * result + String.valueOf(this.getIdProprietario()).hashCode();
+
+        return result;
     }
 }

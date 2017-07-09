@@ -70,6 +70,8 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
             });
             dialog.show();
 
+
+
         } else {
             Toast.makeText(CadastrarProprietarioActivity.this, "Erro ao gravar Proprietário", Toast.LENGTH_LONG).show();
         }

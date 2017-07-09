@@ -20,6 +20,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.activities.EditarPropriedadeActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
+import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -98,6 +99,8 @@ public class ActionBarManager {
                                 session.logoutUser();
                                 _act.finish();
                                 break;
+                            default:
+
                         }
                         return false;
                     }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class RepositorioProprietario {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_TELEFONE)));
         }
-
+        
         cursor.close();
 
         return null;
@@ -137,7 +138,16 @@ public class RepositorioProprietario {
         return proprietarios;
     }
 
+    public List<String> listarProprietariosNome(){
+        List<String > lista = new ArrayList<>();
+        for (Proprietario proprietario: buscarTodosProprietarios()) {
+            lista.add(proprietario.getNome());
+        }
 
+        return lista;
+    }
+    
+    
     public boolean atualizarProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
 

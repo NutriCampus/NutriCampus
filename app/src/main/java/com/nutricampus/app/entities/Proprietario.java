@@ -72,20 +72,24 @@ public class Proprietario implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return this.getNome();
+    }
+
+    @Override
     public boolean equals(Object obj) {
 
-        if( (obj == null) || !(obj instanceof Usuario))
+        if( (obj == null) || !(obj instanceof Proprietario))
             return false;
 
         Proprietario objeto = (Proprietario) obj;
 
-        if((objeto.getId() == (this.getId())) &&
+        if( (objeto.getId() == (this.getId())) &&
                 (objeto.getCpf().equals(this.getCpf()))  &&
                 (objeto.getNome().equals(this.getNome()))  &&
                 (objeto.getEmail().equals(this.getEmail()))  &&
-                (objeto.getTelefone().equals(this.getTelefone())) ) {
+                (objeto.getTelefone().equals(this.getTelefone()))    )
             return true;
-        }
 
         return false;
     }
