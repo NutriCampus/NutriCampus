@@ -13,7 +13,7 @@
 
     <string name="register_user">Cadastro Usuário</string>
     <string name="save">Salvar</string>
-    <string name="update">Atualizar</string>
+    <string name="atualizar">Atualizar</string>
     <string name="cancel">Cancelar</string>
 
     <string name="entrar">Entrar</string>
@@ -82,7 +82,7 @@
     <string name="campo_numero">Número</string>
     <string name="campo_cep">CEP</string>
 
-    <string name="campo_spinner_proprietario">Selecione o proprietário...</string>
+    <string name="campo_spinner_proprietario">Selecione o proprietário…</string>
 
     <string name="campo_proprietario">Nome do Proprietário</string>
     <string name="campo_nome_proprietario">Proprietário</string>

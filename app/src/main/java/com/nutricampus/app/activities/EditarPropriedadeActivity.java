@@ -1,13 +1,11 @@
 package com.nutricampus.app.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
-import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
@@ -39,7 +37,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         preencherSpinnerListaProprietario();
 
 
-        buttonSalvar.setText("Atualizar");
+        buttonSalvar.setText(R.string.atualizar);
     }
 
     @Override
@@ -60,7 +58,8 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
                 inputCidade.getText().toString(),
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
-                ((Proprietario) spinnerProprietario.getSelectedItem()).getId());
+                ((Proprietario) spinnerProprietario.getSelectedItem()).getId(),
+                Integer.parseInt(session.getIdNC()));
 
         propriedade.setProprietario(proprietario);
 
