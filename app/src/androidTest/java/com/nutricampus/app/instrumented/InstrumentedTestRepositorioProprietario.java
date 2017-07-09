@@ -29,7 +29,7 @@ public class InstrumentedTestRepositorioProprietario {
     @Test
     public void testarInsereProprietarioInexistente() {
 
-        Proprietario proprietario = new Proprietario("111.111.111-15", "proprietario", "proprietario@email.com", "1234-5678");
+        Proprietario proprietario = new Proprietario("111.111.111-18", "proprietario", "proprietario@email.com", "1234-5678");
         int resultNovoProprietario = repositorio.inserirProprietario(proprietario);
 
         boolean resultado = resultNovoProprietario > 0;
