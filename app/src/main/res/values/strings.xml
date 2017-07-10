@@ -35,4 +35,10 @@
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
+
+
+    <string name="msg_senha_enviada">Senha enviada por e-mail</string>
+
+    <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
+
 </resources>
