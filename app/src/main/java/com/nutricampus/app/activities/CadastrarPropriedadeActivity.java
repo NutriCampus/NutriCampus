@@ -263,8 +263,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     public void criarProprietario(View view) {

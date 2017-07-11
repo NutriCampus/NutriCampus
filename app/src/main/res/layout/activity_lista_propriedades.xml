@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/tela_lista_propriedades"
     tools:context="com.nutricampus.app.activities.ListaPropriedadesActivity">
 
-
     <include layout="@layout/content_lista_propriedades" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_add_proprietario"

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/telaCadastrarPropriedade"
     tools:context="com.nutricampus.app.activities.CadastrarPropriedadeActivity">
-
-
     <include layout="@layout/content_form_propriedade"></include>
 
 
