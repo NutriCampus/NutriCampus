@@ -34,7 +34,7 @@
                 android:id="@+id/input_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/crz_crmv"
+                android:hint="@string/campo_crz_crmv"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +49,7 @@
                 android:id="@+id/input_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/senha"
+                android:hint="@string/campo_senha"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 

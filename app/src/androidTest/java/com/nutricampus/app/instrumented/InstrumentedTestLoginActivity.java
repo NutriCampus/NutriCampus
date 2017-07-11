@@ -2,7 +2,7 @@ package com.nutricampus.app.instrumented;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.AppCompatButton;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.nutricampus.app.R;
@@ -34,7 +34,7 @@ public class InstrumentedTestLoginActivity {
         EditText password = (EditText)activity.findViewById(R.id.input_senha);
         assertNotNull(password);
 
-        AppCompatButton btn_login = (AppCompatButton)activity.findViewById(R.id.btn_login);
+        Button btn_login = (Button) activity.findViewById(R.id.btn_login);
         assertNotNull(btn_login);
     }
 }
