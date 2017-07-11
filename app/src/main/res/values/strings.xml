@@ -97,7 +97,8 @@
     <string name="titulo_novo_usuario">Novo usuário</string>
     <string name="titulo_novo_proprietario">Novo proprietário</string>
 
+    <string name="msg_senha_enviada">Senha enviada por e-mail</string>
 
-
+    <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
 
 </resources>
