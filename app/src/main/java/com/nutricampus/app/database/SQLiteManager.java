@@ -14,7 +14,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 3;
+    private static final int VERSAO_BANCO = 4;
 
     /* Modo de acesso ao banco de dados
      *

@@ -2,6 +2,7 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,7 +10,6 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
@@ -22,6 +22,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
     protected void inicializaCampos(){
 
         int id = getIntent().getIntExtra("id",0);
+        Log.i("ID _ INT", String.valueOf(id));
         inputId.setText(String.valueOf(id));
 
         inputNome.setText(getIntent().getStringExtra("nome"));
@@ -34,6 +35,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         inputTelefone.setText(getIntent().getStringExtra("telefone"));
 
         int idProprietario = getIntent().getIntExtra("idProprietario",0);
+        Log.i("IDPROPRIETARIO", idProprietario + "");
         inputIdProprietario.setText(String.valueOf(idProprietario));
 
         preencherSpinnerListaProprietario();

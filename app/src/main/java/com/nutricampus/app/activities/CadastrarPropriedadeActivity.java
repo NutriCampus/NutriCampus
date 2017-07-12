@@ -21,7 +21,6 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.ListaPropriedadesAdapter;
 import com.nutricampus.app.model.Mascara;
 
 import org.json.JSONArray;
@@ -260,6 +259,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             propriedade.setId(idPropriedade);
             Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
             startActivity(it);
+            this.finish();
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
         }

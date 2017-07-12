@@ -42,7 +42,7 @@ public class RepositorioPropriedade {
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO, propriedade.getIdProprietario());
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO, propriedade.getIdUsuario());
 
-
+        Log.i("ADICIONAR PROPRIEDADE", propriedade.getIdProprietario() + "");
         long retorno = bancoDados.insert(SQLiteManager.TABELA_PROPRIEDADE, null, dados);
         bancoDados.close();
 
@@ -225,6 +225,7 @@ public class RepositorioPropriedade {
     }
 
 
+
     public boolean atualizarPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -240,11 +241,10 @@ public class RepositorioPropriedade {
         dados.put(SQLiteManager.PROPRIEDADE_COL_CEP, propriedade.getCep());
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO, propriedade.getIdProprietario());
         dados.put(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO, propriedade.getIdUsuario());
-
+        Log.i("AUALIZA", propriedade.getIdProprietario() + "");
         int retorno = bancoDados.update(SQLiteManager.TABELA_PROPRIEDADE,
-                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = ? ",
-                new String[]{String.valueOf(propriedade.getId()),
-                        String.valueOf(propriedade.getIdProprietario())});
+                dados, SQLiteManager.PROPRIEDADE_COL_ID + " = ?",
+                new String[]{String.valueOf(propriedade.getId())});
 
         bancoDados.close();
 
@@ -254,10 +254,10 @@ public class RepositorioPropriedade {
 
     public int removerPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
+
         int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
-                SQLiteManager.PROPRIEDADE_COL_ID + " = ? AND " + SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
-                new String[]{String.valueOf(propriedade.getId()),
-                        String.valueOf(propriedade.getIdProprietario())});
+                SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
+                new String[]{String.valueOf(propriedade.getId())});
 
         bancoDados.close();
 
