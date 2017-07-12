@@ -17,7 +17,6 @@ import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Kellison on 21/06/2017.

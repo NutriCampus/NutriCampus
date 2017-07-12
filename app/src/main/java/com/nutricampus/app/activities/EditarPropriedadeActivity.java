@@ -15,6 +15,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //setContentView(R.layout.activity_editar_propriedade);
         inicializaCampos();
     }
 
@@ -43,7 +44,6 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         buttonSalvar.setText(R.string.atualizar);
     }
 
-    @Override
     protected void salvar(View view) {
         if (!validaDados()) {
             Toast.makeText(EditarPropriedadeActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
