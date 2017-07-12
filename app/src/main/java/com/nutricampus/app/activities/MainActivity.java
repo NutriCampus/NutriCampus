@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (actionBar.mActionBar.isDrawerOpen()) {
-            actionBar.mActionBar.closeDrawer();
+        if (actionBar.getmActionBar().isDrawerOpen()) {
+            actionBar.getmActionBar().closeDrawer();
         } else {
             super.onBackPressed();
         }

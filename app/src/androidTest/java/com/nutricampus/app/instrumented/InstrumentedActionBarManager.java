@@ -9,7 +9,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -28,20 +27,6 @@ public class InstrumentedActionBarManager {
         MainActivity activity = rule.getActivity();
 
         assertNotNull(activity.getActionBarMainActivity());
-
-        //assertEquals("Início", activity.getActionBarMainActivity().getmActionBar().getDrawerItem(0).toString());
-        /*Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        ActionBarManager actionBarManager = new ActionBarManager((Activity) appContext, toolbar);
-        assertNotNull(actionBarManager.get_act());
-        assertNotNull(actionBarManager.getmActionBar());
-        assertNotNull(actionBarManager.getToolbar());
-
-        assertEquals("Inínio", actionBarManager.getmActionBar().getItemAdapter().getAdapterItem(0).toString());
-        */
-
 
     }
 }

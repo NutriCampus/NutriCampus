@@ -20,9 +20,6 @@ public class Propriedade {
     private int idProprietario;
     private int idUsuario;
 
-    // A definir permanencia
-    private Proprietario proprietario;
-
     public Propriedade() {}
 
     public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep,
@@ -116,12 +113,6 @@ public class Propriedade {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
-    public Proprietario getProprietario() { return proprietario; }
-
-    public void setProprietario(Proprietario proprietario) {
-        this.proprietario = proprietario;
     }
 
     public int getIdProprietario() {
