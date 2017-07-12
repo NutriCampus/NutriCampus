@@ -27,6 +27,7 @@ public class InstrumentedTestListaPropriedadesActivity {
     @Test
     public void ensureViewIsShowing() throws Exception {
         ListaPropriedadesActivity activity = rule.getActivity();
+
         ActionMenuItemView icone_pesquisa = (ActionMenuItemView) activity.findViewById(R.id.action_search);
         assertNotNull(icone_pesquisa);
 
