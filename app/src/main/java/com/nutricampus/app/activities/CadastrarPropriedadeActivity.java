@@ -97,7 +97,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         List<Proprietario> todosProprietarios = repositorioProprietario.buscarTodosProprietarios();
 
-        if (todosProprietarios.isEmpty()) {
+        if (!(todosProprietarios.isEmpty())) {
 
             // Adiciona a msg de "Selecione..." no spinner do proprietario
             Proprietario posZero = new Proprietario(0,"",getString(R.string.msg_spinner_proprietario),"","");
