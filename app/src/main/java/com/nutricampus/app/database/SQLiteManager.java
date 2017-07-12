@@ -14,7 +14,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 3;
+    private static final int VERSAO_BANCO = 4;
 
     /* Modo de acesso ao banco de dados
      *
@@ -61,7 +61,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROPRIEDADE_COL_ID_USUARIO = "id_usuario";
 
     /* SQL de criação de tabelas. */
-    private final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
+    private static final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
             USUARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             USUARIO_COL_CRMV + " TEXT NOT NULL UNIQUE, " +
             USUARIO_COL_CPF + " TEXT NOT NULL UNIQUE," +
@@ -69,14 +69,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
             USUARIO_COL_EMAIL + " TEXT NOT NULL, " +
             USUARIO_COL_SENHA + " TEXT NOT NULL);";
 
-    private final String SQL_CREATE_TABELA_PROPRIETARIO = "CREATE TABLE " + TABELA_PROPRIETARIO + "(" +
+    private static final String SQL_CREATE_TABELA_PROPRIETARIO = "CREATE TABLE " + TABELA_PROPRIETARIO + "(" +
             PROPRIETARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             PROPRIETARIO_COL_CPF + " TEXT NOT NULL UNIQUE," +
             PROPRIETARIO_COL_NOME + " TEXT NOT NULL, " +
             PROPRIETARIO_COL_EMAIL + " TEXT NOT NULL, " +
             PROPRIETARIO_COL_TELEFONE + " TEXT NOT NULL);";
 
-    private final String SQL_CREATE_TABELA_PROPRIEDADE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROPRIEDADE + "(" +
+    private static final String SQL_CREATE_TABELA_PROPRIEDADE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROPRIEDADE + "(" +
             PROPRIEDADE_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             PROPRIEDADE_COL_NOME + " TEXT NOT NULL, " +
             PROPRIEDADE_COL_TELEFONE + " TEXT NOT NULL, " +
