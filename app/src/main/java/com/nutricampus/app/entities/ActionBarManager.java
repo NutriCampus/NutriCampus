@@ -17,10 +17,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
-import com.nutricampus.app.activities.EditarPropriedadeActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
-import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -32,7 +29,7 @@ import com.nutricampus.app.database.SharedPreferencesManager;
 public class ActionBarManager {
     private Activity _act;
     private Toolbar toolbar;
-    public Drawer mActionBar;
+    private Drawer mActionBar;
 
     SharedPreferencesManager session;
 
@@ -106,5 +103,13 @@ public class ActionBarManager {
                     }
                 })
                 .build();
+    }
+
+    public Drawer getmActionBar() {
+        return mActionBar;
+    }
+
+    public void setmActionBar(Drawer mActionBar) {
+        this.mActionBar = mActionBar;
     }
 }

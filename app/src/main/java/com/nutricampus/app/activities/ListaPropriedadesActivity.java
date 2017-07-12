@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -73,6 +74,8 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
+                ListaPropriedadesActivity.this.finish();
+
             }
         });
     }
@@ -96,9 +99,9 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_adicionar:
-
                 Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
+                this.finish();
                 return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
@@ -106,6 +109,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 return true;
             case R.id.menu_opc_cont_excluir:
                 Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(info.position);
+                Log.i("PROPRIEDADE", propriedade.getNome() + " " + propriedade.getId());
                 confirmarExcluir(propriedade);
                 return true;
             default:
@@ -123,13 +127,12 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                gerenciaFuncaoPesquisar();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_search) {
+            gerenciaFuncaoPesquisar();
+            return true;
+
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -148,10 +151,12 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
-                        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+                        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(ListaPropriedadesActivity.this);
+                        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(ListaPropriedadesActivity.this);
 
                         Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
+
+
                         boolean isdeleteProprietario = repositorioPropriedade.isPropriedadeProprietario(proprietario.getId());
 
                         int result = repositorioPropriedade.removerPropriedade(propriedade);
@@ -170,7 +175,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                         }
                         else{
                             Toast.makeText(ListaPropriedadesActivity.this,
-                                    getString(R.string.msg_excluir_propriedade_sucesso), Toast.LENGTH_LONG).show();
+                                    getString(R.string.msg_excluir_propriedade_falha), Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -202,42 +207,46 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 // custom view in the action bar.
                 action.setCustomView(R.layout.search_bar);//add the custom view
                 action.setDisplayShowTitleEnabled(false); //hide the title
-            }
-            inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
 
-            //this is a listener to do a search when the user clicks on search button
-            inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    if (i == EditorInfo.IME_ACTION_SEARCH) {
-                        carregaListView(inputPesquisaPropriedades.getText().toString());
-                        return true;
+                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
+
+                //this is a listener to do a search when the user clicks on search button
+                inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if (i == EditorInfo.IME_ACTION_SEARCH) {
+                            carregaListView(inputPesquisaPropriedades.getText().toString());
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
-                }
 
-            });
+                });
 
 
-            inputPesquisaPropriedades.requestFocus();
+                inputPesquisaPropriedades.requestFocus();
 
-            //open the keyboard focused in the edtSearch
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(inputPesquisaPropriedades, InputMethodManager.SHOW_IMPLICIT);
+                //open the keyboard focused in the edtSearch
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(inputPesquisaPropriedades, InputMethodManager.SHOW_IMPLICIT);
 
 
-            //add the close icon
-            mSearchAction.setIcon(R.drawable.ic_close);
+                //add the close icon
+                mSearchAction.setIcon(R.drawable.ic_close);
 
-            isSearchOpened = true;
+                isSearchOpened = true;
+            }
         }
     }
 
     private void carregaListView(String nome) {
-        List<Propriedade> lista = buscarPropriedades(nome);
+        List<Propriedade> lista = this.buscarPropriedades(nome);
 
+        for (int a = 0; a < lista.size(); a++) {
+            Log.i("LISTA " + a, lista.get(a).getId() + " " + lista.get(a).getIdProprietario());
+        }
         ListaPropriedadesAdapter adapter =
-                new ListaPropriedadesAdapter(buscarPropriedades(nome), this);
+                new ListaPropriedadesAdapter(lista, this);
 
         listPropriedades.setAdapter(adapter);
 

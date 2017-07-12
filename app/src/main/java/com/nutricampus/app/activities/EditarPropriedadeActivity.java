@@ -2,14 +2,13 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
@@ -19,9 +18,10 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         inicializaCampos();
     }
 
-    protected void inicializaCampos(){
+    private void inicializaCampos() {
 
         int id = getIntent().getIntExtra("id",0);
+        Log.i("ID _ INT", String.valueOf(id));
         inputId.setText(String.valueOf(id));
 
         inputNome.setText(getIntent().getStringExtra("nome"));
@@ -34,6 +34,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         inputTelefone.setText(getIntent().getStringExtra("telefone"));
 
         int idProprietario = getIntent().getIntExtra("idProprietario",0);
+        Log.i("IDPROPRIETARIO", idProprietario + "");
         inputIdProprietario.setText(String.valueOf(idProprietario));
 
         preencherSpinnerListaProprietario();
@@ -48,7 +49,6 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
             Toast.makeText(EditarPropriedadeActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
-        Proprietario proprietario = (Proprietario) spinnerProprietario.getSelectedItem();
 
         Propriedade propriedade = new Propriedade(
                 Integer.parseInt( inputId.getText().toString()),
@@ -60,10 +60,9 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
                 inputCidade.getText().toString(),
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
-                ((Proprietario) spinnerProprietario.getSelectedItem()).getId(),
+                Integer.parseInt(inputIdProprietario.getText().toString()),
                 Integer.parseInt(session.getIdNC()));
 
-        propriedade.setProprietario(proprietario);
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         boolean result = repositorioPropriedade.atualizarPropriedade(propriedade);

@@ -21,7 +21,6 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.ListaPropriedadesAdapter;
 import com.nutricampus.app.model.Mascara;
 
 import org.json.JSONArray;
@@ -98,7 +97,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         List<Proprietario> todosProprietarios = repositorioProprietario.buscarTodosProprietarios();
 
-        if(todosProprietarios.size() > 0) {
+        if (todosProprietarios.isEmpty()) {
 
             // Adiciona a msg de "Selecione..." no spinner do proprietario
             Proprietario posZero = new Proprietario(0,"",getString(R.string.msg_spinner_proprietario),"","");
@@ -147,7 +146,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     }
 
     private String carregaJSONAssets(String arquivo) {
-        String json = new String("");
+        String json = "";
 
         try {
             InputStream is = getAssets().open(arquivo);
@@ -169,7 +168,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     }
 
-    private ArrayList<HashMap<String, String>> estruturaEstados(){
+    public ArrayList<HashMap<String, String>> estruturaEstados() {
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
 
         try {
@@ -199,7 +198,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         return lista;
     }
 
-    private ArrayList<HashMap<String, String>> estruturaCidades(){
+    public ArrayList<HashMap<String, String>> estruturaCidades() {
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
 
         try {
@@ -235,8 +234,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             return;
         }
 
-        Proprietario proprietario = (Proprietario) spinnerProprietario.getSelectedItem();
-
         Propriedade propriedade = new Propriedade(
                 inputNome.getText().toString(),
                 inputTelefone.getText().toString(),
@@ -246,10 +243,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 inputCidade.getText().toString(),
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
-                ((Proprietario) spinnerProprietario.getSelectedItem()).getId(),
+                Integer.parseInt(inputIdProprietario.getText().toString()),
                 Integer.parseInt(session.getIdNC()));
-
-        propriedade.setProprietario(proprietario);
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
 
@@ -260,6 +255,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             propriedade.setId(idPropriedade);
             Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
             startActivity(it);
+            this.finish();
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
         }
@@ -267,7 +263,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     }
 
-    public void criarProprietario(View view) {
+    protected void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         startActivity(it);
     }
@@ -380,9 +376,10 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
 
-        if(parent.getItemAtPosition(position) instanceof Proprietario){
+        if ((parent != null) && (parent.getItemAtPosition(position) instanceof Proprietario)) {
             Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
             inputIdProprietario.setText(String.valueOf(proprietario.getId()));
+            Log.i("INPUT PROPRIETARIO", inputIdProprietario.getText().toString());
         }
     }
 

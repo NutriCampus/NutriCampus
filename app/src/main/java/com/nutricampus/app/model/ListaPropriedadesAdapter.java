@@ -1,20 +1,12 @@
 package com.nutricampus.app.model;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.EditarPropriedadeActivity;
-import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.entities.Propriedade;
 
 import java.util.List;
@@ -66,31 +58,7 @@ public class ListaPropriedadesAdapter extends BaseAdapter {
         cidade.setText(propriedade.getCidade());
         estado.setText(propriedade.getEstado());
 
-        /*view.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                act.startActivity(getIntent(propriedade));
-            }
-        });*/
-
-        //act.registerForContextMenu(view);
-
         return view;
     }
-
-    public Intent getIntent(Propriedade propriedade){
-        Intent intent = new Intent(act, EditarPropriedadeActivity.class);
-            intent.putExtra("id",propriedade.getId());
-            intent.putExtra("nome",propriedade.getNome());
-            intent.putExtra("telefone",propriedade.getTelefone());
-            intent.putExtra("rua",propriedade.getLogradouro());
-            intent.putExtra("bairro",propriedade.getBairro());
-            intent.putExtra("numero",propriedade.getNumero());
-            intent.putExtra("cep",propriedade.getCep());
-            intent.putExtra("cidade",propriedade.getCidade());
-            intent.putExtra("estado",propriedade.getEstado());
-            intent.putExtra("idProprietario",propriedade.getIdProprietario());
-        return intent;
-    }
-
 
 }

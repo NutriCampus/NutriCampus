@@ -5,10 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
-import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
 import java.util.ArrayList;
@@ -98,10 +95,9 @@ public class RepositorioProprietario {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_NOME)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIETARIO_COL_TELEFONE)));
-        }
-        
-        cursor.close();
 
+        }
+        cursor.close();
         return null;
     }
 
