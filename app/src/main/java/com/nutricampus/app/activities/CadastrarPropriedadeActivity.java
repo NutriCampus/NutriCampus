@@ -84,6 +84,14 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 criarProprietario(view);
             }
         });
+
+        buttonSalvar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                salvar(view);
+            }
+        });
     }
 
     @Override
