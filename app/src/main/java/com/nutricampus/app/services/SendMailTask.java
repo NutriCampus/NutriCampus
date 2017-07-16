@@ -9,6 +9,8 @@ import java.util.List;
 
 public class SendMailTask extends AsyncTask {
 
+    private static final String TAG = "SendMailTask";
+
     private ProgressDialog statusDialog;
     private Activity sendMailActivity;
 
@@ -17,6 +19,7 @@ public class SendMailTask extends AsyncTask {
 
     }
 
+    @Override
     protected void onPreExecute() {
         statusDialog = new ProgressDialog(sendMailActivity);
         statusDialog.setMessage("Getting ready...");
@@ -28,7 +31,7 @@ public class SendMailTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object... args) {
         try {
-            Log.i("SendMailTask", "Iniciando GMail...");
+            Log.i(TAG, "Iniciando GMail...");
             publishProgress("Processando dados de entrada....");
             GMail androidEmail = new GMail(args[0].toString(),
                     args[1].toString(), (List) args[2], args[3].toString(),
@@ -38,10 +41,10 @@ public class SendMailTask extends AsyncTask {
             publishProgress("Enviando e-mail...");
             androidEmail.sendEmail();
             publishProgress("E-mail enviado");
-            Log.i("SendMailTask", "E-mail enviado.");
+            Log.i(TAG, "E-mail enviado.");
         } catch (Exception e) {
             publishProgress(e.getMessage());
-            Log.e("SendMailTask", e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
         return null;
     }

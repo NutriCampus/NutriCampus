@@ -5,13 +5,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Estado;
+import com.nutricampus.app.model.EstadoNaoEncontradoException;
+import com.nutricampus.app.model.LeitorJSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,13 +55,13 @@ public class RepositorioEstado {
             cont++;
         }
 
-        throw new Exception("Nenhum estado encontrada");
+        throw new EstadoNaoEncontradoException();
     }
 
     private void preencheLista(String arquivo) {
 
         try {
-            JSONObject obj = new JSONObject(carregaJSONAssets(arquivo));
+            JSONObject obj = new JSONObject(LeitorJSON.carregaJSONAssets(arquivo, activity));
             JSONArray familiaAray = obj.getJSONArray("estados");
 
             for (int i = 0; i < familiaAray.length(); i++) {
@@ -79,28 +79,4 @@ public class RepositorioEstado {
             Log.i("JSONException", String.valueOf(e));
         }
     }
-
-    private String carregaJSONAssets(String arquivo) {
-        String json = "";
-
-        try {
-            InputStream is = activity.getAssets().open(arquivo);
-            int tamanho = is.available();
-
-            byte[] buffer = new byte[tamanho];
-
-            if (is.read(buffer) > 0)
-                json = new String(buffer, "UTF-8");
-
-            is.close();
-        } catch (IOException ex) {
-            Log.i("IOException", ex.toString());
-            return null;
-        }
-
-        return json;
-
-    }
-
-
 }

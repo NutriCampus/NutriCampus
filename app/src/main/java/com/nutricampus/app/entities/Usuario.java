@@ -1,7 +1,5 @@
 package com.nutricampus.app.entities;
 
-import java.util.Objects;
-
 /**
  * Created by Diego Bezerra on 20/06/2017.
  * For project NutriCampus.
@@ -104,14 +102,11 @@ public class Usuario {
 
         Usuario objeto = (Usuario) obj;
 
-        if( (objeto.getCrmv().equals(this.getCrmv())) &&
+        return ((objeto.getCrmv().equals(this.getCrmv())) &&
                 (objeto.getCpf().equals(this.getCpf()))  &&
                 (objeto.getNome().equals(this.getNome()))  &&
                 (objeto.getEmail().equals(this.getEmail()))  &&
-                (objeto.getSenha().equals(this.getSenha()))    )
-            return true;
-
-        return false;
+                (objeto.getSenha().equals(this.getSenha())));
     }
 
     @Override

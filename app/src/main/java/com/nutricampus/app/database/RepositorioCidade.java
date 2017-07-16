@@ -5,13 +5,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Cidade;
+import com.nutricampus.app.model.CidadeNaoEncontradaException;
+import com.nutricampus.app.model.LeitorJSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +37,13 @@ public class RepositorioCidade {
     }
 
     public List<Cidade> getListaPorEstado(int idEstado) {
-        List<Cidade> lista = new ArrayList<>();
+        List<Cidade> cidades = new ArrayList<>();
         for (Cidade cidade : this.getLista()) {
             if (cidade.getIdEstado() == idEstado)
-                lista.add(cidade);
+                cidades.add(cidade);
         }
 
-        return lista;
+        return cidades;
     }
 
     public int getIdPeloNome(String cidade, int estado) throws Exception {
@@ -56,7 +56,7 @@ public class RepositorioCidade {
 
         }
 
-        throw new Exception("Nenhuma cidade encontrada");
+        throw new CidadeNaoEncontradaException();
     }
 
     public List<String> getListaDeNomes() {
@@ -72,7 +72,7 @@ public class RepositorioCidade {
     private void preencheLista(String arquivo) {
 
         try {
-            JSONObject obj = new JSONObject(carregaJSONAssets(arquivo));
+            JSONObject obj = new JSONObject(LeitorJSON.carregaJSONAssets(arquivo, activity));
             JSONArray familiaAray = obj.getJSONArray("cidades");
 
             for (int i = 0; i < familiaAray.length(); i++) {
@@ -90,28 +90,5 @@ public class RepositorioCidade {
             Log.i("JSONException", String.valueOf(e));
         }
     }
-
-    private String carregaJSONAssets(String arquivo) {
-        String json = "";
-
-        try {
-            InputStream is = activity.getAssets().open(arquivo);
-            int tamanho = is.available();
-
-            byte[] buffer = new byte[tamanho];
-
-            if (is.read(buffer) > 0)
-                json = new String(buffer, "UTF-8");
-
-            is.close();
-        } catch (IOException ex) {
-            Log.i("IOException", ex.toString());
-            return null;
-        }
-
-        return json;
-
-    }
-
 
 }

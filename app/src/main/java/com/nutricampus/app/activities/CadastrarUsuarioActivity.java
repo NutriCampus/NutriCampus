@@ -2,9 +2,9 @@ package com.nutricampus.app.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
-import com.nutricampus.app.model.Mascara;
 import com.nutricampus.app.entities.Usuario;
+import com.nutricampus.app.model.Mascara;
 
 /**
  * Created by Felipe on 23/06/2017.
@@ -86,7 +86,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //carregarLogin();
                     CadastrarUsuarioActivity.this.finish();
                 }
             });

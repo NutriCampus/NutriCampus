@@ -16,18 +16,18 @@ public class SharedPreferencesManager {
     http://randomkeygen.com/
     TODO trocar keys a cada versão do app
      */
-    private final String UNIQ_KEY = "p_I9yQ4L";
+    private static final String UNIQ_KEY = "p_I9yQ4L";
 
     // Shared Preferences
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private Context _context;
+    private Context context;
 
     // Shared pref mode
-    public final int PRIVATE_MODE_SHARED_PREF = 0;
+    public static final int PRIVATE_MODE_SHARED_PREF = 0;
 
     // Shared preferences file name
-    public final String PREF_NAME = UNIQ_KEY + "NutriCampus";
+    public static final String PREF_NAME = UNIQ_KEY + "NutriCampus";
 
     /*KEYS para o sharedpreferences*/
     private final String KEY_USUARIONC = PREF_NAME + "usuarioNC";
@@ -37,11 +37,11 @@ public class SharedPreferencesManager {
     private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {
-        this._context = context;
+        this.context = context;
 
         removerBdVersoesAnteriores();
 
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE_SHARED_PREF);
+        pref = this.context.getSharedPreferences(PREF_NAME, PRIVATE_MODE_SHARED_PREF);
         editor = pref.edit();
     }
 
@@ -54,9 +54,9 @@ public class SharedPreferencesManager {
         final String bd2 = "3as6W32#$!@a*b-AKHSdaSig@Viewer";
 
         if (PREF_NAME.equals(bd1)) {
-            _context.getSharedPreferences(bd1, 0).edit().clear().commit();
+            context.getSharedPreferences(bd1, 0).edit().clear().commit();
         } else if (PREF_NAME.equals(bd2)) {
-            _context.getSharedPreferences(bd2, 0).edit().clear().commit();
+            context.getSharedPreferences(bd2, 0).edit().clear().commit();
         }
 
     }
@@ -112,7 +112,7 @@ public class SharedPreferencesManager {
         // Storing email in pref
         editor.putString(KEY_EMAILNC, email);
         editor.putString(KEY_SENHANC, senha);
-        editor.putString(KEY_IDNC, new Integer(id).toString());
+        editor.putString(KEY_IDNC, Integer.toString(id));
 
         // commit changes
         editor.commit();
@@ -121,7 +121,7 @@ public class SharedPreferencesManager {
         // Check login status
         if(!this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, LoginActivity.class);
+            Intent i = new Intent(context, LoginActivity.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -129,7 +129,7 @@ public class SharedPreferencesManager {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             // Staring Login Activity
-            _context.startActivity(i);
+            context.startActivity(i);
 
         }
     }
@@ -141,7 +141,7 @@ public class SharedPreferencesManager {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, LoginActivity.class);
+        Intent i = new Intent(context, LoginActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -149,7 +149,7 @@ public class SharedPreferencesManager {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Staring Login Activity
-        _context.startActivity(i);
+        context.startActivity(i);
     }
 
 

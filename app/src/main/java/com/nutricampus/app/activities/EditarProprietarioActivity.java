@@ -2,9 +2,8 @@ package com.nutricampus.app.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,7 +12,6 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.Mascara;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EditarProprietarioActivity extends CadastrarProprietarioActivity {

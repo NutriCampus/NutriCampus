@@ -10,30 +10,27 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class GMail {
 
-    final String emailPort = "587";// gmail's smtp port
-    final String smtpAuth = "true";
-    final String starttls = "true";
-    final String emailHost = "smtp.gmail.com";
+    private static final String TAG = "GMail";
 
-    String fromEmail;
-    String fromPassword;
-    List toEmailList;
-    String emailSubject;
-    String emailBody;
+    private final String emailPort = "587";// gmail's smtp port
+    private final String smtpAuth = "true";
+    private final String starttls = "true";
+    private final String emailHost = "smtp.gmail.com";
 
-    Properties emailProperties;
-    Session mailSession;
-    MimeMessage emailMessage;
+    private String fromEmail;
+    private String fromPassword;
+    private List toEmailList;
+    private String emailSubject;
+    private String emailBody;
 
-    public GMail() {
-
-    }
+    private Properties emailProperties;
+    private Session mailSession;
+    private MimeMessage emailMessage;
 
     public GMail(String fromEmail, String fromPassword,
                  List toEmailList, String emailSubject, String emailBody) {
@@ -47,10 +44,10 @@ public class GMail {
         emailProperties.put("mail.smtp.port", emailPort);
         emailProperties.put("mail.smtp.auth", smtpAuth);
         emailProperties.put("mail.smtp.starttls.enable", starttls);
-        Log.i("GMail", "Mail server properties set.");
+        Log.i(TAG, "Mail server properties set.");
     }
 
-    public MimeMessage createEmailMessage() throws AddressException,
+    public MimeMessage createEmailMessage() throws
             MessagingException, UnsupportedEncodingException {
 
         mailSession = Session.getDefaultInstance(emailProperties, null);
@@ -58,26 +55,26 @@ public class GMail {
 
         emailMessage.setFrom(new InternetAddress(fromEmail, fromEmail));
         for (Object toEmail : toEmailList) {
-            Log.i("GMail","toEmail: "+toEmail);
+            Log.i(TAG, "toEmail: " + toEmail);
             emailMessage.addRecipient(Message.RecipientType.TO,
                     new InternetAddress((String)toEmail));
         }
 
         emailMessage.setSubject(emailSubject);
         emailMessage.setContent(emailBody, "text/html");// for a html email
-        // emailMessage.setText(emailBody);// for a text email
-        Log.i("GMail", "Mensagem de e-mail criada.");
+
+        Log.i(TAG, "Mensagem de e-mail criada.");
         return emailMessage;
     }
 
-    public void sendEmail() throws AddressException, MessagingException {
+    public void sendEmail() throws MessagingException {
 
         Transport transport = mailSession.getTransport("smtp");
         transport.connect(emailHost, fromEmail, fromPassword);
-        Log.i("GMail","allrecipients: "+emailMessage.getAllRecipients());
+        Log.i(TAG, "allrecipients: " + emailMessage.getAllRecipients().toString());
         transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         transport.close();
-        Log.i("GMail", "E-mail enviado com sucesso.");
+        Log.i(TAG, "E-mail enviado com sucesso.");
     }
 
 }

@@ -12,6 +12,8 @@ import android.util.Log;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+    public static final String SELECT_TODOS = "SELECT * FROM";
+
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
     private static final int VERSAO_BANCO = 4;
