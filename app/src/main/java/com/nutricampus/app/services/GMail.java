@@ -3,6 +3,7 @@ package com.nutricampus.app.services;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -71,7 +72,7 @@ public class GMail {
 
         Transport transport = mailSession.getTransport("smtp");
         transport.connect(emailHost, fromEmail, fromPassword);
-        Log.i(TAG, "allrecipients: " + emailMessage.getAllRecipients().toString());
+        Log.i(TAG, "allrecipients: " + Arrays.toString(emailMessage.getAllRecipients()));
         transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         transport.close();
         Log.i(TAG, "E-mail enviado com sucesso.");
