@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioCidade;
+import com.nutricampus.app.database.RepositorioEstado;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
@@ -23,14 +24,6 @@ import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.model.Mascara;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -141,99 +134,19 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     private void addAutoCompletes(){
 
+        RepositorioEstado repoEstado = new RepositorioEstado(CadastrarPropriedadeActivity.this);
+        RepositorioCidade repoCidade = new RepositorioCidade(CadastrarPropriedadeActivity.this);
+
         // Autocomplete para o campo estado
         ArrayAdapter<String> adapterEstados = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, listaEstados());
+                android.R.layout.simple_dropdown_item_1line, repoEstado.getListaDeNomes());
         inputEstado.setAdapter(adapterEstados);
 
         // Autocomplete para o campo cidade
         ArrayAdapter<String> adapterCidades = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, listaCidades());
+                android.R.layout.simple_dropdown_item_1line, repoCidade.getListaDeNomes());
         inputCidade.setAdapter(adapterCidades);
 
-    }
-
-    private String carregaJSONAssets(String arquivo) {
-        String json = "";
-
-        try {
-            InputStream is = getAssets().open(arquivo);
-            int tamanho = is.available();
-
-            byte[] buffer = new byte[tamanho];
-
-
-            if (is.read(buffer) > 0)
-                json = new String(buffer, "UTF-8");
-
-            is.close();
-        } catch (IOException ex) {
-            Log.i("IOException",ex.toString());
-            return null;
-        }
-
-        return json;
-
-    }
-
-    public ArrayList<HashMap<String, String>> estruturaEstados() {
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(carregaJSONAssets("estados.json"));
-            JSONArray estadosArray = obj.getJSONArray("estados");
-
-            HashMap<String, String> dados;
-
-            for (int i = 0; i < estadosArray.length(); i++) {
-                JSONObject dadosJSON = estadosArray.getJSONObject(i);
-                String id = dadosJSON.getString("ID");
-                String sigla = dadosJSON.getString("Sigla");
-                String nome = dadosJSON.getString("Nome");
-
-                dados = new HashMap<>();
-                dados.put("id", id);
-                dados.put("sigla", sigla);
-                dados.put("nome", nome);
-
-                lista.add(dados);
-            }
-
-        } catch (JSONException e) {
-            Log.i("JSONException", String.valueOf(e));
-        }
-
-        return lista;
-    }
-
-    public ArrayList<HashMap<String, String>> estruturaCidades() {
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(carregaJSONAssets("cidades.json"));
-            JSONArray estadosArray = obj.getJSONArray("cidades");
-
-            HashMap<String, String> dados;
-
-            for (int i = 0; i < estadosArray.length(); i++) {
-                JSONObject dadosJSON = estadosArray.getJSONObject(i);
-                String id = dadosJSON.getString("ID");
-                String idEstado = dadosJSON.getString("Estado");
-                String nome = dadosJSON.getString("Nome");
-
-                dados = new HashMap<>();
-                dados.put("id", id);
-                dados.put("idEstado", idEstado);
-                dados.put("nome", nome);
-
-                lista.add(dados);
-            }
-
-        } catch (JSONException e) {
-            Log.i("JSONException", String.valueOf(e));
-        }
-
-        return lista;
     }
 
     protected void salvar(View view){
@@ -261,6 +174,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if(idPropriedade > 0) {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
+
             Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
             startActivity(it);
             this.finish();
@@ -275,7 +189,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         startActivity(it);
     }
-
 
     protected boolean validaDados(){
         boolean valido = true;
@@ -357,29 +270,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         return valido;
     }
 
-
-    private String[] listaEstados(){
-        ArrayList<HashMap<String, String>> estados = estruturaEstados();
-        String[] lista = new String[estados.size()];
-        for (int i = 0; i < estados.size();i++){
-            lista[i] = estados.get(i).get("nome");
-        }
-
-        return lista;
-    }
-
-    private String[] listaCidades(){
-        ArrayList<HashMap<String, String>> cidades = estruturaCidades();
-        String[] lista = new String[cidades.size()];
-        for (int i = 0; i < cidades.size();i++){
-            lista[i] = cidades.get(i).get("nome");
-        }
-
-        return lista;
-    }
-
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
@@ -387,7 +277,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if ((parent != null) && (parent.getItemAtPosition(position) instanceof Proprietario)) {
             Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
             inputIdProprietario.setText(String.valueOf(proprietario.getId()));
-            Log.i("INPUT PROPRIETARIO", inputIdProprietario.getText().toString());
         }
     }
 
