@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Informe seus dados e enviaremos um e-mail com a sua senha para o e-mail cadastrado"
+            android:text="@string/campo_infor_recupera_senha"
             android:layout_gravity="center"
             android:textSize="16dip"
             android:paddingBottom="40dp"/>
@@ -34,7 +33,7 @@
                 android:id="@+id/input_usuario_recupera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/crz_crmv"
+                android:hint="@string/campo_crz_crmv"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 

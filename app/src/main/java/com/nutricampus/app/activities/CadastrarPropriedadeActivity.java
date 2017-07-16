@@ -179,7 +179,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             startActivity(it);
             this.finish();
         } else {
-            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
 
 

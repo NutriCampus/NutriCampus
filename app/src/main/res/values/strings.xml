@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">NutriCampus</string>
-    <string name="recuperar_senha_titulo">Recuperar Senha</string>
-    <string name="welcome">Bem-vindo</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Configurações</string>
 
-    <string name="sign_in_facebook">Acessar com Facebook</string>
-    <string name="sign_in_google">Acessar com Google</string>
     <string name="logout_text">Sair</string>
 
     <string name="register_user">Cadastro Usuário</string>
@@ -26,6 +23,8 @@
     <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
 
+    <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+
     <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
     <string name="msg_erro_email">Email inválido</string>
     <string name="msg_erro_campo">Campo obrigatório</string>
@@ -34,25 +33,25 @@
     <string name="msg_erro_telefone">Número de telefone inválido</string>
     <string name="msg_erro_senha">Senha deve ter no mínimo 5 caracteres</string>
     <string name="msg_falha_login">Falha no login</string>
-    <string name="msg_dados_login_invalidos">usuário ou senha inválidos</string>
-    <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+    <string name="msg_dados_login_invalido">usuário ou senha inválidos</string>
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
     <string name="msg_erro_cadastro_proprietario">CPF já cadastrado !</string>
     <string name="msg_erro_cadastro_geral">Campos inválidos</string>
-    <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
-    <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
     <string name="msg_erro_busca_proprietario">Proprietário não encontrado</string>
     <string name="msg_erro_editar_proprietario">Pesquise um proprietário</string>
     <string name="msg_erro_atualizar_proprietario">Erro ao atualizar o proprietário</string>
     <string name="msg_erro_spinner_proprietario">Selecione uma propriedade</string>
     <string name="msg_erro_cep_incompleto">CEP incompleto</string>
     <string name="msg_erro_telefone_incompleto">Telefone incompleto</string>
-    <string name="msg_erro_gravar_propriedade">Erro ao gravar Propriedade</string>
+    <string name="msg_erro_cadastro">Erro ao tentar realizar o cadastro</string>
+
+
+    <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
+    <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
-    <string name="msg_cadastro_erro">Erro ao tentar realizar o cadastro</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
     <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
 
@@ -60,7 +59,6 @@
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
     <string name="campo_nome">Nome</string>
-    <string name="crz_crmv">CRZ/CRMV</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
     <string name="campo_cpf">CPF</string>
     <string name="campo_email">E-mail</string>
@@ -91,6 +89,8 @@
 
     <string name="campo_proprietario">Nome do Proprietário</string>
     <string name="campo_nome_proprietario">Proprietário</string>
+
+    <string name="campo_infor_recupera_senha">Informe seus dados e enviaremos um e-mail com a sua senha para o e-mail cadastrado</string>
 
     <!-- titulos das telas -->
     <string name="titulo_recuperar_senha">Recuperar Senha</string>

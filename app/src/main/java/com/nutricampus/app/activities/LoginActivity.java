@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         } else {
-            falhaLogin(getString(R.string.msg_dados_login_invalidos));
+            falhaLogin(getString(R.string.msg_dados_login_invalido));
             buttonEntrar.setEnabled(true);
         }
 

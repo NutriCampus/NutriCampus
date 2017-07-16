@@ -10,7 +10,10 @@ import java.io.InputStream;
  * Created by kellison on 16/07/17.
  */
 
-public abstract class LeitorJSON {
+public class LeitorJSON {
+    private LeitorJSON() {
+        throw new IllegalStateException("Classe de utilidades");
+    }
     public static String carregaJSONAssets(String arquivo, Context context) {
         String json = "";
 

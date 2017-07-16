@@ -62,8 +62,8 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
                         }, 3000);
             } else {
                 Toast.makeText(RecuperarSenhaActivity.this,
-                        getString(R.string.msg_dados_login_invalidos).substring(0, 1).toUpperCase() +
-                                getString(R.string.msg_dados_login_invalidos).substring(1),
+                        getString(R.string.msg_dados_login_invalido).substring(0, 1).toUpperCase() +
+                                getString(R.string.msg_dados_login_invalido).substring(1),
                         Toast.LENGTH_LONG).show();
             }
             buttonRecuperarSenha.setEnabled(true);
