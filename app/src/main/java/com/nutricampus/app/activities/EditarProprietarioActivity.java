@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.Mascara;
+import com.nutricampus.app.utils.Mascara;
 
 import butterknife.ButterKnife;
 

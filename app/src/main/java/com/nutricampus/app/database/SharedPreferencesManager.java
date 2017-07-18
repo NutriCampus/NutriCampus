@@ -43,6 +43,7 @@ public class SharedPreferencesManager {
 
         pref = this.context.getSharedPreferences(PREF_NAME, PRIVATE_MODE_SHARED_PREF);
         editor = pref.edit();
+        editor.apply();
     }
 
     /**
@@ -140,7 +141,7 @@ public class SharedPreferencesManager {
         editor.clear();
         editor.commit();
 
-        // After logout redirect user to Loing Activity
+        // After logout redirect user to Login Activity
         Intent i = new Intent(context, LoginActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -148,7 +149,7 @@ public class SharedPreferencesManager {
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Staring Login Activity
+        // Starting Login Activity
         context.startActivity(i);
     }
 

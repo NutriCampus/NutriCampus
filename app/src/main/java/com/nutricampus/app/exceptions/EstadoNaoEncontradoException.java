@@ -1,4 +1,4 @@
-package com.nutricampus.app.model;
+package com.nutricampus.app.exceptions;
 
 public class EstadoNaoEncontradoException extends Exception {
     public EstadoNaoEncontradoException() {

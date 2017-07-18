@@ -1,4 +1,4 @@
-package com.nutricampus.app.model;
+package com.nutricampus.app.utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,16 +6,24 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by kellison on 16/07/17.
- */
 
-public class LeitorJSON {
-    private LeitorJSON() {
+public class LeitorAssets {
+    private LeitorAssets() {
         throw new IllegalStateException("Classe de utilidades");
     }
+
     public static String carregaJSONAssets(String arquivo, Context context) {
-        String json = "";
+        String ext = arquivo.substring(arquivo.length() - 5, arquivo.length());
+
+        if (!ext.equals(".json"))
+            throw new IllegalArgumentException("Arquivo deve ser do tipo JSON");
+
+        return lerArquivo(arquivo, context);
+
+    }
+
+    private static String lerArquivo(String arquivo, Context context) {
+        String conteudo = "";
 
         try {
             InputStream is = context.getAssets().open(arquivo);
@@ -24,7 +32,7 @@ public class LeitorJSON {
             byte[] buffer = new byte[tamanho];
 
             if (is.read(buffer) > 0)
-                json = new String(buffer, "UTF-8");
+                conteudo = new String(buffer, "UTF-8");
 
             is.close();
         } catch (IOException ex) {
@@ -32,7 +40,6 @@ public class LeitorJSON {
             return null;
         }
 
-        return json;
-
+        return conteudo;
     }
 }

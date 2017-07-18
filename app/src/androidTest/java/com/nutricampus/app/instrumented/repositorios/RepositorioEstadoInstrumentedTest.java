@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented;
+package com.nutricampus.app.instrumented.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
-public class TesteUnitarioRepositorioEstado {
+public class RepositorioEstadoInstrumentedTest {
     private Context appContext;
     private RepositorioEstado repo;
 

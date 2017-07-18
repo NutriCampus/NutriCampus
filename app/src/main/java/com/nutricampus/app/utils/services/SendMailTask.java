@@ -1,4 +1,4 @@
-package com.nutricampus.app.services;
+package com.nutricampus.app.utils.services;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

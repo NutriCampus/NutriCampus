@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented;
+package com.nutricampus.app.instrumented.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -18,16 +18,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Felipe on 08/07/2017.
- */
-
 public class InstrumentedTestRepositorioPropriedade {
 
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioPropriedade repositorio = new RepositorioPropriedade(appContext);
 
-    int idUsuario = 77;
+    private int idUsuario = 77;
 
     @Before
     public void adicionarUsuarioParaTestes() {

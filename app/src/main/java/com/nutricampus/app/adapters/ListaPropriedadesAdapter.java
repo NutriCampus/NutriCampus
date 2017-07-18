@@ -1,4 +1,4 @@
-package com.nutricampus.app.model;
+package com.nutricampus.app.adapters;
 
 import android.app.Activity;
 import android.view.View;
@@ -11,9 +11,6 @@ import com.nutricampus.app.entities.Propriedade;
 
 import java.util.List;
 
-/**
- * Created by kellison on 05/07/17.
- */
 
 public class ListaPropriedadesAdapter extends BaseAdapter {
 

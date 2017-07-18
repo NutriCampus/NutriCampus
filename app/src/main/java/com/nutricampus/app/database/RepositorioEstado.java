@@ -5,8 +5,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Estado;
-import com.nutricampus.app.model.EstadoNaoEncontradoException;
-import com.nutricampus.app.model.LeitorJSON;
+import com.nutricampus.app.exceptions.EstadoNaoEncontradoException;
+import com.nutricampus.app.utils.LeitorAssets;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +47,7 @@ public class RepositorioEstado {
     }
 
 
-    public int getIdPeloNome(String estado) throws Exception {
+    public int getIdPeloNome(String estado) throws EstadoNaoEncontradoException {
         int cont = 0;
         while (cont < this.getLista().size()) {
             if (this.getLista().get(cont).getNome().equals(estado))
@@ -61,7 +61,7 @@ public class RepositorioEstado {
     private void preencheLista(String arquivo) {
 
         try {
-            JSONObject obj = new JSONObject(LeitorJSON.carregaJSONAssets(arquivo, activity));
+            JSONObject obj = new JSONObject(LeitorAssets.carregaJSONAssets(arquivo, activity));
             JSONArray familiaAray = obj.getJSONArray("estados");
 
             for (int i = 0; i < familiaAray.length(); i++) {

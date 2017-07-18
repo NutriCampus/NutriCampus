@@ -1,4 +1,4 @@
-package com.nutricampus.app.model;
+package com.nutricampus.app.utils;
 
 /*
   Created by Felipe on 23/06/2017.
@@ -15,7 +15,11 @@ public abstract class Mascara {
     public static final String CELULAR_MASK   = "(##) ##### ####";
     public static final String CEP_MASK       = "#####-###";
 
-    private static String unmask(String s) {
+    private Mascara() {
+        throw new IllegalStateException("Classe de utilidades");
+    }
+
+    public static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "").replaceAll(" ", "")
@@ -31,7 +35,7 @@ public abstract class Mascara {
         StringBuilder mascara = new StringBuilder();
         for (char m : mask.toCharArray()) {
             if (m != '#') {
-                mascara.append(text.charAt(m));
+                mascara.append(m);
                 continue;
             }
             try {
@@ -98,62 +102,15 @@ public abstract class Mascara {
                 ediTxt.setSelection(mascara.length());
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            public void afterTextChanged(Editable s) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Implementada por ser requerida pela interface, mas não necessária no contexto atual
+            }
+
+            public void afterTextChanged(Editable s) {
+                // Implementada por ser requerida pela interface, mas não necessária no contexto atual
+            }
         };
     }
 
-    public static boolean validarCpf(String cpfComplete) {
-        StringBuilder cpf = new StringBuilder();
-
-        for (char c : cpfComplete.toCharArray()) {
-            if (Character.isDigit(c)) {
-                cpf.append(c);
-            }
-        }
-
-        int digitoCpf;
-        int somaD1 = 0;
-        int somaD2 = 0;
-        int peso = 12;
-        int digito1 = 0;
-        int digito2 = 0;
-        int resto = 0;
-        String digVerificar = "";
-        String digResultado = "";
-
-        for (int i = 0; i < cpf.length() - 2; i++) {
-            digitoCpf = Integer.parseInt(cpf.substring(i, i + 1));
-            somaD1 += (digitoCpf * (peso - 2));
-            somaD2 += (digitoCpf * (peso - 1));
-            peso--;
-        }
-
-        resto = somaD1 % 11;
-
-        if (resto < 2) {
-            digito1 = 0;
-        } else {
-            digito1 = 11 - resto;
-        }
-
-        somaD2 += (2 * digito1);
-
-        resto = somaD2 % 11;
-
-        if (resto < 2) {
-            digito2 = 0;
-        } else {
-            digito2 = 11 - resto;
-        }
-
-        digResultado = String.valueOf(digito1);
-        digResultado += String.valueOf(digito2);
-
-        digVerificar = cpf.substring(cpf.length() - 2, cpf.length());
-
-        return digResultado.equals(digVerificar);
-
-    }
 }

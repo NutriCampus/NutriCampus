@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.entities.Usuario;
-import com.nutricampus.app.services.SendMailTask;
+import com.nutricampus.app.utils.services.SendMailTask;
 
 import java.util.Arrays;
 

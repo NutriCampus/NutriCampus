@@ -5,8 +5,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Cidade;
-import com.nutricampus.app.model.CidadeNaoEncontradaException;
-import com.nutricampus.app.model.LeitorJSON;
+import com.nutricampus.app.exceptions.CidadeNaoEncontradaException;
+import com.nutricampus.app.utils.LeitorAssets;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +32,7 @@ public class RepositorioCidade {
         preencheLista(arquivo);
     }
 
+
     public List<Cidade> getLista() {
         return lista;
     }
@@ -46,7 +47,7 @@ public class RepositorioCidade {
         return cidades;
     }
 
-    public int getIdPeloNome(String cidade, int estado) throws Exception {
+    public int getIdPeloNome(String cidade, int estado) throws CidadeNaoEncontradaException {
         int cont = 0;
         while (cont < this.getLista().size()) {
             if (this.getLista().get(cont).getNome().equals(cidade) &&
@@ -72,7 +73,7 @@ public class RepositorioCidade {
     private void preencheLista(String arquivo) {
 
         try {
-            JSONObject obj = new JSONObject(LeitorJSON.carregaJSONAssets(arquivo, activity));
+            JSONObject obj = new JSONObject(LeitorAssets.carregaJSONAssets(arquivo, activity));
             JSONArray familiaAray = obj.getJSONArray("cidades");
 
             for (int i = 0; i < familiaAray.length(); i++) {
