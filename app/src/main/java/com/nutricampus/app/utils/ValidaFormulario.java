@@ -7,6 +7,10 @@ import java.util.List;
 
 public class ValidaFormulario {
 
+    private ValidaFormulario() {
+        throw new IllegalStateException("Classe de utilidades");
+    }
+
     public static List<TextView> camposTextosVazios(List<TextView> campos) {
         List<TextView> camposVazios = new ArrayList<>();
 

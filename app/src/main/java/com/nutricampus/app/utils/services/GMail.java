@@ -18,10 +18,10 @@ public class GMail {
 
     private static final String TAG = "GMail";
 
-    private final String emailPort = "587";// gmail's smtp port
-    private final String smtpAuth = "true";
-    private final String starttls = "true";
-    private final String emailHost = "smtp.gmail.com";
+    private static final String emailPort = "587";// gmail's smtp port
+    private static final String smtpAuth = "true";
+    private static final String starttls = "true";
+    private static final String emailHost = "smtp.gmail.com";
 
     private String fromEmail;
     private String fromPassword;

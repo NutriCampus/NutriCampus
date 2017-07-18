@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -39,7 +40,7 @@ public class TesteUnitarioPropriedade {
 
 
     @Test
-    public void testaPropriedadesIguais() throws Exception {
+    public void testaEqualsPropriedadesIguais() throws Exception {
         Propriedade p1 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
                 "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
         Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
@@ -49,7 +50,7 @@ public class TesteUnitarioPropriedade {
     }
 
     @Test
-    public void testaPropriedadesDiferentes() throws Exception {
+    public void testaEqualsPropriedadesDiferentes() throws Exception {
         Propriedade p1 = new Propriedade(1, "Sem nome", "000.000.000-00", "Alguma", "Algum",
                 "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
         Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
@@ -59,13 +60,32 @@ public class TesteUnitarioPropriedade {
     }
 
     @Test
-    public void testaHashCode() {
+    public void testaEqualsComPropriedadeNull() throws Exception {
+        Propriedade p1 = null;
+        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
+                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+
+        assertFalse(p2.equals(p1));
+    }
+
+    @Test
+    public void testaHashCodeIguais() {
         Propriedade p1 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
                 "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
         Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
                 "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
 
         assertEquals(p1.hashCode(), p2.hashCode());
+    }
+
+    @Test
+    public void testaHashCodeDiferentes() {
+        Propriedade p1 = new Propriedade(1, "Sem", "000.000.000-00", "Alguma", "Algum",
+                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
+                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+
+        assertNotEquals(p1.hashCode(), p2.hashCode());
     }
 
 }

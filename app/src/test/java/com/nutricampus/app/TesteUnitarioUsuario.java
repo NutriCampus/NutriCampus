@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -45,7 +46,7 @@ public class TesteUnitarioUsuario {
     }
 
     @Test
-    public void testaUsuarioIguais() throws Exception {
+    public void testaEqualsUsuarioIguais() throws Exception {
         Usuario user1 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
         Usuario user2 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
 
@@ -53,7 +54,7 @@ public class TesteUnitarioUsuario {
     }
 
     @Test
-    public void testaUsuarioDiferentes() throws Exception {
+    public void testaEqualsUsuarioDiferentes() throws Exception {
         Usuario user1 = new Usuario(1, "12345", "000.000.000-00", "SemNome", "nome@email.com", "senha");
         Usuario user2 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
 
@@ -61,11 +62,28 @@ public class TesteUnitarioUsuario {
     }
 
     @Test
-    public void testaHashCode() {
+    public void testaEqualsComUsuarioNull() throws Exception {
+        Usuario user1 = new Usuario(1, "12345", "000.000.000-00", "SemNome", "nome@email.com", "senha");
+        Usuario user2 = null;
+
+        assertFalse(user1.equals(user2));
+    }
+
+    @Test
+    public void testaHashCodeIguais() {
         Usuario user1 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
         Usuario user2 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
 
 
         assertEquals(user1.hashCode(), user2.hashCode());
+    }
+
+    @Test
+    public void testaHashCodediferentes() {
+        Usuario user1 = new Usuario(1, "00", "777.888.999-00", "Nome", "nome@email.com", "senha");
+        Usuario user2 = new Usuario(1, "12345", "000.000.000-00", "Nome", "nome@email.com", "senha");
+
+
+        assertNotEquals(user1.hashCode(), user2.hashCode());
     }
 }
