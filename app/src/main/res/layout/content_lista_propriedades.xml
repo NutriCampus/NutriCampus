@@ -15,33 +15,6 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:layout_margin="@dimen/margin_form"
-            android:visibility="gone"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/caixa_arredondada">
-
-            <EditText
-                android:id="@+id/input_pesquisar_propriedade"
-                android:layout_width="277dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:hint="@string/campo_nome_propriedade"></EditText>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_search"
-                android:text=""
-                android:id="@+id/btn_pesquisar_propriedade"
-                android:onClick="atualizaListaPropriedades"/>
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,7 +33,7 @@
                 android:layout_marginTop="23dp"
                 android:hint="@string/campo_texto_lista_encontrados"
                 android:textAlignment="center"
-                android:textSize="17dp"/>
+                android:textSize="17sp" />
 
             <View
                 android:id="@+id/linha"

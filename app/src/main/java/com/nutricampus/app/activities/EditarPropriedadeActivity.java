@@ -10,6 +10,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
     @Override

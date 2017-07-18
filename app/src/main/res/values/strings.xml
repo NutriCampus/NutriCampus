@@ -26,6 +26,7 @@
     <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
 
     <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
+    <string name="msg_crz_nao_encontrado">CRZ/CRMV não encontrado</string>
     <string name="msg_erro_email">Email inválido</string>
     <string name="msg_erro_campo">Campo obrigatório</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>
@@ -58,6 +59,7 @@
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
+
     <string name="campo_nome">Nome</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
     <string name="campo_cpf">CPF</string>

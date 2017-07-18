@@ -18,6 +18,7 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @BindView(R.id.input_nome_proprietario) EditText inputNomeProprietario;

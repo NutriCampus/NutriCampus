@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class RecuperarSenhaActivity extends AppCompatActivity  {
 
     @BindView(R.id.input_usuario_recupera)
@@ -61,9 +62,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
                             }
                         }, 3000);
             } else {
-                Toast.makeText(RecuperarSenhaActivity.this,
-                        getString(R.string.msg_dados_login_invalido).substring(0, 1).toUpperCase() +
-                                getString(R.string.msg_dados_login_invalido).substring(1),
+                Toast.makeText(RecuperarSenhaActivity.this, getString(R.string.msg_crz_nao_encontrado),
                         Toast.LENGTH_LONG).show();
             }
             buttonRecuperarSenha.setEnabled(true);

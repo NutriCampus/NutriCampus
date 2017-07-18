@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarPropriedadeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
@@ -196,7 +197,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     }
 
-    protected void criarProprietario(View view) {
+    public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         startActivity(it);
     }

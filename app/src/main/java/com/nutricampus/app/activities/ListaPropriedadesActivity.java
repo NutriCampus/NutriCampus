@@ -36,12 +36,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
     @BindView(R.id.linha) View linha;
-    @BindView(R.id.input_pesquisar_propriedade)   EditText inputPesquisaPropriedade;
 
     SharedPreferencesManager session;
 

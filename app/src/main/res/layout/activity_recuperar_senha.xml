@@ -20,7 +20,7 @@
             android:textAlignment="center"
             android:text="@string/campo_infor_recupera_senha"
             android:layout_gravity="center"
-            android:textSize="16dip"
+            android:textSize="16sp"
             android:paddingBottom="40dp"/>
 
         <android.support.design.widget.TextInputLayout
