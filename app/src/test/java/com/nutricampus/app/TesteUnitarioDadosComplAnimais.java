@@ -1,6 +1,5 @@
 package com.nutricampus.app;
 
-import com.nutricampus.app.entities.CompostoAlimentar;
 import com.nutricampus.app.entities.DadosComplAnimais;
 
 import org.junit.Test;
