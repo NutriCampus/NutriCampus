@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented;
+package com.nutricampus.app.instrumented.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -18,9 +18,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Felipe on 08/07/2017.
- */
 
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedTestRepositorioProprietario {

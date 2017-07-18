@@ -12,11 +12,13 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.Mascara;
+import com.nutricampus.app.utils.Mascara;
+import com.nutricampus.app.utils.ValidaFormulario;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @BindView(R.id.input_nome_proprietario) EditText inputNomeProprietario;
@@ -42,7 +44,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
             return;
         }
 
-        if (!Mascara.validarCpf(inputCpfProprietario.getText().toString())) {
+        if (!ValidaFormulario.validarCpf(inputCpfProprietario.getText().toString())) {
             Toast.makeText(CadastrarProprietarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
             return;
         }

@@ -24,24 +24,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.ListaPropriedadesAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
     @BindView(R.id.linha) View linha;
-    @BindView(R.id.input_pesquisar_propriedade)   EditText inputPesquisaPropriedade;
 
     SharedPreferencesManager session;
 
@@ -126,7 +126,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         if (item.getItemId() == R.id.action_search) {
             gerenciaFuncaoPesquisar();
             return true;
@@ -205,7 +204,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             if (action != null) {
                 action.setDisplayShowCustomEnabled(true); //enable it to display a
                 // custom view in the action bar.
-                action.setCustomView(R.layout.search_bar);//add the custom view
+                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
                 action.setDisplayShowTitleEnabled(false); //hide the title
 
                 inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
@@ -242,9 +241,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     private void carregaListView(String nome) {
         List<Propriedade> lista = this.buscarPropriedades(nome);
 
-        for (int a = 0; a < lista.size(); a++) {
-            Log.i("LISTA " + a, lista.get(a).getId() + " " + lista.get(a).getIdProprietario());
-        }
         ListaPropriedadesAdapter adapter =
                 new ListaPropriedadesAdapter(lista, this);
 
@@ -252,13 +248,11 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         mensagemQuantidade.setText(lista.size() + " " + getString(R.string.campo_texto_lista_encontrados));
 
-        if (lista.size() == 0) {
-            mensagemQuantidade.setVisibility(View.VISIBLE);
+        if (lista.isEmpty())
             linha.setVisibility(View.GONE);
-        } else{
-            mensagemQuantidade.setVisibility(View.VISIBLE);
+        else
             linha.setVisibility(View.VISIBLE);
-        }
+
 
     }
 

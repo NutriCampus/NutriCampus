@@ -12,6 +12,9 @@ import android.util.Log;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+    public static final String SELECT_TODOS = "SELECT * FROM ";
+    private static final String DROP_TABLE = "DROP TABLE ";
+
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
     private static final int VERSAO_BANCO = 4;
@@ -109,8 +112,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("drop table usuario");
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_USUARIO);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIEDADE);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIETARIO);
         this.onCreate(sqLiteDatabase);
-        // A implementar
     }
 }

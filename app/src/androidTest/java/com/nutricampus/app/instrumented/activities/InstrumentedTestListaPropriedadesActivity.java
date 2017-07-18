@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented;
+package com.nutricampus.app.instrumented.activities;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.test.rule.ActivityTestRule;

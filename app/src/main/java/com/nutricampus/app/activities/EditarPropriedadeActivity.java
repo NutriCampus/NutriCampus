@@ -10,12 +10,13 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.activity_editar_propriedade);
         inicializaCampos();
     }
 
@@ -35,7 +36,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         inputTelefone.setText(getIntent().getStringExtra("telefone"));
 
         int idProprietario = getIntent().getIntExtra("idProprietario",0);
-        Log.i("IDPROPRIETARIO", idProprietario + "");
+
         inputIdProprietario.setText(String.valueOf(idProprietario));
 
         preencherSpinnerListaProprietario();
@@ -44,6 +45,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         buttonSalvar.setText(R.string.atualizar);
     }
 
+    @Override
     protected void salvar(View view) {
         if (!validaDados()) {
             Toast.makeText(EditarPropriedadeActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
