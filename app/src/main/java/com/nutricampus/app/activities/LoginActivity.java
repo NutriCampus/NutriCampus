@@ -38,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void criarUsuarioDefault() {
         RepositorioUsuario repo = new RepositorioUsuario(this);
-
-        if (repo.buscarUsuario("admin", "admin") == null) {
-            repo.inserirUsuario(new Usuario(1, "admin", "", "Admin", "admin@mail.com", "admin"));
+        String admin = "admin";
+        if (repo.buscarUsuario(admin, admin) == null) {
+            repo.inserirUsuario(new Usuario(1, admin, "", admin, "admin@mail.com", admin));
         }
     }
 
