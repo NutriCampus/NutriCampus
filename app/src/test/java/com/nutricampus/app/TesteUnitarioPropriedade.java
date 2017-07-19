@@ -2,89 +2,65 @@ package com.nutricampus.app;
 
 import com.nutricampus.app.entities.Propriedade;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class TesteUnitarioPropriedade {
 
-    @Test
-    public void testarConstrutorComId() throws Exception {
+    private Propriedade p1;
+    private Propriedade p2;
 
-        Propriedade p2 = new Propriedade(1, "Joao", "000000", "Avenida X", "Bairro Y", "00000000", "Cidade Z", "UF", "000A", 1, 10);
-        assertNotNull(p2);
+    @Before
+    public void init() {
 
-        p2 = new Propriedade(2, "Joao", "000000", "Avenida X", "Bairro Y", "00000000", "Cidade Z", "UF", "000A", 1, 10);
-        assertNotNull(p2);
-
+        p1 = new Propriedade(1, "Nome Um", "000.000.000-00", "Alguma", "Algum",
+                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+        p2 = new Propriedade(1, "Nome Dois", "000.000.000-00", "Alguma", "Algum",
+                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
     }
-    @Test
-    public void testarConstrutorSemId() throws Exception {
-
-        Propriedade p2 = new Propriedade("Joao", "000000", "Avenida X", "Bairro Y", "00000000", "Cidade Z", "UF", "000A", 1, 10);
-        assertNotNull(p2);
-
-        p2 = new Propriedade("Joao", "000000", "Avenida X", "Bairro Y", "00000000", "Cidade Z", "UF", "000A", 1, 10);
-        assertNotNull(p2);
-
-    }
-
 
     @Test
     public void testaEqualsPropriedadesIguais() throws Exception {
-        Propriedade p1 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+        String aux = p2.getNome();
+
+        p2.setNome(p1.getNome());
 
         assertTrue(p1.equals(p2));
+
+        p2.setNome(aux);
     }
 
     @Test
     public void testaEqualsPropriedadesDiferentes() throws Exception {
-        Propriedade p1 = new Propriedade(1, "Sem nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-
         assertFalse(p1.equals(p2));
     }
 
     @Test
     public void testaEqualsComPropriedadeNull() throws Exception {
-        Propriedade p1 = null;
-        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+        Propriedade p = null;
 
-        assertFalse(p2.equals(p1));
+        assertFalse(p2.equals(p));
     }
 
     @Test
     public void testaHashCodeIguais() {
-        Propriedade p1 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
+        String aux = p2.getNome();
+
+        p2.setNome(p1.getNome());
 
         assertEquals(p1.hashCode(), p2.hashCode());
+
+        p2.setNome(aux);
+
     }
 
     @Test
     public void testaHashCodeDiferentes() {
-        Propriedade p1 = new Propriedade(1, "Sem", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-        Propriedade p2 = new Propriedade(1, "Nome", "000.000.000-00", "Alguma", "Algum",
-                "55555-555", "10", "Garanhuns", "Pernambuco", 1, 1);
-
         assertNotEquals(p1.hashCode(), p2.hashCode());
     }
 

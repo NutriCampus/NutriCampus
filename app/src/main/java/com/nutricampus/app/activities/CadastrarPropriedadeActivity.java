@@ -222,7 +222,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         if (!camposVazios.isEmpty()) {
             for (TextView view : camposVazios)
-                ValidaFormulario.defineStatusCampo(view, getString(R.string.msg_erro_campo));
+                view.setError(getString(R.string.msg_erro_campo));
 
             valido = false;
         }
@@ -231,21 +231,26 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if (!ValidaFormulario.isSelecaoValida(spinnerProprietario.getSelectedItemPosition(), 0)) {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
             text.setTextColor(Color.RED);
-            valido = ValidaFormulario.defineStatusCampo(text, "");
+            text.setError("");
+            valido = false;
         } else {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
             text.setError(null);
             text.setTextColor(Color.BLACK);
         }
 
-        if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString()))
-            valido = ValidaFormulario.defineStatusCampo(inputTelefone, getString(R.string.msg_erro_telefone_incompleto));
+        if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString())) {
+            inputTelefone.setError(getString(R.string.msg_erro_telefone_incompleto));
+            valido = false;
+        }
         else
             inputTelefone.setError(null);
 
 
-        if (!ValidaFormulario.isCEPValido(inputCep.getText().toString()))
-            valido = ValidaFormulario.defineStatusCampo(inputCep, getString(R.string.msg_erro_cep_incompleto));
+        if (!ValidaFormulario.isCEPValido(inputCep.getText().toString())) {
+            inputCep.setError(getString(R.string.msg_erro_cep_incompleto));
+            valido = false;
+        }
         else
             inputCep.setError(null);
 

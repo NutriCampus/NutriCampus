@@ -105,18 +105,4 @@ public class ValidaFormulario {
 
     }
 
-
-    /**
-     * Define se o campo exibe status de obrigat[orio ou n'ao, caso a mensagem d eerro seja vazia ou null,
-     * o status é configurado para válido
-     *
-     * @param view     View (TextView, EditText, etc) que exibirá status de obrigatório
-     * @param mensagem Mensagem a ser exibida
-     * @return False se não houver mensagem de erro
-     */
-    public static boolean defineStatusCampo(TextView view, String mensagem) {
-        view.setError(mensagem);
-        return ((mensagem == null) || (mensagem.equals("")));
-    }
-
 }
