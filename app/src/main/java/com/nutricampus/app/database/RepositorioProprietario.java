@@ -46,8 +46,6 @@ public class RepositorioProprietario {
     public Proprietario buscarProprietario(String cpf) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunas_where = SQLiteManager.PROPRIETARIO_COL_CPF + "= ?";
-        String[] valores_where = new String[]{String.valueOf(cpf)};
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIETARIO, new String[]{
                         SQLiteManager.PROPRIETARIO_COL_ID,
@@ -55,8 +53,8 @@ public class RepositorioProprietario {
                         SQLiteManager.PROPRIETARIO_COL_NOME,
                         SQLiteManager.PROPRIETARIO_COL_EMAIL,
                         SQLiteManager.PROPRIETARIO_COL_TELEFONE},
-                colunas_where,
-                valores_where, null, null, null, null);
+                SQLiteManager.PROPRIETARIO_COL_CPF + "= ?",
+                new String[]{String.valueOf(cpf)}, null, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -75,17 +73,14 @@ public class RepositorioProprietario {
     public Proprietario buscarProprietario(Integer id) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunas_where = SQLiteManager.PROPRIETARIO_COL_ID + "= ?";
-        String[] valores_where = new String[]{String.valueOf(id)};
-
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIETARIO, new String[]{
                         SQLiteManager.PROPRIETARIO_COL_ID,
                         SQLiteManager.PROPRIETARIO_COL_CPF,
                         SQLiteManager.PROPRIETARIO_COL_NOME,
                         SQLiteManager.PROPRIETARIO_COL_EMAIL,
                         SQLiteManager.PROPRIETARIO_COL_TELEFONE},
-                colunas_where,
-                valores_where, null, null, null, null);
+                SQLiteManager.PROPRIETARIO_COL_ID + "= ?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -106,7 +101,7 @@ public class RepositorioProprietario {
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Proprietario> proprietarios = new ArrayList<>();
-        String getProprietarios = "SELECT * FROM " + SQLiteManager.TABELA_PROPRIETARIO;
+        String getProprietarios = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO;
 
         try {
             Cursor c = bancoDados.rawQuery(getProprietarios, null);

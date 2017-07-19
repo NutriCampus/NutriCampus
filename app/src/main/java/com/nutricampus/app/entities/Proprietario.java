@@ -1,7 +1,6 @@
 package com.nutricampus.app.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by Felipe on 05/07/2017.
@@ -84,20 +83,17 @@ public class Proprietario implements Serializable {
 
         Proprietario objeto = (Proprietario) obj;
 
-        if( (objeto.getId() == (this.getId())) &&
+        return ((objeto.getId() == (this.getId())) &&
                 (objeto.getCpf().equals(this.getCpf()))  &&
                 (objeto.getNome().equals(this.getNome()))  &&
                 (objeto.getEmail().equals(this.getEmail()))  &&
-                (objeto.getTelefone().equals(this.getTelefone()))    )
-            return true;
-
-        return false;
+                (objeto.getTelefone().equals(this.getTelefone())));
     }
+
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + String.valueOf(this.getId()).hashCode();
+        int result = this.getId();
         result = 31 * result + this.getCpf().hashCode();
         result = 31 * result + this.getNome().hashCode();
         result = 31 * result + this.getEmail().hashCode();

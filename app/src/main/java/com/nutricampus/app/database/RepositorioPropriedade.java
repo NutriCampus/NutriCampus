@@ -32,7 +32,6 @@ public class RepositorioPropriedade {
 
         ContentValues dados = this.getContentValues(propriedade);
 
-        Log.i("ADICIONAR PROPRIEDADE", propriedade.getIdProprietario() + "");
         long retorno = bancoDados.insert(SQLiteManager.TABELA_PROPRIEDADE, null, dados);
         bancoDados.close();
 
@@ -121,7 +120,7 @@ public class RepositorioPropriedade {
     }
 
     public List<Propriedade> buscarTodasPropriedades() {
-        return this.getListaPropriedades("SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE);
+        return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE);
     }
 
     /**
@@ -132,13 +131,13 @@ public class RepositorioPropriedade {
      * @return List
      */
     public List<Propriedade> buscarPropriedadesPorNome(String nome, int idUsuario) {
-        return this.getListaPropriedades("SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
+        return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE +
                 " WHERE (" + SQLiteManager.PROPRIEDADE_COL_ID_USUARIO + " = " + idUsuario + ") AND (" +
                 SQLiteManager.PROPRIEDADE_COL_NOME + " LIKE '%" + nome + "%')");
     }
 
     public boolean isPropriedadeProprietario(int idProprietario) {
-        return this.getListaPropriedades("SELECT * FROM " + SQLiteManager.TABELA_PROPRIEDADE +
+        return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE +
                 " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario).
                 size() > 1;
     }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,40 +15,48 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioCidade;
+import com.nutricampus.app.database.RepositorioEstado;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.model.Mascara;
+import com.nutricampus.app.utils.Mascara;
+import com.nutricampus.app.utils.ValidaFormulario;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarPropriedadeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    @BindView(R.id.input_id_propriedade) EditText inputId;
-    @BindView(R.id.input_id_proprietario) EditText inputIdProprietario;
-    @BindView(R.id.input_nome_propriedade) EditText inputNome;
-    @BindView(R.id.input_cep) EditText inputCep;
-    @BindView(R.id.input_rua) EditText inputRua;
-    @BindView(R.id.input_bairro) EditText inputBairro;
-    @BindView(R.id.input_numero) EditText inputNumero;
-    @BindView(R.id.input_telefone_propriedade) EditText inputTelefone;
-    @BindView(R.id.input_cidade) AutoCompleteTextView inputCidade;
-    @BindView(R.id.input_estado) AutoCompleteTextView inputEstado;
-    @BindView(R.id.btn_salvar_propriedade) Button buttonSalvar;
+    @BindView(R.id.input_id_propriedade)
+    EditText inputId;
+    @BindView(R.id.input_id_proprietario)
+    EditText inputIdProprietario;
+    @BindView(R.id.input_nome_propriedade)
+    EditText inputNome;
+    @BindView(R.id.input_cep)
+    EditText inputCep;
+    @BindView(R.id.input_rua)
+    EditText inputRua;
+    @BindView(R.id.input_bairro)
+    EditText inputBairro;
+    @BindView(R.id.input_numero)
+    EditText inputNumero;
+    @BindView(R.id.input_telefone_propriedade)
+    EditText inputTelefone;
+    @BindView(R.id.input_cidade)
+    AutoCompleteTextView inputCidade;
+    @BindView(R.id.input_estado)
+    AutoCompleteTextView inputEstado;
+    @BindView(R.id.btn_salvar_propriedade)
+    Button buttonSalvar;
     @BindView(R.id.spinner_proprietario)
     Spinner spinnerProprietario;
     @BindView(R.id.btn_add_proprietario)
@@ -84,6 +91,14 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 criarProprietario(view);
             }
         });
+
+        buttonSalvar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                salvar(view);
+            }
+        });
     }
 
     @Override
@@ -100,8 +115,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if (!(todosProprietarios.isEmpty())) {
 
             // Adiciona a msg de "Selecione..." no spinner do proprietario
-            Proprietario posZero = new Proprietario(0,"",getString(R.string.msg_spinner_proprietario),"","");
-            todosProprietarios.add(0,posZero);
+            Proprietario posZero = new Proprietario(0, "", getString(R.string.msg_spinner_proprietario), "", "");
+            todosProprietarios.add(0, posZero);
 
             ArrayAdapter<Proprietario> spinnerProprietarioAdapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, todosProprietarios);
@@ -109,7 +124,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             spinnerProprietarioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
-
 
             int posicao;
             String idProprietario = inputIdProprietario.getText().toString();
@@ -121,8 +135,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
 
             spinnerProprietario.setSelection(posicao);
-        }
-        else{
+        } else {
             ArrayAdapter adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, new String[]{"<< " + getString(R.string.msg_cadastre_proprietario) + " >>"});
             spinnerProprietario.setAdapter(adapter);
@@ -131,106 +144,26 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         }
     }
 
-    private void addAutoCompletes(){
+    private void addAutoCompletes() {
+
+        RepositorioEstado repoEstado = new RepositorioEstado(CadastrarPropriedadeActivity.this);
+        RepositorioCidade repoCidade = new RepositorioCidade(CadastrarPropriedadeActivity.this);
 
         // Autocomplete para o campo estado
         ArrayAdapter<String> adapterEstados = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, listaEstados());
+                android.R.layout.simple_dropdown_item_1line, repoEstado.getListaDeNomes());
         inputEstado.setAdapter(adapterEstados);
 
         // Autocomplete para o campo cidade
         ArrayAdapter<String> adapterCidades = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, listaCidades());
+                android.R.layout.simple_dropdown_item_1line, repoCidade.getListaDeNomes());
         inputCidade.setAdapter(adapterCidades);
 
     }
 
-    private String carregaJSONAssets(String arquivo) {
-        String json = "";
-
-        try {
-            InputStream is = getAssets().open(arquivo);
-            int tamanho = is.available();
-
-            byte[] buffer = new byte[tamanho];
-
-
-            if (is.read(buffer) > 0)
-                json = new String(buffer, "UTF-8");
-
-            is.close();
-        } catch (IOException ex) {
-            Log.i("IOException",ex.toString());
-            return null;
-        }
-
-        return json;
-
-    }
-
-    public ArrayList<HashMap<String, String>> estruturaEstados() {
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(carregaJSONAssets("estados.json"));
-            JSONArray estadosArray = obj.getJSONArray("estados");
-
-            HashMap<String, String> dados;
-
-            for (int i = 0; i < estadosArray.length(); i++) {
-                JSONObject dadosJSON = estadosArray.getJSONObject(i);
-                String id = dadosJSON.getString("ID");
-                String sigla = dadosJSON.getString("Sigla");
-                String nome = dadosJSON.getString("Nome");
-
-                dados = new HashMap<>();
-                dados.put("id", id);
-                dados.put("sigla", sigla);
-                dados.put("nome", nome);
-
-                lista.add(dados);
-            }
-
-        } catch (JSONException e) {
-            Log.i("JSONException", String.valueOf(e));
-        }
-
-        return lista;
-    }
-
-    public ArrayList<HashMap<String, String>> estruturaCidades() {
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(carregaJSONAssets("cidades.json"));
-            JSONArray estadosArray = obj.getJSONArray("cidades");
-
-            HashMap<String, String> dados;
-
-            for (int i = 0; i < estadosArray.length(); i++) {
-                JSONObject dadosJSON = estadosArray.getJSONObject(i);
-                String id = dadosJSON.getString("ID");
-                String idEstado = dadosJSON.getString("Estado");
-                String nome = dadosJSON.getString("Nome");
-
-                dados = new HashMap<>();
-                dados.put("id", id);
-                dados.put("idEstado", idEstado);
-                dados.put("nome", nome);
-
-                lista.add(dados);
-            }
-
-        } catch (JSONException e) {
-            Log.i("JSONException", String.valueOf(e));
-        }
-
-        return lista;
-    }
-
-    protected void salvar(View view){
+    protected void salvar(View view) {
         if (!validaDados()) {
-            Toast.makeText(CadastrarPropriedadeActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -250,127 +183,75 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         int idPropriedade = repositorioPropriedade.inserirPropriedade(propriedade);
 
-        if(idPropriedade > 0) {
+        if (idPropriedade > 0) {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
+
             Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
             startActivity(it);
             this.finish();
         } else {
-            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_erro, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
 
 
     }
 
-    protected void criarProprietario(View view) {
+    public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         startActivity(it);
     }
 
-
-    protected boolean validaDados(){
+    protected boolean validaDados() {
         boolean valido = true;
 
-        if (inputNome.getText().toString().isEmpty()) {
-            inputNome.setError(getString(R.string.msg_erro_campo));
+        List<TextView> camposTexto = new ArrayList<>();
+        camposTexto.add(inputNome);
+        camposTexto.add(inputTelefone);
+        camposTexto.add(inputRua);
+        camposTexto.add(inputBairro);
+        camposTexto.add(inputNumero);
+        camposTexto.add(inputCep);
+        camposTexto.add(inputCidade);
+        camposTexto.add(inputEstado);
+
+        for (TextView view : camposTexto)
+            view.setError(null);
+
+        List<TextView> camposVazios = ValidaFormulario.camposTextosVazios(camposTexto);
+
+        if (!camposVazios.isEmpty()) {
+            for (TextView view : camposVazios)
+                ValidaFormulario.defineStatusCampo(view, getString(R.string.msg_erro_campo));
+
             valido = false;
-        } else {
-            inputNome.setError(null);
         }
 
-        if (spinnerProprietario.getSelectedItemPosition() == 0) {
+
+        if (!ValidaFormulario.isSelecaoValida(spinnerProprietario.getSelectedItemPosition(), 0)) {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
-            text.setError("");
             text.setTextColor(Color.RED);
-            valido = false;
+            valido = ValidaFormulario.defineStatusCampo(text, "");
         } else {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
             text.setError(null);
             text.setTextColor(Color.BLACK);
         }
 
-        if (inputTelefone.getText().toString().isEmpty()) {
-            inputTelefone.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else if (inputTelefone.getText().toString().length() < 14){
-            inputTelefone.setError(getString(R.string.msg_erro_telefone_incompleto));
-            valido = false;
-        } else {
+        if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString()))
+            valido = ValidaFormulario.defineStatusCampo(inputTelefone, getString(R.string.msg_erro_telefone_incompleto));
+        else
             inputTelefone.setError(null);
-        }
 
-        if (inputRua.getText().toString().isEmpty()) {
-            inputRua.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else {
-            inputRua.setError(null);
-        }
 
-        if (inputBairro.getText().toString().isEmpty()) {
-            inputBairro.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else {
-            inputBairro.setError(null);
-        }
-
-        if (inputNumero.getText().toString().isEmpty()) {
-            inputNumero.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else {
-            inputNumero.setError(null);
-        }
-
-        if (inputCep.getText().toString().isEmpty()) {
-            inputCep.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else if(inputCep.getText().toString().length() > 0 && inputCep.getText().toString().length() < 9) {
-            inputCep.setError(getString(R.string.msg_erro_cep_incompleto));
-            valido = false;
-        } else {
+        if (!ValidaFormulario.isCEPValido(inputCep.getText().toString()))
+            valido = ValidaFormulario.defineStatusCampo(inputCep, getString(R.string.msg_erro_cep_incompleto));
+        else
             inputCep.setError(null);
-        }
-
-        if (inputCidade.getText().toString().isEmpty()) {
-            inputCidade.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else {
-            inputCidade.setError(null);
-        }
-
-        if (inputEstado.getText().toString().isEmpty()) {
-            inputEstado.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        } else {
-            inputEstado.setError(null);
-        }
 
 
         return valido;
     }
-
-
-    private String[] listaEstados(){
-        ArrayList<HashMap<String, String>> estados = estruturaEstados();
-        String[] lista = new String[estados.size()];
-        for (int i = 0; i < estados.size();i++){
-            lista[i] = estados.get(i).get("nome");
-        }
-
-        return lista;
-    }
-
-    private String[] listaCidades(){
-        ArrayList<HashMap<String, String>> cidades = estruturaCidades();
-        String[] lista = new String[cidades.size()];
-        for (int i = 0; i < cidades.size();i++){
-            lista[i] = cidades.get(i).get("nome");
-        }
-
-        return lista;
-    }
-
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
@@ -379,7 +260,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if ((parent != null) && (parent.getItemAtPosition(position) instanceof Proprietario)) {
             Proprietario proprietario = (Proprietario) parent.getItemAtPosition(position);
             inputIdProprietario.setText(String.valueOf(proprietario.getId()));
-            Log.i("INPUT PROPRIETARIO", inputIdProprietario.getText().toString());
         }
     }
 

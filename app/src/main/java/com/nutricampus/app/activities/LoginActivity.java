@@ -17,13 +17,8 @@ import com.nutricampus.app.entities.Usuario;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-/**
- * Created by Kellison on 21/06/2017.
- * For project NutriCampus.
- */
-
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
@@ -38,9 +33,23 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.link_esqueceu_senha) TextView linkEsqueceuSeha;
 
 
+    /**
+     * Método para criar usuário automaticamente sem necessidade de cadastrar todas as vezes
+     */
+    private void criarUsuarioDefault() {
+        RepositorioUsuario repo = new RepositorioUsuario(this);
+        String admin = "admin";
+        if (repo.buscarUsuario(admin, admin) == null) {
+            repo.inserirUsuario(new Usuario(1, admin, "", admin, "admin@mail.com", admin));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        criarUsuarioDefault();
+
         session = new SharedPreferencesManager(this);
 
         if (session.isLoggedIn()) {
@@ -52,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
     }
 
     public void cadastroOnClick(View view) {
@@ -87,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
             this.finish();
         } else {
-            falhaLogin(getString(R.string.msg_dados_login_invalidos));
+            falhaLogin(getString(R.string.msg_dados_login_invalido));
             buttonEntrar.setEnabled(true);
         }
 

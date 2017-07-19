@@ -2,9 +2,9 @@ package com.nutricampus.app.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -12,8 +12,9 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
-import com.nutricampus.app.model.Mascara;
 import com.nutricampus.app.entities.Usuario;
+import com.nutricampus.app.utils.Mascara;
+import com.nutricampus.app.utils.ValidaFormulario;
 
 /**
  * Created by Felipe on 23/06/2017.
@@ -21,6 +22,7 @@ import com.nutricampus.app.entities.Usuario;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     EditText edtNome;
@@ -66,7 +68,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        if (!Mascara.validarCpf(cpf)) {
+        if (!ValidaFormulario.validarCpf(cpf)) {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
             return;
         }
@@ -86,7 +88,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //carregarLogin();
                     CadastrarUsuarioActivity.this.finish();
                 }
             });

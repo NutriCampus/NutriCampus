@@ -130,6 +130,7 @@ public class Propriedade {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -138,7 +139,7 @@ public class Propriedade {
 
         Propriedade objeto = (Propriedade) obj;
 
-        if( (objeto.getId() == (this.getId())) &&
+        return ((objeto.getId() == (this.getId())) &&
                 (objeto.getNome().equals(this.getNome()))  &&
                 (objeto.getTelefone().equals(this.getTelefone())) &&
                 (objeto.getLogradouro().equals(this.getLogradouro())) &&
@@ -148,11 +149,10 @@ public class Propriedade {
                 (objeto.getEstado().equals(this.getEstado()))  &&
                 (objeto.getNumero().equals(this.getNumero()))  &&
                 (objeto.getIdProprietario() == (this.getIdProprietario())) &&
-                (objeto.getIdUsuario() == (this.getIdUsuario())))
-            return true;
+                (objeto.getIdUsuario() == (this.getIdUsuario())));
 
-        return false;
     }
+
 
     @Override
     public int hashCode() {
@@ -171,4 +171,5 @@ public class Propriedade {
 
         return result;
     }
+
 }
