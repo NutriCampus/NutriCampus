@@ -119,21 +119,6 @@ public class ValidaFormularioInstrumentedTest {
 
     }
 
-    @Test
-    public void testaDefinicaoDeValidadeDeCampoTrue() throws Exception {
-        boolean valido = ValidaFormulario.defineStatusCampo(nome, "");
-
-        assertEquals("", nome.getError());
-        assertTrue(valido);
-
-        valido = ValidaFormulario.defineStatusCampo(nome, null);
-
-        assertEquals(null, nome.getError());
-        assertTrue(valido);
-
-
-    }
-
 
     @Test
     public void testaDefinirStatusCampo() throws Exception {
