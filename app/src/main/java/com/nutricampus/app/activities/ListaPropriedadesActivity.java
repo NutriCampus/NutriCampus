@@ -253,7 +253,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         else
             linha.setVisibility(View.VISIBLE);
 
-
     }
 
     public List<Propriedade> buscarPropriedades(String nome){

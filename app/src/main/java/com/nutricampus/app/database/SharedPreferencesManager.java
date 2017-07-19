@@ -153,7 +153,6 @@ public class SharedPreferencesManager {
         context.startActivity(i);
     }
 
-
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_LOGADO, false);
     }

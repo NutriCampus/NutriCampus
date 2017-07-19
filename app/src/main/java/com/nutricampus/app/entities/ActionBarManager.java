@@ -17,6 +17,8 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.CadastrarAnimalActivity;
+import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -44,6 +46,7 @@ public class ActionBarManager {
         session = new SharedPreferencesManager(activity);
         new DrawerBuilder().withActivity(activity).build();
 
+
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.header)
@@ -61,48 +64,53 @@ public class ActionBarManager {
                 .build();
 
 
-        mActionBar = new DrawerBuilder()
-                .withActivity(activity)
-                .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
-                .addDrawerItems(
-                        new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
-                        new SectionDrawerItem().withName("Controle"),
-                        new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
-                        new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
-                        new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
-                        new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
-                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
-                        new SectionDrawerItem().withName("Licença"),
-                        new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
-                        new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
-                        new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
-                )
-                .addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog),
-                        new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out))
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switch ((int) drawerItem.getIdentifier()){
-                            case 1:
-                                Intent intent = new Intent(activity, ListaPropriedadesActivity.class);
-                                activity.startActivity(intent);
-                                break;
-                            case 12: // Sair
-                                session.logoutUser();
-                                activity.finish();
-                                break;
-                            default:
+        DrawerBuilder drawerBuilder = new DrawerBuilder();
+        drawerBuilder.withActivity(activity);
+        drawerBuilder.withToolbar(toolbar);
+        drawerBuilder.withAccountHeader(headerResult);
+        drawerBuilder.addDrawerItems(
+                new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
+                new SectionDrawerItem().withName("Controle"),
+                new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
+                new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
+                new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
+                new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
+                new SectionDrawerItem().withName("Relatórios"),
+                new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
+                new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
+                new SectionDrawerItem().withName("Licença"),
+                new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
+                new DividerDrawerItem(),
+                new SecondaryDrawerItem().withIdentifier(8).withSelectable(false).withName("Compartilhe").withIcon(FontAwesome.Icon.faw_share_alt),
+                new SecondaryDrawerItem().withIdentifier(9).withSelectable(false).withName("Dúvidas").withIcon(FontAwesome.Icon.faw_question),
+                new SecondaryDrawerItem().withIdentifier(10).withName("Sobre").withIcon(FontAwesome.Icon.faw_info_circle)
+        );
+        drawerBuilder.addStickyDrawerItems(new SecondaryDrawerItem().withSelectable(false).withIdentifier(11).withName("Configurações").withIcon(FontAwesome.Icon.faw_cog),
+                new SecondaryDrawerItem().withSelectable(false).withIdentifier(12).withName("Sair").withIcon(FontAwesome.Icon.faw_sign_out));
+        drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                Intent intent;
+                switch ((int) drawerItem.getIdentifier()) {
+                    case 1:
+                        intent = new Intent(activity, ListaPropriedadesActivity.class);
+                        activity.startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(activity, ListaAnimaisActivity.class);
+                        activity.startActivity(intent);
+                        break;
+                    case 12: // Sair
+                        session.logoutUser();
+                        activity.finish();
+                        break;
+                    default:
 
-                        }
-                        return false;
-                    }
-                })
-                .build();
+                }
+                return false;
+            }
+        });
+        drawerBuilder.build();
     }
 
     public Drawer getmActionBar() {

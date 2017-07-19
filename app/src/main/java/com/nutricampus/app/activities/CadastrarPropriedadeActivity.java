@@ -136,9 +136,14 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
             spinnerProprietario.setSelection(posicao);
         } else {
-            ArrayAdapter adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_spinner_item, new String[]{"<< " + getString(R.string.msg_cadastre_proprietario) + " >>"});
-            spinnerProprietario.setAdapter(adapter);
+            Proprietario prop = new Proprietario(0, "", "<< " + getString(R.string.msg_cadastre_proprietario) + " >>", "", "");
+            todosProprietarios.add(prop);
+            ArrayAdapter<Proprietario> spinnerProprietarioAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, todosProprietarios);
+
+            spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
+            //spinnerProprietario.setOnItemSelectedListener(this);
+
 
 
         }

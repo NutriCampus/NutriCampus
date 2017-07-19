@@ -116,7 +116,7 @@ public class ValidaFormulario {
      */
     public static boolean defineStatusCampo(TextView view, String mensagem) {
         view.setError(mensagem);
-        return ((mensagem == null) || (mensagem.equals("")));
+        return (mensagem == null);
     }
 
 }

@@ -66,6 +66,25 @@
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
 
+    <!-- Strings: Animais, Prole -->
+    <string name="titulo_lista_animais">Animais</string>
+    <string name="campo_animal">Animal</string>
+    <string name="campo_genero">Gênero</string>
+    <string name="campo_peso_vivo">Peso</string>
+    <string name="titulo_add_animal">Novo Animal</string>
+    <string-array name="titulos">
+        <item>Dados do animal</item>
+        <item>Dados Complementares</item>
+    </string-array>
+
+    <plurals name="quatidade_registros">
+        <item quantity="one">1 animal</item>
+        <item quantity="other">%d animais</item>
+    </plurals>
+
+    <string name="nenhum_animal">Nenhum animal cadastrado</string>
+
+
     <!-- Strings: Propriedade e proprietário -->
     <string name="campo_nome_propriedade">Nome da Propriedade</string>
     <string name="campo_telefone">Telefone</string>
@@ -103,5 +122,8 @@
     <string name="msg_senha_enviada">Senha enviada por e-mail</string>
 
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
+
+
+
 
 </resources>
