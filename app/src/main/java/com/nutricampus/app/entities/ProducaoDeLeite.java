@@ -1,6 +1,7 @@
 package com.nutricampus.app.entities;
 
-import java.sql.Date;
+
+import java.util.Calendar;
 
 /**
  * Created by Diego Bezerra on 15/06/17.
@@ -15,13 +16,14 @@ public class ProducaoDeLeite {
     // A produção possui uma depedência a um determinado animal.
     private int id_animal;
 
-    private Date data;
+    private Calendar data;
 
     // A medida utilizada para produção de leite é o kg.
     private float qntProduzida;
 
     // pct: abreviatura para percentual ou porcentagem.
     private float pctLactose;
+    private float gordura;
     private float pctProteinaVerdadeira;
     private float pctProteinaBruta;
 
@@ -29,25 +31,21 @@ public class ProducaoDeLeite {
 
     }
 
-    public ProducaoDeLeite(Date data, int id_animal, float qntProduzida, float pctLactose,
-                           float pctProteinaVerdadeira, float pctProteinaBruta) {
+    public ProducaoDeLeite(Calendar data, int id_animal, float qntProduzida, float pctLactose,
+                           float pctProteinaVerdadeira, float pctProteinaBruta, float gordura) {
         this.data = data;
         this.id_animal = id_animal;
         this.qntProduzida = qntProduzida;
         this.pctLactose = pctLactose;
         this.pctProteinaVerdadeira = pctProteinaVerdadeira;
         this.pctProteinaBruta = pctProteinaBruta;
+        this.gordura = gordura;
     }
 
-    public ProducaoDeLeite(int id, Date data, int id_animal, float qntProduzida, float pctLactose,
-                           float pctProteinaVerdadeira, float pctProteinaBruta) {
+    public ProducaoDeLeite(int id, Calendar data, int id_animal, float qntProduzida, float pctLactose,
+                           float pctProteinaVerdadeira, float pctProteinaBruta, float gordura) {
+        this(data, id_animal, qntProduzida, pctLactose, pctProteinaVerdadeira, pctProteinaBruta, gordura);
         this.id = id;
-        this.data = data;
-        this.id_animal = id_animal;
-        this.qntProduzida = qntProduzida;
-        this.pctLactose = pctLactose;
-        this.pctProteinaVerdadeira = pctProteinaVerdadeira;
-        this.pctProteinaBruta = pctProteinaBruta;
     }
 
     public int getId() {
@@ -62,11 +60,11 @@ public class ProducaoDeLeite {
 
     public void setAnimal(int id_animal) { this.id_animal = id_animal; }
 
-    public Date getData() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 
@@ -102,6 +100,22 @@ public class ProducaoDeLeite {
         this.pctProteinaBruta = pctProteinaBruta;
     }
 
+    public int getId_animal() {
+        return id_animal;
+    }
+
+    public void setId_animal(int id_animal) {
+        this.id_animal = id_animal;
+    }
+
+    public float getGordura() {
+        return gordura;
+    }
+
+    public void setGordura(float gordura) {
+        this.gordura = gordura;
+    }
+
     @Override
     public String toString() {
         return "ProducaoDeLeite{" +
@@ -112,6 +126,7 @@ public class ProducaoDeLeite {
                 ", pctLactose=" + pctLactose +
                 ", pctProteinaVerdadeira=" + pctProteinaVerdadeira +
                 ", pctProteinaBruta=" + pctProteinaBruta +
+                ", gordura=" + gordura +
                 '}';
     }
 }

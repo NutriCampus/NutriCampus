@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import java.util.Calendar;
+
 public final class Mascara {
     public static final String CPF_MASK       = "###.###.###-##";
     public static final String CELULAR_MASK   = "(##) ##### ####";
@@ -111,6 +113,16 @@ public final class Mascara {
                 // Implementada por ser requerida pela interface, mas não necessária no contexto atual
             }
         };
+    }
+
+    public static String dataFormatada(Calendar calendario) {
+        return (colocaZeroEsquerda(calendario.get(Calendar.DATE)) + "/" +
+                colocaZeroEsquerda(calendario.get(Calendar.MONTH) + 1) + "/" +
+                calendario.get(Calendar.YEAR));
+    }
+
+    private static String colocaZeroEsquerda(int valor) {
+        return ((valor < 10) ? ("0" + String.valueOf(valor)) : String.valueOf(valor));
     }
 
 }

@@ -24,7 +24,8 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:baselineAligned="false">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
@@ -48,16 +49,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="1dp">
 
                 <EditText
                     android:id="@+id/input_data"
-                    android:drawableRight="@drawable/ic_date_range_black_18dp"
+                    android:drawableRight="@drawable/ic_data_calendario"
+                    android:drawableEnd="@drawable/ic_data_calendario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Data"
+                    android:hint="@string/campo_data"
                     android:inputType="date"
-                    android:selectAllOnFocus="true"
+                    android:focusable="false"
                     android:onClick="showDatePickerDialog"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -69,12 +71,13 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:baselineAligned="false">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.45"
+                android:layout_weight="0.4"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form">
 
@@ -89,7 +92,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.45"
+                android:layout_weight="0.4"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form">
 
@@ -105,12 +108,13 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:baselineAligned="false">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.45"
+                android:layout_weight="0.4"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form">
 
@@ -125,7 +129,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.45"
+                android:layout_weight="0.4"
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form">
 
@@ -134,8 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/campo_proteina_verdadeira"
-                    android:inputType="number"
-                    android:onClick=""/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
@@ -147,7 +150,8 @@
             android:layout_marginBottom="18dp"
             android:layout_marginTop="18dp"
             android:padding="12dp"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:onClick="salvar" />
     </LinearLayout>
 
 

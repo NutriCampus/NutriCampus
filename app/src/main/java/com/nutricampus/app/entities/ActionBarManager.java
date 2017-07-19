@@ -17,8 +17,8 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.ListaProducaoLeiteActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
-import com.nutricampus.app.activities.ProducaoLeiteActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -95,7 +95,7 @@ public class ActionBarManager {
                                 intent = new Intent(activity, ListaPropriedadesActivity.class);
                                 break;
                             case 13:
-                                intent = new Intent(activity, ProducaoLeiteActivity.class);
+                                intent = new Intent(activity, ListaProducaoLeiteActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();

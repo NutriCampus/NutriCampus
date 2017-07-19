@@ -3,12 +3,6 @@ package com.nutricampus.app.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import com.nutricampus.app.entities.Animal;
-import com.nutricampus.app.entities.Propriedade;
-
-import java.sql.Date;
 
 /**
  * Created by Felipe on 25/06/2017.
@@ -17,9 +11,12 @@ import java.sql.Date;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+    public static final String SELECT_TODOS = "SELECT * FROM ";
+    private static final String DROP_TABLE = "DROP TABLE ";
+
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 5;
+    private static final int VERSAO_BANCO = 6;
 
     /* Modo de acesso ao banco de dados
      *
@@ -97,6 +94,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PRODUCAO_DE_LEITE_PCT_LACTOSE = "pct_lactose";
     public static final String PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA = "pct_proteina_verdadeira";
     public static final String PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA = "pct_proteina_bruta";
+    public static final String PRODUCAO_DE_LEITE_GORDURA = "gordura";
 
     public static final String TABELA_PROLE = "prole";
     public static final String PROLE_ID = "_id";
@@ -114,17 +112,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
             ANIMAL_COL_ID_PROPRIEDADE + " " + TEXT_NOT_NULL + " UNIQUE," +
             ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + " , " +
             ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + " , " +
-            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ");";
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + "));";
 
-    private static final String SQL_CREATE_TABELA_PROLE = "CREATE TALBE IF NOT EXISTS " + TABELA_PROLE + "(" +
+    private static final String SQL_CREATE_TABELA_PROLE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROLE + "(" +
             PROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             PROLE_ID_MATRIZ + " " + TEXT_NOT_NULL + " ," +
             PROLE_DATA_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
             PROLE_PESO_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
-            PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + " " +
-            "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + "," +
+            "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
-    private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TALBE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
+    private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TABLE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             DADOS_COMPL_COL_DATA + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
@@ -137,9 +135,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_IS_LACTACAO + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_IS_GESTANTE + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_IS_CIO + " " + TEXT_NOT_NULL + " ," +
-            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
-    private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TALBE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
+    private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TABLE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
             PRODUCAO_DE_LEITE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             PRODUCAO_DE_LEITE_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_DATA + " " + TEXT_NOT_NULL + " ," +
@@ -147,7 +145,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PRODUCAO_DE_LEITE_PCT_LACTOSE + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA + " " + TEXT_NOT_NULL + " ," +
-            "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
             USUARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -195,14 +193,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DADOS_COMPL);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
-        //Log.d("FGP >>>>>>>>>>> ", "Entrou: vrs " + VERSAO_BANCO);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("drop table usuario");
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_USUARIO);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIEDADE);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIETARIO);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DADOS_COMPL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROLE);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         this.onCreate(sqLiteDatabase);
-        // A implementar
     }
 }
