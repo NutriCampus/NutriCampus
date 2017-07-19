@@ -17,6 +17,10 @@ import java.sql.Date;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+    public static final String TEXT_NOT_NULL = "TEXT NOT NULL";
+    public static final String SELECT_TODOS = "SELECT * FROM ";
+    private static final String DROP_TABLE = "DROP TABLE ";
+
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
     private static final int VERSAO_BANCO = 5;
@@ -104,8 +108,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROLE_DATA_DE_NASCIMENTO = "dataDeNascimento";
     public static final String PROLE_PESO_DE_NASCIMENTO =  "pesoDeNascimento";
     public static final String PROLE_IS_NATIMORTO = "isNatimorto";
-
-    public static final String TEXT_NOT_NULL = "TEXT NOT NULL";
 
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
@@ -197,7 +199,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
         //Log.d("FGP >>>>>>>>>>> ", "Entrou: vrs " + VERSAO_BANCO);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
