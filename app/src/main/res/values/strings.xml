@@ -75,10 +75,16 @@
     <string name="titulo_lista_propriedade">Propriedades</string>
     <string name="titulo_add_propriedade">Nova Propriedade</string>
     <string name="titulo_editar_propriedade">Editar Propriedade</string>
+    <string name="titulo_editar_producao">Produção de Leite</string>
 
     <string name="cadastrar_proprietario"> Cadastrar Proprietario</string>
     <string name="campo_buscar_proprietario_nome">Buscar Proprietário (CPF)</string>
 
+    <string name="campo_lactose">Lactose (%)</string>
+    <string name="campo_proteina_bruta">Proteína bruta (%)</string>
+    <string name="campo_proteina_verdadeira">Proteína real (%)</string>
+    <string name="campo_gordura">Gordura (%)</string>
+    <string name="campo_quantidade_kg_dia">Quantidade (kg/dia)</string>
 
     <string name="campo_rua">Rua</string>
     <string name="campo_bairro">Bairro</string>
@@ -86,6 +92,8 @@
     <string name="campo_uf">Estado</string>
     <string name="campo_numero">Número</string>
     <string name="campo_cep">CEP</string>
+
+    <string name="campo_data">Data</string>
 
     <string name="campo_spinner_proprietario">Selecione o proprietário…</string>
 

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/telaCadastrarPropriedade"
-    tools:context="com.nutricampus.app.activities.CadastrarPropriedadeActivity">
+    android:id="@+id/tela_cadastro_producao_leite"
+    tools:context="com.nutricampus.app.activities.ProducaoLeiteActivity">
 
 
-    <include layout="@layout/content_form_propriedade" />
-
-
+    <include layout="@layout/content_form_producao"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 </android.support.constraint.ConstraintLayout>

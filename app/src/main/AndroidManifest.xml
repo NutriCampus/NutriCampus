@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nutricampus.app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:allowBackup="true"
@@ -54,14 +53,17 @@
             android:label="@string/titulo_lista_propriedade"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
-
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable">
-            </meta-data>
+                android:resource="@xml/searchable"/>
         </activity>
         <activity android:name=".activities.CadastrarProprietarioActivity" />
-        <activity android:name=".activities.EditarProprietarioActivity"/>
+        <activity android:name=".activities.EditarProprietarioActivity" />
+
+        <activity android:name=".activities.ProducaoLeiteActivity"
+            android:label="@string/titulo_editar_producao"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

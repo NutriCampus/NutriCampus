@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
+import com.nutricampus.app.activities.ProducaoLeiteActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
 /**
@@ -69,6 +70,7 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
                         new SectionDrawerItem().withName("Controle"),
                         new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
+                        new SecondaryDrawerItem().withIdentifier(13).withSelectable(false).withName("Produção").withIcon(FontAwesome.Icon.faw_home),
                         new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
@@ -87,18 +89,26 @@ public class ActionBarManager {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = null;
                         switch ((int) drawerItem.getIdentifier()){
                             case 1:
-                                Intent intent = new Intent(activity, ListaPropriedadesActivity.class);
-                                activity.startActivity(intent);
+                                intent = new Intent(activity, ListaPropriedadesActivity.class);
+                                break;
+                            case 13:
+                                intent = new Intent(activity, ProducaoLeiteActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();
                                 activity.finish();
                                 break;
                             default:
+                                break;
 
                         }
+
+                        if (intent != null)
+                            activity.startActivity(intent);
+
                         return false;
                     }
                 })
