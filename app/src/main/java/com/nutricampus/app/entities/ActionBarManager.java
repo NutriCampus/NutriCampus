@@ -18,6 +18,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ListaProducaoLeiteActivity;
+import com.nutricampus.app.activities.CadastrarAnimalActivity;
+import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -45,6 +47,7 @@ public class ActionBarManager {
         session = new SharedPreferencesManager(activity);
         new DrawerBuilder().withActivity(activity).build();
 
+
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.header)
@@ -60,7 +63,6 @@ public class ActionBarManager {
                     }
                 })
                 .build();
-
 
         mActionBar = new DrawerBuilder()
                 .withActivity(activity)
@@ -93,6 +95,9 @@ public class ActionBarManager {
                         switch ((int) drawerItem.getIdentifier()){
                             case 1:
                                 intent = new Intent(activity, ListaPropriedadesActivity.class);
+                                break;
+                            case 3:
+                                intent = new Intent(activity, ListaAnimaisActivity.class);
                                 break;
                             case 13:
                                 intent = new Intent(activity, ListaProducaoLeiteActivity.class);

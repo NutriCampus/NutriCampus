@@ -6,7 +6,10 @@ package com.nutricampus.app.utils;
  * Contact: <diego.defb@gmail.com>
  */
 
-public class Conversor {
+public final class Conversor {
+    private Conversor() {
+        throw new IllegalStateException("Classe de utilidades");
+    }
 
     public static int booleanToInt(boolean bol) {
         return ( bol ? 1 : 0);

@@ -16,7 +16,8 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
@@ -71,7 +72,25 @@
             android:label="@string/titulo_producao"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CadastrarAnimalActivity"
+            android:parentActivityName=".activities.ListaAnimaisActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/titulo_add_animal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaAnimaisActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ListaAnimaisActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/titulo_lista_animais">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
 
+        </activity>
     </application>
 
 </manifest>
