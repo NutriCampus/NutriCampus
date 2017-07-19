@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class LeitorAssets {
+public final class LeitorAssets {
     private LeitorAssets() {
         throw new IllegalStateException("Classe de utilidades");
     }

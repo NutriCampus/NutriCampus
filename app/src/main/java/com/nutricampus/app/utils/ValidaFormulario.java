@@ -5,7 +5,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidaFormulario {
+public final class ValidaFormulario {
 
     private ValidaFormulario() {
         throw new IllegalStateException("Classe de utilidades");
