@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.Propriedade;
+
+import java.sql.Date;
+
 /**
  * Created by Felipe on 25/06/2017.
  * For project NutriCampus.
@@ -12,12 +17,9 @@ import android.util.Log;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
-    public static final String SELECT_TODOS = "SELECT * FROM ";
-    private static final String DROP_TABLE = "DROP TABLE ";
-
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 4;
+    private static final int VERSAO_BANCO = 5;
 
     /* Modo de acesso ao banco de dados
      *
@@ -63,32 +65,115 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROPRIEDADE_COL_ID_PROPRIETARIO = "id_proprietario";
     public static final String PROPRIEDADE_COL_ID_USUARIO = "id_usuario";
 
+    //Animal
+    public static final String TABELA_ANIMAL = "animal";
+    public static final String ANIMAL_COL_ID = "_id";
+    public static final String ANIMAL_COL_IDENTIFICADOR = "identificador";
+    public static final String ANIMAL_COL_ID_PROPRIEDADE = "id_propriedade";
+    public static final String ANIMAL_COL_DATA_NASCIMENTO = "data_nascimento";
+    public static final String ANIMAL_COL_IS_ATIVO = "isAtivo";
+
+    //Dados Complementares Animal
+    public static final String TABELA_DADOS_COMPL = "dadosComplAnimal";
+    public static final String DADOS_COMPL_COL_ID = "_id";
+    public static final String DADOS_COMPL_COL_DATA = "data";
+    public static final String DADOS_COMPL_COL_ID_ANIMAL = "id_animal";
+    public static final String DADOS_COMPL_COL_PESO_VIVO = "pesoVivo";
+    public static final String DADOS_COMPL_COL_EEC = "eec";
+    public static final String DADOS_COMPL_COL_CAMINHADA_HORIZONTAL = "caminhadaHorizontal";
+    public static final String DADOS_COMPL_COL_CAMINHADA_VERTICAL = "caminhadaVertical";
+    public static final String DADOS_COMPL_COL_SEMANA_LACTACAO = "semanaLactacao";
+    public static final String DADOS_COMPL_COL_IS_PASTANDO = "isPastando";
+    public static final String DADOS_COMPL_COL_IS_LACTACAO = "isLactacao";
+    public static final String DADOS_COMPL_COL_IS_GESTANTE = "isGestante";
+    public static final String DADOS_COMPL_COL_IS_CIO = "isCio";
+
+    //Producao de leite
+    public static final String TABELA_PRODUCAO_DE_LEITE = "producaoDeLeite";
+    public static final String PRODUCAO_DE_LEITE_ID = "_id";
+    public static final String PRODUCAO_DE_LEITE_ID_ANIMAL = "id_animal";
+    public static final String PRODUCAO_DE_LEITE_DATA = "data";
+    public static final String PRODUCAO_DE_LEITE_QNT_PRODUZIDA = "qnt_produzida";
+    public static final String PRODUCAO_DE_LEITE_PCT_LACTOSE = "pct_lactose";
+    public static final String PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA = "pct_proteina_verdadeira";
+    public static final String PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA = "pct_proteina_bruta";
+
+    public static final String TABELA_PROLE = "prole";
+    public static final String PROLE_ID = "_id";
+    public static final String PROLE_ID_MATRIZ = "id_matriz";
+    public static final String PROLE_DATA_DE_NASCIMENTO = "dataDeNascimento";
+    public static final String PROLE_PESO_DE_NASCIMENTO =  "pesoDeNascimento";
+    public static final String PROLE_IS_NATIMORTO = "isNatimorto";
+
+    public static final String TEXT_NOT_NULL = "TEXT NOT NULL";
+
     /* SQL de criação de tabelas. */
+    private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
+            ANIMAL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + " UNIQUE, " +
+            ANIMAL_COL_ID_PROPRIEDADE + " " + TEXT_NOT_NULL + " UNIQUE," +
+            ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + " , " +
+            ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + " , " +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ");";
+
+    private static final String SQL_CREATE_TABELA_PROLE = "CREATE TALBE IF NOT EXISTS " + TABELA_PROLE + "(" +
+            PROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            PROLE_ID_MATRIZ + " " + TEXT_NOT_NULL + " ," +
+            PROLE_DATA_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
+            PROLE_PESO_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
+            PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + " " +
+            "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+
+    private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TALBE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
+            DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            DADOS_COMPL_COL_DATA + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_PESO_VIVO + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_EEC + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_CAMINHADA_VERTICAL + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_SEMANA_LACTACAO + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_IS_PASTANDO + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_IS_LACTACAO + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_IS_GESTANTE + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_IS_CIO + " " + TEXT_NOT_NULL + " ," +
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+
+    private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TALBE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
+            PRODUCAO_DE_LEITE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            PRODUCAO_DE_LEITE_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_DATA + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_QNT_PRODUZIDA + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_PCT_LACTOSE + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA + " " + TEXT_NOT_NULL + " ," +
+            "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+
     private static final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
             USUARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            USUARIO_COL_CRMV + " TEXT NOT NULL UNIQUE, " +
-            USUARIO_COL_CPF + " TEXT NOT NULL UNIQUE," +
-            USUARIO_COL_NOME + " TEXT NOT NULL, " +
-            USUARIO_COL_EMAIL + " TEXT NOT NULL, " +
-            USUARIO_COL_SENHA + " TEXT NOT NULL);";
+            USUARIO_COL_CRMV + " " + TEXT_NOT_NULL + " UNIQUE, " +
+            USUARIO_COL_CPF + " " + TEXT_NOT_NULL + " UNIQUE," +
+            USUARIO_COL_NOME + " " + TEXT_NOT_NULL + " , " +
+            USUARIO_COL_EMAIL + " " + TEXT_NOT_NULL + " , " +
+            USUARIO_COL_SENHA + " " + TEXT_NOT_NULL + " );";
 
     private static final String SQL_CREATE_TABELA_PROPRIETARIO = "CREATE TABLE " + TABELA_PROPRIETARIO + "(" +
             PROPRIETARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            PROPRIETARIO_COL_CPF + " TEXT NOT NULL UNIQUE," +
-            PROPRIETARIO_COL_NOME + " TEXT NOT NULL, " +
-            PROPRIETARIO_COL_EMAIL + " TEXT NOT NULL, " +
-            PROPRIETARIO_COL_TELEFONE + " TEXT NOT NULL);";
+            PROPRIETARIO_COL_CPF + " " + TEXT_NOT_NULL + " UNIQUE," +
+            PROPRIETARIO_COL_NOME + " " + TEXT_NOT_NULL + " , " +
+            PROPRIETARIO_COL_EMAIL + " " + TEXT_NOT_NULL + " , " +
+            PROPRIETARIO_COL_TELEFONE + " " + TEXT_NOT_NULL + " );";
 
     private static final String SQL_CREATE_TABELA_PROPRIEDADE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROPRIEDADE + "(" +
             PROPRIEDADE_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            PROPRIEDADE_COL_NOME + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_TELEFONE + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_LOGRADOURO + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_NUMERO + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_BAIRRO + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_CIDADE + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_ESTADO + " TEXT NOT NULL, " +
-            PROPRIEDADE_COL_CEP + " TEXT NOT NULL, " +
+            PROPRIEDADE_COL_NOME + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_TELEFONE + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_LOGRADOURO + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_NUMERO + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_BAIRRO + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_CIDADE + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_ESTADO + " " + TEXT_NOT_NULL + " , " +
+            PROPRIEDADE_COL_CEP + " " + TEXT_NOT_NULL + " , " +
             PROPRIEDADE_COL_ID_PROPRIETARIO + " INTEGER NOT NULL, " +
             PROPRIEDADE_COL_ID_USUARIO + " INTEGER NOT NULL, " +
             "FOREIGN KEY(" + PROPRIEDADE_COL_ID_PROPRIETARIO + ") REFERENCES " + TABELA_PROPRIETARIO + "(" + PROPRIETARIO_COL_ID + ")" +
@@ -106,15 +191,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_USUARIO);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROPRIETARIO);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROPRIEDADE);
-        Log.d("FGP >>>>>>>>>>> ", "Entrou: vrs " + VERSAO_BANCO);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_ANIMAL);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DADOS_COMPL);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
+        //Log.d("FGP >>>>>>>>>>> ", "Entrou: vrs " + VERSAO_BANCO);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_USUARIO);
-        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIEDADE);
-        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIETARIO);
+        sqLiteDatabase.execSQL("drop table usuario");
         this.onCreate(sqLiteDatabase);
+        // A implementar
     }
 }
