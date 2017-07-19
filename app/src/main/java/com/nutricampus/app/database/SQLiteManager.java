@@ -114,9 +114,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             ANIMAL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + " UNIQUE, " +
             ANIMAL_COL_ID_PROPRIEDADE + " " + TEXT_NOT_NULL + " UNIQUE," +
-            ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + " , " +
-            ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + " , " +
-            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ");";
+            ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + ", " +
+            ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + ", " +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PROLE = "CREATE TALBE IF NOT EXISTS " + TABELA_PROLE + "(" +
             PROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -124,7 +124,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PROLE_DATA_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
             PROLE_PESO_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
             PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + " " +
-            "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TALBE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -139,7 +139,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_IS_LACTACAO + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_IS_GESTANTE + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_IS_CIO + " " + TEXT_NOT_NULL + " ," +
-            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TALBE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
             PRODUCAO_DE_LEITE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -149,7 +149,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PRODUCAO_DE_LEITE_PCT_LACTOSE + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA + " " + TEXT_NOT_NULL + " ," +
-            "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ");";
+            "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
             USUARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
