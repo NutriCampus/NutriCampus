@@ -66,7 +66,8 @@ public final class Conversor {
         meses.put("novembro", 10);
         meses.put("dezembro", 11);
 
-        return meses.get(String.valueOf(mes).toLowerCase());
+        int valor = (meses.get(String.valueOf(mes).toLowerCase()) != null) ? meses.get(String.valueOf(mes).toLowerCase()) : 12;
+        return valor;
     }
 
 }

@@ -130,6 +130,14 @@ public class RepositorioProducaoDeLeite {
         return producaoDeLeite;
     }
 
+    /**
+     * Buscar os dados de um animal em um periodo de tempo (mes, ano)
+     *
+     * @param idAnimal Id do registro da tabela do animal
+     * @param mes      Inteiro de 0 a 11
+     * @param ano      Numero qualquer
+     * @return Lista de ProducaoDeLeite
+     */
     public List<ProducaoDeLeite> buscarPorAnimalPeriodo(int idAnimal, int mes, int ano) {
         bancoDados = gerenciador.getReadableDatabase();
 

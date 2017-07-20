@@ -158,7 +158,13 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     private void carregaListView(int mes, int ano) {
 
         RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(getBaseContext());
-        List<ProducaoDeLeite> lista = repositorio.buscarPorAnimalPeriodo(idAnimal, mes, ano);
+        List<ProducaoDeLeite> lista;
+
+        // Se o mes escolhido fro TODOS (dezembro equivale a 11)
+        if (mes == 12)
+            lista = repositorio.buscarPorAnimal(idAnimal);
+        else
+            lista = repositorio.buscarPorAnimalPeriodo(idAnimal, mes, ano);
 
         ListaProducaoAdapter adapter =
                 new ListaProducaoAdapter(lista, this);
@@ -186,6 +192,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     private void abreTelaEditar(int posicao) {
         ProducaoDeLeite item = (ProducaoDeLeite) listaProducao.getItemAtPosition(posicao);
         startActivity(getIntent(item));
+        this.finish();
     }
 
 
