@@ -1,7 +1,5 @@
 package com.nutricampus.app;
 
-import com.nutricampus.app.entities.DadosComplAnimais;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

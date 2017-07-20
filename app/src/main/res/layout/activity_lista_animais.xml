@@ -8,6 +8,13 @@
     android:layout_height="match_parent"
     tools:context="com.nutricampus.app.activities.ListaAnimaisActivity">
 
+    <EditText
+        android:id="@+id/input_id_propriedade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text=""
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"

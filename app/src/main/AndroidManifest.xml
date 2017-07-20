@@ -15,9 +15,9 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
@@ -62,22 +62,21 @@
         <activity android:name=".activities.EditarProprietarioActivity" />
         <activity
             android:name=".activities.CadastrarAnimalActivity"
+            android:label="@string/titulo_add_animal"
             android:parentActivityName=".activities.ListaAnimaisActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/titulo_add_animal">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ListaAnimaisActivity" />
         </activity>
         <activity
             android:name=".activities.ListaAnimaisActivity"
+            android:label="@string/titulo_lista_animais"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/titulo_lista_animais">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
-
         </activity>
     </application>
 

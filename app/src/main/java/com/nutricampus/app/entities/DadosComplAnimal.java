@@ -1,6 +1,7 @@
 package com.nutricampus.app.entities;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by Diego Bezerra on 15/06/17.
@@ -11,7 +12,7 @@ import java.sql.Date;
 public class DadosComplAnimal {
 
     private int id;
-    private Date data;
+    private Calendar data;
     private int id_animal;
     private float pesoVivo;
 
@@ -31,7 +32,7 @@ public class DadosComplAnimal {
 
     }
 
-    public DadosComplAnimal(Date data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
+    public DadosComplAnimal(Calendar data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
                             float caminhadaVertical, int semanaLactacao, boolean isPastando,
                             boolean isLactacao, boolean isGestante, boolean isCio) {
         this.data = data;
@@ -47,7 +48,7 @@ public class DadosComplAnimal {
         this.isCio = isCio;
     }
 
-    public DadosComplAnimal(int id, Date data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
+    public DadosComplAnimal(int id, Calendar data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
                             float caminhadaVertical, int semanaLactacao, boolean isPastando,
                             boolean isLactacao, boolean isGestante, boolean isCio) {
         this.id = id;
@@ -72,11 +73,11 @@ public class DadosComplAnimal {
         this.id = id;
     }
 
-    public Date getData() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 

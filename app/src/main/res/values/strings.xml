@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">NutriCampus</string>
+    <string name="switch_ativo">Ativo</string>
+    <string name="switch_inativo">Inativo</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -54,7 +56,9 @@
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
+    <string name="msg_cadastre_propriedade">Cadastre uma propriedade</string>
     <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
+    <string name="msg_spinner_propriedade">Selecione uma propriedade</string>
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
@@ -67,23 +71,36 @@
     <string name="campo_senha">Senha</string>
 
     <!-- Strings: Animais, Prole -->
-    <string name="titulo_lista_animais">Animais</string>
     <string name="campo_animal">Animal</string>
     <string name="campo_genero">Gênero</string>
     <string name="campo_peso_vivo">Peso</string>
-    <string name="titulo_add_animal">Novo Animal</string>
+    <string name="campo_identificador">Identificador</string>
+    <string name="campo_data_nascimento">Data de Nascimento</string>
+    <string name="nenhum_animal">Nenhum animal cadastrado</string>
+    <string name="campo_escolha_ativo">Animal está ativo?</string>
+    <string name="campo_confirmacao_dados">Confirmar dados</string>
+    <string name="campo_data">Data</string>
+    <string name="campo_caminhada_vertical">Caminhada vertical</string>
+    <string name="campo_caminhada_horizontal">Caminhada Horizontal</string>
+    <string name="campo_eec">EEC</string>
+    <string name="campo_eec1">1</string>
+    <string name="campo_eec2">2</string>
+    <string name="campo_eec3">3</string>
+    <string name="campo_eec4">4</string>
+    <string name="campo_eec5">5</string>
+    <string name="campo_pastando">Pastando</string>
+    <string name="campo_lactacao">Lactação</string>
+    <string name="campo_gestante">Gestante</string>
+    <string name="campo_cio">Cio</string>
+    <string name="campo_semana_lactacao">Semana de Lactação</string>
     <string-array name="titulos">
-        <item>Dados do animal</item>
+        <item>Animal</item>
         <item>Dados Complementares</item>
     </string-array>
-
     <plurals name="quatidade_registros">
         <item quantity="one">1 animal</item>
         <item quantity="other">%d animais</item>
     </plurals>
-
-    <string name="nenhum_animal">Nenhum animal cadastrado</string>
-
 
     <!-- Strings: Propriedade e proprietário -->
     <string name="campo_nome_propriedade">Nome da Propriedade</string>
@@ -115,15 +132,12 @@
 
     <!-- titulos das telas -->
     <string name="titulo_recuperar_senha">Recuperar Senha</string>
-
     <string name="titulo_novo_usuario">Novo usuário</string>
     <string name="titulo_novo_proprietario">Novo proprietário</string>
-
     <string name="msg_senha_enviada">Senha enviada por e-mail</string>
-
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
-
-
+    <string name="titulo_lista_animais">Animais</string>
+    <string name="titulo_add_animal">Novo Animal</string>
 
 
 </resources>
