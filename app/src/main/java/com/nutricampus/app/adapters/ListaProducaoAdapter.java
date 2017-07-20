@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.entities.ProducaoDeLeite;
-import com.nutricampus.app.utils.Mascara;
+import com.nutricampus.app.utils.Conversor;
 
 import java.util.List;
 
@@ -51,8 +51,8 @@ public class ListaProducaoAdapter extends BaseAdapter {
 
         //populando as Views
         id.setText(String.valueOf(producao.getId()));
-        data.setText(Mascara.dataFormatada(producao.getData()));
-        leite.setText(String.valueOf(producao.getQntProduzida()) + "kg");
+        data.setText(Conversor.dataFormatada(producao.getData()));
+        leite.setText(act.getString(R.string.unidade_medida_kg, producao.getQntProduzida()));
 
         return view;
     }

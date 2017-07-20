@@ -39,17 +39,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/campo_quantidade_kg_dia"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"/>
+                    android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginTop="1dp">
+                android:layout_weight="0.5">
 
                 <EditText
                     android:id="@+id/input_data"

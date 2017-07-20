@@ -50,11 +50,11 @@ public class RepositorioProducaoDeLeite {
         return (int) retorno;
     }
 
-    public ProducaoDeLeite buscarProducaoDeLeite(int id_animal) {
+    public ProducaoDeLeite buscarProducao(int id) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunas_where = SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL + "= ?";
-        String[] valores_where = new String[]{String.valueOf(id_animal)};
+        String colunas_where = SQLiteManager.PRODUCAO_DE_LEITE_ID + "= ?";
+        String[] valores_where = new String[]{String.valueOf(id)};
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PRODUCAO_DE_LEITE, new String[]{
                         SQLiteManager.PRODUCAO_DE_LEITE_ID,
@@ -143,12 +143,13 @@ public class RepositorioProducaoDeLeite {
 
     }
 
-    public void removerProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
+    public int removerProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_PRODUCAO_DE_LEITE,
+        int result = bancoDados.delete(SQLiteManager.TABELA_PRODUCAO_DE_LEITE,
                 SQLiteManager.PRODUCAO_DE_LEITE_ID + " = ? ",
                 new String[]{String.valueOf(producaoDeLeite.getId())});
 
         bancoDados.close();
+        return result;
     }
 }

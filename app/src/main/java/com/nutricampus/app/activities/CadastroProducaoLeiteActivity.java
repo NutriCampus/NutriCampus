@@ -3,8 +3,8 @@ package com.nutricampus.app.activities;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
 import com.nutricampus.app.entities.ProducaoDeLeite;
-import com.nutricampus.app.utils.Mascara;
+import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ import butterknife.ButterKnife;
 
 public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener {
+
+    @BindView(R.id.input_id_producao)
+    EditText inputId;
 
     @BindView(R.id.input_lactose)
     EditText inputLactose;
@@ -38,6 +41,8 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
     EditText inputProteinaVerdadeira;
     @BindView(R.id.input_data)
     EditText inputData;
+    @BindView(R.id.btn_salvar_producao)
+    Button buttonSalvar;
 
     private Calendar data;
 
@@ -50,14 +55,17 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
         inicializaCampoData();
     }
 
-    private void inicializaCampoData() {
+    protected void inicializaCampoData() {
         Calendar calendario = Calendar.getInstance();
-        data = Calendar.getInstance();
-        data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
-        Log.w("YEAR", String.valueOf(calendario.get(Calendar.YEAR)));
         // O valor do mês pelo Calendar varia entre 0 e 11, por isso soma +1
-        if (inputData.getText().toString().equals(""))
-            inputData.setText(Mascara.dataFormatada(data));
+        if (inputData.getText().toString().equals("")) {
+            data = Calendar.getInstance();
+            data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+            inputData.setText(Conversor.dataFormatada(data));
+        } else {
+            int[] dataToken = Conversor.DataStringToArray(inputData.getText().toString());
+            this.data.set(dataToken[2], dataToken[1], dataToken[0]);
+        }
     }
 
     public void showDatePickerDialog(View v) {
@@ -82,8 +90,20 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
     public void onDateSet(DatePicker datePicker, int ano, int mes, int dia) {
         data.set(ano, mes, dia);
 
-        inputData.setText(Mascara.dataFormatada(data));
+        inputData.setText(Conversor.dataFormatada(data));
         inputData.setError(null);
+    }
+
+    public ProducaoDeLeite getObjetoProducao() {
+        int id = inputId.getText().toString().equals("") ? 0 : Integer.valueOf(inputId.getText().toString());
+        return new ProducaoDeLeite(id,
+                this.data,
+                1,
+                Float.valueOf(inputQuantidadeLeite.getText().toString()),
+                Float.valueOf(inputLactose.getText().toString()),
+                Float.valueOf(inputProteinaVerdadeira.getText().toString()),
+                Float.valueOf(inputProteinaBruta.getText().toString()),
+                Float.valueOf(inputGordura.getText().toString()));
     }
 
     public void salvar(View view) {
@@ -92,13 +112,7 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
             return;
         }
 
-        ProducaoDeLeite producao = new ProducaoDeLeite(this.data,
-                1,
-                Float.valueOf(inputQuantidadeLeite.getText().toString()),
-                Float.valueOf(inputLactose.getText().toString()),
-                Float.valueOf(inputProteinaVerdadeira.getText().toString()),
-                Float.valueOf(inputProteinaBruta.getText().toString()),
-                Float.valueOf(inputGordura.getText().toString()));
+        ProducaoDeLeite producao = getObjetoProducao();
 
         RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(this);
         int result = repositorio.inserirProducaoDeLeite(producao);

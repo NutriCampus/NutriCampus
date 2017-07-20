@@ -48,9 +48,12 @@
     <string name="msg_erro_telefone_incompleto">Telefone incompleto</string>
     <string name="msg_erro_cadastro">Erro ao tentar realizar o cadastro</string>
 
-
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
+    <string name="msg_sucesso_atualizar_registro">Registro atualizado com sucesso</string>
+    <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
+    <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
+    <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
@@ -66,6 +69,9 @@
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
 
+    <string name="unidade_medida_kg">%.2f kg</string>
+    <string name="unidade_medida_porcento">%</string>
+
     <!-- Strings: Animais, Prole -->
     <string name="titulo_lista_animais">Animais</string>
     <string name="campo_animal">Animal</string>
@@ -73,8 +79,9 @@
     <string name="campo_peso_vivo">Peso</string>
     <string name="titulo_add_animal">Novo Animal</string>
     <string-array name="titulos">
-        <item>Dados do animal</item>
-        <item>Dados Complementares</item>
+        <item>Animal</item>
+        <item>Crescimento</item>
+        <item>Produção</item>
     </string-array>
 
     <plurals name="quatidade_registros">
@@ -84,12 +91,15 @@
 
     <string name="nenhum_animal">Nenhum animal cadastrado</string>
 
+    <plurals name="msg_registros_encontrados">
+        <item quantity="one">1 registro encontrado</item>
+        <item quantity="other">%d registros encontrados</item>
+    </plurals>
+
 
     <!-- Strings: Propriedade e proprietário -->
     <string name="campo_nome_propriedade">Nome da Propriedade</string>
     <string name="campo_telefone">Telefone</string>
-
-    <string name="campo_texto_lista_encontrados">registro(s) encontrado(s)</string>
 
     <string name="titulo_lista_propriedade">Propriedades</string>
     <string name="titulo_add_propriedade">Nova Propriedade</string>
@@ -131,8 +141,7 @@
     <string name="msg_senha_enviada">Senha enviada por e-mail</string>
 
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
-
-
+    <string name="title_activity_editar_producao_leite">EditarProducaoLeiteActivity</string>
 
 
 </resources>
