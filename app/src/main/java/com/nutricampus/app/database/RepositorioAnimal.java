@@ -12,6 +12,7 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,11 +54,14 @@ public class RepositorioAnimal {
 
             if (c.moveToFirst()) {
                 do {
+                    Calendar data = Calendar.getInstance();
+                    data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));
+
                     Animal a = new Animal();
                     a.setId(c.getInt(c.getColumnIndex(SQLiteManager.ANIMAL_COL_ID)));
                     a.setIndentificador(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)));
                     a.setPropriedade(c.getInt(c.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)));
-                    a.setDataDeNascimento(Date.valueOf(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));
+                    a.setDataDeNascimento(data);
                     a.setAtivo(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
                     animais.add(a);
                 } while (c.moveToNext());
@@ -93,11 +97,14 @@ public class RepositorioAnimal {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
+            Calendar data = Calendar.getInstance();
+            data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));
+
             return new Animal(
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID)),
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)),
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)),
-                    new Date(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO)),
+                    data,
                     Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
         }
         cursor.close();
@@ -111,7 +118,8 @@ public class RepositorioAnimal {
 
         dados.put(SQLiteManager.ANIMAL_COL_IDENTIFICADOR, animal.getIndentificador());
         dados.put(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE, animal.getPropriedade());
-        dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTime());
+        //Verificar...
+        dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTimeInMillis());
         dados.put(SQLiteManager.ANIMAL_COL_IS_ATIVO, animal.isAtivo());
 
         int retorno = bancoDados.update(SQLiteManager.TABELA_ANIMAL,
@@ -140,8 +148,9 @@ public class RepositorioAnimal {
         ContentValues dados = new ContentValues();
         dados.put(SQLiteManager.ANIMAL_COL_IDENTIFICADOR, animal.getIndentificador());
         dados.put(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE, animal.getPropriedade());
-        dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTime());
+        dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTimeInMillis());
         dados.put(SQLiteManager.ANIMAL_COL_IS_ATIVO, animal.isAtivo());
+        dados.put(SQLiteManager.ANIMAL_COL_ID_USUARIO, animal.getId_usuario());
 
         return dados;
     }

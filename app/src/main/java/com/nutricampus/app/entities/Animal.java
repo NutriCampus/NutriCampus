@@ -3,6 +3,7 @@ package com.nutricampus.app.entities;
 import com.nutricampus.app.utils.Conversor;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by Diego Bezerra on 14/06/17.
@@ -16,7 +17,7 @@ public class Animal {
     private String indentificador;
     private int id_usuario;
     private int id_propriedade;
-    private Date dataDeNascimento;
+    private Calendar dataDeNascimento;
     private boolean isAtivo;
 
     public Animal() {
@@ -24,17 +25,18 @@ public class Animal {
     }
 
     public Animal(String indentificador, int id_propriedade,
-                  Date dataDeNascimento, boolean isAtivo) {
+                  Calendar dataDeNascimento, boolean isAtivo, int id_usuario) {
 
         this.indentificador = indentificador;
         this.id_propriedade = id_propriedade;
         this.dataDeNascimento = dataDeNascimento;
         this.isAtivo = isAtivo;
+        this.id_usuario = id_usuario;
 
     }
 
     public Animal(int id, String indentificador, int id_propriedade,
-                  Date dataDeNascimento, boolean isAtivo) {
+                  Calendar dataDeNascimento, boolean isAtivo) {
 
         this.id = id;
         this.indentificador = indentificador;
@@ -75,11 +77,11 @@ public class Animal {
         this.indentificador = indentificador;
     }
 
-    public Date getDataDeNascimento() {
+    public Calendar getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(Calendar dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 

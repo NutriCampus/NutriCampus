@@ -119,6 +119,48 @@ public class RepositorioPropriedade {
         return null;
     }
 
+    public Propriedade buscarPropriedade(int id) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        String colunasWhere = SQLiteManager.PROPRIEDADE_COL_ID + "= ?";
+        String[] valoresWhere = new String[]{String.valueOf(id)};
+
+
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROPRIEDADE, new String[]{
+                        SQLiteManager.PROPRIEDADE_COL_ID,
+                        SQLiteManager.PROPRIEDADE_COL_NOME,
+                        SQLiteManager.PROPRIEDADE_COL_TELEFONE,
+                        SQLiteManager.PROPRIEDADE_COL_LOGRADOURO,
+                        SQLiteManager.PROPRIEDADE_COL_NUMERO,
+                        SQLiteManager.PROPRIEDADE_COL_BAIRRO,
+                        SQLiteManager.PROPRIEDADE_COL_CIDADE,
+                        SQLiteManager.PROPRIEDADE_COL_ESTADO,
+                        SQLiteManager.PROPRIEDADE_COL_CEP,
+                        SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO,
+                        SQLiteManager.PROPRIEDADE_COL_ID_USUARIO},
+                colunasWhere,
+                valoresWhere, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+            return new Propriedade(
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NOME)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_TELEFONE)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_LOGRADOURO)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_BAIRRO)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CEP)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_CIDADE)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ESTADO)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_NUMERO)),
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO)),
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROPRIEDADE_COL_ID_USUARIO)));
+        }
+        cursor.close();
+        return null;
+    }
+
     public List<Propriedade> buscarTodasPropriedades() {
         return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE);
     }

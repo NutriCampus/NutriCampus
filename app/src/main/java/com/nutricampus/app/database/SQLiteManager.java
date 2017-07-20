@@ -23,7 +23,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 5;
+    private static final int VERSAO_BANCO = 6;
 
     /* Modo de acesso ao banco de dados
      *
@@ -76,6 +76,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String ANIMAL_COL_ID_PROPRIEDADE = "id_propriedade";
     public static final String ANIMAL_COL_DATA_NASCIMENTO = "data_nascimento";
     public static final String ANIMAL_COL_IS_ATIVO = "isAtivo";
+    public static final String ANIMAL_COL_ID_USUARIO = "id_usuario";
 
     //Dados Complementares Animal
     public static final String TABELA_DADOS_COMPL = "dadosComplAnimal";
@@ -113,10 +114,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
             ANIMAL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + " UNIQUE, " +
-            ANIMAL_COL_ID_PROPRIEDADE + " " + TEXT_NOT_NULL + " UNIQUE," +
+            ANIMAL_COL_ID_PROPRIEDADE + " INTEGER NOT NULL UNIQUE," +
             ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + ", " +
             ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + ", " +
-            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + "));";
+            ANIMAL_COL_ID_USUARIO + " INTEGER NOT NULL " + ", " +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ")" +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PROLE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROLE + "(" +
             PROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -125,6 +128,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PROLE_PESO_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
             PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + "," +
             "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
+
 
     private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TABLE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +

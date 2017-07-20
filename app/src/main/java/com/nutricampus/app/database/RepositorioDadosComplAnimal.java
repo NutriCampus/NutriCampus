@@ -13,6 +13,7 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,9 +53,12 @@ public class RepositorioDadosComplAnimal {
 
             if (c.moveToFirst()) {
                 do {
+                    Calendar data = Calendar.getInstance();
+                    data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
+
                     DadosComplAnimal d = new DadosComplAnimal();
                     d.setId(c.getInt(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID)));
-                    d.setData(new Date(c.getLong(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
+                    d.setData(data);
                     d.setAnimal(c.getInt(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL)));
                     d.setPesoVivo(c.getInt(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO)));
                     d.setEEC(c.getInt(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_EEC)));
@@ -104,9 +108,12 @@ public class RepositorioDadosComplAnimal {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
+            Calendar data = Calendar.getInstance();
+            data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
+
             return new DadosComplAnimal(
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL)),
-                    Date.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))),
+                    data,
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL)),
                     cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO)),
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_EEC)),
