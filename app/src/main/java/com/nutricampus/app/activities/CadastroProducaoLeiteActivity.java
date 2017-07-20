@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -63,8 +64,7 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
             inputData.setText(Conversor.dataFormatada(data));
         } else {
-            int[] dataToken = Conversor.DataStringToArray(inputData.getText().toString());
-            this.data.set(dataToken[2], dataToken[1], dataToken[0]);
+            this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
         }
     }
 
@@ -120,6 +120,9 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
 
         if (result > 0) {
             Toast.makeText(CadastroProducaoLeiteActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(CadastroProducaoLeiteActivity.this, ListaProducaoLeiteActivity.class);
+            startActivity(intent);
+            this.finish();
         } else {
             Toast.makeText(CadastroProducaoLeiteActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }

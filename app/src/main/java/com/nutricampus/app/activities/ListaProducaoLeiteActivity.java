@@ -1,24 +1,18 @@
 package com.nutricampus.app.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +23,7 @@ import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.utils.Conversor;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,12 +38,14 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     TextView mensagemQuantidade;
     @BindView(R.id.linha)
     View linha;
+    @BindView(R.id.spinner_meses)
+    Spinner spinnerMeses;
+    @BindView(R.id.spinner_anos)
+    Spinner spinnerAnos;
 
     SharedPreferencesManager session;
 
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText inputPesquisaPropriedades;
+    private int idAnimal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +54,13 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         session = new SharedPreferencesManager(getApplicationContext());
         session.checkLogin();
 
+        idAnimal = 1;
+
         setContentView(R.layout.activity_lista_producao);
         ButterKnife.bind(this);
+
         registerForContextMenu(listaProducao);
-        carregaListView("");
+        carregaListView();
 
         listaProducao.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -69,24 +69,18 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
             }
         });
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_producao);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ListaProducaoLeiteActivity.this, CadastroProducaoLeiteActivity.class);
                 startActivity(intent);
-                ListaProducaoLeiteActivity.this.finish();
 
             }
         });
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mSearchAction = menu.findItem(R.id.action_search);
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -103,7 +97,6 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
             case R.id.menu_opc_cont_adicionar:
                 Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
-                this.finish();
                 return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
@@ -118,31 +111,6 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            gerenciaFuncaoPesquisar();
-            return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(isSearchOpened) {
-            gerenciaFuncaoPesquisar();
-            return;
-        }
-        super.onBackPressed();
-    }
 
     private void confirmarExcluir(final ProducaoDeLeite producaoDeLeite) {
         new AlertDialog.Builder(this)
@@ -159,7 +127,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
                             Toast.makeText(ListaProducaoLeiteActivity.this,
                                     getString(R.string.msg_sucesso_remover_registro), Toast.LENGTH_LONG).show();
 
-                            carregaListView("");
+                            carregaListView();
                         }
                         else{
                             Toast.makeText(ListaProducaoLeiteActivity.this,
@@ -171,64 +139,26 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
                 .show();
     }
 
-    protected void gerenciaFuncaoPesquisar(){
-        ActionBar action = getSupportActionBar(); //get the actionbar
+    public void filtrarRegistros(View view) {
 
-        if(isSearchOpened){ //test if the search is open
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-            }
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(inputPesquisaPropriedades.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            mSearchAction.setIcon(R.drawable.ic_search_light);
-
-            isSearchOpened = false;
-        } else { //open the search entry
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(true); //enable it to display a
-                // custom view in the action bar.
-                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
-                action.setDisplayShowTitleEnabled(false); //hide the title
-
-                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
-
-                //this is a listener to do a search when the user clicks on search button
-                inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            carregaListView(inputPesquisaPropriedades.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-
-                });
+        int mes = Conversor.mesParaNumero(String.valueOf(spinnerMeses.getSelectedItem()));
+        int ano = Integer.valueOf(String.valueOf(spinnerAnos.getSelectedItem()));
 
 
-                inputPesquisaPropriedades.requestFocus();
-
-                //open the keyboard focused in the edtSearch
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(inputPesquisaPropriedades, InputMethodManager.SHOW_IMPLICIT);
-
-
-                //add the close icon
-                mSearchAction.setIcon(R.drawable.ic_close);
-
-                isSearchOpened = true;
-            }
-        }
+        carregaListView(mes, ano);
     }
 
-    private void carregaListView(String nome) {
-        List<ProducaoDeLeite> lista = this.buscarProducao("");
+    private void carregaListView() {
+        Calendar cal = Calendar.getInstance();
+        spinnerMeses.setSelection(cal.get(Calendar.MONTH));
+
+        this.carregaListView(cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+    }
+
+    private void carregaListView(int mes, int ano) {
+
+        RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(getBaseContext());
+        List<ProducaoDeLeite> lista = repositorio.buscarPorAnimalPeriodo(idAnimal, mes, ano);
 
         ListaProducaoAdapter adapter =
                 new ListaProducaoAdapter(lista, this);
@@ -244,7 +174,6 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
             linha.setVisibility(View.GONE);
         else
             linha.setVisibility(View.VISIBLE);
-
 
     }
 

@@ -130,6 +130,55 @@ public class RepositorioProducaoDeLeite {
         return producaoDeLeite;
     }
 
+    public List<ProducaoDeLeite> buscarPorAnimalPeriodo(int idAnimal, int mes, int ano) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        ArrayList<ProducaoDeLeite> producaoDeLeite = new ArrayList<>();
+        String getProducao = SQLiteManager.SELECT_TODOS +
+                SQLiteManager.TABELA_PRODUCAO_DE_LEITE +
+                " WHERE id_animal = " + idAnimal;
+
+        try {
+            Cursor c = bancoDados.rawQuery(getProducao, null);
+
+            if (c.moveToFirst()) {
+                do {
+
+                    Calendar data = Calendar.getInstance();
+                    data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_DATA))));
+
+                    int month = data.get(Calendar.MONTH);
+                    int year = data.get(Calendar.YEAR);
+
+                    if ((month == mes) && (year == ano)) {
+                        ProducaoDeLeite p = new ProducaoDeLeite();
+                        p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID)));
+                        p.setAnimal(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL)));
+                        p.setData(data);
+                        p.setQntProduzida(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA)));
+                        p.setPctLactose(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE)));
+                        p.setPctProteinaVerdadeira(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA)));
+                        p.setPctProteinaBruta(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA)));
+                        p.setGordura(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA)));
+
+                        producaoDeLeite.add(p);
+                    }
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            Log.i("RepositorioProdDeLeite", e.toString());
+            return Collections.emptyList();
+        } finally {
+            bancoDados.close();
+        }
+
+        return producaoDeLeite;
+    }
+
+
+
     public boolean atualizarProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
 

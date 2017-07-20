@@ -142,10 +142,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                     android.R.layout.simple_spinner_item, todosProprietarios);
 
             spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
-            //spinnerProprietario.setOnItemSelectedListener(this);
-
-
-
         }
     }
 

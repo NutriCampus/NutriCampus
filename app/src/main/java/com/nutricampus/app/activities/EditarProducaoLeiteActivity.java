@@ -48,6 +48,7 @@ public class EditarProducaoLeiteActivity extends CadastroProducaoLeiteActivity {
                     Toast.LENGTH_LONG).show();
             Intent it = new Intent(EditarProducaoLeiteActivity.this, ListaProducaoLeiteActivity.class);
             startActivity(it);
+            this.finish();
         } else {
             Toast.makeText(EditarProducaoLeiteActivity.this, getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
         }

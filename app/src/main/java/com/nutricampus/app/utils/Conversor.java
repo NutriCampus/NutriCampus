@@ -1,6 +1,12 @@
 package com.nutricampus.app.utils;
 
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Diego Bezerra on 15/06/17.
@@ -23,16 +29,15 @@ public final class Conversor {
 
     public static boolean StringToBoolean(String s) { return (s.equals("true"));}
 
-    public static int[] DataStringToArray(String string) {
-        String array[] = string.split("/");
-        int i = 0;
-
-        int valores[] = new int[3];
-        for (String str : array) {
-            valores[i++] = Integer.valueOf(str);
+    public static Date StringToDate(String string) {
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date = sdf.parse(string);
+        } catch (ParseException e) {
+            Log.getStackTraceString(e);
         }
-
-        return valores;
+        return date;
     }
 
 
@@ -44,6 +49,24 @@ public final class Conversor {
 
     private static String colocaZeroEsquerda(int valor) {
         return ((valor < 10) ? ("0" + String.valueOf(valor)) : String.valueOf(valor));
+    }
+
+    public static int mesParaNumero(String mes) {
+        HashMap<String, Integer> meses = new HashMap<>();
+        meses.put("janeiro", 0);
+        meses.put("fevereiro", 1);
+        meses.put("marco", 2);
+        meses.put("abril", 3);
+        meses.put("maio", 4);
+        meses.put("junho", 5);
+        meses.put("julho", 6);
+        meses.put("agosto", 7);
+        meses.put("setembro", 8);
+        meses.put("outubro", 9);
+        meses.put("novembro", 10);
+        meses.put("dezembro", 11);
+
+        return meses.get(String.valueOf(mes).toLowerCase());
     }
 
 }
