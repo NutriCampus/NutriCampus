@@ -98,6 +98,7 @@
         <item>Outubro</item>
         <item>Novembro</item>
         <item>Dezembro</item>
+        <item>TODOS</item>
     </string-array>
 
     <string-array name="anos">

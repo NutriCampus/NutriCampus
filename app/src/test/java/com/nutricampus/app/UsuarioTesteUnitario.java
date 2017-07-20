@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Contact: <diego.defb@gmail.com>
  */
 
-public class TesteUnitarioUsuario {
+public class UsuarioTesteUnitario {
 
     private Usuario user1;
     private Usuario user2;

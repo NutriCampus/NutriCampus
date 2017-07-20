@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 
 @RunWith(AndroidJUnit4.class)
-public class InstrumentedTestRepositorioProprietario {
+public class RepositorioProprietarioTesteIntegracao {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioProprietario repositorio = new RepositorioProprietario(appContext);
 

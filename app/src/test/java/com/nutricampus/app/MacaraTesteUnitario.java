@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 
-public class TesteUnitarioMascara {
+public class MacaraTesteUnitario {
 
     @Test
     public void testeCaracterESinal() {
@@ -25,14 +25,19 @@ public class TesteUnitarioMascara {
 
     @Test
     public void testeMascararString() {
+        String result;
+
         String cpf = "08899977763";
-        assertEquals("088.999.777-63", Mascara.mascarar(Mascara.CPF_MASK, cpf));
+        result = Mascara.mascarar(Mascara.CPF_MASK, cpf);
+        assertEquals("088.999.777-63", result);
 
         String telefone = "87999999999";
-        assertEquals("(87) 99999 9999", Mascara.mascarar(Mascara.CELULAR_MASK, telefone));
+        result = Mascara.mascarar(Mascara.CELULAR_MASK, telefone);
+        assertEquals("(87) 99999 9999", result);
 
         String cep = "55250500";
-        assertEquals("55250-500", Mascara.mascarar(Mascara.CEP_MASK, cep));
+        result = Mascara.mascarar(Mascara.CEP_MASK, cep);
+        assertEquals("55250-500", result);
     }
 
     @Test

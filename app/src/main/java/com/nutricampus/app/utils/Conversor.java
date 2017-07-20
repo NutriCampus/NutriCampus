@@ -51,7 +51,7 @@ public final class Conversor {
         return ((valor < 10) ? ("0" + String.valueOf(valor)) : String.valueOf(valor));
     }
 
-    public static int mesParaNumero(String mes) {
+    public static int mesStringParaInt(String mes) {
         HashMap<String, Integer> meses = new HashMap<>();
         meses.put("janeiro", 0);
         meses.put("fevereiro", 1);

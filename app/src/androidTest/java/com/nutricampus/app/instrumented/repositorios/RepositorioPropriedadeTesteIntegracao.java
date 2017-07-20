@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class InstrumentedTestRepositorioPropriedade {
+public class RepositorioPropriedadeTesteIntegracao {
 
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioPropriedade repositorio = new RepositorioPropriedade(appContext);

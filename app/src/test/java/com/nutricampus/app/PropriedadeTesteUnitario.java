@@ -10,7 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TesteUnitarioPropriedade {
+public class PropriedadeTesteUnitario {
 
     private Propriedade p1;
     private Propriedade p2;

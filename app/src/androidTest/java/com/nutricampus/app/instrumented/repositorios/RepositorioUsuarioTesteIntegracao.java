@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNull;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class InstrumentedTestRepositorioUsuario {
+public class RepositorioUsuarioTesteIntegracao {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioUsuario repositorio = new RepositorioUsuario(appContext);
 
