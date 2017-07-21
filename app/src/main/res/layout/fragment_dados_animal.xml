@@ -8,6 +8,7 @@
     android:paddingRight="30dp"
     android:paddingTop="05dp"
     android:weightSum="1"
+    android:id="@+id/fragmentDadosAnimal"
     tools:context="com.nutricampus.app.fragments.DadosAnimalFragment">
 
     <EditText
@@ -18,11 +19,30 @@
         android:text=""
         android:visibility="gone" />
 
-    <Spinner
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerPropriedade"
-        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+        android:layout_height="75dp">
+
+        <Spinner
+            android:id="@+id/spinnerPropriedade"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:layout_height="74dp"
+            android:layout_width="0dp"
+            android:layout_marginBottom="@dimen/margin_inputs_form"
+            android:layout_marginTop="@dimen/margin_inputs_form"
+            android:spinnerMode="dialog" />
+        <Button
+            android:text=""
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btn_add_propriedade"
+            android:drawableLeft="@drawable/add" />
+    </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -46,10 +66,13 @@
 
         <EditText
             android:id="@+id/input_data_nascimento"
+            android:drawableRight="@drawable/ic_data_calendario"
+            android:drawableEnd="@drawable/ic_data_calendario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/campo_data_nascimento"
-            android:inputType="text" />
+            android:inputType="date"
+            android:hint="@string/campo_data"
+            android:focusable="false"/>
     </android.support.design.widget.TextInputLayout>
 
     <TextView

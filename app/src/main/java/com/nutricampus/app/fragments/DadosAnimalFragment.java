@@ -121,7 +121,7 @@ public class DadosAnimalFragment extends Fragment
 
         if (!camposVazios.isEmpty()) {
             for (TextView view : camposVazios)
-                ValidaFormulario.defineStatusCampo(view, getString(R.string.msg_erro_campo));
+                view.setError(getString(R.string.msg_erro_campo));
 
             valido = false;
         }
@@ -129,7 +129,8 @@ public class DadosAnimalFragment extends Fragment
         if (!ValidaFormulario.isSelecaoValida(spinnerPropriedade.getSelectedItemPosition(), 0)) {
             TextView text = (TextView) spinnerPropriedade.getSelectedView();
             text.setTextColor(Color.RED);
-            valido = ValidaFormulario.defineStatusCampo(text, "");
+            text.setError("");
+            valido = false;
         } else {
             TextView text = (TextView) spinnerPropriedade.getSelectedView();
             text.setError(null);

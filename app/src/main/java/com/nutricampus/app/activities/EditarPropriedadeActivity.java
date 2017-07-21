@@ -2,7 +2,6 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
     private void inicializaCampos() {
 
         int id = getIntent().getIntExtra("id",0);
-        Log.i("ID _ INT", String.valueOf(id));
+
         inputId.setText(String.valueOf(id));
 
         inputNome.setText(getIntent().getStringExtra("nome"));

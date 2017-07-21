@@ -102,4 +102,6 @@ public class Animal {
                 ", isAtivo=" + isAtivo +
                 '}';
     }
+
 }
+

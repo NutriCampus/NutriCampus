@@ -11,8 +11,11 @@ import com.nutricampus.app.fragments.DadosComplementaresFragment;
 
 import java.util.Locale;
 
+
 /**
  * Created by Felipe on 19/07/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 
 public class AbasPagerAdapter extends FragmentPagerAdapter {
@@ -28,10 +31,10 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance("Fragment 1");
+                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance(titulos[position]);
                 return dadosAnimalFragment;
             case 1:
-                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance("Fragment 2");
+                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(titulos[position]);
                 return dadosComplementaresFragment;
             default:
                 return null;

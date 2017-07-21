@@ -61,6 +61,23 @@
         <activity android:name=".activities.CadastrarProprietarioActivity" />
         <activity android:name=".activities.EditarProprietarioActivity" />
         <activity
+            android:name=".activities.CadastroProducaoLeiteActivity"
+            android:label="@string/titulo_editar_producao"
+            android:parentActivityName=".activities.ListaProducaoLeiteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ListaProducaoLeiteActivity"
+            android:label="@string/titulo_producao"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.EditarProducaoLeiteActivity"
+            android:label="@string/title_activity_editar_producao_leite"
+            android:parentActivityName=".activities.ListaProducaoLeiteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activities.CadastrarAnimalActivity"
             android:label="@string/titulo_add_animal"
             android:parentActivityName=".activities.ListaAnimaisActivity"

@@ -111,6 +111,42 @@ public class RepositorioAnimal {
         return null;
     }
 
+    public Animal buscarAnimal(String identificador, int idPropriedade) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        String colunasWhere = SQLiteManager.ANIMAL_COL_IDENTIFICADOR + "= ? AND " +
+                SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE + "= ?";
+        String[] valoresWhere = new String[]{identificador, String.valueOf(idPropriedade)};
+
+
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_ANIMAL, new String[]{
+                        SQLiteManager.ANIMAL_COL_ID,
+                        SQLiteManager.ANIMAL_COL_IDENTIFICADOR,
+                        SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE,
+                        SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO,
+                        SQLiteManager.ANIMAL_COL_IS_ATIVO},
+                colunasWhere,
+                valoresWhere, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+            Calendar data = Calendar.getInstance();
+            data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));
+
+            return new Animal(
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID)),
+                    cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)),
+                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)),
+                    data,
+                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
+        }
+        cursor.close();
+        return null;
+    }
+
+
+
     public boolean atualizarAnimal(Animal animal) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -135,13 +171,15 @@ public class RepositorioAnimal {
         return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL);
     }
 
-    public void removerAnimal(Animal animal) {
+    public int removerAnimal(Animal animal) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
+        int result = bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
                 SQLiteManager.ANIMAL_COL_ID + " = ? ",
                 new String[]{String.valueOf(animal.getId())});
 
         bancoDados.close();
+
+        return result;
     }
 
     private ContentValues getContentValues(Animal animal) {

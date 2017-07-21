@@ -246,7 +246,10 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         listPropriedades.setAdapter(adapter);
 
-        mensagemQuantidade.setText(lista.size() + " " + getString(R.string.campo_texto_lista_encontrados));
+        mensagemQuantidade.setText(getResources().getQuantityString(
+                R.plurals.msg_registros_encontrados,
+                adapter.getCount(),
+                adapter.getCount()));
 
         if (lista.isEmpty())
             linha.setVisibility(View.GONE);
