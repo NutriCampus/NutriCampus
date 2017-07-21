@@ -2,6 +2,7 @@ package com.nutricampus.app.entities;
 
 import com.nutricampus.app.utils.Conversor;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -11,7 +12,7 @@ import java.util.Calendar;
  * Contact: <diego.defb@gmail.com>
  */
 
-public class Animal {
+public class Animal implements Serializable {
 
     private int id;
     private String indentificador;

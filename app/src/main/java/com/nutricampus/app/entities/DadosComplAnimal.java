@@ -32,6 +32,21 @@ public class DadosComplAnimal {
 
     }
 
+    public DadosComplAnimal(Calendar data, float pesoVivo, int EEC, float caminadaHorizontal,
+                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
+                            boolean isLactacao, boolean isGestante, boolean isCio) {
+        this.data = data;
+        this.pesoVivo = pesoVivo;
+        this.EEC = EEC;
+        this.caminadaHorizontal = caminadaHorizontal;
+        this.caminhadaVertical = caminhadaVertical;
+        this.semanaLactacao = semanaLactacao;
+        this.isPastando = isPastando;
+        this.isLactacao = isLactacao;
+        this.isGestante = isGestante;
+        this.isCio = isCio;
+    }
+
     public DadosComplAnimal(Calendar data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
                             float caminhadaVertical, int semanaLactacao, boolean isPastando,
                             boolean isLactacao, boolean isGestante, boolean isCio) {
