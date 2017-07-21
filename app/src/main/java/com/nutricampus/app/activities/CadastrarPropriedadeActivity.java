@@ -107,6 +107,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         preencherSpinnerListaProprietario();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     public void preencherSpinnerListaProprietario() {
 
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());

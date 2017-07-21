@@ -1,29 +1,22 @@
 package com.nutricampus.app.activities;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
-import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Propriedade;
@@ -101,7 +94,7 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
         inputData.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));
         inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
         inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
-        //inputSemanaLactacao.setText(dadosComplAnimal.getSemanaLactacao());
+        inputSemanaLactacao.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
         ckbPastando.setChecked(dadosComplAnimal.isPastando());
         ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
         ckbGestante.setChecked(dadosComplAnimal.isGestante());
@@ -176,6 +169,7 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
 
         int idRadioButton = radioGroup.getCheckedRadioButtonId();
         RadioButton radio = (RadioButton) findViewById(idRadioButton);
+
         if(!(radio == null))
             eec =  Integer.parseInt(radio.getText().toString());
 

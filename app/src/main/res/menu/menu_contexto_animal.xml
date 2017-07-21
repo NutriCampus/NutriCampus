@@ -3,20 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_opc_cont_prole"
+        android:title="@string/menu_ver_prole"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_opc_cont_producao"
+        android:icon="@drawable/ic_crud_excluir"
+        android:title="@string/menu_ver_producao_leite"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_opc_cont_historico"
         android:icon="@drawable/ic_crud_novo"
         android:title="@string/menu_historico"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_opc_cont_excluir"
-        android:icon="@drawable/ic_crud_excluir"
-        android:title="@string/menu_excluir"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/menu_opc_cont_editar"
         android:icon="@drawable/ic_crud_excluir"
         android:title="@string/menu_editar"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_opc_cont_excluir"
+        android:icon="@drawable/ic_crud_excluir"
+        android:title="@string/menu_excluir"
         app:showAsAction="always" />
 </menu>

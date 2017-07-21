@@ -2,20 +2,13 @@ package com.nutricampus.app.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-
-import android.content.Intent;
 import android.os.Bundle;
-
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -24,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
@@ -44,6 +36,7 @@ import java.util.List;
 public class DadosComplementaresFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
+    private EditText inputIdAnimal;
     private EditText inputData;
     private EditText inputPeso;
     private EditText inputCaminhadaVertical;
@@ -78,11 +71,14 @@ public class DadosComplementaresFragment extends Fragment
 
         View layout = inflater.inflate(R.layout.fragment_dados_complementares, container, false);
 
+        inputData = layout.findViewById(R.id.input_identificador);
+        inputData.setVisibility(View.GONE);
+
         inputData = (EditText) layout.findViewById(R.id.input_data_complementar);
         inputPeso = (EditText) layout.findViewById(R.id.input_peso_vivo);
         inputCaminhadaVertical = (EditText) layout.findViewById(R.id.input_caminhada_vertical);
         inputCaminhadaHorizontal = (EditText) layout.findViewById(R.id.input_caminhada_horizontal);
-        inputSemanaLact = (EditText) layout.findViewById(R.id.input_semana_lact);
+        inputSemanaLact = (EditText) layout.findViewById(R.id.input_semana_lactacao);
         ckbPastando = (CheckBox) layout.findViewById(R.id.ckb_pastando);
         ckbLactacao = (CheckBox) layout.findViewById(R.id.ckb_lactacao);
         ckbCio = (CheckBox) layout.findViewById(R.id.ckb_cio);

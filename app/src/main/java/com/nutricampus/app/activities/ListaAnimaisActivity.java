@@ -2,10 +2,10 @@ package com.nutricampus.app.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -106,13 +106,23 @@ public class ListaAnimaisActivity extends AppCompatActivity
                 if (info != null)
                     abreTelaHistorico(info.position);
                 return true;
+            case R.id.menu_opc_cont_producao:
+                if (info != null)
+                    abreTelaComAnimal(info.position, ListaProducaoLeiteActivity.class);
+                return true;
+
+            case R.id.menu_opc_cont_prole:
+                if (info != null)
+                    abreTelaComAnimal(info.position, ListaProleActivity.class);
+                return true;
+
             case R.id.menu_opc_cont_editar:
                 if (info != null)
                     abreTelaEditar(info.position);
                 return true;
+
             case R.id.menu_opc_cont_excluir:
                 Animal animal = (Animal) listAnimais.getItemAtPosition(info.position);
-                //Log.i("PROPRIEDADE", propriedade.getNome() + " " + propriedade.getId());
                 confirmarExcluir(animal);
                 return true;
             default:
@@ -160,6 +170,13 @@ public class ListaAnimaisActivity extends AppCompatActivity
         Animal animal = (Animal) listAnimais.getItemAtPosition(position);
         Intent intent = new Intent(ListaAnimaisActivity.this, AtualizarHistoricoAnimalActivity.class);
         intent.putExtra("animal", animal);
+        startActivity(intent);
+    }
+
+    private void abreTelaComAnimal(int position, Class classe) {
+        int idAnimal = ((Animal) listAnimais.getItemAtPosition(position)).getId();
+        Intent intent = new Intent(ListaAnimaisActivity.this, classe);
+        intent.putExtra("idAnimal", idAnimal);
         startActivity(intent);
     }
 
