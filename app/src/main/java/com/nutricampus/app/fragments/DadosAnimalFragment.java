@@ -1,6 +1,7 @@
 package com.nutricampus.app.fragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -18,41 +21,45 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
+import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
  * Created by Felipe on 19/07/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 
 public class DadosAnimalFragment extends Fragment
-        implements View.OnClickListener{
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
     private Spinner spinnerPropriedade;
     private EditText inputIdentificador;
-    private EditText inputDataNasc;
+    private EditText inputData;
     private Switch switchAtivo;
     private Button btnConfirmarDados;
+    private Button btnAddPropriedade;
     private EditText inputIdPropriedade;
 
-    private static final String ARG_PARAM1 = "param1";
+    private Calendar data;
+    private boolean isAtivo;
 
-    String parametro1;
+    SharedPreferencesManager session;
 
     public static DadosAnimalFragment newInstance(String param1) {
         DadosAnimalFragment fragment = new DadosAnimalFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,9 +67,8 @@ public class DadosAnimalFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            parametro1= getArguments().getString(ARG_PARAM1);
-        }
+        session = new SharedPreferencesManager(getActivity());
+        session.checkLogin();
     }
 
 
@@ -73,38 +79,104 @@ public class DadosAnimalFragment extends Fragment
         View layout = inflater.inflate(R.layout.fragment_dados_animal, container, false);
 
         inputIdentificador = (EditText) layout.findViewById(R.id.input_identificador);
-        inputDataNasc = (EditText) layout.findViewById(R.id.input_data_nascimento);
+        inputData = (EditText) layout.findViewById(R.id.input_data_nascimento);
         spinnerPropriedade = (Spinner) layout.findViewById(R.id.spinnerPropriedade);
         switchAtivo = (Switch) layout.findViewById(R.id.switch_ativo);
         btnConfirmarDados = (Button) layout.findViewById(R.id.btnConfimarDados);
+        btnAddPropriedade = (Button) layout.findViewById(R.id.btn_add_propriedade);
         inputIdPropriedade = (EditText) layout.findViewById(R.id.input_id_propriedade);
 
         btnConfirmarDados.setOnClickListener(this);
+        btnAddPropriedade.setOnClickListener(this);
+        inputData.setOnClickListener(this);
+
+        switchAtivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isAtivo = compoundButton.isChecked();
+            }
+        });
         preencherSpinnerListaPropriedade();
+        inicializaCampoData();
 
         return layout;
     }
 
+    protected void inicializaCampoData() {
+        Calendar calendario = Calendar.getInstance();
+        // O valor do mês pelo Calendar varia entre 0 e 11, por isso soma +1
+        if (inputData.getText().toString().equals("")) {
+            data = Calendar.getInstance();
+            data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+            //inputData.setText(Conversor.dataFormatada(data));
+        } else {
+            this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
+        }
+    }
+
+
+    public void showDatePickerDialog(View v) {
+        Calendar cDefault = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getActivity(),
+                this,
+                cDefault.get(Calendar.YEAR),
+                cDefault.get(Calendar.MONTH),
+                cDefault.get(Calendar.DAY_OF_MONTH));
+
+        Calendar cMax = Calendar.getInstance();
+        cMax.set(cMax.get(Calendar.YEAR), cMax.get(Calendar.MONTH), cMax.get(Calendar.DATE));
+        datePickerDialog.getDatePicker().setMaxDate(cMax.getTime().getTime());
+
+        datePickerDialog.show();
+    }
+
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int ano, int mes, int dia) {
+        data.set(ano, mes, dia);
+
+        inputData.setText(Conversor.dataFormatada(data));
+        inputData.setError(null);
+    }
+
     @Override
     public void onClick(View v) {
+
+        if(v.getId() == R.id.input_data_nascimento) {
+            showDatePickerDialog(v);
+            return;
+        }
+
+        if(v.getId() == R.id.btn_add_propriedade) {
+            Intent intent = new Intent(getActivity(), CadastrarPropriedadeActivity.class);
+            startActivity(intent);
+            return;
+        }
 
         if (!validaDados()) {
             Toast.makeText(getActivity(), R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
-        Animal animal = new Animal();
+        Animal animal = new Animal(
+                inputIdentificador.getText().toString(),
+                ((Propriedade) spinnerPropriedade.getSelectedItem()).getId(),
+                data,
+                isAtivo,
+                Integer.parseInt(session.getIdNC()));
 
         Activity activity = getActivity();
         if(activity instanceof AoClicarConfirmaDados) {
             AoClicarConfirmaDados listener = (AoClicarConfirmaDados) activity;
-            listener.confirmarDados();
+            listener.confirmarDados(animal);
         }
 
     }
 
     public interface AoClicarConfirmaDados {
-        void confirmarDados();
+        void confirmarDados(Animal animal);
     }
 
     protected boolean validaDados() {
@@ -112,7 +184,7 @@ public class DadosAnimalFragment extends Fragment
 
         List<TextView> camposTexto = new ArrayList<>();
         camposTexto.add(inputIdentificador);
-        camposTexto.add(inputDataNasc);
+        camposTexto.add(inputData);
 
         for (TextView view : camposTexto)
             view.setError(null);

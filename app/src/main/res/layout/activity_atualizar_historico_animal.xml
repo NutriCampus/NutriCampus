@@ -7,7 +7,8 @@
     android:paddingRight="30dp"
     android:paddingTop="05dp"
     android:weightSum="1"
-    tools:context="com.nutricampus.app.fragments.DadosComplementaresFragment">
+    android:id="@+id/telaAtualizarHistorico"
+    tools:context="com.nutricampus.app.activities.AtualizarHistoricoAnimalActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,14 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/margin_form"
         android:paddingRight="@dimen/margin_form">
+
+        <EditText
+            android:id="@+id/input_id_propriedade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text=""
+            android:visibility="gone" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -27,20 +36,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/campo_identificador"
-                android:inputType="numberDecimal" />
+                android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_propriedade"/>
 
         <View
             android:id="@+id/linha"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorLinha"
-            android:layout_marginBottom="13dp"/>
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="13dp"
+            android:layout_marginTop="15dp"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -69,7 +74,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
-                android:focusable="false"/>
+                android:hint="@string/campo_data"
+                android:focusable="false"
+                android:onClick="inserirData"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -199,7 +206,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:text="@string/atualizar"
             android:drawableLeft="@drawable/save"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:id="@+id/btn_salvar"

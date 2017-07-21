@@ -5,17 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
-import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.utils.Conversor;
-
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 
 /**
  * Created by Diego Bezerra on 15/06/17.
@@ -84,6 +80,7 @@ public class RepositorioDadosComplAnimal {
         return dadosComplAnimais;
     }
 
+
     public DadosComplAnimal buscarDadosComplAnimal(int id_animal) {
         bancoDados = gerenciador.getReadableDatabase();
 
@@ -98,6 +95,7 @@ public class RepositorioDadosComplAnimal {
                         SQLiteManager.DADOS_COMPL_COL_EEC,
                         SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL,
                         SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL,
+                        SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO,
                         SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO,
                         SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO,
                         SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE,
@@ -107,6 +105,7 @@ public class RepositorioDadosComplAnimal {
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
+
 
             Calendar data = Calendar.getInstance();
             data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
@@ -159,18 +158,20 @@ public class RepositorioDadosComplAnimal {
         return this.getListaDadosComplAnimal("SELECT * FROM " + SQLiteManager.TABELA_DADOS_COMPL + "WHERE id_animal=" + id_animal + "");
     }
 
-    public void removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
+    public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_DADOS_COMPL,
+        int result = bancoDados.delete(SQLiteManager.TABELA_DADOS_COMPL,
                 SQLiteManager.DADOS_COMPL_COL_ID + " = ? ",
                 new String[]{String.valueOf(dadosComplAnimal.getId())});
 
         bancoDados.close();
+
+        return result;
     }
 
     private ContentValues getContentValues(DadosComplAnimal dadosComplAnimal) {
         ContentValues dados = new ContentValues();
-        dados.put(SQLiteManager.DADOS_COMPL_COL_DATA, String.valueOf(dadosComplAnimal.getData()));
+        dados.put(SQLiteManager.DADOS_COMPL_COL_DATA, dadosComplAnimal.getData().getTimeInMillis());
         dados.put(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL, dadosComplAnimal.getAnimal());
         dados.put(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO, dadosComplAnimal.getPesoVivo());
         dados.put(SQLiteManager.DADOS_COMPL_COL_EEC, dadosComplAnimal.getEEC());
