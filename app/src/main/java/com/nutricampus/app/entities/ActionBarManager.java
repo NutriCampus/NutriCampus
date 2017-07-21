@@ -18,8 +18,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
-import com.nutricampus.app.activities.ListaProducaoLeiteActivity;
-import com.nutricampus.app.activities.ListaProleActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -72,8 +70,6 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
                         new SectionDrawerItem().withName("Controle"),
                         new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(13).withSelectable(false).withName("Produção").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(14).withSelectable(false).withName("Prole").withIcon(FontAwesome.Icon.faw_home),
                         new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
@@ -99,12 +95,6 @@ public class ActionBarManager {
                                 break;
                             case 3:
                                 intent = new Intent(activity, ListaAnimaisActivity.class);
-                                break;
-                            case 13:
-                                intent = new Intent(activity, ListaProducaoLeiteActivity.class);
-                                break;
-                            case 14:
-                                intent = new Intent(activity, ListaProleActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();

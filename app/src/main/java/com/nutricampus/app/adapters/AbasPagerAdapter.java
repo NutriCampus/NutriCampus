@@ -35,6 +35,7 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
                 return dadosAnimalFragment;
             case 1:
                 DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(titulos[position]);
+
                 return dadosComplementaresFragment;
             default:
                 return null;

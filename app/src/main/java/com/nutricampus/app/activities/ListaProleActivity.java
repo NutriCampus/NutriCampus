@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,7 +52,8 @@ public class ListaProleActivity extends AppCompatActivity {
         session = new SharedPreferencesManager(getApplicationContext());
         session.checkLogin();
 
-        idAnimal = 1;
+        if (this.getIntent() != null)
+            this.idAnimal = getIntent().getIntExtra("idAnimal", 0);
 
         setContentView(R.layout.activity_lista_prole);
         ButterKnife.bind(this);
@@ -72,6 +74,7 @@ public class ListaProleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ListaProleActivity.this, CadastroProleActivity.class);
+                intent.putExtra("idAnimal", idAnimal);
                 startActivity(intent);
             }
         });
@@ -161,13 +164,13 @@ public class ListaProleActivity extends AppCompatActivity {
     }
 
     private void carregaListView(int mes, int ano) {
-
+        Log.w("ID MATRZ", idAnimal + "");
         RepositorioProle repositorio = new RepositorioProle(getBaseContext());
         List<Prole> lista;
 
         // Se o mes escolhido fro TODOS (dezembro equivale a 11)
         if (mes == 12)
-            lista = repositorio.buscarTodasProles();
+            lista = repositorio.buscarPorMatriz(this.idAnimal);
         else
             lista = repositorio.buscarProlesPorAnimalPeriodo(idAnimal, mes, ano);
 

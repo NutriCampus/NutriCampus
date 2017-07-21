@@ -45,7 +45,7 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
     Button buttonSalvar;
 
     private Calendar data;
-
+    private int idAnimal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +53,9 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
         inicializaCampoData();
+
+        if (this.getIntent() != null)
+            this.idAnimal = getIntent().getIntExtra("idAnimal", 0);
     }
 
     protected void inicializaCampoData() {
@@ -97,7 +100,7 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
         int id = inputId.getText().toString().equals("") ? 0 : Integer.valueOf(inputId.getText().toString());
         return new ProducaoDeLeite(id,
                 this.data,
-                1,
+                this.idAnimal,
                 Float.valueOf(inputQuantidadeLeite.getText().toString()),
                 Float.valueOf(inputLactose.getText().toString()),
                 Float.valueOf(inputProteinaVerdadeira.getText().toString()),

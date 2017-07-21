@@ -4,9 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="05dp"
     android:weightSum="1"
     android:id="@+id/fragmentDadosAnimal"
     tools:context="com.nutricampus.app.fragments.DadosAnimalFragment">

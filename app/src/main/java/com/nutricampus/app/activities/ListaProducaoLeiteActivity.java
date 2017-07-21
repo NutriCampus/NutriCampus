@@ -54,7 +54,8 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         session = new SharedPreferencesManager(getApplicationContext());
         session.checkLogin();
 
-        idAnimal = 1;
+        if (this.getIntent() != null)
+            this.idAnimal = getIntent().getIntExtra("idAnimal", 0);
 
         setContentView(R.layout.activity_lista_producao);
         ButterKnife.bind(this);
@@ -75,6 +76,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ListaProducaoLeiteActivity.this, CadastroProducaoLeiteActivity.class);
+                intent.putExtra("idAnimal", idAnimal);
                 startActivity(intent);
 
             }

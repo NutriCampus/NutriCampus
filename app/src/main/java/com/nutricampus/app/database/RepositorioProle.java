@@ -45,45 +45,19 @@ public class RepositorioProle {
         return (int) retorno;
     }
 
-    public Prole buscarProle(int id_animal) {
-        bancoDados = gerenciador.getReadableDatabase();
+    public List<Prole> buscarPorMatriz(int id) {
+        String sql = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+                " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + id;
+        return buscar(sql);
 
-        String colunas_where = SQLiteManager.PROLE_ID_MATRIZ + "= ?";
-        String[] valores_where = new String[]{String.valueOf(id_animal)};
-
-        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_PROLE, new String[]{
-                        SQLiteManager.PROLE_ID,
-                        SQLiteManager.PROLE_ID_MATRIZ,
-                        SQLiteManager.PROLE_DATA_DE_NASCIMENTO,
-                        SQLiteManager.PROLE_PESO_DE_NASCIMENTO,
-                        SQLiteManager.PROLE_IS_NATIMORTO},
-                colunas_where,
-                valores_where, null, null, null, null);
-
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-
-            Calendar data = Calendar.getInstance();
-            data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.PROLE_DATA_DE_NASCIMENTO))));
-
-            return new Prole(
-                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROLE_ID)),
-                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROLE_ID_MATRIZ)),
-                    data,
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.PROLE_PESO_DE_NASCIMENTO)),
-                    Conversor.intToBoolean(cursor.getInt(cursor.getColumnIndex(SQLiteManager.PROLE_IS_NATIMORTO))));
-
-        }
-        cursor.close();
-        return null;
     }
 
-    public List<Prole> buscarTodasProles() {
+    private List<Prole> buscar(String sql) {
 
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Prole> proles = new ArrayList<>();
-        String getProles = "SELECT * FROM " + SQLiteManager.TABELA_PROLE;
+        String getProles = sql;
 
         try {
             Cursor c = bancoDados.rawQuery(getProles, null);
@@ -114,12 +88,13 @@ public class RepositorioProle {
         return proles;
     }
 
-    public List<Prole> buscarProlesPorAnimalPeriodo(int idAnima, int mes, int ano) {
+    public List<Prole> buscarProlesPorAnimalPeriodo(int idAnimal, int mes, int ano) {
 
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Prole> proles = new ArrayList<>();
-        String getProles = "SELECT * FROM " + SQLiteManager.TABELA_PROLE;
+        String getProles = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+                " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + idAnimal;
 
         try {
             Cursor c = bancoDados.rawQuery(getProles, null);

@@ -54,6 +54,9 @@ public class CadastroProleActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         inicializaCampoData();
+
+        if (this.getIntent() != null)
+            this.idAnimalMatriz = getIntent().getIntExtra("idAnimal", 0);
     }
 
     protected void inicializaCampoData() {

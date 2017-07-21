@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -109,7 +108,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 return true;
             case R.id.menu_opc_cont_excluir:
                 Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(info.position);
-                Log.i("PROPRIEDADE", propriedade.getNome() + " " + propriedade.getId());
                 confirmarExcluir(propriedade);
                 return true;
             default:

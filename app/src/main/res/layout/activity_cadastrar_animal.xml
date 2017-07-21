@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/telaCadastrarAnimalActivity">
+    android:id="@+id/telaCadastrarAnimalActivity"
+    android:background="#e4e4e4">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -14,9 +15,12 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabMode="fixed"
         app:tabGravity="fill" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/caixa_arredondada" />
 </LinearLayout>
 
