@@ -23,7 +23,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -33,13 +32,13 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CadastroDadosValidosActivityTest2 {
+public class TesteCadastroUsuariaDadosInvalidos {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void cadastroDadosValidosActivityTest2() {
+    public void loginActivityTest2() {
         ViewInteraction relativeLayout = onView(
                 allOf(withId(R.id.rlayout_faca_login),
                         withParent(withId(R.id.tela_loginactivity)),
@@ -48,70 +47,49 @@ public class CadastroDadosValidosActivityTest2 {
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.edtNome), isDisplayed()));
-        appCompatEditText.perform(click());
+        appCompatEditText.perform(replaceText("Eduardo"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.edtNome), isDisplayed()));
-        appCompatEditText2.perform(replaceText("Eduardo"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.edtCpf), isDisplayed()));
-        appCompatEditText3.perform(click());
+        appCompatEditText2.perform(replaceText("12345678912"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.edtCpf), isDisplayed()));
-        appCompatEditText4.perform(replaceText("09315359488"), closeSoftKeyboard());
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.edtRegistro), isDisplayed()));
+        appCompatEditText6.perform(replaceText("aaaa"), closeSoftKeyboard());
 
+        ViewInteraction appCompatEditText7 = onView(
+                allOf(withId(R.id.edtEmail), isDisplayed()));
+        appCompatEditText7.perform(click());
 
         ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.edtRegistro), isDisplayed()));
-        appCompatEditText8.perform(replaceText("aaaa"), closeSoftKeyboard());
+                allOf(withId(R.id.edtEmail), isDisplayed()));
+        appCompatEditText8.perform(replaceText("edu@gmail.com"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText9 = onView(
-                allOf(withId(R.id.edtEmail), isDisplayed()));
-        appCompatEditText9.perform(click());
-
-        ViewInteraction appCompatEditText10 = onView(
-                allOf(withId(R.id.edtEmail), isDisplayed()));
-        appCompatEditText10.perform(replaceText("edu@gmail.com"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText11 = onView(
                 allOf(withId(R.id.edtSenha), isDisplayed()));
-        appCompatEditText11.perform(click());
-
-        ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.edtSenha), isDisplayed()));
-        appCompatEditText12.perform(replaceText("123456"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText13 = onView(
-                allOf(withId(R.id.edtSenha), withText("123456"), isDisplayed()));
-        appCompatEditText13.perform(pressImeActionButton());
+        appCompatEditText9.perform(replaceText("123456"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"), isDisplayed()));
         appCompatButton.perform(click());
 
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(android.R.id.button1), withText("OK")));
-        appCompatButton2.perform(scrollTo(), click());
-
         ViewInteraction button = onView(
-                allOf(withId(R.id.btn_login),
+                allOf(withId(R.id.btn_salvar_cadastro),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.tela_loginactivity),
-                                        0),
-                                3),
+                                        withId(R.id.telaCadastrarUsuario),
+                                        5),
+                                0),
                         isDisplayed()));
         button.check(matches(isDisplayed()));
 
         ViewInteraction button2 = onView(
-                allOf(withId(R.id.btn_login),
+                allOf(withId(R.id.btn_salvar_cadastro),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.tela_loginactivity),
-                                        0),
-                                3),
+                                        withId(R.id.telaCadastrarUsuario),
+                                        5),
+                                0),
                         isDisplayed()));
         button2.check(matches(isDisplayed()));
 
