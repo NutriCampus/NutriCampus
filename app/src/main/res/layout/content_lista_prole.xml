@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.nutricampus.app.activities.ListaProleActivity"
+    tools:showIn="@layout/activity_lista_prole"
+    android:background="#e4e4e4">
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/caixa_arredondada"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin_form">
+
+            <Spinner
+                android:id="@+id/spinner_meses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/meses"
+                android:layout_weight="0.4" />
+
+            <Spinner
+                android:id="@+id/spinner_anos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/anos"
+                android:layout_weight="0.3" />
+
+            <Button
+                android:id="@+id/btn_filtrar_prole"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_search"
+                android:drawableLeft="@drawable/ic_search"
+                android:onClick="filtrarRegistros"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/caixa_arredondada"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_form"
+            android:id="@+id/resultado_busca_prole">
+
+            <TextView
+                android:id="@+id/text_quantidade_encontrados"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="23dp"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <View
+                android:id="@+id/linha"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLinha"
+                android:layout_marginBottom="10dp" />
+
+            <ListView
+                android:id="@+id/lista_prole"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="multipleChoice"
+                android:listSelector="@color/colorItemListSelected"
+                android:longClickable="true" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

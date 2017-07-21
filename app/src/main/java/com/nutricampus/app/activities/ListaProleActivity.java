@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.adapters.ListaProducaoAdapter;
-import com.nutricampus.app.database.RepositorioProducaoDeLeite;
+import com.nutricampus.app.adapters.ListaProleAdapter;
+import com.nutricampus.app.database.RepositorioProle;
 import com.nutricampus.app.database.SharedPreferencesManager;
-import com.nutricampus.app.entities.ProducaoDeLeite;
+import com.nutricampus.app.entities.Prole;
 import com.nutricampus.app.utils.Conversor;
 
 import java.util.Calendar;
@@ -29,11 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
-public class ListaProducaoLeiteActivity extends AppCompatActivity {
-
-    @BindView(R.id.lista_producao)
-    ListView listaProducao;
+public class ListaProleActivity extends AppCompatActivity {
+    @BindView(R.id.lista_prole)
+    ListView listaProle;
     @BindView(R.id.text_quantidade_encontrados)
     TextView mensagemQuantidade;
     @BindView(R.id.linha)
@@ -50,33 +48,31 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         session = new SharedPreferencesManager(getApplicationContext());
         session.checkLogin();
 
         idAnimal = 1;
 
-        setContentView(R.layout.activity_lista_producao);
+        setContentView(R.layout.activity_lista_prole);
         ButterKnife.bind(this);
 
-        registerForContextMenu(listaProducao);
+        registerForContextMenu(listaProle);
         carregaListView();
 
-        listaProducao.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listaProle.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position);
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_producao);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_prole);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ListaProducaoLeiteActivity.this, CadastroProducaoLeiteActivity.class);
+                Intent intent = new Intent(ListaProleActivity.this, CadastroProleActivity.class);
                 startActivity(intent);
-
             }
         });
     }
@@ -92,7 +88,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_crud,menu);
+        inflater.inflate(R.menu.menu_contexto_crud, menu);
     }
 
     @Override
@@ -100,7 +96,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_adicionar:
-                Intent intent = new Intent(this, CadastroProducaoLeiteActivity.class);
+                Intent intent = new Intent(this, CadastroProleActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.menu_opc_cont_editar:
@@ -108,8 +104,8 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
                     abreTelaEditar(info.position);
                 return true;
             case R.id.menu_opc_cont_excluir:
-                ProducaoDeLeite producao = (ProducaoDeLeite) listaProducao.getItemAtPosition(info.position);
-                confirmarExcluir(producao);
+                Prole prole = (Prole) listaProle.getItemAtPosition(info.position);
+                confirmarExcluir(prole);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -117,25 +113,29 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     }
 
 
-    private void confirmarExcluir(final ProducaoDeLeite producaoDeLeite) {
+    private void abreTelaEditar(int posicao) {
+        Prole item = (Prole) listaProle.getItemAtPosition(posicao);
+        startActivity(getIntent(item));
+    }
+
+    private void confirmarExcluir(final Prole prole) {
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.msg_excluir_confirmar) + " ?")
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(ListaProducaoLeiteActivity.this);
+                        RepositorioProle repositorio = new RepositorioProle(ListaProleActivity.this);
 
-                        int result = repositorio.removerProducaoDeLeite(producaoDeLeite);
+                        int result = repositorio.removerProle(prole);
 
                         if (result > 0) {
-                            Toast.makeText(ListaProducaoLeiteActivity.this,
+                            Toast.makeText(ListaProleActivity.this,
                                     getString(R.string.msg_sucesso_remover_registro), Toast.LENGTH_LONG).show();
 
-                            filtrarRegistros(new View(ListaProducaoLeiteActivity.this));
-                        }
-                        else{
-                            Toast.makeText(ListaProducaoLeiteActivity.this,
+                            filtrarRegistros(new View(ListaProleActivity.this));
+                        } else {
+                            Toast.makeText(ListaProleActivity.this,
                                     getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -149,6 +149,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         int mes = Conversor.mesStringParaInt(String.valueOf(spinnerMeses.getSelectedItem()));
         int ano = Integer.valueOf(String.valueOf(spinnerAnos.getSelectedItem()));
 
+
         carregaListView(mes, ano);
     }
 
@@ -161,19 +162,18 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
 
     private void carregaListView(int mes, int ano) {
 
-        RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(getBaseContext());
-        List<ProducaoDeLeite> lista;
+        RepositorioProle repositorio = new RepositorioProle(getBaseContext());
+        List<Prole> lista;
 
         // Se o mes escolhido fro TODOS (dezembro equivale a 11)
         if (mes == 12)
-            lista = repositorio.buscarPorAnimal(idAnimal);
+            lista = repositorio.buscarTodasProles();
         else
-            lista = repositorio.buscarPorAnimalPeriodo(idAnimal, mes, ano);
+            lista = repositorio.buscarProlesPorAnimalPeriodo(idAnimal, mes, ano);
 
-        ListaProducaoAdapter adapter =
-                new ListaProducaoAdapter(lista, this);
+        ListaProleAdapter adapter = new ListaProleAdapter(lista, this);
 
-        listaProducao.setAdapter(adapter);
+        listaProle.setAdapter(adapter);
 
         mensagemQuantidade.setText(getResources().getQuantityString(
                 R.plurals.msg_registros_encontrados,
@@ -187,28 +187,14 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
 
     }
 
-    public List<ProducaoDeLeite> buscarProducao(String nome) {
-        RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(getBaseContext());
-        return repositorio.buscarPorAnimal(1);
-    }
+    private Intent getIntent(Prole prole) {
+        Intent intent = new Intent(this, EditarProleActivity.class);
+        intent.putExtra("id", String.valueOf(prole.getId()));
+        intent.putExtra("data", Conversor.dataFormatada(prole.getDataDeNascimento()));
+        intent.putExtra("peso", String.valueOf(prole.getPesoDeNascimento()));
+        intent.putExtra("isNatimorto", prole.isNatimorto());
+        intent.putExtra("idAnimalMatriz", prole.getMatriz());
 
-
-    private void abreTelaEditar(int posicao) {
-        ProducaoDeLeite item = (ProducaoDeLeite) listaProducao.getItemAtPosition(posicao);
-        startActivity(getIntent(item));
-    }
-
-
-    private Intent getIntent(ProducaoDeLeite producaoDeLeite) {
-        Intent intent = new Intent(this, EditarProducaoLeiteActivity.class);
-        intent.putExtra("id", String.valueOf(producaoDeLeite.getId()));
-        intent.putExtra("data", Conversor.dataFormatada(producaoDeLeite.getData()));
-        intent.putExtra("quantidade", String.valueOf(producaoDeLeite.getQntProduzida()));
-        intent.putExtra("lactose", String.valueOf(producaoDeLeite.getPctLactose()));
-        intent.putExtra("proteinaBruta", String.valueOf(producaoDeLeite.getPctProteinaBruta()));
-        intent.putExtra("proteinaVerdadeira", String.valueOf(producaoDeLeite.getPctProteinaVerdadeira()));
-        intent.putExtra("gordura", String.valueOf(producaoDeLeite.getGordura()));
         return intent;
     }
-
 }

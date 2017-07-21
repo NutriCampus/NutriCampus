@@ -1,6 +1,5 @@
 package com.nutricampus.app.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -46,9 +45,7 @@ public class EditarProducaoLeiteActivity extends CadastroProducaoLeiteActivity {
         if (result) {
             Toast.makeText(EditarProducaoLeiteActivity.this, getString(R.string.msg_sucesso_atualizar_registro),
                     Toast.LENGTH_LONG).show();
-            Intent it = new Intent(EditarProducaoLeiteActivity.this, ListaProducaoLeiteActivity.class);
-            startActivity(it);
-            this.finish();
+            this.onBackPressed();
         } else {
             Toast.makeText(EditarProducaoLeiteActivity.this, getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
         }

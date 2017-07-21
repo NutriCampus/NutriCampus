@@ -3,11 +3,181 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="300dp"
+    android:minWidth="300dp"
     android:id="@+id/tela_cadastro_producao_leite"
     tools:context="com.nutricampus.app.activities.CadastroProducaoLeiteActivity">
 
-
-    <include layout="@layout/content_form_producao"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/margin_form"
+            android:paddingLeft="@dimen/margin_form"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/input_id_producao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:baselineAligned="false">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginBottom="@dimen/margin_inputs_form"
+                    android:layout_marginTop="6dp">
+
+                    <EditText
+                        android:id="@+id/input_quantidade_leite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/campo_quantidade_kg_dia"
+                        android:inputType="number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5">
+
+                    <EditText
+                        android:id="@+id/input_data"
+                        android:drawableRight="@drawable/ic_data_calendario"
+                        android:drawableEnd="@drawable/ic_data_calendario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:hint="@string/campo_data"
+                        android:focusable="false"
+                        android:onClick="showDatePickerDialogOnClick" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:baselineAligned="false">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginBottom="@dimen/margin_inputs_form"
+                    android:layout_marginTop="@dimen/margin_inputs_form">
+
+                    <EditText
+                        android:id="@+id/input_lactose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/campo_lactose"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginBottom="@dimen/margin_inputs_form"
+                    android:layout_marginTop="@dimen/margin_inputs_form">
+
+                    <EditText
+                        android:id="@+id/input_gordura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/campo_gordura"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:baselineAligned="false">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginBottom="@dimen/margin_inputs_form"
+                    android:layout_marginTop="@dimen/margin_inputs_form">
+
+                    <EditText
+                        android:id="@+id/input_proteina_bruta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/campo_proteina_bruta"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginBottom="@dimen/margin_inputs_form"
+                    android:layout_marginTop="@dimen/margin_inputs_form">
+
+                    <EditText
+                        android:id="@+id/input_proteina_verdadeira"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/campo_proteina_verdadeira"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:baselineAligned="false">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_salvar_producao"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginTop="18dp"
+                    android:padding="12dp"
+                    android:text="@string/save"
+                    android:onClick="salvar" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_cancelar"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginTop="18dp"
+                    android:padding="12dp"
+                    android:onClick="cancelarOnClick"
+                    android:text="@string/cancel" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

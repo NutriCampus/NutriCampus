@@ -1,6 +1,6 @@
 package com.nutricampus.app.entities;
 
-import java.sql.Date;
+import java.util.Calendar;
 
 /** Created by Diego Bezerra on 15/06/17.
  * For project NutriCampus.
@@ -11,16 +11,15 @@ public class Prole {
 
     private int id;
     private int id_matriz;
-    private Date dataDeNascimento;
+    private Calendar dataDeNascimento;
     private float pesoDeNascimento;
     private boolean isNatimorto;
 
     public Prole() {
-
     }
 
-    public Prole(int id, int id_matriz, Date dataDeNascimento,
-                       float pesoDeNascimento, boolean isNatimorto) {
+    public Prole(int id, int id_matriz, Calendar dataDeNascimento,
+                 float pesoDeNascimento, boolean isNatimorto) {
         this.id = id;
         this.id_matriz = id_matriz;
         this.dataDeNascimento = dataDeNascimento;
@@ -28,8 +27,8 @@ public class Prole {
         this.isNatimorto = isNatimorto;
     }
 
-    public Prole(int id_matriz, Date dataDeNascimento,
-                       float pesoDeNascimento, boolean isNatimorto) {
+    public Prole(int id_matriz, Calendar dataDeNascimento,
+                 float pesoDeNascimento, boolean isNatimorto) {
         this.id_matriz = id_matriz;
         this.dataDeNascimento = dataDeNascimento;
         this.pesoDeNascimento = pesoDeNascimento;
@@ -52,11 +51,11 @@ public class Prole {
         this.id_matriz = id_matriz;
     }
 
-    public Date getDataDeNascimento() {
+    public Calendar getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(Calendar dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 

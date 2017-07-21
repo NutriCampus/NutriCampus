@@ -1,18 +1,21 @@
 package com.nutricampus.app.activities;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioProducaoDeLeite;
-import com.nutricampus.app.entities.ProducaoDeLeite;
+import com.nutricampus.app.database.RepositorioProle;
+import com.nutricampus.app.entities.Prole;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -23,35 +26,33 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+public class CadastroProleActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener {
 
-    @BindView(R.id.input_id_producao)
+    @BindView(R.id.input_id_prole)
     EditText inputId;
 
-    @BindView(R.id.input_lactose)
-    EditText inputLactose;
-    @BindView(R.id.input_quantidade_leite)
-    EditText inputQuantidadeLeite;
-    @BindView(R.id.input_gordura)
-    EditText inputGordura;
-    @BindView(R.id.input_proteina_bruta)
-    EditText inputProteinaBruta;
-    @BindView(R.id.input_proteina_verdadeira)
-    EditText inputProteinaVerdadeira;
-    @BindView(R.id.input_data)
+    @BindView(R.id.check_natimorto)
+    CheckBox checkNatimorto;
+    @BindView(R.id.input_peso_prole)
+    EditText inputPeso;
+    @BindView(R.id.input_data_nascimento)
     EditText inputData;
-    @BindView(R.id.btn_salvar_producao)
+    @BindView(R.id.btn_salvar_prole)
     Button buttonSalvar;
 
-    private Calendar data;
+    protected Calendar data;
+    protected int idAnimalMatriz;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastrar_producao_leite);
+        setContentView(R.layout.activity_cadastro_prole);
 
         ButterKnife.bind(this);
+
         inicializaCampoData();
     }
 
@@ -93,42 +94,40 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
         inputData.setError(null);
     }
 
-    public ProducaoDeLeite getObjetoProducao() {
-        int id = inputId.getText().toString().equals("") ? 0 : Integer.valueOf(inputId.getText().toString());
-        return new ProducaoDeLeite(id,
-                this.data,
-                1,
-                Float.valueOf(inputQuantidadeLeite.getText().toString()),
-                Float.valueOf(inputLactose.getText().toString()),
-                Float.valueOf(inputProteinaVerdadeira.getText().toString()),
-                Float.valueOf(inputProteinaBruta.getText().toString()),
-                Float.valueOf(inputGordura.getText().toString()));
-    }
-
     public void salvar(View view) {
         if (!validarDados()) {
-            Toast.makeText(CadastroProducaoLeiteActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroProleActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
-        ProducaoDeLeite producao = getObjetoProducao();
+        Prole prole = getObjetoProducao();
 
-        RepositorioProducaoDeLeite repositorio = new RepositorioProducaoDeLeite(this);
-        int result = repositorio.inserirProducaoDeLeite(producao);
-
+        RepositorioProle repositorio = new RepositorioProle(this);
+        int result = repositorio.inserirProle(prole);
 
         if (result > 0) {
-            Toast.makeText(CadastroProducaoLeiteActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
-
+            Toast.makeText(CadastroProleActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             this.onBackPressed();
         } else {
-            Toast.makeText(CadastroProducaoLeiteActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroProleActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
 
     }
 
-    public void cancelarOnClick(View view) {
-        this.onBackPressed();
+    public void onCheckNatimortoClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        if (checked) {
+            inputPeso.setText("0");
+            inputPeso.setFocusable(false);
+            inputPeso.setEnabled(false);
+            inputData.setEnabled(false);
+        } else {
+            inputPeso.setFocusableInTouchMode(true);
+            inputPeso.setEnabled(true);
+            inputData.setEnabled(true);
+        }
+
     }
 
     public boolean validarDados() {
@@ -136,19 +135,30 @@ public class CadastroProducaoLeiteActivity extends AppCompatActivity implements
 
         List<TextView> campos = new ArrayList<>();
         campos.add(inputData);
-        campos.add(inputQuantidadeLeite);
-        campos.add(inputProteinaVerdadeira);
-        campos.add(inputProteinaBruta);
-        campos.add(inputLactose);
-        campos.add(inputGordura);
+
+        if (!checkNatimorto.isChecked())
+            campos.add(inputPeso);
 
         for (TextView view : ValidaFormulario.camposTextosVazios(campos)) {
             view.setError(getString(R.string.msg_erro_campo));
             valido = false;
         }
 
-
         return valido;
+    }
+
+    public void cancelarOnClick(View view) {
+        this.onBackPressed();
+    }
+
+    public Prole getObjetoProducao() {
+        int id = inputId.getText().toString().equals("") ? 0 : Integer.valueOf(inputId.getText().toString());
+
+        return new Prole(id,
+                this.idAnimalMatriz,
+                this.data,
+                Float.valueOf(inputPeso.getText().toString()),
+                checkNatimorto.isChecked());
     }
 
 }

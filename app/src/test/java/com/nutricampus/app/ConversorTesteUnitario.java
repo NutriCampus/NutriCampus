@@ -10,10 +10,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by kellison on 20/07/17.
- */
+
 public class ConversorTesteUnitario {
+
     @Test
     public void booleanToInt() throws Exception {
 
@@ -61,10 +60,12 @@ public class ConversorTesteUnitario {
 
     @Test
     public void mesParaNumero() throws Exception {
-
-        assertEquals(0, Conversor.mesStringParaInt("janeiro"));
-        assertEquals(0, Conversor.mesStringParaInt("JAneirO"));
-        assertEquals(12, Conversor.mesStringParaInt("stringqualquer"));
+        int mes = Conversor.mesStringParaInt("janeiro");
+        assertEquals(0, mes);
+        mes = Conversor.mesStringParaInt("JAneirO");
+        assertEquals(0, mes);
+        mes = Conversor.mesStringParaInt("qualquer");
+        assertEquals(12, mes);
     }
 
 }

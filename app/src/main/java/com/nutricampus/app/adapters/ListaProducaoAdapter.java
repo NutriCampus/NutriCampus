@@ -52,7 +52,7 @@ public class ListaProducaoAdapter extends BaseAdapter {
         //populando as Views
         id.setText(String.valueOf(producao.getId()));
         data.setText(Conversor.dataFormatada(producao.getData()));
-        leite.setText(act.getString(R.string.unidade_medida_kg, producao.getQntProduzida()));
+        leite.setText(act.getString(R.string.unidade_medida_kg, "Peso", producao.getQntProduzida()));
 
         return view;
     }

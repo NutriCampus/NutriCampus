@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nutricampus.app.activities.ListaProducaoLeiteActivity">
+    tools:context="com.nutricampus.app.activities.ListaProleActivity"
+    android:background="#e4e4e4">
 
-
-    <include layout="@layout/content_lista_producao" />
+    <include
+        layout="@layout/content_lista_prole"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_add_producao"
+        android:id="@+id/btn_add_prole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add_light" />
 

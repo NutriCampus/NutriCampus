@@ -119,7 +119,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PROLE_ID_MATRIZ + " " + TEXT_NOT_NULL + " ," +
             PROLE_DATA_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
             PROLE_PESO_DE_NASCIMENTO + " " + TEXT_NOT_NULL + " ," +
-            PROLE_IS_NATIMORTO + " " + TEXT_NOT_NULL + "," +
+            PROLE_IS_NATIMORTO + " INT NOT NULL," +
             "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TABLE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
@@ -145,6 +145,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PRODUCAO_DE_LEITE_PCT_LACTOSE + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA + " " + TEXT_NOT_NULL + " ," +
             PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA + " " + TEXT_NOT_NULL + " ," +
+            PRODUCAO_DE_LEITE_GORDURA + " " + TEXT_NOT_NULL + " ," +
             "FOREIGN KEY(" + PRODUCAO_DE_LEITE_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_USUARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIO + "(" +
