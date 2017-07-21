@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_opc_cont_historico"
+        android:icon="@drawable/ic_crud_novo"
+        android:title="@string/menu_historico"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_opc_cont_excluir"
+        android:icon="@drawable/ic_crud_excluir"
+        android:title="@string/menu_excluir"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_opc_cont_editar"
+        android:icon="@drawable/ic_crud_excluir"
+        android:title="@string/menu_editar"
+        app:showAsAction="always" />
+</menu>

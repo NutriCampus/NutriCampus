@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">NutriCampus</string>
+    <string name="switch_ativo">Ativo</string>
+    <string name="switch_inativo">Inativo</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -17,6 +19,7 @@
     <string name="recuperar_senha">Recuperar senha</string>
 
     <string name="menu_adicionar">Adicionar</string>
+    <string name="menu_historico">Atualizar histórico</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
@@ -47,6 +50,11 @@
     <string name="msg_erro_cep_incompleto">CEP incompleto</string>
     <string name="msg_erro_telefone_incompleto">Telefone incompleto</string>
     <string name="msg_erro_cadastro">Erro ao tentar realizar o cadastro</string>
+    <string name="msg_erro_falta_de_dados">Falta preencher campos obrigatórios na aba anterior ou confirmá-los</string>
+    <string name="msg_erro_duplicidade_animal">Animal já cadastrado nesta propriedade</string>
+    <string name="msg_erro_busca_dados_compl">Para buscar é preciso um identificador e uma propriedade</string>
+    <string name="msg_erro_busca">Animal não encontrado</string>
+
 
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
@@ -54,14 +62,19 @@
     <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
     <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
     <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>
+    <string name="msg_completar_cadastro">Complete seu cadastro com os demais dados</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
+    <string name="msg_cadastre_propriedade">Cadastre uma propriedade</string>
     <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
+    <string name="msg_spinner_propriedade">Procure uma propriedade</string>
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
+    <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
+    <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
     <string name="campo_nome">Nome</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
@@ -73,13 +86,37 @@
     <string name="unidade_medida_porcento">%</string>
 
     <!-- Strings: Animais, Prole -->
-    <string name="titulo_lista_animais">Animais</string>
     <string name="campo_animal">Animal</string>
     <string name="campo_genero">Gênero</string>
     <string name="campo_peso_vivo">Peso</string>
+
+    <string name="campo_identificador">Identificador</string>
+    <string name="campo_data_nascimento">Data de Nascimento</string>
+    <string name="nenhum_animal">Nenhum animal cadastrado</string>
+    <string name="campo_escolha_ativo">Animal está ativo?</string>
+    <string name="campo_confirmacao_dados">Confirmar dados</string>
+    <string name="campo_data">Data</string>
+    <string name="campo_caminhada_vertical">Caminhada vertical</string>
+    <string name="campo_caminhada_horizontal">Caminhada Horizontal</string>
+    <string name="campo_eec">EEC</string>
+    <string name="campo_eec1">1</string>
+    <string name="campo_eec2">2</string>
+    <string name="campo_eec3">3</string>
+    <string name="campo_eec4">4</string>
+    <string name="campo_eec5">5</string>
+    <string name="campo_pastando">Pastando</string>
+    <string name="campo_lactacao">Lactação</string>
+    <string name="campo_gestante">Gestante</string>
+    <string name="campo_cio">Cio</string>
+    <string name="campo_semana_lactacao">Semana de Lactação</string>
+    <string-array name="titulos">
+        <item>Animal</item>
+        <item>Dados Complementares</item>
+    </string-array>
+
     <string name="titulo_add_animal">Novo Animal</string>
 
-    <string-array name="titulos">
+    <string-array name="titulos_">
         <item>Animal</item>
         <item>Crescimento</item>
         <item>Produção</item>
@@ -103,14 +140,13 @@
 
     <string-array name="anos">
         <item>2017</item>
-    </string-array>
 
+    </string-array>
     <plurals name="quatidade_registros">
         <item quantity="one">1 animal</item>
         <item quantity="other">%d animais</item>
     </plurals>
 
-    <string name="nenhum_animal">Nenhum animal cadastrado</string>
 
     <plurals name="msg_registros_encontrados">
         <item quantity="one">1 registro encontrado</item>
@@ -152,8 +188,6 @@
     <string name="campo_numero">Número</string>
     <string name="campo_cep">CEP</string>
 
-    <string name="campo_data">Data</string>
-
     <string name="campo_spinner_proprietario">Selecione o proprietário…</string>
 
     <string name="campo_proprietario">Nome do Proprietário</string>
@@ -162,13 +196,11 @@
     <string name="campo_infor_recupera_senha">Informe seus dados e enviaremos um e-mail com a sua senha para o e-mail cadastrado</string>
 
     <string name="campo_peso">Peso (kg)</string>
-    <string name="campo_data_nascimento">Data de nascimento</string>
     <string name="campo_natimorto">Natimorto</string>
 
-
     <string name="msg_senha_enviada">Senha enviada por e-mail</string>
-
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
+
 
 
 </resources>

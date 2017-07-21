@@ -1,0 +1,102 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="05dp"
+    android:weightSum="1"
+    android:id="@+id/fragmentDadosAnimal"
+    tools:context="com.nutricampus.app.fragments.DadosAnimalFragment">
+
+    <EditText
+        android:id="@+id/input_id_propriedade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text=""
+        android:visibility="gone" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <Spinner
+            android:id="@+id/spinnerPropriedade"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:layout_height="74dp"
+            android:layout_width="0dp"
+            android:layout_marginBottom="@dimen/margin_inputs_form"
+            android:layout_marginTop="@dimen/margin_inputs_form"
+            android:spinnerMode="dialog" />
+        <Button
+            android:text=""
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btn_add_propriedade"
+            android:drawableLeft="@drawable/add" />
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_identificador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_identificador"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_data_nascimento"
+            android:drawableRight="@drawable/ic_data_calendario"
+            android:drawableEnd="@drawable/ic_data_calendario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:hint="@string/campo_data"
+            android:focusable="false"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/campo_escolha_ativo"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch_ativo"
+        android:layout_gravity="center"
+        android:checked="true"
+        android:text="@string/switch_ativo"
+        android:textOn="@string/switch_ativo"
+        android:textOff="@string/switch_inativo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/campo_confirmacao_dados"
+        android:id="@+id/btnConfimarDados"/>
+
+</LinearLayout>

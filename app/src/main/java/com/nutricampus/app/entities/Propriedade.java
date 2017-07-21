@@ -172,4 +172,8 @@ public class Propriedade {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 }

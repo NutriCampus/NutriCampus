@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Created by Felipe on 19/07/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 
 public class ListaAnimaisAdapter extends BaseAdapter {
@@ -48,14 +50,9 @@ public class ListaAnimaisAdapter extends BaseAdapter {
         final Animal animal = animais.get(position);
 
         TextView id = linha.findViewById(R.id.lista_animal_id);
-        TextView nome = linha.findViewWithTag(R.id.lista_animal_nome);
-        TextView genero = linha.findViewById(R.id.lista_animal_genero);
-        TextView peso = linha.findViewById(R.id.lista_animal_peso);
+        TextView nome = linha.findViewById(R.id.lista_animal_nome);
 
-        id.setText(animal.getId());
-        /*nome.setText(animal.getNome);
-        genero.setText(animal.getGenero);
-        peso.setText(animal.getPeso);*/
+        nome.setText(animal.getIndentificador());
 
         return linha;
 

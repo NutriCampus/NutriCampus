@@ -11,6 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+
+    public static final String TEXT_NOT_NULL = "TEXT NOT NULL";
+    public static final String REAL_NOT_NULL = "REAL NOT NULL";
+    public static final String INTEGER_NOT_NULL = "INTEGER NOT NULL";
     public static final String SELECT_TODOS = "SELECT * FROM ";
     private static final String DROP_TABLE = "DROP TABLE ";
 
@@ -69,6 +73,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String ANIMAL_COL_ID_PROPRIEDADE = "id_propriedade";
     public static final String ANIMAL_COL_DATA_NASCIMENTO = "data_nascimento";
     public static final String ANIMAL_COL_IS_ATIVO = "isAtivo";
+    public static final String ANIMAL_COL_ID_USUARIO = "id_usuario";
 
     //Dados Complementares Animal
     public static final String TABELA_DADOS_COMPL = "dadosComplAnimal";
@@ -103,16 +108,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROLE_PESO_DE_NASCIMENTO =  "pesoDeNascimento";
     public static final String PROLE_IS_NATIMORTO = "isNatimorto";
 
-    public static final String TEXT_NOT_NULL = "TEXT NOT NULL";
-
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
             ANIMAL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + " UNIQUE, " +
-            ANIMAL_COL_ID_PROPRIEDADE + " " + TEXT_NOT_NULL + " UNIQUE," +
-            ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + " , " +
-            ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + " , " +
-            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + "));";
+            ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + ", " +
+            ANIMAL_COL_ID_PROPRIEDADE + " INTEGER NOT NULL," +
+            ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + ", " +
+            ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + ", " +
+            ANIMAL_COL_ID_USUARIO + " INTEGER NOT NULL " + ", " +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ")" +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
+
 
     private static final String SQL_CREATE_TABELA_PROLE = "CREATE TABLE IF NOT EXISTS " + TABELA_PROLE + "(" +
             PROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -122,19 +128,20 @@ public class SQLiteManager extends SQLiteOpenHelper {
             PROLE_IS_NATIMORTO + " INT NOT NULL," +
             "FOREIGN KEY(" + PROLE_ID_MATRIZ + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
+
     private static final String SQL_CREATE_TABELA_DADOS_COMPL = "CREATE TABLE IF NOT EXISTS " + TABELA_DADOS_COMPL + "(" +
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             DADOS_COMPL_COL_DATA + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_PESO_VIVO + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_EEC + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_CAMINHADA_VERTICAL + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_SEMANA_LACTACAO + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_IS_PASTANDO + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_IS_LACTACAO + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_IS_GESTANTE + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_IS_CIO + " " + TEXT_NOT_NULL + " ," +
+            DADOS_COMPL_COL_PESO_VIVO + " " + REAL_NOT_NULL +", " +
+            DADOS_COMPL_COL_EEC + " TEXT," +
+            DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " TEXT, " +
+            DADOS_COMPL_COL_CAMINHADA_VERTICAL + " TEXT, " +
+            DADOS_COMPL_COL_SEMANA_LACTACAO + " INTEGER, " +
+            DADOS_COMPL_COL_IS_PASTANDO + " TEXT, " +
+            DADOS_COMPL_COL_IS_LACTACAO + " TEXT, " +
+            DADOS_COMPL_COL_IS_GESTANTE + " TEXT, " +
+            DADOS_COMPL_COL_IS_CIO + " TEXT, " +
             "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TABLE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
@@ -156,7 +163,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             USUARIO_COL_EMAIL + " " + TEXT_NOT_NULL + " , " +
             USUARIO_COL_SENHA + " " + TEXT_NOT_NULL + " );";
 
-    private static final String SQL_CREATE_TABELA_PROPRIETARIO = "CREATE TABLE " + TABELA_PROPRIETARIO + "(" +
+    private static final String SQL_CREATE_TABELA_PROPRIETARIO = "CREATE TABLE IF NOT EXISTS " + TABELA_PROPRIETARIO + "(" +
             PROPRIETARIO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             PROPRIETARIO_COL_CPF + " " + TEXT_NOT_NULL + " UNIQUE," +
             PROPRIETARIO_COL_NOME + " " + TEXT_NOT_NULL + " , " +
@@ -196,7 +203,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_USUARIO);
@@ -207,5 +213,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROLE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         this.onCreate(sqLiteDatabase);
+
     }
 }

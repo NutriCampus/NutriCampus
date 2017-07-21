@@ -6,12 +6,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.fragments.ConteudoFragment;
+import com.nutricampus.app.fragments.DadosAnimalFragment;
+import com.nutricampus.app.fragments.DadosComplementaresFragment;
 
 import java.util.Locale;
 
+
 /**
  * Created by Felipe on 19/07/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 
 public class AbasPagerAdapter extends FragmentPagerAdapter {
@@ -25,18 +29,26 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        ConteudoFragment conteudoFragment = ConteudoFragment.newInstance(titulos[position]);
-        return conteudoFragment;
+        switch (position) {
+            case 0:
+                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance(titulos[position]);
+                return dadosAnimalFragment;
+            case 1:
+                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(titulos[position]);
+                return dadosComplementaresFragment;
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return titulos.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         Locale l = Locale.getDefault();
-        return titulos[position].toUpperCase();
+        return titulos[position];
     }
 }
