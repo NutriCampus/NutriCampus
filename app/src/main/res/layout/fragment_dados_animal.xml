@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
-            android:hint="@string/campo_data"
+            android:hint="@string/campo_data_nascimento"
             android:focusable="false"/>
     </android.support.design.widget.TextInputLayout>
 
