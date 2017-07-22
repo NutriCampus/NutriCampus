@@ -24,9 +24,11 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
+import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
@@ -37,6 +39,8 @@ import butterknife.ButterKnife;
 
 @java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class ListaPropriedadesActivity extends AppCompatActivity{
+
+    public static final String EXTRA_PROPRIEDADE = "propriedade";
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
@@ -57,6 +61,9 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_lista_propriedades);
         ButterKnife.bind(this);
+
+        listPropriedades.setEmptyView(findViewById(android.R.id.empty));
+
         registerForContextMenu(listPropriedades);
         carregaListView("");
 
@@ -90,17 +97,25 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_crud,menu);
+        inflater.inflate(R.menu.menu_contexto_propriedade,menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.menu_opc_cont_adicionar:
-                Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
+            case R.id.menu_opc_cont_adicionar_propriedade:
+                Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
                 this.finish();
+                return true;
+            case R.id.menu_opc_cont_adicionar_animal:
+                if (info != null)
+                    abreTelaCadAnimal(info.position);
+                return true;
+            case R.id.menu_opc_cont_visualizar_animais:
+                if (info != null)
+                    abreTelaListAnimal(info.position);
                 return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
@@ -114,7 +129,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 return super.onContextItemSelected(item);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,13 +157,18 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     private void confirmarExcluir(final Propriedade propriedade){
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.msg_excluir_confirmar) + " a \"" + propriedade.getNome() + "\" ?" )
+                .setMessage(getString(R.string.msg_excluir_confirmar_propriedade,"\"" + propriedade.getNome() + "\"" ))
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(ListaPropriedadesActivity.this);
                         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(ListaPropriedadesActivity.this);
+                        RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaPropriedadesActivity.this);
+
+                        List<Animal> listAnimal = repositorioAnimal.buscarTodosAnimaisPropriedade(propriedade.getId());
+                        for(Animal a : listAnimal)
+                            repositorioAnimal.removerAnimal(a);
 
                         Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
 
@@ -244,15 +263,19 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         listPropriedades.setAdapter(adapter);
 
-        mensagemQuantidade.setText(getResources().getQuantityString(
-                R.plurals.msg_registros_encontrados,
-                adapter.getCount(),
-                adapter.getCount()));
 
-        if (lista.isEmpty())
+
+        if (lista.isEmpty()) {
             linha.setVisibility(View.GONE);
-        else
+            mensagemQuantidade.setVisibility(View.GONE);
+        } else {
             linha.setVisibility(View.VISIBLE);
+            mensagemQuantidade.setVisibility(View.VISIBLE);
+            mensagemQuantidade.setText(getResources().getQuantityString(
+                    R.plurals.msg_registros_encontrados,
+                    adapter.getCount(),
+                    adapter.getCount()));
+        }
 
     }
 
@@ -279,5 +302,21 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     private void abreTelaEditar(int posicao){
         Propriedade item = (Propriedade) listPropriedades.getItemAtPosition(posicao);
         startActivity(getIntent(item));
+    }
+
+    private void abreTelaCadAnimal(int posicao) {
+        Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(posicao);
+        Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarAnimalActivity.class);
+        intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
+        startActivity(intent);
+        this.finish();
+    }
+
+    private void abreTelaListAnimal(int posicao) {
+        Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(posicao);
+        Intent intent = new Intent(ListaPropriedadesActivity.this, ListaAnimaisActivity.class);
+        intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
+        startActivity(intent);
+        this.finish();
     }
 }

@@ -86,6 +86,14 @@ public class Animal implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
+    public int getId_propriedade() {
+        return id_propriedade;
+    }
+
+    public void setId_propriedade(int id_propriedade) {
+        this.id_propriedade = id_propriedade;
+    }
+
     public boolean isAtivo() {
         return isAtivo;
     }

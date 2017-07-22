@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +22,16 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaAnimaisAdapter;
+import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.fragments.DadosAnimalFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,13 +45,15 @@ import butterknife.ButterKnife;
  */
 
 public class ListaAnimaisActivity extends AppCompatActivity
-        implements AdapterView.OnItemClickListener{
+        implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.spinnerPropriedade) Spinner spinnerPropriedade;
     @BindView(R.id.listaAnimais) ListView listAnimais;
     @BindView(R.id.text_quantidades_encontrados) TextView registrosEncontrados;
     @BindView(R.id.linha) View linha;
     @BindView(R.id.input_id_propriedade) EditText inputIdPropriedade;
+
+    private Propriedade propriedade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,18 @@ public class ListaAnimaisActivity extends AppCompatActivity
         listAnimais.setOnItemClickListener(this);
 
         registerForContextMenu(listAnimais);
-        carregarListView("");
 
+        propriedade = (Propriedade) getIntent().getSerializableExtra(ListaPropriedadesActivity.EXTRA_PROPRIEDADE);
+
+        if(propriedade == null) {
+            carregarListView(0);
+        } else {
+            inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
+            Log.e("FGP", "prop " + inputIdPropriedade.getText().toString());
+            carregarListView(propriedade.getId());
+        }
+
+        spinnerPropriedade.setOnItemSelectedListener(this);
         preencherSpinnerListaPropriedade();
 
         listAnimais.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
@@ -141,6 +157,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(ListaAnimaisActivity.this);
 
                         int idAnimal = animal.getId();
+                        int idPropriedade = animal.getPropriedade();
                         int resultAnimal = repositorioAnimal.removerAnimal(animal);
 
                         DadosComplAnimal dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(idAnimal);
@@ -150,7 +167,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_excluir_animal_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregarListView("");
+                            carregarListView(idPropriedade);
                         }
                         else{
                             Toast.makeText(ListaAnimaisActivity.this,
@@ -163,12 +180,15 @@ public class ListaAnimaisActivity extends AppCompatActivity
     }
 
     private void abreTelaEditar(int position) {
-
+        Animal animal = (Animal) listAnimais.getItemAtPosition(position);
+        Intent intent = new Intent(ListaAnimaisActivity.this, EditarAnimalActivity.class);
+        intent.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
+        startActivity(intent);
     }
 
     private void abreTelaHistorico(int position) {
         Animal animal = (Animal) listAnimais.getItemAtPosition(position);
-        Intent intent = new Intent(ListaAnimaisActivity.this, AtualizarHistoricoAnimalActivity.class);
+        Intent intent = new Intent(ListaAnimaisActivity.this, ListaDadosComplActivity.class);
         intent.putExtra("animal", animal);
         startActivity(intent);
     }
@@ -186,21 +206,27 @@ public class ListaAnimaisActivity extends AppCompatActivity
         preencherSpinnerListaPropriedade();
     }
 
-    private void carregarListView(String s) {
+    private void carregarListView(int idPropriedade) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaAnimaisActivity.this);
-        List<Animal> animais = repositorioAnimal.buscarTodosAnimais();
+        List<Animal> animais;
+
+        if(idPropriedade == 0)
+            animais = repositorioAnimal.buscarTodosAnimais();
+        else
+            animais = repositorioAnimal.buscarTodosAnimaisPropriedade(idPropriedade);
 
         ListaAnimaisAdapter adapter =
                 new ListaAnimaisAdapter(this, animais);
 
         listAnimais.setAdapter(adapter);
+        spinnerPropriedade.setVisibility(View.VISIBLE);
 
         if (animais.isEmpty()) {
             linha.setVisibility(View.GONE);
-            spinnerPropriedade.setVisibility(View.GONE);
+            registrosEncontrados.setVisibility(View.GONE);
         } else {
-            spinnerPropriedade.setVisibility(View.VISIBLE);
             linha.setVisibility(View.VISIBLE);
+            registrosEncontrados.setVisibility(View.VISIBLE);
             registrosEncontrados.setText(getResources().getQuantityString(
                     R.plurals.quatidade_registros,
                     adapter.getCount(),
@@ -227,6 +253,8 @@ public class ListaAnimaisActivity extends AppCompatActivity
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, todasPropriedades);
 
+
+            ListaPropriedadesAdapter adapter = new ListaPropriedadesAdapter(todasPropriedades, ListaAnimaisActivity.this);
             spinnerPropriedadeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerPropriedade.setAdapter(spinnerPropriedadeAdapter);
@@ -251,5 +279,21 @@ public class ListaAnimaisActivity extends AppCompatActivity
             spinnerPropriedade.setAdapter(spinnerPropriedadeAdapter);
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+
+        if ((parent != null) && (parent.getItemAtPosition(position) instanceof Propriedade)) {
+            propriedade = (Propriedade) parent.getItemAtPosition(position);
+            inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
+            carregarListView(propriedade.getId());
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
