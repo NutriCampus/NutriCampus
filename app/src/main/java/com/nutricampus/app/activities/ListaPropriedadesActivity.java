@@ -73,10 +73,17 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
-                ListaPropriedadesActivity.this.finish();
+                //ListaPropriedadesActivity.this.finish();
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaListView("");
+
     }
 
     @Override
@@ -188,6 +195,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
                 action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+                carregaListView("");
             }
             //hides the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

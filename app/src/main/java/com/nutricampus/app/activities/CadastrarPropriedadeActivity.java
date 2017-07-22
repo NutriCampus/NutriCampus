@@ -193,9 +193,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
 
-            Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-            startActivity(it);
-            this.finish();
+            this.onBackPressed();
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
