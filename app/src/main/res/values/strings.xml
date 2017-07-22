@@ -19,7 +19,10 @@
     <string name="recuperar_senha">Recuperar senha</string>
 
     <string name="menu_adicionar">Adicionar</string>
-    <string name="menu_historico">Atualizar histórico</string>
+    <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
+    <string name="menu_adicionar_animal">Adicionar um animal</string>
+    <string name="menu_visualizar_animais">Visualizar animais</string>
+    <string name="menu_historico">Histórico de dados de complement</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
@@ -62,7 +65,7 @@
     <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
     <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
     <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>
-    <string name="msg_completar_cadastro">Complete seu cadastro com os demais dados</string>
+    <string name="msg_completar_cadastro">Complete %1$s com os demais dados</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
@@ -73,7 +76,8 @@
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
-    <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
+    <string name="msg_excluir_confirmar">Tem certeza que deseja remover</string>
+    <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
     <string name="campo_nome">Nome</string>
@@ -82,6 +86,7 @@
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
 
+
     <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
     <string name="unidade_medida_porcento">%</string>
 
@@ -89,13 +94,17 @@
     <string name="campo_animal">Animal</string>
     <string name="campo_genero">Gênero</string>
     <string name="campo_peso_vivo">Peso</string>
+    <string name="campo_add_registro">Novo Registro Geral</string>
+    <string name="campo_historico">Histórico de dados</string>
 
     <string name="campo_identificador">Identificador</string>
-    <string name="campo_data_nascimento">Data de Nascimento</string>
-    <string name="nenhum_animal">Nenhum animal cadastrado</string>
+    <string name="campo_data_nascimento">Data de nascimento</string>
+    <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
+    <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>
+    <string name="campo_data_registro">Data de registro</string>
     <string name="campo_caminhada_vertical">Caminhada vertical</string>
     <string name="campo_caminhada_horizontal">Caminhada Horizontal</string>
     <string name="campo_eec">EEC</string>
@@ -109,6 +118,7 @@
     <string name="campo_gestante">Gestante</string>
     <string name="campo_cio">Cio</string>
     <string name="campo_semana_lactacao">Semana de Lactação</string>
+    <string name="campo_corrigir">Corrigir</string>
     <string-array name="titulos">
         <item>Animal</item>
         <item>Dados Gerais</item>

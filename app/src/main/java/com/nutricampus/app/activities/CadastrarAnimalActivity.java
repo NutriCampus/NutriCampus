@@ -1,5 +1,6 @@
 package com.nutricampus.app.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,10 +16,9 @@ import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.fragments.DadosComplementaresFragment;
-
-import java.util.List;
 
 
 /**
@@ -30,29 +30,37 @@ import java.util.List;
 public class CadastrarAnimalActivity extends AppCompatActivity
         implements DadosAnimalFragment.AoClicarConfirmaDados, DadosComplementaresFragment.SalvarDadosAnimal{
 
-    private ViewPager viewPager;
+    protected ViewPager viewPager;
     private Animal animal;
+    protected AbasPagerAdapter pagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_animal);
 
-        AbasPagerAdapter pagerAdapter = new AbasPagerAdapter(
-                CadastrarAnimalActivity.this,
-                getSupportFragmentManager());
+        Propriedade propriedade = (Propriedade)
+                getIntent().getSerializableExtra(CadastrarPropriedadeActivity.EXTRA_PROPRIEDADE);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        inicializarViewPager(animal, CadastrarAnimalActivity.this, propriedade);
+    }
+
+    public void inicializarViewPager(Animal animal, Context context, Propriedade propriedade) {
+        pagerAdapter = new AbasPagerAdapter(
+                animal,
+                context,
+                getSupportFragmentManager(),
+                propriedade);
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override
     public void confirmarDados(Animal animal) {
         this.animal = animal;
-        Toast.makeText(CadastrarAnimalActivity.this, R.string.msg_completar_cadastro, Toast.LENGTH_LONG).show();
+        Toast.makeText(CadastrarAnimalActivity.this, getString(R.string.msg_completar_cadastro, "seu cadastro"), Toast.LENGTH_LONG).show();
 
         //Alterna para a próxima aba
         viewPager.setCurrentItem(1);
@@ -62,20 +70,22 @@ public class CadastrarAnimalActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-
             case android.R.id.home:
-
                 Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);
                 startActivity(it);
-
                 finish();
-
                 break;
-
-            default:break;
+            default:
+                break;
         }
-
         return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);
+        startActivity(it);
+        finish();
     }
 
     @Override
@@ -83,7 +93,6 @@ public class CadastrarAnimalActivity extends AppCompatActivity
 
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(CadastrarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarAnimalActivity.this);
-
 
         //Verificação se o usuário tentou inserir sei cadastrar todos os dados ou não os confirmo-los
         if(animal == null) {
