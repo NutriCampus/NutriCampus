@@ -66,7 +66,7 @@
                 android:drawableEnd="@drawable/ic_data_calendario"
                 android:drawableRight="@drawable/ic_data_calendario"
                 android:focusable="false"
-                android:hint="@string/campo_data"
+                android:hint="@string/campo_data_registro"
                 android:inputType="date"
                 android:onClick="inserirData" />
         </android.support.design.widget.TextInputLayout>
@@ -242,9 +242,18 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/atualizar"
+        android:text="@string/save"
         android:drawableLeft="@drawable/save"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/btn_salvar"
         android:onClick="salvarHistoricoAnimal" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/campo_historico"
+        android:drawableLeft="@drawable/historico"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/btn_hist_registros"
+        android:visibility="gone"/>
+
 </LinearLayout>

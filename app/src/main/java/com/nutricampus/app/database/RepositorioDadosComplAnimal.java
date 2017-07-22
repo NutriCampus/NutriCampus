@@ -61,12 +61,14 @@ public class RepositorioDadosComplAnimal {
                     d.setCaminadaHorizontal(c.getFloat(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL)));
                     d.setCaminhadaVertical(c.getFloat(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL)));
                     d.setSemanaLactacao(c.getInt(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO)));
-                    d.setPastando(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO))));
-                    d.setLactacao(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO))));
-                    d.setGestante(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE))));
-                    d.setCio(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_CIO))));
+                    d.setPastando(Conversor.intToBoolean(Integer.parseInt(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO)))));
+                    d.setLactacao(Conversor.intToBoolean(Integer.parseInt(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO)))));
+                    d.setGestante(Conversor.intToBoolean(Integer.parseInt(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE)))));
+                    d.setCio(Conversor.intToBoolean(Integer.parseInt(c.getString(c.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_CIO)))));
                     dadosComplAnimais.add(d);
+                    Log.e("EF ", " IDs >>> " + d.getId());
                 } while (c.moveToNext());
+                Log.e("EF", " isEmpty " + dadosComplAnimais.isEmpty());
                 c.close();
             }
 
@@ -77,7 +79,16 @@ public class RepositorioDadosComplAnimal {
             bancoDados.close();
         }
 
+        for(DadosComplAnimal d : dadosComplAnimais)
+            Log.e("EF ", " <<< IDs " + d.getId());
+
+
         return dadosComplAnimais;
+    }
+
+    public List<DadosComplAnimal> buscarTodosDadosCompl(int idAnimal) {
+        return this.getListaDadosComplAnimal(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL +
+                " WHERE (" + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + idAnimal + ")");
     }
 
 
@@ -104,8 +115,7 @@ public class RepositorioDadosComplAnimal {
                 valoresWhere, null, null, null, null);
 
         if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-
+            cursor.moveToLast();
 
             Calendar data = Calendar.getInstance();
             data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
@@ -119,10 +129,10 @@ public class RepositorioDadosComplAnimal {
                     cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL)),
                     cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL)),
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO)),
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO))),
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO))),
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE))),
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_CIO))));
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO)))),
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO)))),
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE)))),
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_CIO)))));
         }
         cursor.close();
         return null;
@@ -133,7 +143,7 @@ public class RepositorioDadosComplAnimal {
 
         ContentValues dados = new ContentValues();
 
-        dados.put(SQLiteManager.DADOS_COMPL_COL_DATA, dadosComplAnimal.getData().toString());
+        dados.put(SQLiteManager.DADOS_COMPL_COL_DATA, dadosComplAnimal.getData().getTimeInMillis());
         dados.put(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL, dadosComplAnimal.getAnimal());
         dados.put(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO, dadosComplAnimal.getPesoVivo());
         dados.put(SQLiteManager.DADOS_COMPL_COL_EEC, dadosComplAnimal.getEEC());
@@ -155,7 +165,8 @@ public class RepositorioDadosComplAnimal {
     }
 
     public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int id_animal) {
-        return this.getListaDadosComplAnimal("SELECT * FROM " + SQLiteManager.TABELA_DADOS_COMPL + "WHERE id_animal=" + id_animal + "");
+        return this.getListaDadosComplAnimal(
+                SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL + "WHERE " + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + String.valueOf(id_animal));
     }
 
     public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {

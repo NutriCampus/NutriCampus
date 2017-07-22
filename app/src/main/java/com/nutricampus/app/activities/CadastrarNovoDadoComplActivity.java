@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -36,7 +39,7 @@ import butterknife.ButterKnife;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
-public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
+public class CadastrarNovoDadoComplActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener{
 
     @BindView(R.id.input_identificador)
@@ -66,42 +69,28 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
     @BindView(R.id.input_id_propriedade)
     EditText inputIdPropriedade;
 
-    private Calendar data;
+    protected Calendar data;
     private int eec;
-    private Animal animal;
+    protected Animal animal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atualizar_historico_animal);
+        setContentView(R.layout.activity_cadastrar_novo_dado_compl);
 
-        ButterKnife.bind(AtualizarHistoricoAnimalActivity.this);
+        ButterKnife.bind(CadastrarNovoDadoComplActivity.this);
 
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra("animal");
-        inicializaCampoData();
-        preencherCampos();
-    }
 
-    private void preencherCampos() {
-        RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(AtualizarHistoricoAnimalActivity.this);
-        DadosComplAnimal dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(animal.getId());
+        inicializaCampoData();
 
         inputIdentificador.setText(animal.getIndentificador());
         inputIdentificador.setFocusable(false);
 
-        inputPesoVivo.setText(String.valueOf(dadosComplAnimal.getPesoVivo()));
-        inputData.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));
-        inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
-        inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
-        inputSemanaLactacao.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
-        ckbPastando.setChecked(dadosComplAnimal.isPastando());
-        ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
-        ckbGestante.setChecked(dadosComplAnimal.isGestante());
-        ckbCio.setChecked(dadosComplAnimal.isCio());
-        radioGroup.check(dadosComplAnimal.getEEC());
-
     }
+
+
 
     protected void inicializaCampoData() {
         Calendar calendario = Calendar.getInstance();
@@ -119,7 +108,7 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
         Calendar cDefault = Calendar.getInstance();
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                AtualizarHistoricoAnimalActivity.this,
+                CadastrarNovoDadoComplActivity.this,
                 this,
                 cDefault.get(Calendar.YEAR),
                 cDefault.get(Calendar.MONTH),
@@ -163,22 +152,31 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
 
     public void salvarHistoricoAnimal(View v) {
         if (!validaDados()) {
-            Toast.makeText(AtualizarHistoricoAnimalActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
-        int idRadioButton = radioGroup.getCheckedRadioButtonId();
-        RadioButton radio = (RadioButton) findViewById(idRadioButton);
 
-        if(!(radio == null))
-            eec =  Integer.parseInt(radio.getText().toString());
+        float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
+                Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
+        float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f :
+                Float.parseFloat(inputCaminhadaVertical.getText().toString());
+
+        //Atribuir o valor de EEC
+        int idRadioButton = radioGroup.getCheckedRadioButtonId();
+        RadioButton rb = radioGroup.findViewById(idRadioButton);
+        int eec;
+        if(rb == null)
+            eec = 0;
+        else
+            eec = Integer.parseInt(String.valueOf(rb.getText()));
 
         DadosComplAnimal dadosComplAnimal = new DadosComplAnimal(
                 data,
                 Float.parseFloat(inputPesoVivo.getText().toString()),
                 eec,
-                Float.parseFloat(inputCaminhadaHorizontal.getText().toString()),
-                Float.parseFloat(inputCaminhadaVertical.getText().toString()),
+                caminhadaHorizontal,
+                caminhadaVertical,
                 Integer.parseInt(inputSemanaLactacao.getText().toString()),
                 ckbPastando.isChecked(),
                 ckbLactacao.isChecked(),
@@ -186,16 +184,19 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
                 ckbCio.isChecked()
         );;
 
-        RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(AtualizarHistoricoAnimalActivity.this);
+        dadosComplAnimal.setAnimal(animal.getId());
+
+        RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarNovoDadoComplActivity.this);
         int idDadosCompl = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
 
         if(idDadosCompl > 0) {
-            Toast.makeText(AtualizarHistoricoAnimalActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             dadosComplAnimal.setId(idDadosCompl);
-            Intent it = new Intent(AtualizarHistoricoAnimalActivity.this, ListaAnimaisActivity.class);
+            Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
+            it.putExtra(ListaDadosComplActivity.EXTRA_ANIMAL, animal);
             startActivity(it);
         } else {
-            Toast.makeText(AtualizarHistoricoAnimalActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -225,6 +226,31 @@ public class AtualizarHistoricoAnimalActivity extends AppCompatActivity
 
         return valido;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
+                it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
+                startActivity(it);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
+        it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
+        startActivity(it);
+        finish();
+    }
+
 
 
 

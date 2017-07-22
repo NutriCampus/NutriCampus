@@ -6,27 +6,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -44,6 +40,10 @@ import java.util.List;
 public class DadosAnimalFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
+    public static final String EXTRA_ANIMAL = "animal";
+    public static final String EXTRA_PROPRIEDADE = "propriedade";
+    public static final String EXTRA_CAD_ANIMAL = "CadastroDeAnimal";
+
     private Spinner spinnerPropriedade;
     private EditText inputIdentificador;
     private EditText inputData;
@@ -53,13 +53,16 @@ public class DadosAnimalFragment extends Fragment
     private EditText inputIdPropriedade;
 
     private Calendar data;
-    private boolean isAtivo;
+    private Animal animal;
+    private Propriedade propriedade;
 
     SharedPreferencesManager session;
 
-    public static DadosAnimalFragment newInstance(String param1) {
-        DadosAnimalFragment fragment = new DadosAnimalFragment();
+    public static DadosAnimalFragment newInstance(Animal animal, Propriedade propriedade) {
         Bundle args = new Bundle();
+        args.putSerializable(EXTRA_ANIMAL, animal);
+        args.putSerializable(EXTRA_PROPRIEDADE, propriedade);
+        DadosAnimalFragment fragment = new DadosAnimalFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,8 +70,12 @@ public class DadosAnimalFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         session = new SharedPreferencesManager(getActivity());
         session.checkLogin();
+
+        animal = (Animal) getArguments().getSerializable(EXTRA_ANIMAL);
+        propriedade = (Propriedade) getArguments().getSerializable(EXTRA_PROPRIEDADE);
     }
 
 
@@ -90,14 +97,21 @@ public class DadosAnimalFragment extends Fragment
         btnAddPropriedade.setOnClickListener(this);
         inputData.setOnClickListener(this);
 
-        switchAtivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isAtivo = compoundButton.isChecked();
-            }
-        });
         preencherSpinnerListaPropriedade();
         inicializaCampoData();
+
+        if(propriedade != null) {
+            inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
+            preencherSpinnerListaPropriedade();
+        }
+
+        if(animal != null) {
+            inputIdentificador.setText(animal.getIndentificador());
+            inputData.setText(Conversor.dataFormatada(animal.getDataDeNascimento()));
+            switchAtivo.setChecked(animal.isAtivo());
+            inputIdPropriedade.setText(String.valueOf(animal.getId_propriedade()));
+            preencherSpinnerListaPropriedade();
+        }
 
         return layout;
     }
@@ -151,6 +165,7 @@ public class DadosAnimalFragment extends Fragment
 
         if(v.getId() == R.id.btn_add_propriedade) {
             Intent intent = new Intent(getActivity(), CadastrarPropriedadeActivity.class);
+            intent.putExtra(EXTRA_CAD_ANIMAL, 1);
             startActivity(intent);
             return;
         }
@@ -160,19 +175,25 @@ public class DadosAnimalFragment extends Fragment
             return;
         }
 
-        Animal animal = new Animal(
-                inputIdentificador.getText().toString(),
-                ((Propriedade) spinnerPropriedade.getSelectedItem()).getId(),
-                data,
-                isAtivo,
-                Integer.parseInt(session.getIdNC()));
+        if(animal == null) {
+            animal = new Animal(
+                    inputIdentificador.getText().toString(),
+                    ((Propriedade) spinnerPropriedade.getSelectedItem()).getId(),
+                    data,
+                    switchAtivo.isChecked(),
+                    Integer.parseInt(session.getIdNC()));
+        } else {
+            this.animal.setIndentificador(inputIdentificador.getText().toString());
+            this.animal.setId_propriedade(((Propriedade) spinnerPropriedade.getSelectedItem()).getId());
+            this.animal.setDataDeNascimento(data);
+            this.animal.setAtivo(switchAtivo.isChecked());
+        }
 
         Activity activity = getActivity();
         if(activity instanceof AoClicarConfirmaDados) {
             AoClicarConfirmaDados listener = (AoClicarConfirmaDados) activity;
-            listener.confirmarDados(animal);
+            listener.confirmarDados(this.animal);
         }
-
     }
 
     public interface AoClicarConfirmaDados {

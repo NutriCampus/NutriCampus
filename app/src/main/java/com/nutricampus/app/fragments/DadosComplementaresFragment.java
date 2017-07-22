@@ -2,6 +2,7 @@ package com.nutricampus.app.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.ListaDadosComplActivity;
+import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
@@ -24,7 +28,6 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 
 
 /**
@@ -35,6 +38,8 @@ import java.util.List;
 
 public class DadosComplementaresFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+
+    public static final String EXTRA_ANIMAL = "animal";
 
     private EditText inputIdAnimal;
     private EditText inputData;
@@ -47,22 +52,26 @@ public class DadosComplementaresFragment extends Fragment
     private CheckBox ckbGestante;
     private RadioGroup radioGroup;
     private Button btnSalvar;
+    private Button btnHistRegistros;
     private EditText inputSemanaLact;
-    private RadioButton radio;
 
     private Calendar data;
-    private int eec;
+    private Animal animal;
+    private DadosComplAnimal dadosComplAnimal;
 
-    public static DadosComplementaresFragment newInstance(String param1) {
-        DadosComplementaresFragment fragment = new DadosComplementaresFragment();
+    public static DadosComplementaresFragment newInstance(Animal animal) {
         Bundle args = new Bundle();
+        args.putSerializable(EXTRA_ANIMAL, animal);
+        DadosComplementaresFragment fragment = new DadosComplementaresFragment();
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        animal = (Animal) getArguments().getSerializable(EXTRA_ANIMAL);
     }
 
     @Override
@@ -85,13 +94,35 @@ public class DadosComplementaresFragment extends Fragment
         ckbGestante = (CheckBox) layout.findViewById(R.id.ckb_gestante);
         radioGroup = (RadioGroup) layout.findViewById(R.id.rgEec);
         btnSalvar = (Button) layout.findViewById(R.id.btn_salvar);
+        btnHistRegistros = (Button) layout.findViewById(R.id.btn_hist_registros);
 
         btnSalvar.setOnClickListener(this);
         inputData.setOnClickListener(this);
         inicializaCampoData();
 
-        int idRadioButton = radioGroup.getCheckedRadioButtonId();
-        radio = (RadioButton) layout.findViewById(idRadioButton);
+        if(animal != null) {
+            RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(getActivity());
+            this.dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(animal.getId());
+
+            if(dadosComplAnimal != null) {
+                inputPeso.setText(String.valueOf(dadosComplAnimal.getPesoVivo()));
+                inputData.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));
+                inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
+                inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
+                inputSemanaLact.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
+                ckbPastando.setChecked(dadosComplAnimal.isPastando());
+                ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
+                ckbGestante.setChecked(dadosComplAnimal.isGestante());
+                ckbCio.setChecked(dadosComplAnimal.isCio());
+                if(dadosComplAnimal.getEEC() == 0)
+                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC())).setChecked(true);
+                else
+                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC() - 1)).setChecked(true);
+                btnSalvar.setText("Atualizar");
+                btnHistRegistros.setVisibility(View.VISIBLE);
+                btnHistRegistros.setOnClickListener(this);
+            }
+        }
 
         return layout;
     }
@@ -146,6 +177,12 @@ public class DadosComplementaresFragment extends Fragment
             return;
         }
 
+        if(v.getId() == R.id.btn_hist_registros) {
+            Intent it = new Intent(getActivity(), ListaDadosComplActivity.class);
+            it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
+            startActivity(it);
+        }
+
         if (!validaDados()) {
             Toast.makeText(getActivity(), R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
@@ -154,19 +191,40 @@ public class DadosComplementaresFragment extends Fragment
         float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f : Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
         float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f : Float.parseFloat(inputCaminhadaVertical.getText().toString());
 
-        DadosComplAnimal dadosComplAnimal = new DadosComplAnimal(
-                data,
-                Float.parseFloat(inputPeso.getText().toString()),
-                this.eec,
-                caminhadaHorizontal,
-                caminhadaVertical,
-                Integer.parseInt(inputSemanaLact.getText().toString()),
-                ckbPastando.isChecked(),
-                ckbLactacao.isChecked(),
-                ckbGestante.isChecked(),
-                ckbCio.isChecked()
-        );
+        //Atribuir o valor de EEC
+        int idRadioButton = radioGroup.getCheckedRadioButtonId();
+        RadioButton rb = radioGroup.findViewById(idRadioButton);
+        int eec;
+        if(rb == null)
+            eec = 0;
+        else
+            eec = Integer.parseInt(String.valueOf(rb.getText()));
 
+        if(dadosComplAnimal == null) {
+            dadosComplAnimal = new DadosComplAnimal(
+                    data,
+                    Float.parseFloat(inputPeso.getText().toString()),
+                    eec,
+                    caminhadaHorizontal,
+                    caminhadaVertical,
+                    Integer.parseInt(inputSemanaLact.getText().toString()),
+                    ckbPastando.isChecked(),
+                    ckbLactacao.isChecked(),
+                    ckbGestante.isChecked(),
+                    ckbCio.isChecked()
+            );
+        } else {
+            dadosComplAnimal.setData(data);
+            dadosComplAnimal.setPesoVivo(Float.parseFloat(inputPeso.getText().toString()));
+            dadosComplAnimal.setEEC(eec);
+            dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
+            dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
+            dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLact.getText().toString()));
+            dadosComplAnimal.setPastando(ckbPastando.isChecked());
+            dadosComplAnimal.setLactacao(ckbLactacao.isChecked());
+            dadosComplAnimal.setGestante(ckbGestante.isChecked());
+            dadosComplAnimal.setCio(ckbCio.isChecked());
+        }
 
         Activity activity = getActivity();
         if(activity instanceof SalvarDadosAnimal) {
@@ -183,8 +241,8 @@ public class DadosComplementaresFragment extends Fragment
         camposTexto.add(inputData);
         camposTexto.add(inputPeso);
         camposTexto.add(inputSemanaLact);
-        //camposTexto.add(inputCaminhadaVertical);
-        //camposTexto.add(inputCaminhadaHorizontal);
+        camposTexto.add(inputCaminhadaVertical);
+        camposTexto.add(inputCaminhadaHorizontal);
 
 
         for (TextView view : camposTexto)

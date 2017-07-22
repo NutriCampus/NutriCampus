@@ -62,7 +62,8 @@ public class RepositorioAnimal {
                     a.setIndentificador(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)));
                     a.setPropriedade(c.getInt(c.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)));
                     a.setDataDeNascimento(data);
-                    a.setAtivo(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
+                    //a.setAtivo(Conversor.StringToBoolean(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
+                    a.setAtivo(Conversor.intToBoolean(Integer.parseInt(c.getString(c.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO)))));
                     animais.add(a);
                 } while (c.moveToNext());
                 c.close();
@@ -105,7 +106,8 @@ public class RepositorioAnimal {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)),
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)),
                     data,
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO)))));
+
         }
         cursor.close();
         return null;
@@ -139,7 +141,7 @@ public class RepositorioAnimal {
                     cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)),
                     cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)),
                     data,
-                    Conversor.StringToBoolean(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO))));
+                    Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO)))));
         }
         cursor.close();
         return null;
@@ -154,7 +156,6 @@ public class RepositorioAnimal {
 
         dados.put(SQLiteManager.ANIMAL_COL_IDENTIFICADOR, animal.getIndentificador());
         dados.put(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE, animal.getPropriedade());
-        //Verificar...
         dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTimeInMillis());
         dados.put(SQLiteManager.ANIMAL_COL_IS_ATIVO, animal.isAtivo());
 
@@ -169,6 +170,11 @@ public class RepositorioAnimal {
 
     public List<Animal> buscarTodosAnimais() {
         return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL);
+    }
+
+    public List<Animal> buscarTodosAnimaisPropriedade(int idPropriedade) {
+        return this.getListaAnimais(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_ANIMAL +
+                " WHERE (" + SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE + " = " + idPropriedade + ")");
     }
 
     public int removerAnimal(Animal animal) {

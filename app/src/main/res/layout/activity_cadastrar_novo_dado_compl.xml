@@ -8,7 +8,7 @@
     android:paddingTop="10dp"
     android:weightSum="1"
     android:id="@+id/telaAtualizarHistorico"
-    tools:context="com.nutricampus.app.activities.AtualizarHistoricoAnimalActivity"
+    tools:context="com.nutricampus.app.activities.CadastrarNovoDadoComplActivity"
     android:background="#e4e4e4">
 
     <include layout="@layout/content_form_dados_complementares"></include>

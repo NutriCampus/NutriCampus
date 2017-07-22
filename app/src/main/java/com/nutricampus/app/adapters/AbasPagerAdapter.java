@@ -4,8 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.fragments.DadosComplementaresFragment;
 
@@ -21,21 +24,24 @@ import java.util.Locale;
 public class AbasPagerAdapter extends FragmentPagerAdapter {
 
     String titulos[];
+    Animal animal;
+    Propriedade propriedade;
 
-    public AbasPagerAdapter(Context context, FragmentManager fm) {
+    public AbasPagerAdapter(Animal animal, Context context, FragmentManager fm, Propriedade propriedade) {
         super(fm);
         titulos = context.getResources().getStringArray(R.array.titulos);
+        this.animal = animal;
+        this.propriedade = propriedade;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance(titulos[position]);
+                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance(this.animal, this.propriedade);
                 return dadosAnimalFragment;
             case 1:
-                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(titulos[position]);
-
+                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(this.animal);
                 return dadosComplementaresFragment;
             default:
                 return null;
