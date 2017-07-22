@@ -1,5 +1,6 @@
 package com.nutricampus.app.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -9,7 +10,7 @@ import java.util.Calendar;
  * Contact: <diego.defb@gmail.com>
  */
 
-public class DadosComplAnimal {
+public class DadosComplAnimal implements Serializable {
 
     private int id;
     private Calendar data;
