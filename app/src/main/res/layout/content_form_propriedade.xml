@@ -118,11 +118,9 @@
             android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="@dimen/margin_inputs_form">
+                android:layout_weight="0.5">
 
                 <EditText
                     android:id="@+id/input_numero"
@@ -133,10 +131,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_inputs_form"
-                android:layout_marginTop="@dimen/margin_inputs_form">
+                android:layout_weight="0.5">
 
                 <EditText
                     android:id="@+id/input_cep"
