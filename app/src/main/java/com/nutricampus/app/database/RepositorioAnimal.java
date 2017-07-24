@@ -182,10 +182,6 @@ public class RepositorioAnimal {
                 " AND (" + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%')");
     }
 
-
-
-
-
     public int removerAnimal(Animal animal) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_ANIMAL,

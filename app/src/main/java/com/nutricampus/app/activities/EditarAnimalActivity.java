@@ -1,14 +1,11 @@
 package com.nutricampus.app.activities;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.adapters.AbasPagerAdapter;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.entities.Animal;
@@ -23,7 +20,7 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_editar_animal);
+
         Intent intent = getIntent();
         Animal animal = (Animal) intent.getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
 
@@ -36,8 +33,6 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
         this.animal = animal;
         idAnimalAtual = animal.getId();
         Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_completar_cadastro, "sua edição"), Toast.LENGTH_LONG).show();
-
-        Log.e("EF", "edtAct_confirmar " + this.animal.getId());
 
         //Alterna para a próxima aba
         viewPager.setCurrentItem(1);
@@ -85,7 +80,6 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
         }
 
         boolean atualAnimal = repositorioAnimal.atualizarAnimal(animal);
-        Log.e("EF", "edtAct_Salvar " + animal.getId());
 
         if(atualAnimal) {
             Toast.makeText(EditarAnimalActivity.this, "Animal atualizado", Toast.LENGTH_LONG).show();

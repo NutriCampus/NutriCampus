@@ -21,7 +21,10 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaProleAdapter;
 import com.nutricampus.app.database.RepositorioProle;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Prole;
+import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Conversor;
 
 import java.util.Calendar;
@@ -55,7 +58,7 @@ public class ListaProleActivity extends AppCompatActivity {
         session.checkLogin();
 
         if (this.getIntent() != null)
-            this.idAnimal = getIntent().getIntExtra("idAnimal", 0);
+            this.idAnimal = ((Animal) getIntent().getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL)).getId();
 
         setContentView(R.layout.activity_lista_prole);
         ButterKnife.bind(this);
