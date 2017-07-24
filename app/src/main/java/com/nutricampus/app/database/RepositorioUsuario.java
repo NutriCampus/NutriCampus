@@ -41,7 +41,7 @@ public class RepositorioUsuario {
         bancoDados.close();
 
         // if retorno == -1, then false
-        return !(retorno == -1);
+        return (retorno != -1);
     }
 
     public Usuario buscarUsuario(String crmv) {
@@ -51,12 +51,12 @@ public class RepositorioUsuario {
     public Usuario buscarUsuario(String crmv, String senha) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunas_where = SQLiteManager.USUARIO_COL_CRMV + "= ?";
-        String[] valores_where = new String[]{String.valueOf(crmv)};
+        String colunasWhere = SQLiteManager.USUARIO_COL_CRMV + "= ?";
+        String[] valoresWhere = new String[]{String.valueOf(crmv)};
 
         if (senha != null) {
-            colunas_where += " AND " + SQLiteManager.USUARIO_COL_SENHA + "= ?";
-            valores_where = new String[]{String.valueOf(crmv), String.valueOf(senha)};
+            colunasWhere += " AND " + SQLiteManager.USUARIO_COL_SENHA + "= ?";
+            valoresWhere = new String[]{String.valueOf(crmv), String.valueOf(senha)};
         }
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_USUARIO, new String[]{
@@ -66,8 +66,8 @@ public class RepositorioUsuario {
                         SQLiteManager.USUARIO_COL_CPF,
                         SQLiteManager.USUARIO_COL_EMAIL,
                         SQLiteManager.USUARIO_COL_SENHA},
-                colunas_where,
-                valores_where, null, null, null, null);
+                colunasWhere,
+                valoresWhere, null, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -89,7 +89,7 @@ public class RepositorioUsuario {
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        String getPessoas = "SELECT * FROM " + SQLiteManager.TABELA_USUARIO;
+        String getPessoas = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_USUARIO;
 
         try {
             Cursor c = bancoDados.rawQuery(getPessoas, null);

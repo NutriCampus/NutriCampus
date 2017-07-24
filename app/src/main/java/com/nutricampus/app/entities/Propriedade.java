@@ -1,12 +1,14 @@
 package com.nutricampus.app.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by Mateus on 14/06/2017.
  * For project NutriCampus.
  * Contact: <paulomatew@gmail.com>
  */
 
-public class Propriedade {
+public class Propriedade implements Serializable {
 
     private int id;
     private String nome;
@@ -130,6 +132,7 @@ public class Propriedade {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -138,7 +141,7 @@ public class Propriedade {
 
         Propriedade objeto = (Propriedade) obj;
 
-        if( (objeto.getId() == (this.getId())) &&
+        return ((objeto.getId() == (this.getId())) &&
                 (objeto.getNome().equals(this.getNome()))  &&
                 (objeto.getTelefone().equals(this.getTelefone())) &&
                 (objeto.getLogradouro().equals(this.getLogradouro())) &&
@@ -148,11 +151,10 @@ public class Propriedade {
                 (objeto.getEstado().equals(this.getEstado()))  &&
                 (objeto.getNumero().equals(this.getNumero()))  &&
                 (objeto.getIdProprietario() == (this.getIdProprietario())) &&
-                (objeto.getIdUsuario() == (this.getIdUsuario())))
-            return true;
+                (objeto.getIdUsuario() == (this.getIdUsuario())));
 
-        return false;
     }
+
 
     @Override
     public int hashCode() {
@@ -170,5 +172,10 @@ public class Propriedade {
         result = 31 * result + String.valueOf(this.getIdUsuario()).hashCode();
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNome();
     }
 }

@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">NutriCampus</string>
-    <string name="recuperar_senha_titulo">Recuperar Senha</string>
-    <string name="welcome">Bem-vindo</string>
+    <string name="switch_ativo">Ativo</string>
+    <string name="switch_inativo">Inativo</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Configurações</string>
 
-    <string name="sign_in_facebook">Acessar com Facebook</string>
-    <string name="sign_in_google">Acessar com Google</string>
     <string name="logout_text">Sair</string>
 
     <string name="register_user">Cadastro Usuário</string>
@@ -20,13 +19,20 @@
     <string name="recuperar_senha">Recuperar senha</string>
 
     <string name="menu_adicionar">Adicionar</string>
+    <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
+    <string name="menu_adicionar_animal">Adicionar um animal</string>
+    <string name="menu_visualizar_animais">Visualizar animais</string>
+    <string name="menu_historico">Histórico de dados de complement</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
     <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
 
+    <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+
     <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
+    <string name="msg_crz_nao_encontrado">CRZ/CRMV não encontrado</string>
     <string name="msg_erro_email">Email inválido</string>
     <string name="msg_erro_campo">Campo obrigatório</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>
@@ -34,51 +40,157 @@
     <string name="msg_erro_telefone">Número de telefone inválido</string>
     <string name="msg_erro_senha">Senha deve ter no mínimo 5 caracteres</string>
     <string name="msg_falha_login">Falha no login</string>
-    <string name="msg_dados_login_invalidos">usuário ou senha inválidos</string>
-    <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
+    <string name="msg_dados_login_invalido">usuário ou senha inválidos</string>
     <string name="msg_erro_login_usuario">Usuário inválido</string>
     <string name="msg_erro_senha_usuario">Senha inválido</string>
     <string name="msg_erro_cadastro_usuario">CPF/CRMV já cadastrado(s)</string>
     <string name="msg_erro_cadastro_proprietario">CPF já cadastrado !</string>
     <string name="msg_erro_cadastro_geral">Campos inválidos</string>
-    <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
-    <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
     <string name="msg_erro_busca_proprietario">Proprietário não encontrado</string>
     <string name="msg_erro_editar_proprietario">Pesquise um proprietário</string>
     <string name="msg_erro_atualizar_proprietario">Erro ao atualizar o proprietário</string>
     <string name="msg_erro_spinner_proprietario">Selecione uma propriedade</string>
     <string name="msg_erro_cep_incompleto">CEP incompleto</string>
     <string name="msg_erro_telefone_incompleto">Telefone incompleto</string>
-    <string name="msg_erro_gravar_propriedade">Erro ao gravar Propriedade</string>
+    <string name="msg_erro_cadastro">Erro ao tentar realizar o cadastro</string>
+    <string name="msg_erro_falta_de_dados">Falta preencher campos obrigatórios na aba anterior ou confirmá-los</string>
+    <string name="msg_erro_duplicidade_animal">Animal já cadastrado nesta propriedade</string>
+    <string name="msg_erro_busca_dados_compl">Para buscar é preciso um identificador e uma propriedade</string>
+    <string name="msg_erro_busca">Animal não encontrado</string>
+
+
+    <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
+    <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
+    <string name="msg_sucesso_atualizar_registro">Registro atualizado com sucesso</string>
+    <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
+    <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
+    <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>
+    <string name="msg_completar_cadastro">Complete %1$s com os demais dados</string>
 
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
-    <string name="msg_cadastro_erro">Erro ao tentar realizar o cadastro</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
+    <string name="msg_cadastre_propriedade">Cadastre uma propriedade</string>
     <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
+    <string name="msg_spinner_propriedade">Procure uma propriedade</string>
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
+    <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
-    <string name="msg_excluir_confirmar">Tem certeza que deseja remover </string>
+    <string name="msg_excluir_confirmar">Tem certeza que deseja remover</string>
+    <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
+    <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
+
     <string name="campo_nome">Nome</string>
-    <string name="crz_crmv">CRZ/CRMV</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
     <string name="campo_cpf">CPF</string>
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
 
+
+    <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
+    <string name="unidade_medida_porcento">%</string>
+
+    <!-- Strings: Animais, Prole -->
+    <string name="campo_animal">Animal</string>
+    <string name="campo_genero">Gênero</string>
+    <string name="campo_peso_vivo">Peso</string>
+    <string name="campo_add_registro">Novo Registro Geral</string>
+    <string name="campo_historico">Histórico de dados</string>
+
+    <string name="campo_identificador">Identificador</string>
+    <string name="campo_data_nascimento">Data de nascimento</string>
+    <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
+    <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
+    <string name="campo_escolha_ativo">Animal está ativo?</string>
+    <string name="campo_confirmacao_dados">Confirmar dados</string>
+    <string name="campo_data">Data</string>
+    <string name="campo_data_registro">Data de registro</string>
+    <string name="campo_caminhada_vertical">Caminhada vertical</string>
+    <string name="campo_caminhada_horizontal">Caminhada Horizontal</string>
+    <string name="campo_eec">EEC</string>
+    <string name="campo_eec1">1</string>
+    <string name="campo_eec2">2</string>
+    <string name="campo_eec3">3</string>
+    <string name="campo_eec4">4</string>
+    <string name="campo_eec5">5</string>
+    <string name="campo_pastando">Pastando</string>
+    <string name="campo_lactacao">Lactação</string>
+    <string name="campo_gestante">Gestante</string>
+    <string name="campo_cio">Cio</string>
+    <string name="campo_semana_lactacao">Semana de Lactação</string>
+    <string name="campo_corrigir">Corrigir</string>
+    <string-array name="titulos">
+        <item>Animal</item>
+        <item>Dados Gerais</item>
+    </string-array>
+
+    <string name="titulo_add_animal">Novo Animal</string>
+
+    <string-array name="titulos_">
+        <item>Animal</item>
+        <item>Crescimento</item>
+        <item>Produção</item>
+    </string-array>
+
+    <string-array name="meses">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+        <item>TODOS</item>
+    </string-array>
+
+    <string-array name="anos">
+        <item>2017</item>
+
+    </string-array>
+    <plurals name="quatidade_registros">
+        <item quantity="one">1 animal</item>
+        <item quantity="other">%d animais</item>
+    </plurals>
+
+
+    <plurals name="msg_registros_encontrados">
+        <item quantity="one">1 registro encontrado</item>
+        <item quantity="other">%d registros encontrados</item>
+    </plurals>
+
+
     <!-- Strings: Propriedade e proprietário -->
     <string name="campo_nome_propriedade">Nome da Propriedade</string>
     <string name="campo_telefone">Telefone</string>
 
-    <string name="campo_texto_lista_encontrados">registro(s) encontrado(s)</string>
-
+    <!-- titulos das telas -->
+    <string name="titulo_recuperar_senha">Recuperar senha</string>
+    <string name="titulo_novo_usuario">Novo usuário</string>
+    <string name="titulo_novo_proprietario">Novo proprietário</string>
+    <string name="titulo_nova_producao_leite">Novo registro</string>
+    <string name="titulo_nova_prole">Nova Prole</string>
+    <string name="titulo_prole">Prole</string>
+    <string name="titulo_editar_prole">Editar prole</string>
     <string name="titulo_lista_propriedade">Propriedades</string>
-    <string name="titulo_add_propriedade">Nova Propriedade</string>
-    <string name="titulo_editar_propriedade">Editar Propriedade</string>
+    <string name="titulo_add_propriedade">Nova propriedade</string>
+    <string name="titulo_editar_propriedade">Editar propriedade</string>
+    <string name="titulo_editar_producao">Editar produção de leite</string>
+    <string name="titulo_producao">Produção de leite</string>
+    <string name="titulo_lista_animais">Animais</string>
 
     <string name="cadastrar_proprietario"> Cadastrar Proprietario</string>
     <string name="campo_buscar_proprietario_nome">Buscar Proprietário (CPF)</string>
 
+    <string name="campo_lactose">Lactose (%)</string>
+    <string name="campo_proteina_bruta">Proteína bruta (%)</string>
+    <string name="campo_proteina_verdadeira">Proteína real (%)</string>
+    <string name="campo_gordura">Gordura (%)</string>
+    <string name="campo_quantidade_kg_dia">Quantidade (kg/dia)</string>
 
     <string name="campo_rua">Rua</string>
     <string name="campo_bairro">Bairro</string>
@@ -92,14 +204,15 @@
     <string name="campo_proprietario">Nome do Proprietário</string>
     <string name="campo_nome_proprietario">Proprietário</string>
 
-    <!-- titulos das telas -->
-    <string name="titulo_recuperar_senha">Recuperar Senha</string>
+    <string name="campo_infor_recupera_senha">Informe seus dados e enviaremos um e-mail com a sua senha para o e-mail cadastrado</string>
 
-    <string name="titulo_novo_usuario">Novo usuário</string>
-    <string name="titulo_novo_proprietario">Novo proprietário</string>
+    <string name="campo_peso">Peso (kg)</string>
+    <string name="campo_natimorto">Natimorto</string>
 
     <string name="msg_senha_enviada">Senha enviada por e-mail</string>
-
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
+    <string name="menu_ver_producao_leite">Ver produção de leite</string>
+    <string name="menu_ver_prole">Ver prole</string>
+
 
 </resources>

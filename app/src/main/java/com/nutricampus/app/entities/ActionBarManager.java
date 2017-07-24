@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -27,25 +28,26 @@ import com.nutricampus.app.database.SharedPreferencesManager;
  */
 
 public class ActionBarManager {
-    private Activity _act;
+    private Activity activity;
     private Toolbar toolbar;
     private Drawer mActionBar;
 
     SharedPreferencesManager session;
 
-    public ActionBarManager(Activity _act, Toolbar toolbar) {
-        this._act = _act;
+    public ActionBarManager(Activity activity, Toolbar toolbar) {
+        this.activity = activity;
         this.toolbar = toolbar;
 
         initActionBar();
     }
 
     private void initActionBar() {
-        session = new SharedPreferencesManager(_act);
-        new DrawerBuilder().withActivity(_act).build();
+        session = new SharedPreferencesManager(activity);
+        new DrawerBuilder().withActivity(activity).build();
+
 
         AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(_act)
+                .withActivity(activity)
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
                 .addProfiles(
@@ -60,9 +62,8 @@ public class ActionBarManager {
                 })
                 .build();
 
-
         mActionBar = new DrawerBuilder()
-                .withActivity(_act)
+                .withActivity(activity)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
                 .addDrawerItems(
@@ -87,18 +88,26 @@ public class ActionBarManager {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = null;
                         switch ((int) drawerItem.getIdentifier()){
                             case 1:
-                                Intent intent = new Intent(_act, ListaPropriedadesActivity.class);
-                                _act.startActivity(intent);
+                                intent = new Intent(activity, ListaPropriedadesActivity.class);
+                                break;
+                            case 3:
+                                intent = new Intent(activity, ListaAnimaisActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();
-                                _act.finish();
+                                activity.finish();
                                 break;
                             default:
+                                break;
 
                         }
+
+                        if (intent != null)
+                            activity.startActivity(intent);
+
                         return false;
                     }
                 })

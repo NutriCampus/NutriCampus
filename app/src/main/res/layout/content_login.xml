@@ -72,7 +72,7 @@
             android:gravity="center"
             android:onClick="recuperarSenhaOnClick"
             android:text="@string/link_esqueceu_senha"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -113,7 +113,7 @@
             android:layout_weight="0.67"
             android:text="@string/link_novo_cadastro"
             android:textAlignment="center"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
 

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/telaListaAnimais"
+    tools:context="com.nutricampus.app.activities.ListaAnimaisActivity"
+    android:background="#e4e4e4">
+
+    <EditText
+        android:id="@+id/input_id_propriedade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text=""
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/caixa_arredondada"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_form">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerPropriedade"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/caixa_arredondada"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_form"
+            android:id="@+id/resultado_busca_animais">
+
+            <TextView
+                android:id="@+id/text_quantidades_encontrados"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="23dp"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <View
+                android:id="@+id/linha"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLinha"
+                android:layout_marginBottom="10dp"/>
+
+            <ListView
+                android:id="@+id/listaAnimais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="multipleChoice"
+                android:listSelector="@color/colorItemListSelected"
+                android:longClickable="true"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/campo_nenhum_animal"
+                android:drawableTop="@drawable/cow"
+                android:id="@android:id/empty"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_proprietario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add_light"/>
+
+</android.support.design.widget.CoordinatorLayout>

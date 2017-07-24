@@ -13,12 +13,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.ActionBarManager;
 
-/**
- * Created by Mateus on 29/05/2017.
- * For project NutriCampus.
- * Contact: <paulomatew@gmail.com>
- */
-
+@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
