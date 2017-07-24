@@ -1,17 +1,22 @@
 package com.nutricampus.app.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,7 +27,6 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaAnimaisAdapter;
-import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
@@ -31,7 +35,6 @@ import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +58,10 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
     private Propriedade propriedade;
 
+    private MenuItem mSearchAction;
+    private boolean isSearchOpened = false;
+    private EditText inputPesquisa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +77,11 @@ public class ListaAnimaisActivity extends AppCompatActivity
         propriedade = (Propriedade) getIntent().getSerializableExtra(ListaPropriedadesActivity.EXTRA_PROPRIEDADE);
 
         if(propriedade == null) {
-            carregarListView(0);
+            carregarListView(0, "");
         } else {
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
             Log.e("FGP", "prop " + inputIdPropriedade.getText().toString());
-            carregarListView(propriedade.getId());
+            carregarListView(propriedade.getId(), "");
         }
 
         spinnerPropriedade.setOnItemSelectedListener(this);
@@ -102,7 +109,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        //mSearchAction = menu.findItem(R.id.action_search);
+        mSearchAction = menu.findItem(R.id.action_search);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -167,7 +174,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_excluir_animal_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregarListView(idPropriedade);
+                            carregarListView(idPropriedade, "");
                         }
                         else{
                             Toast.makeText(ListaAnimaisActivity.this,
@@ -206,14 +213,14 @@ public class ListaAnimaisActivity extends AppCompatActivity
         preencherSpinnerListaPropriedade();
     }
 
-    private void carregarListView(int idPropriedade) {
+    private void carregarListView(int idPropriedade, String idenficador) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaAnimaisActivity.this);
         List<Animal> animais;
 
         if(idPropriedade == 0)
             animais = repositorioAnimal.buscarTodosAnimais();
         else
-            animais = repositorioAnimal.buscarTodosAnimaisPropriedade(idPropriedade);
+            animais = repositorioAnimal.buscarPorIdentificador(idPropriedade, idenficador);
 
         ListaAnimaisAdapter adapter =
                 new ListaAnimaisAdapter(this, animais);
@@ -253,8 +260,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, todasPropriedades);
 
-
-            ListaPropriedadesAdapter adapter = new ListaPropriedadesAdapter(todasPropriedades, ListaAnimaisActivity.this);
             spinnerPropriedadeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerPropriedade.setAdapter(spinnerPropriedadeAdapter);
@@ -282,12 +287,101 @@ public class ListaAnimaisActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            gerenciaFuncaoPesquisar();
+            return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isSearchOpened) {
+            gerenciaFuncaoPesquisar();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    protected void gerenciaFuncaoPesquisar() {
+        ActionBar action = getSupportActionBar(); //get the actionbar
+        int id = 0;
+
+        if (isSearchOpened) { //test if the search is open
+
+            if (action != null) {
+                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
+                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+
+                carregarListView(id, "");
+            }
+            //hides the keyboard
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(inputPesquisa.getWindowToken(), 0);
+
+            //add the search icon in the action bar
+            mSearchAction.setIcon(R.drawable.ic_search_light);
+
+            isSearchOpened = false;
+        } else { //open the search entry
+
+            if (action != null) {
+                action.setDisplayShowCustomEnabled(true); //enable it to display a
+                // custom view in the action bar.
+                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
+                action.setDisplayShowTitleEnabled(false); //hide the title
+
+                inputPesquisa = action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
+
+                //this is a listener to do a search when the user clicks on search button
+                inputPesquisa.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if (i == EditorInfo.IME_ACTION_SEARCH) {
+                            if (spinnerPropriedade.getSelectedItem() != null) {
+                                int id = ((Propriedade) spinnerPropriedade.getSelectedItem()).getId();
+
+                                carregarListView(id, inputPesquisa.getText().toString());
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+
+                });
+
+
+                inputPesquisa.requestFocus();
+
+                //open the keyboard focused in the edtSearch
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(inputPesquisa, InputMethodManager.SHOW_IMPLICIT);
+
+
+                //add the close icon
+                mSearchAction.setIcon(R.drawable.ic_close);
+
+                isSearchOpened = true;
+            }
+        }
+    }
+
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
 
         if ((parent != null) && (parent.getItemAtPosition(position) instanceof Propriedade)) {
             propriedade = (Propriedade) parent.getItemAtPosition(position);
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
-            carregarListView(propriedade.getId());
+            carregarListView(propriedade.getId(), "");
         }
 
     }

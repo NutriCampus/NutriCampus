@@ -7,10 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.nutricampus.app.entities.Animal;
-import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.utils.Conversor;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -172,9 +170,15 @@ public class RepositorioAnimal {
         return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL);
     }
 
-    public List<Animal> buscarTodosAnimaisPropriedade(int idPropriedade) {
+    public List<Animal> buscarPorPropridade(int idPropriedade) {
         return this.getListaAnimais(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_ANIMAL +
                 " WHERE (" + SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE + " = " + idPropriedade + ")");
+    }
+
+    public List<Animal> buscarPorIdentificador(int idPropriedade, String identificador) {
+        return this.getListaAnimais(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_ANIMAL +
+                " WHERE (" + SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE + " = " + idPropriedade + ")" +
+                " AND (" + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%')");
     }
 
     public int removerAnimal(Animal animal) {

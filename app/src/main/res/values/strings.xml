@@ -213,6 +213,7 @@
     <string name="msg_sem_internet">Infelizmente não foi detectada uma conexão com a internet</string>
     <string name="menu_ver_producao_leite">Ver produção de leite</string>
     <string name="menu_ver_prole">Ver prole</string>
+    <string name="msg_selecione_propriedade">Por favor, selecione uma propriedade cadastrada.</string>
 
 
 </resources>
