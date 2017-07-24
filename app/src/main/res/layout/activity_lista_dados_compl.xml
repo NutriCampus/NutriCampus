@@ -11,6 +11,8 @@
 
     <ListView
         android:id="@+id/listDadosCompl"
+        android:background="@drawable/caixa_arredondada"
+        android:layout_margin="@dimen/margin_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:choiceMode="multipleChoice"

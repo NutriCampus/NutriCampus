@@ -22,7 +22,7 @@
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
     <string name="menu_visualizar_animais">Visualizar animais</string>
-    <string name="menu_historico">Histórico de dados de complement</string>
+    <string name="menu_historico">Ver histórico de crescimento</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
@@ -126,12 +126,6 @@
 
     <string name="titulo_add_animal">Novo Animal</string>
 
-    <string-array name="titulos_">
-        <item>Animal</item>
-        <item>Crescimento</item>
-        <item>Produção</item>
-    </string-array>
-
     <string-array name="meses">
         <item>Janeiro</item>
         <item>Fevereiro</item>
@@ -153,8 +147,8 @@
 
     </string-array>
     <plurals name="quatidade_registros">
-        <item quantity="one">1 animal</item>
-        <item quantity="other">%d animais</item>
+        <item quantity="one">1 animal encontrado</item>
+        <item quantity="other">%d animais encontrados</item>
     </plurals>
 
 

@@ -66,7 +66,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_animais);
-
+        Log.w("MEME", new Animal().getClass().getSimpleName());
         ButterKnife.bind(this);
 
         listAnimais.setEmptyView(findViewById(android.R.id.empty));
@@ -80,7 +80,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
             carregarListView(0, "");
         } else {
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
-            Log.e("FGP", "prop " + inputIdPropriedade.getText().toString());
             carregarListView(propriedade.getId(), "");
         }
 
@@ -178,7 +177,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                         }
                         else{
                             Toast.makeText(ListaAnimaisActivity.this,
-                                    getString(R.string.msg_excluir_propriedade_falha), Toast.LENGTH_LONG).show();
+                                    getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -311,7 +310,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         super.onBackPressed();
     }
 
-    protected void gerenciaFuncaoPesquisar() {
+    private void gerenciaFuncaoPesquisar() {
         ActionBar action = getSupportActionBar(); //get the actionbar
         int id = 0;
 
