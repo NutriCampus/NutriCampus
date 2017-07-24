@@ -28,18 +28,6 @@ public class RepositorioProducaoDeLeite {
         gerenciador = new SQLiteManager(context);
     }
 
-    private ContentValues getContentValues(ProducaoDeLeite producaoDeLeite) {
-        ContentValues dados = new ContentValues();
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL, producaoDeLeite.getAnimal());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_DATA, producaoDeLeite.getData().getTimeInMillis());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA, producaoDeLeite.getQntProduzida());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE, producaoDeLeite.getPctLactose());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA, producaoDeLeite.getPctProteinaVerdadeira());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA, producaoDeLeite.getPctProteinaBruta());
-        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA, producaoDeLeite.getPctProteinaBruta());
-        return dados;
-    }
-
     public int inserirProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -65,21 +53,7 @@ public class RepositorioProducaoDeLeite {
 
             if (c.moveToFirst()) {
                 do {
-
-                    Calendar data = Calendar.getInstance();
-                    data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_DATA))));
-
-                    ProducaoDeLeite p = new ProducaoDeLeite();
-                    p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID)));
-                    p.setAnimal(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL)));
-                    p.setData(data);
-                    p.setQntProduzida(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA)));
-                    p.setPctLactose(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE)));
-                    p.setPctProteinaVerdadeira(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA)));
-                    p.setPctProteinaBruta(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA)));
-                    p.setGordura(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA)));
-
-                    producaoDeLeite.add(p);
+                    producaoDeLeite.add(getDadosFromCursor(c));
                 } while (c.moveToNext());
                 c.close();
             }
@@ -122,19 +96,9 @@ public class RepositorioProducaoDeLeite {
                     int month = data.get(Calendar.MONTH);
                     int year = data.get(Calendar.YEAR);
 
-                    if ((month == mes) && (year == ano)) {
-                        ProducaoDeLeite p = new ProducaoDeLeite();
-                        p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID)));
-                        p.setAnimal(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL)));
-                        p.setData(data);
-                        p.setQntProduzida(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA)));
-                        p.setPctLactose(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE)));
-                        p.setPctProteinaVerdadeira(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA)));
-                        p.setPctProteinaBruta(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA)));
-                        p.setGordura(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA)));
+                    if ((month == mes) && (year == ano))
+                        producaoDeLeite.add(getDadosFromCursor(c));
 
-                        producaoDeLeite.add(p);
-                    }
                 } while (c.moveToNext());
                 c.close();
             }
@@ -172,5 +136,35 @@ public class RepositorioProducaoDeLeite {
 
         bancoDados.close();
         return result;
+    }
+
+
+    private ContentValues getContentValues(ProducaoDeLeite producaoDeLeite) {
+        ContentValues dados = new ContentValues();
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL, producaoDeLeite.getAnimal());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_DATA, producaoDeLeite.getData().getTimeInMillis());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA, producaoDeLeite.getQntProduzida());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE, producaoDeLeite.getPctLactose());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA, producaoDeLeite.getPctProteinaVerdadeira());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA, producaoDeLeite.getPctProteinaBruta());
+        dados.put(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA, producaoDeLeite.getPctProteinaBruta());
+        return dados;
+    }
+
+    private ProducaoDeLeite getDadosFromCursor(Cursor c) {
+        Calendar data = Calendar.getInstance();
+        data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_DATA))));
+
+        ProducaoDeLeite producao = new ProducaoDeLeite();
+        producao.setId(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID)));
+        producao.setAnimal(c.getInt(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL)));
+        producao.setData(data);
+        producao.setQntProduzida(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_QNT_PRODUZIDA)));
+        producao.setPctLactose(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_LACTOSE)));
+        producao.setPctProteinaVerdadeira(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_VERDADEIRA)));
+        producao.setPctProteinaBruta(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA)));
+        producao.setGordura(c.getFloat(c.getColumnIndex(SQLiteManager.PRODUCAO_DE_LEITE_GORDURA)));
+
+        return producao;
     }
 }

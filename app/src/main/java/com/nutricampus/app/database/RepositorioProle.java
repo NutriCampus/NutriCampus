@@ -32,11 +32,7 @@ public class RepositorioProle {
     public int inserirProle(Prole prole) {
         bancoDados = gerenciador.getWritableDatabase();
 
-        ContentValues dados = new ContentValues();
-        dados.put(SQLiteManager.PROLE_ID_MATRIZ, prole.getMatriz());
-        dados.put(SQLiteManager.PROLE_DATA_DE_NASCIMENTO, prole.getDataDeNascimento().getTimeInMillis());
-        dados.put(SQLiteManager.PROLE_PESO_DE_NASCIMENTO, prole.getPesoDeNascimento());
-        dados.put(SQLiteManager.PROLE_IS_NATIMORTO, Conversor.booleanToInt(prole.isNatimorto()));
+        ContentValues dados = getContentValues(prole);
 
         long retorno = bancoDados.insert(SQLiteManager.TABELA_PROLE, null, dados);
         bancoDados.close();
@@ -45,16 +41,12 @@ public class RepositorioProle {
         return (int) retorno;
     }
 
-    public List<Prole> buscarPorMatriz(int id) {
-        String sql = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
-                " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + id;
-        return buscar(sql);
-
-    }
-
-    private List<Prole> buscar(String sql) {
+    public List<Prole> buscarPorMatriz(int idMatriz) {
 
         bancoDados = gerenciador.getReadableDatabase();
+
+        String sql = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+                " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + idMatriz;
 
         ArrayList<Prole> proles = new ArrayList<>();
         String getProles = sql;
@@ -64,16 +56,7 @@ public class RepositorioProle {
 
             if (c.moveToFirst()) {
                 do {
-                    Calendar data = Calendar.getInstance();
-                    data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.PROLE_DATA_DE_NASCIMENTO))));
-
-                    Prole p = new Prole();
-                    p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID)));
-                    p.setMatriz(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID_MATRIZ)));
-                    p.setDataDeNascimento(data);
-                    p.setPesoDeNascimento(c.getFloat(c.getColumnIndex(SQLiteManager.PROLE_PESO_DE_NASCIMENTO)));
-                    p.setNatimorto(Conversor.intToBoolean(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_IS_NATIMORTO))));
-                    proles.add(p);
+                    proles.add(getDadosFromCursor(c));
                 } while (c.moveToNext());
                 c.close();
             }
@@ -88,7 +71,7 @@ public class RepositorioProle {
         return proles;
     }
 
-    public List<Prole> buscarProlesPorAnimalPeriodo(int idAnimal, int mes, int ano) {
+    public List<Prole> buscarPorAnimalPeriodo(int idAnimal, int mes, int ano) {
 
         bancoDados = gerenciador.getReadableDatabase();
 
@@ -107,15 +90,9 @@ public class RepositorioProle {
                     int month = data.get(Calendar.MONTH);
                     int year = data.get(Calendar.YEAR);
 
-                    if ((month == mes) && (year == ano)) {
-                        Prole p = new Prole();
-                        p.setId(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID)));
-                        p.setMatriz(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID_MATRIZ)));
-                        p.setDataDeNascimento(data);
-                        p.setPesoDeNascimento(c.getFloat(c.getColumnIndex(SQLiteManager.PROLE_PESO_DE_NASCIMENTO)));
-                        p.setNatimorto(Conversor.intToBoolean(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_IS_NATIMORTO))));
-                        proles.add(p);
-                    }
+                    if ((month == mes) && (year == ano))
+                        proles.add(getDadosFromCursor(c));
+
                 } while (c.moveToNext());
                 c.close();
             }
@@ -133,12 +110,7 @@ public class RepositorioProle {
     public boolean atualizarProle(Prole prole) {
         bancoDados = gerenciador.getWritableDatabase();
 
-        ContentValues dados = new ContentValues();
-
-        dados.put(SQLiteManager.PROLE_ID_MATRIZ, prole.getMatriz());
-        dados.put(SQLiteManager.PROLE_DATA_DE_NASCIMENTO, prole.getDataDeNascimento().getTimeInMillis());
-        dados.put(SQLiteManager.PROLE_PESO_DE_NASCIMENTO, prole.getPesoDeNascimento());
-        dados.put(SQLiteManager.PROLE_IS_NATIMORTO, Conversor.booleanToInt(prole.isNatimorto()));
+        ContentValues dados = getContentValues(prole);
 
         int retorno = bancoDados.update(SQLiteManager.TABELA_PROLE,
                 dados, SQLiteManager.PROLE_ID + " = ?",
@@ -160,6 +132,31 @@ public class RepositorioProle {
         return result;
     }
 
+
+    private ContentValues getContentValues(Prole prole) {
+        ContentValues dados = new ContentValues();
+        dados.put(SQLiteManager.PROLE_ID_MATRIZ, prole.getMatriz());
+        dados.put(SQLiteManager.PROLE_DATA_DE_NASCIMENTO, prole.getDataDeNascimento().getTimeInMillis());
+        dados.put(SQLiteManager.PROLE_PESO_DE_NASCIMENTO, prole.getPesoDeNascimento());
+        dados.put(SQLiteManager.PROLE_IS_NATIMORTO, Conversor.booleanToInt(prole.isNatimorto()));
+
+        return dados;
+    }
+
+    private Prole getDadosFromCursor(Cursor c) {
+        Calendar data = Calendar.getInstance();
+        Prole prole = new Prole();
+
+        data.setTimeInMillis(Long.valueOf(c.getString(c.getColumnIndex(SQLiteManager.PROLE_DATA_DE_NASCIMENTO))));
+
+        prole.setId(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID)));
+        prole.setMatriz(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_ID_MATRIZ)));
+        prole.setDataDeNascimento(data);
+        prole.setPesoDeNascimento(c.getFloat(c.getColumnIndex(SQLiteManager.PROLE_PESO_DE_NASCIMENTO)));
+        prole.setNatimorto(Conversor.intToBoolean(c.getInt(c.getColumnIndex(SQLiteManager.PROLE_IS_NATIMORTO))));
+
+        return prole;
+    }
 
 }
 
