@@ -16,7 +16,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String REAL_NOT_NULL = "REAL NOT NULL";
     public static final String INTEGER_NOT_NULL = "INTEGER NOT NULL";
     public static final String SELECT_TODOS = "SELECT * FROM ";
-    private static final String DROP_TABLE = "DROP TABLE ";
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
