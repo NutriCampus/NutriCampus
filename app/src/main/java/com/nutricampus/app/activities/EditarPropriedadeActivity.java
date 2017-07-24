@@ -1,6 +1,5 @@
 package com.nutricampus.app.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -71,8 +70,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         if(result) {
             Toast.makeText(EditarPropriedadeActivity.this, getString(R.string.msg_sucesso_atualizar, "Propriedade", propriedade.getNome()),
                     Toast.LENGTH_LONG).show();
-            Intent it = new Intent(EditarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-            startActivity(it);
+            this.onBackPressed();
         } else {
             Toast.makeText(EditarPropriedadeActivity.this, "Erro ao gravar Propriedade", Toast.LENGTH_LONG).show();
         }

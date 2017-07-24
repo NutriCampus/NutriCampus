@@ -80,10 +80,17 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
-                ListaPropriedadesActivity.this.finish();
+                //ListaPropriedadesActivity.this.finish();
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaListView("");
+
     }
 
     @Override
@@ -104,18 +111,13 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.menu_opc_cont_adicionar_propriedade:
-                Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
-                startActivity(intent);
-                this.finish();
-                return true;
             case R.id.menu_opc_cont_adicionar_animal:
                 if (info != null)
-                    abreTelaCadAnimal(info.position);
+                    abreTelaAnimal(info.position, CadastrarAnimalActivity.class);
                 return true;
             case R.id.menu_opc_cont_visualizar_animais:
                 if (info != null)
-                    abreTelaListAnimal(info.position);
+                    abreTelaAnimal(info.position, ListaAnimaisActivity.class);
                 return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
@@ -166,7 +168,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(ListaPropriedadesActivity.this);
                         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaPropriedadesActivity.this);
 
-                        List<Animal> listAnimal = repositorioAnimal.buscarTodosAnimaisPropriedade(propriedade.getId());
+                        List<Animal> listAnimal = repositorioAnimal.buscarPorPropridade(propriedade.getId());
                         for(Animal a : listAnimal)
                             repositorioAnimal.removerAnimal(a);
 
@@ -207,6 +209,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
                 action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+                carregaListView("");
             }
             //hides the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -224,7 +227,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 action.setCustomView(R.layout.barra_pesquisa);//add the custom view
                 action.setDisplayShowTitleEnabled(false); //hide the title
 
-                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
+                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
 
                 //this is a listener to do a search when the user clicks on search button
                 inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -304,17 +307,9 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
         startActivity(getIntent(item));
     }
 
-    private void abreTelaCadAnimal(int posicao) {
+    private void abreTelaAnimal(int posicao, Class activity) {
         Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(posicao);
-        Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarAnimalActivity.class);
-        intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
-        startActivity(intent);
-        this.finish();
-    }
-
-    private void abreTelaListAnimal(int posicao) {
-        Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(posicao);
-        Intent intent = new Intent(ListaPropriedadesActivity.this, ListaAnimaisActivity.class);
+        Intent intent = new Intent(ListaPropriedadesActivity.this, activity);
         intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
         startActivity(intent);
         this.finish();

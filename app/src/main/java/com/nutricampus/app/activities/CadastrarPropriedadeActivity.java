@@ -204,8 +204,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
 
-            Log.d("EF", "VOltar >> " + voltarCadAnimal );
-
             if(voltarCadAnimal == 1) {
                 Intent it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
                 it.putExtra(EXTRA_PROPRIEDADE, propriedade);

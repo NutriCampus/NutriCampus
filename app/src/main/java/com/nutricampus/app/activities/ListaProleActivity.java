@@ -30,7 +30,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class ListaProleActivity extends AppCompatActivity {
+
     @BindView(R.id.lista_prole)
     ListView listaProle;
     @BindView(R.id.text_quantidade_encontrados)
@@ -172,7 +174,7 @@ public class ListaProleActivity extends AppCompatActivity {
         if (mes == 12)
             lista = repositorio.buscarPorMatriz(this.idAnimal);
         else
-            lista = repositorio.buscarProlesPorAnimalPeriodo(idAnimal, mes, ano);
+            lista = repositorio.buscarPorAnimalPeriodo(idAnimal, mes, ano);
 
         ListaProleAdapter adapter = new ListaProleAdapter(lista, this);
 

@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <EditText
-        android:id="@+id/input_pesquisa_propriedades"
+        android:id="@+id/input_pesquisa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:inputType="textFilter|textCapWords"

@@ -30,14 +30,16 @@
             android:textAlignment="viewStart"
             android:textSize="20sp" />
 
-        <!--
+
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/lista_animal_genero"
+                android:id="@+id/lista_animal_ativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/switch_ativo"
@@ -52,14 +54,14 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/lista_animal_peso"
+                android:id="@+id/lista_animal_propriedade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/campo_peso_vivo"
+                android:text="@string/campo_propriedade"
                 android:textSize="15sp" />
 
         </LinearLayout>
-        -->
+
 
     </LinearLayout>
 

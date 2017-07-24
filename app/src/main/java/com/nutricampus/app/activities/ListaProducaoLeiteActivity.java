@@ -149,7 +149,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
     public void filtrarRegistros(View view) {
 
         int mes = Conversor.mesStringParaInt(String.valueOf(spinnerMeses.getSelectedItem()));
-        int ano = Integer.valueOf(String.valueOf(spinnerAnos.getSelectedItem()));
+        int ano = Integer.parseInt(String.valueOf(spinnerAnos.getSelectedItem()));
 
         carregaListView(mes, ano);
     }
