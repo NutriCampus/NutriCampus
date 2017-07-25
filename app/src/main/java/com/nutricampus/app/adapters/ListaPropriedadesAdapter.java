@@ -44,17 +44,10 @@ public class ListaPropriedadesAdapter extends BaseAdapter {
         final Propriedade propriedade = propriedades.get(indice);
 
         //pegando as referências das Views
-<<<<<<< HEAD
         TextView id = (TextView) view.findViewById(R.id.lista_propriedade_id);
         TextView nome = (TextView) view.findViewById(R.id.lista_propriedade_nome);
         TextView cidade = (TextView) view.findViewById(R.id.lista_propriedade_cidade);
         TextView estado = (TextView) view.findViewById(R.id.lista_propriedade_estado);
-=======
-        TextView id = view.findViewById(R.id.lista_propriedade_id);
-        TextView nome = view.findViewById(R.id.lista_propriedade_nome);
-        TextView cidade = view.findViewById(R.id.lista_propriedade_cidade);
-        TextView estado = view.findViewById(R.id.lista_propriedade_estado);
->>>>>>> origin/pmateus
 
         //populando as Views
         id.setText(String.valueOf(propriedade.getId()));
