@@ -10,7 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public abstract class Mascara {
+public final class Mascara {
     public static final String CPF_MASK       = "###.###.###-##";
     public static final String CELULAR_MASK   = "(##) ##### ####";
     public static final String CEP_MASK       = "#####-###";

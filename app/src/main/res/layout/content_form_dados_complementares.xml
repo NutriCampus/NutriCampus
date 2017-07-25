@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/caixa_arredondada"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_form"
+    android:paddingRight="@dimen/margin_form">
+
+    <EditText
+        android:id="@+id/input_id_propriedade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text=""
+        android:visibility="gone" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_identificador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_identificador"
+            android:inputType="text"
+            android:enabled="false" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginBottom="@dimen/margin_inputs_form"
+            android:layout_marginTop="6dp">
+
+            <EditText
+                android:id="@+id/input_peso_vivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/campo_peso_vivo"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="0dp">
+
+            <EditText
+                android:id="@+id/input_data_complementar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableEnd="@drawable/ic_data_calendario"
+                android:drawableRight="@drawable/ic_data_calendario"
+                android:focusable="false"
+                android:hint="@string/campo_data_registro"
+                android:inputType="date"
+                android:onClick="inserirData" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginBottom="@dimen/margin_inputs_form"
+            android:layout_marginTop="@dimen/margin_inputs_form">
+
+            <EditText
+                android:id="@+id/input_caminhada_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/campo_caminhada_vertical"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginBottom="@dimen/margin_inputs_form"
+            android:layout_marginTop="@dimen/margin_inputs_form">
+
+            <EditText
+                android:id="@+id/input_caminhada_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/campo_caminhada_horizontal"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_semana_lactacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_semana_lactacao"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/ckb_pastando"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:checked="false"
+            android:text="@string/campo_pastando"
+            android:textSize="17sp" />
+
+        <CheckBox
+            android:id="@+id/ckb_lactacao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:checked="false"
+            android:text="@string/campo_lactacao"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/ckb_cio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:checked="false"
+            android:text="@string/campo_cio"
+            android:textSize="17sp" />
+
+        <CheckBox
+            android:id="@+id/ckb_gestante"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:checked="false"
+            android:text="@string/campo_gestante"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:gravity="center_vertical"
+            android:layout_weight="0.1"
+            android:textSize="17sp"
+            android:text="@string/campo_eec" />
+
+        <RadioGroup
+            android:id="@+id/rgEec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_eec1"
+                android:id="@+id/rb1"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_eec2"
+                android:id="@+id/rb2"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_eec3"
+                android:id="@+id/rb3"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_eec4"
+                android:id="@+id/rb4"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_eec5"
+                android:id="@+id/rb5"
+                android:textSize="17sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:drawableLeft="@drawable/save"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/btn_salvar"
+        android:onClick="salvarHistoricoAnimal" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/campo_historico"
+        android:drawableLeft="@drawable/historico"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/btn_hist_registros"
+        android:visibility="gone"/>
+
+</LinearLayout>

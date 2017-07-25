@@ -11,9 +11,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioAnimal;
+import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.entities.Usuario;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,11 +47,14 @@ public class LoginActivity extends AppCompatActivity {
      * Método para criar usuário automaticamente sem necessidade de cadastrar todas as vezes
      */
     private void criarUsuarioDefault() {
-        RepositorioUsuario repo = new RepositorioUsuario(this);
         String admin = "admin";
+
+        RepositorioUsuario repo = new RepositorioUsuario(this);
         if (repo.buscarUsuario(admin, admin) == null) {
             repo.inserirUsuario(new Usuario(1, admin, "", admin, "admin@mail.com", admin));
         }
+
+
     }
 
     @Override
@@ -103,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public Usuario buscarUsuario(String usuarioValor, String senhaValor) {
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
+        return repositorioUsuario.buscarUsuario(usuarioValor, senhaValor);
 
-        return repositorioUsuario.buscarUsuario(usuarioValor,senhaValor);
     }
 
     public void falhaLogin(String mensagem) {
@@ -120,21 +133,20 @@ public class LoginActivity extends AppCompatActivity {
         String usuario = this.editTextUsuario.getText().toString();
         String password = this.editTextSenha.getText().toString();
 
-        if (usuario.isEmpty()){
+        if (usuario.isEmpty()) {
             this.editTextUsuario.setError(getString(R.string.msg_erro_campo));
-            valido = false;}
-        else if(usuario.length() < 4) {
+            valido = false;
+        } else if (usuario.length() < 4) {
             this.editTextUsuario.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
             this.editTextUsuario.setError(null);
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             this.editTextSenha.setError(getString(R.string.msg_erro_campo));
             valido = false;
-        }
-        else if(password.length() < 5) {
+        } else if (password.length() < 5) {
             this.editTextSenha.setError(getString(R.string.msg_erro_senha));
             valido = false;
         } else {

@@ -70,7 +70,8 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
         else{
             Toast toast = Toast.makeText(RecuperarSenhaActivity.this,
                     getString(R.string.msg_sem_internet), Toast.LENGTH_LONG);
-            TextView v = toast.getView().findViewById(android.R.id.message);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+
             if (v != null) v.setGravity(Gravity.CENTER);
             toast.show();
         }

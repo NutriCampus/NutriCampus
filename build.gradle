@@ -17,9 +17,9 @@ buildscript {
 }
 
 ext {
-    configCompileSdkVersion = 26
-    configTargetSdkVersion = 26
-    configBuildToolsVersion = '26.0.0'
+    configCompileSdkVersion = 25
+    configTargetSdkVersion = 25
+    configBuildToolsVersion = '25.0.3'
 
     supportVersion = '23.1.1'
     support = [annotations: "com.android.support:support-annotations:$supportVersion",

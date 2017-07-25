@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -25,9 +24,11 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
+import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
@@ -38,6 +39,8 @@ import butterknife.ButterKnife;
 
 @java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class ListaPropriedadesActivity extends AppCompatActivity{
+
+    public static final String EXTRA_PROPRIEDADE = "propriedade";
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
@@ -58,6 +61,9 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_lista_propriedades);
         ButterKnife.bind(this);
+
+        listPropriedades.setEmptyView(findViewById(android.R.id.empty));
+
         registerForContextMenu(listPropriedades);
         carregaListView("");
 
@@ -74,10 +80,17 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
-                ListaPropriedadesActivity.this.finish();
+                //ListaPropriedadesActivity.this.finish();
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaListView("");
+
     }
 
     @Override
@@ -91,17 +104,20 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_crud,menu);
+        inflater.inflate(R.menu.menu_contexto_propriedade,menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.menu_opc_cont_adicionar:
-                Intent intent = new Intent(this, CadastrarPropriedadeActivity.class);
-                startActivity(intent);
-                this.finish();
+            case R.id.menu_opc_cont_adicionar_animal:
+                if (info != null)
+                    abreTelaAnimal(info.position, CadastrarAnimalActivity.class);
+                return true;
+            case R.id.menu_opc_cont_visualizar_animais:
+                if (info != null)
+                    abreTelaAnimal(info.position, ListaAnimaisActivity.class);
                 return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
@@ -109,14 +125,12 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 return true;
             case R.id.menu_opc_cont_excluir:
                 Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(info.position);
-                Log.i("PROPRIEDADE", propriedade.getNome() + " " + propriedade.getId());
                 confirmarExcluir(propriedade);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,13 +159,18 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     private void confirmarExcluir(final Propriedade propriedade){
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.msg_excluir_confirmar) + " a \"" + propriedade.getNome() + "\" ?" )
+                .setMessage(getString(R.string.msg_excluir_confirmar_propriedade,"\"" + propriedade.getNome() + "\"" ))
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(ListaPropriedadesActivity.this);
                         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(ListaPropriedadesActivity.this);
+                        RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaPropriedadesActivity.this);
+
+                        List<Animal> listAnimal = repositorioAnimal.buscarPorPropridade(propriedade.getId());
+                        for(Animal a : listAnimal)
+                            repositorioAnimal.removerAnimal(a);
 
                         Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
 
@@ -190,6 +209,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
                 action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+                carregaListView("");
             }
             //hides the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -207,7 +227,8 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 action.setCustomView(R.layout.barra_pesquisa);//add the custom view
                 action.setDisplayShowTitleEnabled(false); //hide the title
 
-                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa_propriedades); //the text editor
+                inputPesquisaPropriedades = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
+
 
                 //this is a listener to do a search when the user clicks on search button
                 inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -246,13 +267,19 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         listPropriedades.setAdapter(adapter);
 
-        mensagemQuantidade.setText(lista.size() + " " + getString(R.string.campo_texto_lista_encontrados));
 
-        if (lista.isEmpty())
+
+        if (lista.isEmpty()) {
             linha.setVisibility(View.GONE);
-        else
+            mensagemQuantidade.setVisibility(View.GONE);
+        } else {
             linha.setVisibility(View.VISIBLE);
-
+            mensagemQuantidade.setVisibility(View.VISIBLE);
+            mensagemQuantidade.setText(getResources().getQuantityString(
+                    R.plurals.msg_registros_encontrados,
+                    adapter.getCount(),
+                    adapter.getCount()));
+        }
 
     }
 
@@ -279,5 +306,13 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     private void abreTelaEditar(int posicao){
         Propriedade item = (Propriedade) listPropriedades.getItemAtPosition(posicao);
         startActivity(getIntent(item));
+    }
+
+    private void abreTelaAnimal(int posicao, Class activity) {
+        Propriedade propriedade = (Propriedade) listPropriedades.getItemAtPosition(posicao);
+        Intent intent = new Intent(ListaPropriedadesActivity.this, activity);
+        intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
+        startActivity(intent);
+        this.finish();
     }
 }

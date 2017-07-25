@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -44,6 +45,7 @@ public class ActionBarManager {
         session = new SharedPreferencesManager(activity);
         new DrawerBuilder().withActivity(activity).build();
 
+
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.header)
@@ -59,7 +61,6 @@ public class ActionBarManager {
                     }
                 })
                 .build();
-
 
         mActionBar = new DrawerBuilder()
                 .withActivity(activity)
@@ -87,18 +88,26 @@ public class ActionBarManager {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = null;
                         switch ((int) drawerItem.getIdentifier()){
                             case 1:
-                                Intent intent = new Intent(activity, ListaPropriedadesActivity.class);
-                                activity.startActivity(intent);
+                                intent = new Intent(activity, ListaPropriedadesActivity.class);
+                                break;
+                            case 3:
+                                intent = new Intent(activity, ListaAnimaisActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();
                                 activity.finish();
                                 break;
                             default:
+                                break;
 
                         }
+
+                        if (intent != null)
+                            activity.startActivity(intent);
+
                         return false;
                     }
                 })

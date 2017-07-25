@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
+import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -31,9 +34,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.nutricampus.app.fragments.DadosAnimalFragment.*;
+
 @java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarPropriedadeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String EXTRA_PROPRIEDADE = "propriedade";
 
     @BindView(R.id.input_id_propriedade)
     EditText inputId;
@@ -62,7 +68,10 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @BindView(R.id.btn_add_proprietario)
     Button buttonAddProprietario;
 
+    private int voltarCadAnimal;
     SharedPreferencesManager session;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +83,20 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         setContentView(R.layout.activity_cadastrar_propriedade);
 
         ButterKnife.bind(this);
-
         addAutoCompletes();
 
         inputTelefone.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputTelefone));
         inputCep.addTextChangedListener(Mascara.insert(Mascara.CEP_MASK, inputCep));
 
         spinnerProprietario.setOnItemSelectedListener(this);
+
+        Intent it = getIntent();
+        voltarCadAnimal = it.getIntExtra(EXTRA_CAD_ANIMAL, -1);
+        Proprietario proprietario = (Proprietario)
+                it.getSerializableExtra(CadastrarProprietarioActivity.EXTRA_PROPRIETARIO);
+
+        if(proprietario != null)
+            inputIdProprietario.setText(String.valueOf(proprietario.getId()));
 
         // Loading spinner data from database
         preencherSpinnerListaProprietario();
@@ -136,11 +152,12 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
             spinnerProprietario.setSelection(posicao);
         } else {
-            ArrayAdapter adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_spinner_item, new String[]{"<< " + getString(R.string.msg_cadastre_proprietario) + " >>"});
-            spinnerProprietario.setAdapter(adapter);
+            Proprietario prop = new Proprietario(0, "", "<< " + getString(R.string.msg_cadastre_proprietario) + " >>", "", "");
+            todosProprietarios.add(prop);
+            ArrayAdapter<Proprietario> spinnerProprietarioAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, todosProprietarios);
 
-
+            spinnerProprietario.setAdapter(spinnerProprietarioAdapter);
         }
     }
 
@@ -187,9 +204,17 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
 
-            Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-            startActivity(it);
-            this.finish();
+            if(voltarCadAnimal == 1) {
+                Intent it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+                it.putExtra(EXTRA_PROPRIEDADE, propriedade);
+                startActivity(it);
+                this.finish();
+            } else {
+                Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+                startActivity(it);
+                this.finish();
+            }
+
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
@@ -199,6 +224,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
+        //Enviar voltarCadAnimal para o cadastro de proprietario para não se perder ao retornar para cadPropriedade
+        it.putExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL, voltarCadAnimal);
         startActivity(it);
     }
 
@@ -222,7 +249,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         if (!camposVazios.isEmpty()) {
             for (TextView view : camposVazios)
-                ValidaFormulario.defineStatusCampo(view, getString(R.string.msg_erro_campo));
+                view.setError(getString(R.string.msg_erro_campo));
 
             valido = false;
         }
@@ -231,21 +258,26 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if (!ValidaFormulario.isSelecaoValida(spinnerProprietario.getSelectedItemPosition(), 0)) {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
             text.setTextColor(Color.RED);
-            valido = ValidaFormulario.defineStatusCampo(text, "");
+            text.setError("");
+            valido = false;
         } else {
             TextView text = (TextView) spinnerProprietario.getSelectedView();
             text.setError(null);
             text.setTextColor(Color.BLACK);
         }
 
-        if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString()))
-            valido = ValidaFormulario.defineStatusCampo(inputTelefone, getString(R.string.msg_erro_telefone_incompleto));
+        if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString())) {
+            inputTelefone.setError(getString(R.string.msg_erro_telefone_incompleto));
+            valido = false;
+        }
         else
             inputTelefone.setError(null);
 
 
-        if (!ValidaFormulario.isCEPValido(inputCep.getText().toString()))
-            valido = ValidaFormulario.defineStatusCampo(inputCep, getString(R.string.msg_erro_cep_incompleto));
+        if (!ValidaFormulario.isCEPValido(inputCep.getText().toString())) {
+            inputCep.setError(getString(R.string.msg_erro_cep_incompleto));
+            valido = false;
+        }
         else
             inputCep.setError(null);
 
@@ -266,5 +298,35 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         // Implementação necessário por causa da Interface usada nesta classe
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent it;
+                if(voltarCadAnimal == 1)
+                    it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+                else
+                    it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+                startActivity(it);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent it;
+        if(voltarCadAnimal == 1)
+            it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+        else
+            it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+        startActivity(it);
+        finish();
     }
 }

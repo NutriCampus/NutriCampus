@@ -5,7 +5,7 @@
 
 # Package Files #
 *.jar
-#Não remover o jar do gradlew#
+#Nao remover o jar do gradlew#
 !gradle/wrapper/gradle-wrapper.jar
 !app/libs/*.jar
 *.war
@@ -14,10 +14,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-
+/app/app.iml
 *.iml
 .gradle
 /local.properties
+/.idea/*
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
