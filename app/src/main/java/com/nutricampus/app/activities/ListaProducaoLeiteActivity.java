@@ -197,6 +197,7 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
 
     private void abreTelaEditar(int posicao) {
         ProducaoDeLeite item = (ProducaoDeLeite) listaProducao.getItemAtPosition(posicao);
+
         startActivity(getIntent(item));
     }
 
@@ -210,6 +211,8 @@ public class ListaProducaoLeiteActivity extends AppCompatActivity {
         intent.putExtra("proteinaBruta", String.valueOf(producaoDeLeite.getPctProteinaBruta()));
         intent.putExtra("proteinaVerdadeira", String.valueOf(producaoDeLeite.getPctProteinaVerdadeira()));
         intent.putExtra("gordura", String.valueOf(producaoDeLeite.getGordura()));
+
+        intent.putExtra("idAnimal", producaoDeLeite.getAnimal());
         return intent;
     }
 
