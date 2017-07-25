@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/lista_propriedade_id"
+        android:text=""
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lista_propriedade_nome"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:text="Nome da propriedade"
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lista_propriedade_cidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_cidade"
+                android:paddingLeft="@dimen/padding_list"
+                android:paddingBottom="@dimen/padding_list"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lista_propriedade_estado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_uf"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/lista_propriedade_ic_seta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_seta_direita" />
+
+</LinearLayout>
