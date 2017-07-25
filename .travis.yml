@@ -21,8 +21,8 @@ android:
     - '.+'
 
 before_cache:
-    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    #- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    #- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
     directories:
     - $HOME/.gradle/
@@ -63,4 +63,4 @@ addons:
 env:
   global:
     - ADB_INSTALL_TIMEOUT=20
-dist: precise
+#dist: precise
