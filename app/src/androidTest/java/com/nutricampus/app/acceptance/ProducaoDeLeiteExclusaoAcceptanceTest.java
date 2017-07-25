@@ -10,7 +10,6 @@ import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.acceptance.ToastMatcher;
 import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
@@ -98,7 +97,7 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
 
         }
         ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Abrir"),
+                allOf(withContentDescription("Open"),
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
@@ -140,7 +139,7 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
         appCompatTextView5.perform(click());
 
 
-        onView(withText("Peso 888,00 kg"))
+        onView(withText("Peso 888.00 kg"))
                 .perform(longClick());
 
         ViewInteraction appCompatTextView2 = onView(

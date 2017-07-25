@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.acceptance.ToastMatcher;
 import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
@@ -23,7 +22,6 @@ import com.nutricampus.app.entities.ProducaoDeLeite;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +36,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -111,7 +107,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
 
         }
         ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Abrir"),
+                allOf(withContentDescription("Open"),
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
@@ -231,7 +227,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
 
         }
         ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Abrir"),
+                allOf(withContentDescription("Open"),
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
