@@ -227,7 +227,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 action.setCustomView(R.layout.barra_pesquisa);//add the custom view
                 action.setDisplayShowTitleEnabled(false); //hide the title
 
-                inputPesquisaPropriedades = action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
+                inputPesquisaPropriedades = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
 
                 //this is a listener to do a search when the user clicks on search button
                 inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {

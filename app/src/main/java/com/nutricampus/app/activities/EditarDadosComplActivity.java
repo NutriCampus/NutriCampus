@@ -1,7 +1,6 @@
 package com.nutricampus.app.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +61,7 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
 
         //Atribuir o valor de EEC
         int idRadioButton = radioGroup.getCheckedRadioButtonId();
-        RadioButton rb = radioGroup.findViewById(idRadioButton);
+        RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
         int eec;
         if(rb == null)
             eec = 0;

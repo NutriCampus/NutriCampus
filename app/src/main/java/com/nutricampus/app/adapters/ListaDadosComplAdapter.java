@@ -49,8 +49,8 @@ public class ListaDadosComplAdapter extends BaseAdapter {
         final View linha = LayoutInflater.from(context).inflate(R.layout.item_lista_dados_compl, null);
         final DadosComplAnimal dadosComplAnimal = dados.get(position);
 
-        TextView id = linha.findViewById(R.id.lista_dados_id);
-        TextView data = linha.findViewById(R.id.lista_dados_data);
+        TextView id = (TextView) linha.findViewById(R.id.lista_dados_id);
+        TextView data = (TextView) linha.findViewById(R.id.lista_dados_data);
 
         id.setText(String.valueOf(dadosComplAnimal.getId()));
         data.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));

@@ -45,9 +45,9 @@ public class ListaProleAdapter extends BaseAdapter {
         final Prole prole = this.prole.get(indice);
 
         //pegando as referências das View
-        TextView id = view.findViewById(R.id.lista_prole_id);
-        TextView data = view.findViewById(R.id.lista_prole_data);
-        TextView peso = view.findViewById(R.id.lista_prole_peso);
+        TextView id = (TextView) view.findViewById(R.id.lista_prole_id);
+        TextView data = (TextView) view.findViewById(R.id.lista_prole_data);
+        TextView peso = (TextView) view.findViewById(R.id.lista_prole_peso);
 
         //populando as Views
         id.setText(String.valueOf(prole.getId()));
