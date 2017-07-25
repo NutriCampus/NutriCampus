@@ -73,15 +73,14 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
 
     @Test
     public void producaoDeLeiteBuscarTA1() {
-
         Calendar calendarJunho = Calendar.getInstance();
         calendarJunho.set(2017, Calendar.JUNE, 1);
         Calendar calendarJulho = Calendar.getInstance();
         calendarJulho.set(2017, Calendar.JULY, 1);
 
         RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(calendarJulho, 1, 88, 88, 88, 88, 88);
+        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
+        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
 
@@ -109,16 +108,6 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
                     allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
             appCompatButton.perform(click());
 
-            /*ViewInteraction textView = onView(
-                    allOf(withText("NutriCampus"),
-                            childAtPosition(
-                                    allOf(withId(R.id.toolbar),
-                                            childAtPosition(
-                                                    IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                    0)),
-                                    1),
-                            isDisplayed()));
-            textView.check(matches(withText("NutriCampus")));*/
 
         }
         ViewInteraction appCompatImageButton = onView(
@@ -142,9 +131,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        /*ViewInteraction appCompatTextView1 = onView(
-                allOf(withId(R.id.listaAnimais), withText("animalAdmin UM"), isDisplayed()));
-        appCompatTextView1.perform(longClick());*/
+
         onView(withText("animalAdmin UM"))
                 .perform(longClick());
         try {
@@ -196,6 +183,104 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             fail("Não existe essa view");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
+        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
+    }
+
+    @Test
+    public void producaoDeLeiteBuscarTA2() {
+
+        Calendar calendarJunho = Calendar.getInstance();
+        calendarJunho.set(2017, Calendar.JUNE, 1);
+        Calendar calendarJulho = Calendar.getInstance();
+        calendarJulho.set(2017, Calendar.JULY, 1);
+
+        RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
+        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
+        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
+        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
+        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
+
+        if (getActivityInstance() instanceof MainActivity) {
+            //dummy if
+            try {
+                Thread.sleep(4500);//toast de boas vindas
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            ViewInteraction appCompatEditText = onView(
+                    allOf(withId(R.id.input_usuario), isDisplayed()));
+            appCompatEditText.perform(click());
+            ViewInteraction appCompatEditText2 = onView(
+                    allOf(withId(R.id.input_usuario), isDisplayed()));
+            appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+
+            ViewInteraction appCompatEditText3 = onView(
+                    allOf(withId(R.id.input_senha), isDisplayed()));
+            appCompatEditText3.perform(replaceText("admin"), closeSoftKeyboard());
+
+            ViewInteraction appCompatButton = onView(
+                    allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
+            appCompatButton.perform(click());
+
+        }
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Abrir"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.material_drawer_recycler_view),
+                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                                withParent(withId(R.id.material_drawer_layout)))),
+                        isDisplayed()));
+        recyclerView.perform(actionOnItemAtPosition(5, click()));
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText("animalAdmin UM"))
+                .perform(longClick());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatTextView = onView(
+                allOf(withId(android.R.id.title), withText("Ver produção de leite"), isDisplayed()));
+        appCompatTextView.perform(click());
+        ViewInteraction appCompatSpinner4 = onView(
+                allOf(withId(R.id.spinner_meses), isDisplayed()));
+        appCompatSpinner4.perform(click());
+
+        ViewInteraction appCompatTextView5 = onView(
+                allOf(withId(android.R.id.text1), withText("TODOS"), isDisplayed()));
+        appCompatTextView5.perform(click());
+
+        ViewInteraction appCompatButton9 = onView(
+                allOf(withId(R.id.btn_filtrar_producao), isDisplayed()));
+        appCompatButton9.perform(click());
+        try {
+            Thread.sleep(500);
+            onView(withText("01/07/2017")).perform(longClick());
+            pressBack();
+            onView(withText("01/06/2017")).perform(longClick());
+            pressBack();
+            // View is in hierarchy
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
