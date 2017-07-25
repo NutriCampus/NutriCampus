@@ -67,8 +67,8 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
         Calendar calendarJulho = Calendar.getInstance();
         calendarJulho.set(2017, Calendar.JULY, 1);
         RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(calendarJulho, 1, 88, 88, 88, 88, 88);
+        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(calendarJunho, 1, 999, 999, 999, 999, 999);
+        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(calendarJulho, 1, 888, 888, 888, 888, 888);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
 
@@ -140,7 +140,7 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
         appCompatTextView5.perform(click());
 
 
-        onView(withText("Peso 88,00 kg"))
+        onView(withText("Peso 888,00 kg"))
                 .perform(longClick());
 
         ViewInteraction appCompatTextView2 = onView(
