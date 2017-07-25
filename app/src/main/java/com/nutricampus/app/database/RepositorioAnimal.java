@@ -104,8 +104,9 @@ public class RepositorioAnimal {
         return (retorno > 0);
     }
 
-    public List<Animal> buscarTodosAnimais() {
-        return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL);
+    public List<Animal> buscarTodosAnimais(String identificador) {
+        return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL +
+                    " WHERE " + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
     }
 
     public List<Animal> buscarPorPropridade(int idPropriedade) {

@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.Propriedade;
 
 import java.util.List;
 
@@ -51,8 +53,19 @@ public class ListaAnimaisAdapter extends BaseAdapter {
 
         TextView id = linha.findViewById(R.id.lista_animal_id);
         TextView nome = linha.findViewById(R.id.lista_animal_nome);
+        TextView ativo = linha.findViewById(R.id.lista_animal_ativo);
+        TextView propriedade = linha.findViewById(R.id.lista_animal_propriedade);
 
         nome.setText(animal.getIndentificador());
+
+        if (animal.isAtivo())
+            ativo.setText("Ativo");
+        else
+            ativo.setText("Inativo");
+
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(context);
+        Propriedade p = repositorioPropriedade.buscarPropriedade(animal.getId_propriedade());
+        propriedade.setText(p.getNome());
 
         return linha;
 

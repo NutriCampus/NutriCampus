@@ -85,6 +85,7 @@
     <string name="campo_cpf">CPF</string>
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
+    <string name="campo_propriedade">Propriedade</string>
 
 
     <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
