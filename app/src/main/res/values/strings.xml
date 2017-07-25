@@ -22,7 +22,7 @@
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
     <string name="menu_visualizar_animais">Visualizar animais</string>
-    <string name="menu_historico">Ver histórico de crescimento</string>
+    <string name="menu_historico">Ver histórico de dados</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
