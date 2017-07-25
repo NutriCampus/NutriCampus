@@ -2,7 +2,6 @@ language: android
 jdk: oraclejdk8
 sudo: false
 install: true
-dist: precise
 
 android:
   components:
@@ -61,3 +60,4 @@ addons:
 env:
   global:
     - ADB_INSTALL_TIMEOUT=20
+  dist: precise
