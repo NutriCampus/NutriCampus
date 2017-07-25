@@ -5,8 +5,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 
 android {
-    compileSdkVersion configCompileSdkVersion
-    buildToolsVersion configBuildToolsVersion
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.nutricampus.app"
         /*minSdkVersion 16
@@ -15,7 +15,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"*/
         minSdkVersion 16
-        targetSdkVersion configTargetSdkVersion
+        targetSdkVersion 26
         versionCode 1
         versionName project.version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -87,8 +87,8 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.9.2@aar') {
         transitive = true
     }
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.mikepenz:iconics-core:2.8.5@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
