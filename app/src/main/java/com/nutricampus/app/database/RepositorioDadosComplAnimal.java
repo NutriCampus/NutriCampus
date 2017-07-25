@@ -76,7 +76,7 @@ public class RepositorioDadosComplAnimal {
     public DadosComplAnimal buscarDadosComplAnimal(int id_animal) {
         bancoDados = gerenciador.getReadableDatabase();
 
-        String colunasWhere = SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + "= ?";
+        String colunasWhere = SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = ? ";
         String[] valoresWhere = new String[]{String.valueOf(id_animal)};
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_DADOS_COMPL, new String[]{
@@ -137,7 +137,7 @@ public class RepositorioDadosComplAnimal {
         data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_DATA))));
 
         return new DadosComplAnimal(
-                cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL)),
+                cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID)),
                 data,
                 cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL)),
                 cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO)),
