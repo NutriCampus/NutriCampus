@@ -73,7 +73,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
     }
 
     @Test
-    public void producaoDeLeiteCadastrarAcceptanceTest() {
+    public void producaoDeLeiteCadastrarTA1() {
         if (getActivityInstance() instanceof MainActivity) {
             //dummy if
             try {
@@ -209,6 +209,81 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
             repositorioProducaoDeLeite.removerProducaoDeLeite(in);
         }
 
+    }
+
+
+    @Test
+    public void producaoDeLeiteCadastrarTA2() {
+        if (getActivityInstance() instanceof MainActivity) {
+            //dummy if
+            try {
+                Thread.sleep(4500);//toast de boas vindas
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            ViewInteraction appCompatEditText = onView(
+                    allOf(withId(R.id.input_usuario), isDisplayed()));
+            appCompatEditText.perform(click());
+            ViewInteraction appCompatEditText2 = onView(
+                    allOf(withId(R.id.input_usuario), isDisplayed()));
+            appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+
+            ViewInteraction appCompatEditText3 = onView(
+                    allOf(withId(R.id.input_senha), isDisplayed()));
+            appCompatEditText3.perform(replaceText("admin"), closeSoftKeyboard());
+
+            ViewInteraction appCompatButton = onView(
+                    allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
+            appCompatButton.perform(click());
+
+        }
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Abrir"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.material_drawer_recycler_view),
+                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                                withParent(withId(R.id.material_drawer_layout)))),
+                        isDisplayed()));
+        recyclerView.perform(actionOnItemAtPosition(5, click()));
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText("animalAdmin UM"))
+                .perform(longClick());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatTextView = onView(
+                allOf(withId(android.R.id.title), withText("Ver produção de leite"), isDisplayed()));
+        appCompatTextView.perform(click());
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.btn_add_producao), isDisplayed()));
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.btn_salvar_producao), withText("Salvar")));
+        appCompatButton3.perform(scrollTo(), click());
+
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
+            Thread.sleep(3500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static Matcher<View> childAtPosition(

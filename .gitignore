@@ -4,7 +4,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 #Não remover o jar do gradlew#
 !gradle/wrapper/gradle-wrapper.jar
 *.war
