@@ -1,14 +1,63 @@
-#https://docs.travis-ci.com/user/customizing-the-build/ variaveis
 language: android
 jdk: oraclejdk8
 sudo: false
+install: true
 
+android:
+  components:
+    - build-tools-26.0.0
+    - android-26
+    - extra-android-m2repository
+    - extra-android-support
+    - extra-google-m2repository
+    - sys-img-armeabi-v7a-android-26
+  licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+    - '.+'
+
+before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+    directories:
+    - $HOME/.gradle/
+    - $HOME/.android/build-cache
+    - $HOME/.sonar/cache
+    - $HOME/.m2/repository
+    
+before_script:
+    - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
+    #- emulator -avd test -no-skin -no-audio -no-window &
+    - emulator -avd test -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &
+    
 script: 
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    
+    - ./gradlew build jacocoTestReport sonarqube connectedCheck -PdisablePreDex --stacktrace
+    #Mesmo q dê erro em algum teste integrado, irá continuar e upar o que deu certo pro codecov
+    - chmod +x backend.sh && ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
+    #assembleAndroidTest
+
+before_install:
+    - chmod +x gradlew 
+    - mkdir "$ANDROID_HOME/licenses" || true
+    - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+    - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+    - pip install --user codecov
+    #- echo yes | android update sdk --all --filter build-tools-$ANDROID_BUILD_TOOLS_VERSION --no-ui --force
 after_success:
-    - chmod +x backend.sh
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
+    - bash <(curl -s https://codecov.io/bash)
 after_failure:
-    - chmod +x backend.sh
-    - ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
+    - bash <(curl -s https://codecov.io/bash)
+addons:
+    sonarcloud:
+        organization: "nutricampus"
+        token:
+            secure: $SonarQube
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=20
+dist: precise
