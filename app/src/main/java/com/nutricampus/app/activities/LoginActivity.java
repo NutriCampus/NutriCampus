@@ -48,43 +48,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void criarUsuarioDefault() {
         String admin = "admin";
-        String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
-        String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
-        String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
-        String prop1 = "propriedadeAdminUM", prop2 = "propriedadeAdminDOIS";
-        String animal1 = "animalAdmin UM", animal2 = "animalAdmin DOIS";
-        String tel1 = "(87) 00000 0000", tel2 = "(87) 99999 9999";
-        String rua1 = "rua1", rua2 = "rua2";
-        String bairro1 = "bairro1", bairro2 = "bairro2";
-        String cep1 = "00000-000", cep2 = "99999-999";
 
         RepositorioUsuario repo = new RepositorioUsuario(this);
         if (repo.buscarUsuario(admin, admin) == null) {
             repo.inserirUsuario(new Usuario(1, admin, "", admin, "admin@mail.com", admin));
         }
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(this);
-        if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
-        }
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(this);
-        if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
-        }
-        RepositorioAnimal repoAnimal = new RepositorioAnimal(this);
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
 
-            RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(this);
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-        }
 
     }
 

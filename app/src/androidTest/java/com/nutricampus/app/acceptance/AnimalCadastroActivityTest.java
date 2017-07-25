@@ -110,10 +110,10 @@ public class AnimalCadastroActivityTest {
                             isDisplayed()));
             appCompatButton4.perform(click());
             closeKeyboard();
-//            ViewInteraction appCompatButton5 = onView(
-//                    allOf(withId(android.R.id.button1), withText("OK")));
-//            appCompatButton5.perform(scrollTo(), click());
-//            closeKeyboard();
+            ViewInteraction appCompatButton5 = onView(
+                    allOf(withId(android.R.id.button1), withText("OK")));
+            appCompatButton5.perform(scrollTo(), click());
+            closeKeyboard();
             ViewInteraction appCompatEditText13 = onView(
                     withId(R.id.input_nome_propriedade));
             appCompatEditText13.perform(scrollTo(), replaceText("Propriedade 1"), closeSoftKeyboard());
