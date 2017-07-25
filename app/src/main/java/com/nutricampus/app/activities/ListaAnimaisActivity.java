@@ -103,7 +103,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
             }
         });
-
     }
 
     @Override
@@ -126,21 +125,21 @@ public class ListaAnimaisActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_historico:
                 if (info != null)
-                    abreTelaHistorico(info.position, ListaDadosComplActivity.class);
+                    chamarActivity(info.position, ListaDadosComplActivity.class);
                 return true;
             case R.id.menu_opc_cont_producao:
                 if (info != null)
-                    abreTelaComAnimal(info.position, ListaProducaoLeiteActivity.class);
+                    chamarActivity(info.position, ListaProducaoLeiteActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_prole:
                 if (info != null)
-                    abreTelaComAnimal(info.position, ListaProleActivity.class);
+                    chamarActivity(info.position, ListaProleActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_editar:
                 if (info != null)
-                    abreTelaEditar(info.position, EditarAnimalActivity.class);
+                    chamarActivity(info.position, EditarAnimalActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_excluir:
@@ -162,10 +161,8 @@ public class ListaAnimaisActivity extends AppCompatActivity
                         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaAnimaisActivity.this);
                         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(ListaAnimaisActivity.this);
 
-                        carregarListView(0, "");
-
                         int idAnimal = animal.getId();
-                        int idPropriedade = animal.getId_propriedade();
+                        int idPropriedade = animal.getPropriedade();
                         int resultAnimal = repositorioAnimal.removerAnimal(animal);
 
                         DadosComplAnimal dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(idAnimal);
@@ -175,18 +172,9 @@ public class ListaAnimaisActivity extends AppCompatActivity
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_excluir_animal_sucesso), Toast.LENGTH_LONG).show();
 
-                            if(idPropriedade == 0) {
-                                carregarListView(0, "");
-                                inputIdPropriedade.setText(0);
-                            } else {
-                                carregarListView(idPropriedade, "");
-                                inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
-                            }
+                            carregarListView(0, "");
 
-                            preencherSpinnerListaPropriedade();
-
-                        }
-                        else{
+                        } else {
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
                         }

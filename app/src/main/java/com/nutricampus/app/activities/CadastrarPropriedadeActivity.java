@@ -305,7 +305,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+                Intent it;
+                if(voltarCadAnimal == 1)
+                    it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+                else
+                    it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
                 startActivity(it);
                 finish();
                 break;
@@ -317,7 +321,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     @Override
     public void onBackPressed(){
-        Intent it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+        Intent it;
+        if(voltarCadAnimal == 1)
+            it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+        else
+            it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
         startActivity(it);
         finish();
     }
