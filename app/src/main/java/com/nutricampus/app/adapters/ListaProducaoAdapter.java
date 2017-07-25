@@ -45,9 +45,15 @@ public class ListaProducaoAdapter extends BaseAdapter {
         final ProducaoDeLeite producao = producaoDeLeites.get(indice);
 
         //pegando as referências das Views
+<<<<<<< HEAD
         TextView id = (TextView) view.findViewById(R.id.lista_producao_id);
         TextView data = (TextView) view.findViewById(R.id.lista_producao_data);
         TextView leite = (TextView) view.findViewById(R.id.lista_producao_leite);
+=======
+        TextView id = view.findViewById(R.id.lista_producao_id);
+        TextView data = view.findViewById(R.id.lista_producao_data);
+        TextView leite = view.findViewById(R.id.lista_producao_leite);
+>>>>>>> origin/pmateus
 
         //populando as Views
         id.setText(String.valueOf(producao.getId()));

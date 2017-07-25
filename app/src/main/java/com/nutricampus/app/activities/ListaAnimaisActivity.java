@@ -337,6 +337,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
                 inputPesquisa = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
 
+
                 //this is a listener to do a search when the user clicks on search button
                 inputPesquisa.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override

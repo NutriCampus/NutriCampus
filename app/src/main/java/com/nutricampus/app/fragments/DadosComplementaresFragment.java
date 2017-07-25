@@ -80,7 +80,11 @@ public class DadosComplementaresFragment extends Fragment
 
         View layout = inflater.inflate(R.layout.fragment_dados_complementares, container, false);
 
+<<<<<<< HEAD
         inputData = (EditText) layout.findViewById(R.id.input_identificador);
+=======
+        inputData = layout.findViewById(R.id.input_identificador);
+>>>>>>> origin/pmateus
         inputData.setVisibility(View.GONE);
 
         inputData = (EditText) layout.findViewById(R.id.input_data_complementar);
@@ -193,7 +197,11 @@ public class DadosComplementaresFragment extends Fragment
 
         //Atribuir o valor de EEC
         int idRadioButton = radioGroup.getCheckedRadioButtonId();
+<<<<<<< HEAD
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
+=======
+        RadioButton rb = radioGroup.findViewById(idRadioButton);
+>>>>>>> origin/pmateus
         int eec;
         if(rb == null)
             eec = 0;

@@ -5,7 +5,7 @@
 
 # Package Files #
 *.jar
-#N�o remover o jar do gradlew#
+#Nao remover o jar do gradlew#
 !gradle/wrapper/gradle-wrapper.jar
 !app/libs/*.jar
 *.war

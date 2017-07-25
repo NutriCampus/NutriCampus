@@ -164,6 +164,7 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
         //Atribuir o valor de EEC
         int idRadioButton = radioGroup.getCheckedRadioButtonId();
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
+
         int eec;
         if(rb == null)
             eec = 0;

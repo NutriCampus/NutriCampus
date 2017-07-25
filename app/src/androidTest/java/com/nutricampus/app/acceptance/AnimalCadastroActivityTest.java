@@ -63,6 +63,7 @@ public class AnimalCadastroActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
+<<<<<<< HEAD
     /*
         @Test
         public void animalCadastroActivityTest1() throws Exception {//Cadastro Total(Inserindo nova propriedade)
@@ -471,6 +472,11 @@ public class AnimalCadastroActivityTest {
     @Test
     public void animalCadastroActivityTest3() throws Exception {//Cadastro Total(Inserindo nova propriedade)
         doLogout();
+=======
+    @Test
+    public void animalCadastroActivityTest3() throws Exception {//Cadastro Total(Inserindo nova propriedade)
+        /*doLogout();
+>>>>>>> origin/pmateus
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
         appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
@@ -506,6 +512,7 @@ public class AnimalCadastroActivityTest {
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
         appCompatButton2.perform(click());
+<<<<<<< HEAD
 //
 //        ViewInteraction appCompatButton3 = onView(
 //                withId(R.id.btn_add_proprietario));
@@ -538,6 +545,9 @@ public class AnimalCadastroActivityTest {
 //                allOf(withId(android.R.id.button1), withText("OK")));
 //        appCompatButton5.perform(scrollTo(), click());
 //        closeKeyboard();
+=======
+
+>>>>>>> origin/pmateus
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
         appCompatSpinner.perform(scrollTo(), click());
@@ -732,6 +742,7 @@ public class AnimalCadastroActivityTest {
                                                 0)),
                                 0),
                         isDisplayed()));
+<<<<<<< HEAD
         textView4.check(matches(withText("Procure uma propriedade")));
     }
 
@@ -1810,6 +1821,50 @@ public class AnimalCadastroActivityTest {
 
         return currentActivity;
     }
+=======
+        textView4.check(matches(withText("Procure uma propriedade")));*/
+    }
+
+    private static Matcher<View> childAtPosition(
+            final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+
+    public void doLogout() throws Exception {
+        if (getActivityInstance() instanceof MainActivity) {
+            new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
+            currentActivity.finish();
+        }
+    }
+
+    public Activity getActivityInstance() {
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()) {
+                    currentActivity = (Activity) resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity;
+    }
+
+>>>>>>> origin/pmateus
     public void closeKeyboard() throws Exception {
         try {
             Thread.sleep(1000);
