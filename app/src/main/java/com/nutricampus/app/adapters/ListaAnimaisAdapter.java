@@ -51,7 +51,6 @@ public class ListaAnimaisAdapter extends BaseAdapter {
         final View linha = LayoutInflater.from(context).inflate(R.layout.item_lista_animal, null);
         final Animal animal = animais.get(position);
 
-        TextView id = linha.findViewById(R.id.lista_animal_id);
         TextView nome = linha.findViewById(R.id.lista_animal_nome);
         TextView ativo = linha.findViewById(R.id.lista_animal_ativo);
         TextView propriedade = linha.findViewById(R.id.lista_animal_propriedade);
