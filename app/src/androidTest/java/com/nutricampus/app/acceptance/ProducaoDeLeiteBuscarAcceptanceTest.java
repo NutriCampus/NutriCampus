@@ -72,7 +72,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
     }
 
     @Test
-    public void producaoDeLeiteBuscarAcceptanceTest() {
+    public void producaoDeLeiteBuscarTA1() {
 
         Calendar calendarJunho = Calendar.getInstance();
         calendarJunho.set(2017, Calendar.JUNE, 1);

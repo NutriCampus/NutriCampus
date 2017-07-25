@@ -211,7 +211,6 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
 
     }
 
-
     @Test
     public void producaoDeLeiteCadastrarTA2() {
         if (getActivityInstance() instanceof MainActivity) {

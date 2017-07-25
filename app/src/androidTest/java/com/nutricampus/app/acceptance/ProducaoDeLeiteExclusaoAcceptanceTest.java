@@ -61,7 +61,7 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
     }
 
     @Test
-    public void producaoDeLeiteExclusao() {
+    public void producaoDeLeiteExclusaoTA1() {
         Calendar calendarJunho = Calendar.getInstance();
         calendarJunho.set(2017, Calendar.JUNE, 1);
         Calendar calendarJulho = Calendar.getInstance();
