@@ -7,7 +7,7 @@ android:
   components:
     - tools
     - plataform-tools
-    - tools
+    #- tools
     - build-tools-26.0.0
     - android-26
     - extra-android-m2repository
@@ -63,4 +63,4 @@ addons:
 env:
   global:
     - ADB_INSTALL_TIMEOUT=20
-#dist: precise
+dist: precise
