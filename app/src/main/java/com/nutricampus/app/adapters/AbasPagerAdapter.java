@@ -4,15 +4,12 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.fragments.DadosComplementaresFragment;
-
-import java.util.Locale;
 
 
 /**
@@ -55,7 +52,6 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Locale l = Locale.getDefault();
         return titulos[position];
     }
 }

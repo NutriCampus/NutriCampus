@@ -89,7 +89,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         listAnimais.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                abreTelaEditar(position);
+                abreTelaEditar(position, EditarAnimalActivity.class);
             }
         });
 
@@ -103,7 +103,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
             }
         });
-
     }
 
     @Override
@@ -126,21 +125,21 @@ public class ListaAnimaisActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_historico:
                 if (info != null)
-                    abreTelaHistorico(info.position);
+                    chamarActivity(info.position, ListaDadosComplActivity.class);
                 return true;
             case R.id.menu_opc_cont_producao:
                 if (info != null)
-                    abreTelaComAnimal(info.position, ListaProducaoLeiteActivity.class);
+                    chamarActivity(info.position, ListaProducaoLeiteActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_prole:
                 if (info != null)
-                    abreTelaComAnimal(info.position, ListaProleActivity.class);
+                    chamarActivity(info.position, ListaProleActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_editar:
                 if (info != null)
-                    abreTelaEditar(info.position);
+                    chamarActivity(info.position, EditarAnimalActivity.class);
                 return true;
 
             case R.id.menu_opc_cont_excluir:
@@ -173,9 +172,9 @@ public class ListaAnimaisActivity extends AppCompatActivity
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_excluir_animal_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregarListView(idPropriedade, "");
-                        }
-                        else{
+                            carregarListView(0, "");
+
+                        } else {
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
                         }
@@ -185,24 +184,22 @@ public class ListaAnimaisActivity extends AppCompatActivity
                 .show();
     }
 
-    private void abreTelaEditar(int position) {
-        Animal animal = (Animal) listAnimais.getItemAtPosition(position);
-        Intent intent = new Intent(ListaAnimaisActivity.this, EditarAnimalActivity.class);
-        intent.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
-        startActivity(intent);
+    private void abreTelaEditar(int posicao, Class classe) {
+        chamarActivity(posicao, classe);
     }
 
-    private void abreTelaHistorico(int position) {
-        Animal animal = (Animal) listAnimais.getItemAtPosition(position);
-        Intent intent = new Intent(ListaAnimaisActivity.this, ListaDadosComplActivity.class);
-        intent.putExtra("animal", animal);
-        startActivity(intent);
+    private void abreTelaHistorico(int posicao, Class classe) {
+        chamarActivity(posicao, classe);
     }
 
     private void abreTelaComAnimal(int position, Class classe) {
-        int idAnimal = ((Animal) listAnimais.getItemAtPosition(position)).getId();
+        chamarActivity(position, classe);
+    }
+
+    private void chamarActivity(int posicao, Class classe) {
+        Animal animal = (Animal) listAnimais.getItemAtPosition(posicao);
         Intent intent = new Intent(ListaAnimaisActivity.this, classe);
-        intent.putExtra("idAnimal", idAnimal);
+        intent.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
         startActivity(intent);
     }
 
@@ -217,7 +214,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         List<Animal> animais;
 
         if(idPropriedade == 0)
-            animais = repositorioAnimal.buscarTodosAnimais();
+            animais = repositorioAnimal.buscarTodosAnimais(idenficador);
         else
             animais = repositorioAnimal.buscarPorIdentificador(idPropriedade, idenficador);
 
@@ -345,12 +342,8 @@ public class ListaAnimaisActivity extends AppCompatActivity
                     @Override
                     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                         if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            if (spinnerPropriedade.getSelectedItem() != null) {
-                                int id = ((Propriedade) spinnerPropriedade.getSelectedItem()).getId();
-
-                                carregarListView(id, inputPesquisa.getText().toString());
-                                return true;
-                            }
+                            carregarListView(0, inputPesquisa.getText().toString());
+                            return true;
                         }
                         return false;
                     }

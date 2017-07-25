@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class EditarProducaoLeiteActivity extends CadastroProducaoLeiteActivity {
         inputData.setText(getIntent().getStringExtra("data"));
 
         buttonSalvar.setText(R.string.atualizar);
-        inicializaCampoData();
+        inicializaCampoData(inputData);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class EditarProducaoLeiteActivity extends CadastroProducaoLeiteActivity {
         }
 
         ProducaoDeLeite producao = getObjetoProducao();
-
+        Log.w("PRDO", producao.toString());
         RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(getBaseContext());
         boolean result = repositorioProducaoDeLeite.atualizarProducaoDeLeite(producao);
 

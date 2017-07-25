@@ -22,7 +22,7 @@
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
     <string name="menu_visualizar_animais">Visualizar animais</string>
-    <string name="menu_historico">Ver histórico de crescimento</string>
+    <string name="menu_historico">Ver histórico de dados</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
 
@@ -85,6 +85,7 @@
     <string name="campo_cpf">CPF</string>
     <string name="campo_email">E-mail</string>
     <string name="campo_senha">Senha</string>
+    <string name="campo_propriedade">Propriedade</string>
 
 
     <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
@@ -93,7 +94,7 @@
     <!-- Strings: Animais, Prole -->
     <string name="campo_animal">Animal</string>
     <string name="campo_genero">Gênero</string>
-    <string name="campo_peso_vivo">Peso</string>
+    <string name="campo_peso_vivo">Peso (Kg)</string>
     <string name="campo_add_registro">Novo Registro Geral</string>
     <string name="campo_historico">Histórico de dados</string>
 
@@ -105,8 +106,8 @@
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>
     <string name="campo_data_registro">Data de registro</string>
-    <string name="campo_caminhada_vertical">Caminhada vertical</string>
-    <string name="campo_caminhada_horizontal">Caminhada Horizontal</string>
+    <string name="campo_caminhada_vertical">Caminhada vertical (m)</string>
+    <string name="campo_caminhada_horizontal">Caminhada Horizontal (m)</string>
     <string name="campo_eec">EEC</string>
     <string name="campo_eec1">1</string>
     <string name="campo_eec2">2</string>

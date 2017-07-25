@@ -113,7 +113,7 @@ public class RepositorioProle {
         ContentValues dados = getContentValues(prole);
 
         int retorno = bancoDados.update(SQLiteManager.TABELA_PROLE,
-                dados, SQLiteManager.PROLE_ID + " = ?",
+                dados, SQLiteManager.PROLE_ID + " = ? ",
                 new String[]{String.valueOf(prole.getId())});
 
         bancoDados.close();
