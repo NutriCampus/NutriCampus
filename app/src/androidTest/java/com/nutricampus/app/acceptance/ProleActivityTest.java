@@ -131,8 +131,44 @@ public class ProleActivityTest {
                 ViewInteraction appCompatButton17 = onView(
                         allOf(withId(R.id.btn_salvar_prole), withText("Salvar"), isDisplayed()));
                 appCompatButton17.perform(click());
-            }
 
+
+                //ADD PROLE 04
+                closeKeyboard();
+                ViewInteraction floatingActionButton = onView(
+                        allOf(withId(R.id.btn_add_prole), isDisplayed()));
+                floatingActionButton.perform(click());
+                closeKeyboard();
+                ViewInteraction appCompatEditText = onView(
+                        allOf(withId(R.id.input_peso_prole), isDisplayed()));
+                appCompatEditText.perform(replaceText("30"), closeSoftKeyboard());
+                closeKeyboard();
+                ViewInteraction appCompatEditText1 = onView(
+                        allOf(withId(R.id.input_data_nascimento), isDisplayed()));
+                appCompatEditText1.perform(replaceText("25/07/2017"), closeSoftKeyboard());
+                closeKeyboard();
+                ViewInteraction appCompatButton18 = onView(
+                        allOf(withId(R.id.btn_salvar_prole), withText("Salvar"), isDisplayed()));
+                appCompatButton18.perform(click());
+
+                //ADD PROLE 05
+                closeKeyboard();
+                ViewInteraction floatingActionButton1 = onView(
+                        allOf(withId(R.id.btn_add_prole), isDisplayed()));
+                floatingActionButton1.perform(click());
+                closeKeyboard();
+                ViewInteraction appCompatEditText42 = onView(
+                        allOf(withId(R.id.input_peso_prole), isDisplayed()));
+                appCompatEditText42.perform(replaceText("25"), closeSoftKeyboard());
+                closeKeyboard();
+                ViewInteraction appCompatEditText2 = onView(
+                        allOf(withId(R.id.input_data_nascimento), isDisplayed()));
+                appCompatEditText2.perform(replaceText("25/06/2017"), closeSoftKeyboard());
+                closeKeyboard();
+                ViewInteraction appCompatButton8 = onView(
+                        allOf(withId(R.id.btn_salvar_prole), withText("Salvar"), isDisplayed()));
+                appCompatButton8.perform(click());
+            }
             @Test
             public void Prole2AtualizaActivityTest() throws  Exception {
                 prepararTeste();
@@ -160,7 +196,7 @@ public class ProleActivityTest {
 
                 ViewInteraction appCompatEditText4 = onView(
                         allOf(withId(R.id.input_peso_prole), isDisplayed()));
-                appCompatEditText4.perform(replaceText("20"), closeSoftKeyboard());
+                appCompatEditText4.perform(replaceText("45"), closeSoftKeyboard());
 
                 ViewInteraction appCompatEditText12 = onView(
                         allOf(withId(R.id.input_data_nascimento), isDisplayed()));
@@ -172,7 +208,7 @@ public class ProleActivityTest {
 
                 //Atualiza situação e considera natimorto
 
-                onView(withText("25/07/2017")).perform(longClick());
+                onView(withText("Peso: 45.00 kg")).perform(longClick());
 
                 ViewInteraction appCompatTextView7 = onView(
                         allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
@@ -190,17 +226,16 @@ public class ProleActivityTest {
                 appCompatButton11.perform(click());
 
             }
-/*
+
             @Test
             public void Prole3BuscarActivityTest() throws Exception{
                 prepararTeste();
                 closeKeyboard();
-                ViewInteraction recyclerView2 = onView(
-                        allOf(withId(R.id.material_drawer_recycler_view),
-                                withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                        withParent(withId(R.id.material_drawer_layout)))),
-                                isDisplayed()));
-                recyclerView2.perform(actionOnItemAtPosition(5, click()));
+                onView(withText("Florinda")).perform(longClick());
+
+                ViewInteraction appCompatTextView6 = onView(
+                        allOf(withId(android.R.id.title), withText("Ver prole"), isDisplayed()));
+                appCompatTextView6.perform(click());
 
                 ViewInteraction appCompatButton19 = onView(
                         allOf(withId(R.id.btn_filtrar_prole), isDisplayed()));
@@ -216,16 +251,6 @@ public class ProleActivityTest {
                                         0),
                                 isDisplayed()));
                 textView8.check(matches(withText("Julho")));
-
-                ViewInteraction textView9 = onView(
-                        allOf(withId(R.id.lista_prole_data), withText("27/06/2017"),
-                                childAtPosition(
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0),
-                                        0),
-                                isDisplayed()));
-                textView9.check(matches(withText("27/06/2017")));
 
                 ViewInteraction appCompatSpinner6 = onView(
                         allOf(withId(R.id.spinner_meses), isDisplayed()));
@@ -250,35 +275,20 @@ public class ProleActivityTest {
                                 isDisplayed()));
                 textView10.check(matches(withText("Junho")));
 
-                ViewInteraction textView11 = onView(
-                        allOf(withId(R.id.lista_prole_data), withText("22/06/2017"),
-                                childAtPosition(
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0),
-                                        0),
-                                isDisplayed()));
-                textView11.check(matches(withText("22/06/2017")));
             }
             @Test
             public void Prole4ExcluirActivityTest() throws  Exception {
                 prepararTeste();
                 closeKeyboard();
-                ViewInteraction recyclerView2 = onView(
-                        allOf(withId(R.id.material_drawer_recycler_view),
-                                withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                        withParent(withId(R.id.material_drawer_layout)))),
-                                isDisplayed()));
-                recyclerView2.perform(actionOnItemAtPosition(5, click()));
 
-                onView(withText("Flor do Campo")).perform(longClick());
+                onView(withText("Florinda")).perform(longClick());
 
-                ViewInteraction appCompatTextView6 = onView(
+                ViewInteraction appCompatTextView7 = onView(
                         allOf(withId(android.R.id.title), withText("Ver prole"), isDisplayed()));
-                appCompatTextView6.perform(click());
+                appCompatTextView7.perform(click());
 
                 //Atualiza situação e insere peso
-                onView(withText("17/01/2016")).perform(longClick());
+                onView(withText("Peso: 25.00 kg")).perform(longClick());
 
                 ViewInteraction appCompatTextView10 = onView(
                         allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
@@ -292,16 +302,16 @@ public class ProleActivityTest {
 
                 onView(withText("Natimorto")).perform(longClick());
 
-                ViewInteraction appCompatTextView7 = onView(
+                ViewInteraction appCompatTextView9 = onView(
                         allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-                appCompatTextView7.perform(click());
+                appCompatTextView9.perform(click());
 
                 ViewInteraction appCompatButton33 = onView(
                         allOf(withId(android.R.id.button1), withText("Sim")));
                 appCompatButton33.perform(scrollTo(), click());
             }
 
-            */
+
             public void prepararTeste()throws Exception {
                 doLogout();
                 ViewInteraction appCompatEditText = onView(
@@ -421,17 +431,18 @@ public class ProleActivityTest {
                         allOf(withId(R.id.btn_salvar)));
                 appCompatButton10.perform(scrollTo(), click());
                 closeKeyboard();
-                ViewInteraction textView4 = onView(
-                        allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
-                                childAtPosition(
-                                        allOf(withId(R.id.spinnerPropriedade),
-                                                childAtPosition(
-                                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                        0)),
-                                        0),
-                                isDisplayed()));
-                textView4.check(matches(withText("Procure uma propriedade")));
-                closeKeyboard();
+//
+//                ViewInteraction textView4 = onView(
+//                        allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
+//                                childAtPosition(
+//                                        allOf(withId(R.id.spinnerPropriedade),
+//                                                childAtPosition(
+//                                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+//                                                        0)),
+//                                        0),
+//                                isDisplayed()));
+//                textView4.check(matches(withText("Procure uma propriedade")));
+//                closeKeyboard();
 
             }
             private static Matcher<View> childAtPosition(
