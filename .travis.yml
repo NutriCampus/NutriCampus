@@ -5,6 +5,9 @@ install: true
 
 android:
   components:
+    - tools
+    - plataform-tools
+    - tools
     - build-tools-26.0.0
     - android-26
     - extra-android-m2repository
