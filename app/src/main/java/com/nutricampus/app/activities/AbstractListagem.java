@@ -29,6 +29,14 @@ import butterknife.BindView;
  * Created by kellison on 01/08/17.
  */
 
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 abstract class AbstractListagem extends AppCompatActivity {
     @BindView(R.id.text_quantidade_encontrados)
     TextView mensagemQuantidade;

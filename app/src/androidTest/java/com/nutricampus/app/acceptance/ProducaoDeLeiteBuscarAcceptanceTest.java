@@ -100,27 +100,35 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
             repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
         }
         RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
+
+        int idAnimal1;
+        int idAnimal2;
         if (repoAnimal.buscarAnimal(animal1, 1) == null) {
+
             repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
             repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
 
+            idAnimal1 = repoAnimal.buscarAnimal(animal1, 1).getId();
+            idAnimal2 = repoAnimal.buscarAnimal(animal2, 2).getId();
+
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal1, 100, 150, 50, 60, 5, true, true, true, true
             ));
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal2, 100, 150, 50, 60, 5, true, true, true, true
             ));
         }
-
+        idAnimal1 = repoAnimal.buscarAnimal(animal1, 1).getId();
+        idAnimal2 = repoAnimal.buscarAnimal(animal2, 2).getId();
         Calendar calendarJunho = Calendar.getInstance();
         calendarJunho.set(2017, Calendar.JUNE, 1);
         Calendar calendarJulho = Calendar.getInstance();
         calendarJulho.set(2017, Calendar.JULY, 1);
 
         RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
+        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, idAnimal1, 99, 99, 99, 99, 99);
+        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, idAnimal1, 88, 88, 88, 88, 88);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
 
@@ -195,7 +203,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
                 allOf(withId(R.id.btn_filtrar_producao), isDisplayed()));
         appCompatButton9.perform(click());
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
             onView(withText("01/07/2017")).perform(longClick());
             pressBack();
             // View is in hierarchy
@@ -227,8 +235,8 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
             e.printStackTrace();
         }
 
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
+        //repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
+        //repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
     }
 
     @Test
