@@ -21,8 +21,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
-public class RecuperarSenhaActivity extends AppCompatActivity  {
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
+public class RecuperarSenhaActivity extends AppCompatActivity {
 
     @BindView(R.id.input_usuario_recupera)
     EditText textEditUsuario;
@@ -39,7 +45,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
     }
 
     @OnClick(R.id.btn_recuperar)
-    public void recuperaSenha(){
+    public void recuperaSenha() {
 
         if (!validaDados()) {
             return;
@@ -66,8 +72,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
                         Toast.LENGTH_LONG).show();
             }
             buttonRecuperarSenha.setEnabled(true);
-        }
-        else{
+        } else {
             Toast toast = Toast.makeText(RecuperarSenhaActivity.this,
                     getString(R.string.msg_sem_internet), Toast.LENGTH_LONG);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
@@ -83,10 +88,10 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
 
         String usuario = this.textEditUsuario.getText().toString();
 
-        if (usuario.isEmpty()){
+        if (usuario.isEmpty()) {
             this.textEditUsuario.setError(getString(R.string.msg_erro_campo));
-            valido = false;}
-        else if(usuario.length() < 4) {
+            valido = false;
+        } else if (usuario.length() < 4) {
             this.textEditUsuario.setError(getString(R.string.msg_erro_crz));
             valido = false;
         } else {
@@ -96,17 +101,17 @@ public class RecuperarSenhaActivity extends AppCompatActivity  {
         return valido;
     }
 
-    public Usuario buscaUsuario(String usuarioValor){
+    public Usuario buscaUsuario(String usuarioValor) {
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
         return repositorioUsuario.buscarUsuario(usuarioValor);
 
     }
 
-    public void enviaEmail(Usuario usuario){
+    public void enviaEmail(Usuario usuario) {
         String corpoEmail = "Olá, " + usuario.getNome() + ".<br><br>" +
                 "Você está recebendo este e-mail por que solicitou sua senha " +
-                "através do nosso aplicativo.<br>"+
+                "através do nosso aplicativo.<br>" +
                 "Sua senha é: " + usuario.getSenha() + "<br><br>" +
                 "Atenciosamente,<br>NutriCampus App.";
 

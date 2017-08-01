@@ -21,13 +21,11 @@ import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
-import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.entities.Usuario;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -56,6 +54,7 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.fail;
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ProducaoDeLeiteBuscarAcceptanceTest {

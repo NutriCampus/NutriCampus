@@ -3,7 +3,6 @@ package com.nutricampus.app.acceptance;
 import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.matcher.RootMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
@@ -37,11 +35,8 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -56,6 +51,7 @@ import static org.hamcrest.Matchers.is;
  * Created by jorge on 25/07/17.
  */
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

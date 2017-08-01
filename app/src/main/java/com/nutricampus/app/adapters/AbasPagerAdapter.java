@@ -20,7 +20,7 @@ import com.nutricampus.app.fragments.DadosComplementaresFragment;
 
 public class AbasPagerAdapter extends FragmentPagerAdapter {
 
-    String titulos[];
+    String[] titulos;
     Animal animal;
     Propriedade propriedade;
 

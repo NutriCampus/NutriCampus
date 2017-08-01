@@ -53,6 +53,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ProducaoDeLeiteCadastrarAcceptanceTest {

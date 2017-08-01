@@ -30,10 +30,10 @@ public class SharedPreferencesManager {
     public static final String PREF_NAME = UNIQ_KEY + "NutriCampus";
 
     /*KEYS para o sharedpreferences*/
-    private final String KEY_USUARIONC = PREF_NAME + "usuarioNC";
-    private final String KEY_SENHANC = PREF_NAME + "senhaNC";
-    private final String KEY_EMAILNC = PREF_NAME + "emailNC";
-    private final String KEY_IDNC = PREF_NAME + "idUsuarioNC";
+    private static final String KEY_USUARIO = PREF_NAME + "usuario";
+    private static final String KEY_SENHA = PREF_NAME + "senha";
+    private static final String KEY_EMAIL = PREF_NAME + "email";
+    private static final String KEY_ID_USUARIO = PREF_NAME + "idUsuario";
     private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {
@@ -67,39 +67,39 @@ public class SharedPreferencesManager {
         pref = null;
     }
 
-    public String getUsuarioNC() {
-        return pref.getString(KEY_USUARIONC, "");
+    public String getUsuario() {
+        return pref.getString(KEY_USUARIO, "");
     }
 
-    public void setUsuarioNC(String keyUsuarioNC) {
-        editor.putString(KEY_USUARIONC, keyUsuarioNC);
+    public void setUsuario(String keyUsuario) {
+        editor.putString(KEY_USUARIO, keyUsuario);
         editor.commit();
     }
 
-    public String getSenhaNC() {
-        return pref.getString(KEY_SENHANC, "");
+    public String getSenha() {
+        return pref.getString(KEY_SENHA, "");
     }
 
-    public void setSenhaNC(String keySenhaNC) {
-        editor.putString(KEY_SENHANC, keySenhaNC);
+    public void setSenha(String keySenha) {
+        editor.putString(KEY_SENHA, keySenha);
         editor.commit();
     }
 
-    public String getEmailNC() {
-        return pref.getString(KEY_EMAILNC, "");
+    public String getEmail() {
+        return pref.getString(KEY_EMAIL, "");
     }
 
-    public void setEmailNC(String keyEmailNC) {
-        editor.putString(KEY_EMAILNC, keyEmailNC);
+    public void setEmail(String keyEmail) {
+        editor.putString(KEY_EMAIL, keyEmail);
         editor.commit();
     }
 
-    public String getIdNC() {
-        return pref.getString(KEY_IDNC, "");
+    public String getIdUsuario() {
+        return pref.getString(KEY_ID_USUARIO, "");
     }
 
-    public void setIdNC(String keyIdNC) {
-        editor.putString(KEY_IDNC, keyIdNC);
+    public void setIdUsuario(String keyIdNC) {
+        editor.putString(KEY_ID_USUARIO, keyIdNC);
         editor.commit();
     }
 
@@ -108,12 +108,12 @@ public class SharedPreferencesManager {
         editor.putBoolean(KEY_LOGADO, true);
 
         // Storing name in pref
-        editor.putString(KEY_USUARIONC, name);
+        editor.putString(KEY_USUARIO, name);
 
         // Storing email in pref
-        editor.putString(KEY_EMAILNC, email);
-        editor.putString(KEY_SENHANC, senha);
-        editor.putString(KEY_IDNC, Integer.toString(id));
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_SENHA, senha);
+        editor.putString(KEY_ID_USUARIO, Integer.toString(id));
 
         // commit changes
         editor.commit();

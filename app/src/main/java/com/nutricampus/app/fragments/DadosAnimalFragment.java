@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.database.RepositorioPropriedade;
@@ -37,6 +38,13 @@ import java.util.List;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class DadosAnimalFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
@@ -109,7 +117,7 @@ public class DadosAnimalFragment extends Fragment
             inputIdentificador.setText(animal.getIndentificador());
             inputData.setText(Conversor.dataFormatada(animal.getDataDeNascimento()));
             switchAtivo.setChecked(animal.isAtivo());
-            inputIdPropriedade.setText(String.valueOf(animal.getId_propriedade()));
+            inputIdPropriedade.setText(String.valueOf(animal.getIdPropriedade()));
             preencherSpinnerListaPropriedade();
         }
 
@@ -122,9 +130,8 @@ public class DadosAnimalFragment extends Fragment
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
-            //inputData.setText(Conversor.dataFormatada(data));
         } else {
-            this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
+            this.data.setTime(Conversor.stringToDate(inputData.getText().toString()));
         }
     }
 
@@ -181,10 +188,10 @@ public class DadosAnimalFragment extends Fragment
                     ((Propriedade) spinnerPropriedade.getSelectedItem()).getId(),
                     data,
                     switchAtivo.isChecked(),
-                    Integer.parseInt(session.getIdNC()));
+                    Integer.parseInt(session.getIdUsuario()));
         } else {
             this.animal.setIndentificador(inputIdentificador.getText().toString());
-            this.animal.setId_propriedade(((Propriedade) spinnerPropriedade.getSelectedItem()).getId());
+            this.animal.setIdPropriedade(((Propriedade) spinnerPropriedade.getSelectedItem()).getId());
             this.animal.setDataDeNascimento(data);
             this.animal.setAtivo(switchAtivo.isChecked());
         }

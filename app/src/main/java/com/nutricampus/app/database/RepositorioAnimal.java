@@ -150,7 +150,7 @@ public class RepositorioAnimal {
         dados.put(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE, animal.getPropriedade());
         dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTimeInMillis());
         dados.put(SQLiteManager.ANIMAL_COL_IS_ATIVO, animal.isAtivo());
-        dados.put(SQLiteManager.ANIMAL_COL_ID_USUARIO, animal.getId_usuario());
+        dados.put(SQLiteManager.ANIMAL_COL_ID_USUARIO, animal.getIdUsuario());
 
         return dados;
     }

@@ -1,15 +1,12 @@
 package com.nutricampus.app.activities;
 
-import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.nutricampus.app.R;
@@ -17,14 +14,20 @@ import com.nutricampus.app.adapters.ListaDadosComplAdapter;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
-import com.nutricampus.app.fragments.DadosAnimalFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaDadosComplActivity extends AppCompatActivity {
 
     public static final String EXTRA_ANIMAL = "animal";
@@ -84,21 +87,17 @@ public class ListaDadosComplActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(ListaDadosComplActivity.this, ListaAnimaisActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(ListaDadosComplActivity.this, ListaAnimaisActivity.class);
+            startActivity(it);
+            finish();
         }
 
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(ListaDadosComplActivity.this, ListaAnimaisActivity.class);
         startActivity(it);
         finish();

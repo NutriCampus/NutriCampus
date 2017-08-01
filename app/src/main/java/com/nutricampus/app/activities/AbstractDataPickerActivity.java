@@ -1,8 +1,6 @@
 package com.nutricampus.app.activities;
 
 import android.app.DatePickerDialog;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
@@ -12,15 +10,16 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.util.Calendar;
 
-
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 abstract class AbstractDataPickerActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     EditText inputData;
     protected Calendar data;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     protected void inicializaCampoData(EditText input) {
         Calendar calendario = Calendar.getInstance();
@@ -30,7 +29,7 @@ abstract class AbstractDataPickerActivity extends AppCompatActivity implements D
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
             inputData.setText(Conversor.dataFormatada(data));
         } else {
-            data.setTime(Conversor.StringToDate(inputData.getText().toString()));
+            data.setTime(Conversor.stringToDate(inputData.getText().toString()));
         }
     }
 

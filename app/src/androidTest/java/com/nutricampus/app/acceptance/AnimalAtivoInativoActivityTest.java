@@ -47,6 +47,8 @@ import static org.hamcrest.Matchers.allOf;
 /**
  * Created by jorge on 25/07/17.
  */
+
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

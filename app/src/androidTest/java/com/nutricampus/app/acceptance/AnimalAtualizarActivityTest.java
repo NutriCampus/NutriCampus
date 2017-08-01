@@ -1,7 +1,6 @@
 package com.nutricampus.app.acceptance;
 
 import android.app.Activity;
-import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -33,7 +32,6 @@ import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.longClick;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -51,6 +49,8 @@ import static org.hamcrest.Matchers.is;
 /**
  * Created by jorge on 25/07/17.
  */
+
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
