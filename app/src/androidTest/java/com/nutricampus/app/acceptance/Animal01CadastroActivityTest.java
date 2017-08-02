@@ -19,6 +19,7 @@ import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Proprietario;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -82,6 +83,12 @@ public class Animal01CadastroActivityTest {
         repositorioProprietario.removerTodos();
         repositorioAnimal.removerTodos();
 
+
+        // Necessário utilizar uma adição direta já que pela tela de cadastro dá erro, pois a tela
+        // é pequena no emulador e o botão de add não é encontrado.
+        Proprietario proprietario = new Proprietario("04998517490", "Jorge Veloso", "jvsveloso@gmail.com.com", "(99) 99999 9999");
+        repositorioProprietario.inserirProprietario(proprietario);
+
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.btn_add_proprietario),
@@ -95,40 +102,26 @@ public class Animal01CadastroActivityTest {
         appCompatButton2.perform(click());
         closeKeyboard();
 
-        Thread.sleep(2000);
 
-        ViewInteraction appCompatButton3 = onView(
-                withId(R.id.btn_add_proprietario));
-        appCompatButton3.perform(scrollTo(), click());
-        closeKeyboard();
+        Thread.sleep(1400);
+        ViewInteraction appCompatSpinner = onView(
+                withId(R.id.spinner_proprietario));
+        Thread.sleep(1000);
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.input_nome_proprietario), isDisplayed()));
-        appCompatEditText3.perform(replaceText("Jorge Veloso"), closeSoftKeyboard());
+        appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.input_cpf_proprietario), isDisplayed()));
-        appCompatEditText7.perform(replaceText("04998517490"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.input_email_proprietario), isDisplayed()));
-        appCompatEditText8.perform(replaceText("jvsveloso@gmail.com.com"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.input_fone_proprietario), isDisplayed()));
-        appCompatEditText12.perform(replaceText("(99) 99999 9999"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatButton4 = onView(
-                allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarproprietarioactvity),
-                                withParent(withId(android.R.id.content)))),
+        ViewInteraction appCompatCheckedTextView = onView(
+                allOf(withId(android.R.id.text1), withText("Jorge Veloso"),
+                        childAtPosition(
+                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                                        withParent(withClassName(is("android.widget.FrameLayout")))),
+                                1),
                         isDisplayed()));
-        appCompatButton4.perform(click());
+        Thread.sleep(1000);
+
+        appCompatCheckedTextView.perform(click());
         closeKeyboard();
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(android.R.id.button1), withText("OK")));
-        appCompatButton5.perform(scrollTo(), click());
-        closeKeyboard();
+
         ViewInteraction appCompatEditText13 = onView(
                 withId(R.id.input_nome_propriedade));
         appCompatEditText13.perform(scrollTo(), replaceText("Propriedade 1"), closeSoftKeyboard());

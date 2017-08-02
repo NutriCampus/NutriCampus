@@ -85,6 +85,14 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
     @Before
     public void preparaDados() {
 
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
+        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
+        RepositorioAnimal repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
+
+        repositorioPropriedade.removerTodos();
+        repositorioProprietario.removerTodos();
+        repositorioAnimal.removerTodos();
+
         String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
         String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
         String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
@@ -102,12 +110,10 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
         int idProprietario1 = 0;
         int idProprietario2 = 0;
 
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
         if (repositorioProprietario.buscarProprietario(cpf1) == null) {
             idProprietario1 = repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
             idProprietario2 = repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
         }
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
             idPropriedade1 = repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", idProprietario1, 1));
             idPropriedade2 = repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", idProprietario2, 1));
@@ -202,10 +208,9 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
             e.printStackTrace();
         }
 
-        onView(withText("animalAdmin UM"))
-                .perform(longClick());
+        onView(withText("animalAdmin UM")).perform(longClick());
         try {
-            Thread.sleep(500);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
