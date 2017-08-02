@@ -119,7 +119,7 @@ dependencies {
 
             property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
                     "${project.buildDir}/jacoco/testReleaseUnitTest.exec, " +
-                    "${project.buildDir}/outputs/code-coverage/connected/coverage.ec"
+                    "${project.buildDir}/outputs/code-coverage/connected/test(AVD) - 4.4.2-coverage.ec"
 
             property "sonar.sourceEncoding", "UTF-8"
         }
