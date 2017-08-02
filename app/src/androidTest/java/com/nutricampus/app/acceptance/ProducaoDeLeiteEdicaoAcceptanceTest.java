@@ -23,6 +23,7 @@ import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,10 +69,17 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         return currentActivity;
     }
 
+    private RepositorioProducaoDeLeite repositorioProducaoDeLeite;
+    private ProducaoDeLeite producaoDeLeite1;
+    private ProducaoDeLeite producaoDeLeite2;
+
+    @Before
+    public void preparaDados() {
+
+    }
 
     @Test
     public void producaoDeLeiteEdicaoTA1() {
-        String admin = "admin";
         String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
         String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
         String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
@@ -82,36 +90,51 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         String bairro1 = "bairro1", bairro2 = "bairro2";
         String cep1 = "00000-000", cep2 = "99999-999";
 
+        int idAnimal1;
+        int idAnimal2;
+        int idPropriedade1;
+        int idPropriedade2;
+        int idProprietario1 = 0;
+        int idProprietario2 = 0;
+
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
         if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
+            idProprietario1 = repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
+            idProprietario2 = repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
         }
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
+            idPropriedade1 = repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", idProprietario1, 1));
+            idPropriedade2 = repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", idProprietario2, 1));
+        } else {
+            idPropriedade1 = repositorioPropriedade.buscarPropriedade(prop1).getId();
+            idPropriedade2 = repositorioPropriedade.buscarPropriedade(prop2).getId();
         }
+
+
         RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
+
+        if (repoAnimal.buscarAnimal(animal1, idPropriedade1) == null) {
+
+            idAnimal1 = repoAnimal.inserirAnimal(new Animal(1, animal1, idPropriedade1, Calendar.getInstance(), true));
+            idAnimal2 = repoAnimal.inserirAnimal(new Animal(2, animal2, idPropriedade2, Calendar.getInstance(), true));
 
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal1, 100, 150, 50, 60, 5, true, true, true, true
             ));
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal2, 100, 150, 50, 60, 5, true, true, true, true
             ));
         }
+        idAnimal1 = repoAnimal.buscarAnimal(animal1, idPropriedade1).getId();
         Calendar calendarJunho = Calendar.getInstance();
         calendarJunho.set(2017, Calendar.JUNE, 4);
         Calendar calendarJulho = Calendar.getInstance();
         calendarJulho.set(2017, Calendar.JULY, 4);
         RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
+        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, idAnimal1, 99, 99, 99, 99, 99);
+        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, idAnimal1, 88, 88, 88, 88, 88);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
         repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
 
@@ -224,56 +247,10 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
     }
 
     @Test
     public void producaoDeLeiteEdicaoTA2() {
-        String admin = "admin";
-        String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
-        String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
-        String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
-        String prop1 = "propriedadeAdminUM", prop2 = "propriedadeAdminDOIS";
-        String animal1 = "animalAdmin UM", animal2 = "animalAdmin DOIS";
-        String tel1 = "(87) 00000 0000", tel2 = "(87) 99999 9999";
-        String rua1 = "rua1", rua2 = "rua2";
-        String bairro1 = "bairro1", bairro2 = "bairro2";
-        String cep1 = "00000-000", cep2 = "99999-999";
-
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
-        if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
-        }
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
-        if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
-        }
-        RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
-
-            RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-        }
-        Calendar calendarJunho = Calendar.getInstance();
-        calendarJunho.set(2017, Calendar.JUNE, 5);
-        Calendar calendarJulho = Calendar.getInstance();
-        calendarJulho.set(2017, Calendar.JULY, 5);
-        RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
-        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
 
         if (getActivityInstance() instanceof MainActivity) {
             //dummy if
@@ -347,7 +324,7 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         appCompatButton10.perform(click());
 
 
-        onView(withText("05/07/2017"))//Peso 99,00 kg
+        onView(withText("04/07/2017"))//Peso 99,00 kg
                 .perform(longClick());
 
         ViewInteraction appCompatTextView2 = onView(
@@ -365,56 +342,10 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
             e.printStackTrace();
         }
 
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
     }
 
     @Test
     public void producaoDeLeiteEdicaoTA3() {
-        String admin = "admin";
-        String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
-        String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
-        String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
-        String prop1 = "propriedadeAdminUM", prop2 = "propriedadeAdminDOIS";
-        String animal1 = "animalAdmin UM", animal2 = "animalAdmin DOIS";
-        String tel1 = "(87) 00000 0000", tel2 = "(87) 99999 9999";
-        String rua1 = "rua1", rua2 = "rua2";
-        String bairro1 = "bairro1", bairro2 = "bairro2";
-        String cep1 = "00000-000", cep2 = "99999-999";
-
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
-        if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
-        }
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
-        if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
-        }
-        RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
-
-            RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-        }
-        Calendar calendarJunho = Calendar.getInstance();
-        calendarJunho.set(2017, Calendar.JUNE, 2);
-        Calendar calendarJulho = Calendar.getInstance();
-        calendarJulho.set(2017, Calendar.JULY, 2);
-        RepositorioProducaoDeLeite repositorioProducaoDeLeite = new RepositorioProducaoDeLeite(InstrumentationRegistry.getTargetContext());
-        ProducaoDeLeite producaoDeLeite1 = new ProducaoDeLeite(1, calendarJunho, 1, 99, 99, 99, 99, 99);
-        ProducaoDeLeite producaoDeLeite2 = new ProducaoDeLeite(2, calendarJulho, 1, 88, 88, 88, 88, 88);
-        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.inserirProducaoDeLeite(producaoDeLeite2);
-
         if (getActivityInstance() instanceof MainActivity) {
             //dummy if
             try {
@@ -487,7 +418,7 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         appCompatButton10.perform(click());
 
 
-        onView(withText("02/07/2017"))//Peso 99,00 kg
+        onView(withText("04/07/2017"))//Peso 99,00 kg
                 .perform(longClick());
 
         ViewInteraction appCompatTextView2 = onView(
@@ -525,8 +456,6 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
             e.printStackTrace();
         }
 
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite1);
-        repositorioProducaoDeLeite.removerProducaoDeLeite(producaoDeLeite2);
     }
 
 

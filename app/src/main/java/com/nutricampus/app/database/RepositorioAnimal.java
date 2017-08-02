@@ -131,6 +131,16 @@ public class RepositorioAnimal {
         return result;
     }
 
+    public void removerTodos() {
+        bancoDados = gerenciador.getWritableDatabase();
+        bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
+                SQLiteManager.ANIMAL_COL_ID + " > ? ",
+                new String[]{String.valueOf("-1")});
+
+        bancoDados.close();
+
+    }
+
     private Animal getDadosFromCursor(Cursor cursor) {
         Calendar data = Calendar.getInstance();
         data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));

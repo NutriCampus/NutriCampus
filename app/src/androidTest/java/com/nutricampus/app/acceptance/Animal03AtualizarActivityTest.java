@@ -54,7 +54,7 @@ import static org.hamcrest.Matchers.is;
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AnimalAtualizarActivityTest {
+public class Animal03AtualizarActivityTest {
 
     private Activity currentActivity;
     @Rule

@@ -1,8 +1,14 @@
 plugins {
     id "org.sonarqube" version "2.5"
+    id "jacoco"
 }
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.7.9'
+}
 
 android {
     compileSdkVersion 25
@@ -100,18 +106,20 @@ dependencies {
     annotationProcessor('com.jakewharton:butterknife-compiler:8.6.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     sonarqube {
         properties {
             property "sonar.projectName", "NutriCampus"
             property "sonar.projectKey", "com.nutricampus.app"
             property "sonar.projectVersion", "1.0.0"
 
-            /*property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest/TEST-*.xml, " +
-                    "${project.buildDir}/test-results/testReleaseUnitTest/TEST-*.xml , " +
-                    "${project.buildDir}/outputs/androidTest-results/connected/TEST-*.xml "
+            property "sonar.junit.reportPaths", "${project.buildDir}/test-results/testDebugUnitTest, " +
+                    "${project.buildDir}/test-results/testReleaseUnitTest, " +
+                    "${project.buildDir}/outputs/androidTest-results/connected"
 
             property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
-                    "${project.buildDir}/jacoco/testReleaseUnitTest.exec"*/
+                    "${project.buildDir}/jacoco/testReleaseUnitTest.exec, " +
+                    "${project.buildDir}/outputs/code-coverage/connected/coverage.ec"
 
             property "sonar.sourceEncoding", "UTF-8"
         }
