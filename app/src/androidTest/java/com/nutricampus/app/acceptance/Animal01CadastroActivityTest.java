@@ -154,6 +154,7 @@ public class Animal01CadastroActivityTest {
                 .perform(typeTextIntoFocusedView("e"));
 
         closeKeyboard();
+        Thread.sleep(2000);
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -161,6 +162,7 @@ public class Animal01CadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .check(matches(withText("Pernambuco")));
         closeKeyboard();
+
         onView(withId(R.id.input_cidade))
                 .perform(scrollTo())
                 .perform(typeText("Ga"));
@@ -169,6 +171,7 @@ public class Animal01CadastroActivityTest {
                 .perform(typeTextIntoFocusedView("ran"));
 
         closeKeyboard();
+        Thread.sleep(2000);
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -469,6 +472,7 @@ public class Animal01CadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .check(matches(withText("Pernambuco")));
         closeKeyboard();
+
         onView(withId(R.id.input_cidade))
                 .perform(scrollTo())
                 .perform(typeText("Ga"));
@@ -477,7 +481,7 @@ public class Animal01CadastroActivityTest {
                 .perform(typeTextIntoFocusedView("ran"));
 
         closeKeyboard();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
