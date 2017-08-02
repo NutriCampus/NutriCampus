@@ -94,6 +94,9 @@ public class Animal01CadastroActivityTest {
                 allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
         appCompatButton2.perform(click());
         closeKeyboard();
+
+        Thread.sleep(2000);
+
         ViewInteraction appCompatButton3 = onView(
                 withId(R.id.btn_add_proprietario));
         appCompatButton3.perform(scrollTo(), click());
@@ -296,12 +299,9 @@ public class Animal01CadastroActivityTest {
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
         closeKeyboard();
+        Thread.sleep(2000);
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                1),
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
@@ -367,15 +367,22 @@ public class Animal01CadastroActivityTest {
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
+
+        Thread.sleep(1000);
+
         appCompatCheckBox.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
+        Thread.sleep(1000);
+
         appCompatRadioButton.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
+        Thread.sleep(1000);
+
         appCompatButton10.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction textView4 = onView(
@@ -387,6 +394,8 @@ public class Animal01CadastroActivityTest {
                                                 0)),
                                 0),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
@@ -400,14 +409,20 @@ public class Animal01CadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatButton2.perform(click());
         closeKeyboard();
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
+        Thread.sleep(1000);
+
         appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView = onView(
@@ -417,6 +432,8 @@ public class Animal01CadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText13 = onView(
@@ -450,6 +467,8 @@ public class Animal01CadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .perform(typeTextIntoFocusedView("e"));
         closeKeyboard();
+        Thread.sleep(1000);
+
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -465,17 +484,23 @@ public class Animal01CadastroActivityTest {
                 .perform(typeTextIntoFocusedView("ran"));
 
         closeKeyboard();
+        Thread.sleep(1000);
+
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
+        Thread.sleep(1000);
+
         appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatSpinner4.perform(click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView2 = onView(
@@ -485,6 +510,8 @@ public class Animal01CadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 2),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText23 = onView(
@@ -503,6 +530,8 @@ public class Animal01CadastroActivityTest {
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatButton8.perform(click());
         closeKeyboard();
         ViewInteraction editText = onView(
@@ -549,15 +578,21 @@ public class Animal01CadastroActivityTest {
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
+        Thread.sleep(1000);
+
         appCompatCheckBox.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
+        Thread.sleep(1000);
+
         appCompatRadioButton.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
+        Thread.sleep(1000);
+
         appCompatButton10.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction textView4 = onView(
@@ -582,6 +617,8 @@ public class Animal01CadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         pressBack();
@@ -593,6 +630,8 @@ public class Animal01CadastroActivityTest {
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
         closeKeyboard();
+        Thread.sleep(1000);
+
         appCompatButton5.perform(click());
 
 
@@ -619,10 +658,14 @@ public class Animal01CadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatSpinner4.perform(click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView2 = onView(
@@ -632,6 +675,8 @@ public class Animal01CadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
         pressBack();
@@ -643,6 +688,7 @@ public class Animal01CadastroActivityTest {
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
         closeKeyboard();
+        Thread.sleep(1000);
 
         appCompatButton5.perform(click());
 
