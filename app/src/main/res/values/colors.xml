@@ -5,4 +5,8 @@
     <color name="colorAccent">#8bc34a</color>
     <color name="colorItemListSelected">#8ecc90</color>
     <color name="colorLinha">#898989</color>
+    <color name="colorFabTextViewBack">#9E9E9E</color>
+    <color name="colorFabTextView">#FFFFFF</color>
+    <color name="colorFabProprietarios">#3F51B5</color>
+    <color name="colorFabPropriedade">#FFC107</color>
 </resources>

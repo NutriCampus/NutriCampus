@@ -76,10 +76,17 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         Usuario usuario = new Usuario(registro, cpf, nome, email, senha);
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
-        boolean f = repositorioUsuario.inserirUsuario(usuario);
+        int idUsuario = repositorioUsuario.inserirUsuario(usuario);
 
 
-        if (f) {
+        if (idUsuario > -1) {
+            usuario.setId(idUsuario);
+            Toast.makeText(CadastrarUsuarioActivity.this,
+                    getString(R.string.msg_sucesso_cadastro, usuario.getNome()),
+                    Toast.LENGTH_LONG).show();
+
+            CadastrarUsuarioActivity.this.finish();
+            /*
             //Caixa de Dialogo
             AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
             dialog.setTitle("Cadastro");
@@ -92,6 +99,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
+            */
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }
@@ -128,6 +136,9 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
 
         if (registro.isEmpty()) {
             this.edtRegistro.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else if(registro.length() < 5){
+            this.edtRegistro.setError(getString(R.string.msg_erro_CRZ));
             valido = false;
         } else {
             this.edtRegistro.setError(null);

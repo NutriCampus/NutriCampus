@@ -30,11 +30,12 @@
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
 
     <string name="msg_bem_vindo">Bem-vindo ao NutriCampus</string>
-
+    <string name="msg_sucesso_cadastro">%1$s cadastrado com sucesso!</string>
     <string name="msg_erro_crz">CRZ/CRMV inválido, mínimo de 4 caracteres</string>
     <string name="msg_crz_nao_encontrado">CRZ/CRMV não encontrado</string>
     <string name="msg_erro_email">Email inválido</string>
     <string name="msg_erro_campo">Campo obrigatório</string>
+    <string name="msg_erro_CRZ">CRZ/CRMV incompleto</string>
     <string name="msg_erro_cpf_1">CPF incompleto</string>
     <string name="msg_erro_cpf_2">CPF inválido</string>
     <string name="msg_erro_telefone">Número de telefone inválido</string>
@@ -74,12 +75,16 @@
     <string name="msg_spinner_propriedade">Procure uma propriedade</string>
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
+    <string name="msg_excluir_proprietario_sucesso">Proprietário removido com sucesso </string>
     <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
+    <string name="msg_excluir_proprietario_falha">Falha ao tentar remover o proprietátio</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover</string>
     <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
+    <string name="msg_excluir_confirmar_propritario">Tem certeza que deseja remover o(a) proprietário(a) %1$s, isso excluirá as propriedades vinculados a ele(a)?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
+    <string name="proprietario">Proprietário</string>
     <string name="campo_nome">Nome</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
     <string name="campo_cpf">CPF</string>
@@ -102,6 +107,7 @@
     <string name="campo_data_nascimento">Data de nascimento</string>
     <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
     <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
+    <string name="campo_nenhum_proprietario">Nenhum proprietário cadastrado</string>
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>

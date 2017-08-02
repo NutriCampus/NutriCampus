@@ -134,7 +134,7 @@ public class DadosComplementaresFragment extends Fragment
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
-            //inputData.setText(Conversor.dataFormatada(data));
+            inputData.setText(Conversor.dataFormatada(data));
         } else {
             this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
         }
@@ -182,6 +182,7 @@ public class DadosComplementaresFragment extends Fragment
             Intent it = new Intent(getActivity(), ListaDadosComplActivity.class);
             it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
             startActivity(it);
+            return;
         }
 
         if (!validaDados()) {

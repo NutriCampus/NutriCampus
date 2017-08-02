@@ -14,10 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,11 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
     @BindView(R.id.linha) View linha;
+    @BindView(R.id.fabList) FloatingActionButton fabList;
+    @BindView(R.id.fabPropriedade) FloatingActionButton fabPropriedade;
+    @BindView(R.id.fabProprietario) FloatingActionButton fabProprietario;
+    @BindView(R.id.layoutPropriedade) LinearLayout layoutPropriedade;
+    @BindView(R.id.layoutProprietario) LinearLayout layoutPropritario;
 
     SharedPreferencesManager session;
 
@@ -74,14 +82,53 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_proprietario);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //Animações para o FAB
+        final Animation mShowLayout = AnimationUtils.loadAnimation(ListaPropriedadesActivity.this, R.anim.show_layout);
+        final Animation mHideLayout = AnimationUtils.loadAnimation(ListaPropriedadesActivity.this, R.anim.hide_layout);
+
+        fabList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(layoutPropriedade.getVisibility() == View.VISIBLE &&
+                        layoutPropritario.getVisibility() == View.VISIBLE) {
+                    layoutPropriedade.setVisibility(View.GONE);
+                    layoutPropritario.setVisibility(View.GONE);
+                    layoutPropriedade.startAnimation(mHideLayout);
+                    layoutPropritario.startAnimation(mHideLayout);
+                    //mFab.startAnimation(mHideButton);
+                } else {
+                    layoutPropriedade.setVisibility(View.VISIBLE);
+                    layoutPropritario.setVisibility(View.VISIBLE);
+                    layoutPropriedade.startAnimation(mShowLayout);
+                    layoutPropritario.startAnimation(mShowLayout);
+                    //mFab.startAnimation(mShowButton);
+                }
+            }
+        });
+
+        fabPropriedade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutPropriedade.setVisibility(View.GONE);
+                layoutPropritario.setVisibility(View.GONE);
+                layoutPropriedade.startAnimation(mHideLayout);
+                layoutPropritario.startAnimation(mHideLayout);
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
-                //ListaPropriedadesActivity.this.finish();
+                ListaPropriedadesActivity.this.finish();
+            }
+        });
 
+        fabProprietario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutPropriedade.setVisibility(View.GONE);
+                layoutPropritario.setVisibility(View.GONE);
+                layoutPropriedade.startAnimation(mHideLayout);
+                layoutPropritario.startAnimation(mHideLayout);
+                Intent intent = new Intent(ListaPropriedadesActivity.this, ListaProprietariosActivity.class);
+                startActivity(intent);
+                ListaPropriedadesActivity.this.finish();
             }
         });
     }
@@ -90,7 +137,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         carregaListView("");
-
     }
 
     @Override
@@ -175,7 +221,8 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                         Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
 
 
-                        boolean isdeleteProprietario = repositorioPropriedade.isPropriedadeProprietario(proprietario.getId());
+                        boolean isDeleteProprietario = repositorioPropriedade.
+                                PropriedadesOfProprietario(proprietario.getId()).size() > 1;
 
                         int result = repositorioPropriedade.removerPropriedade(propriedade);
 
@@ -185,7 +232,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
                             /*Excluirá o proprietário da propriedade por ultimo excluída,
                             caso ele não possua mais nenhuma propriedade*/
-                            if (!isdeleteProprietario) {
+                            if (!isDeleteProprietario) {
                                 repositorioProprietario.removerProprietario(proprietario);
                             }
 
@@ -266,8 +313,6 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 new ListaPropriedadesAdapter(lista, this);
 
         listPropriedades.setAdapter(adapter);
-
-
 
         if (lista.isEmpty()) {
             linha.setVisibility(View.GONE);
