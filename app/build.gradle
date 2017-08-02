@@ -120,6 +120,7 @@ dependencies {
             property "sonar.jacoco.reportPaths", "${project.buildDir}/jacoco/testDebugUnitTest.exec, " +
                     "${project.buildDir}/jacoco/testReleaseUnitTest.exec, " +
                     "${project.buildDir}/outputs/code-coverage/connected/test(AVD) - 5.1.1-coverage.ec," +
+                    "${project.buildDir}/outputs/code-coverage/connected/test(AVD) - 5.1.1.ec," +
                     "${project.buildDir}/outputs/code-coverage/connected/Nexus_One_API_22(AVD) - 5.1.1-coverage.ec," +
                     "${project.buildDir}/outputs/code-coverage/connected/coverage.ec"
 
