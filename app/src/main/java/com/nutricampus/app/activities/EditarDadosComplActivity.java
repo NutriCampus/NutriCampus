@@ -14,6 +14,14 @@ import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Conversor;
 
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
 
     private DadosComplAnimal dadosComplAnimal;
@@ -39,12 +47,13 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
         ckbGestante.setChecked(dadosComplAnimal.isGestante());
         ckbCio.setChecked(dadosComplAnimal.isCio());
-        if(dadosComplAnimal.getEEC() == 0)
-            ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC())).setChecked(true);
-        else
-            ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC() - 1)).setChecked(true);
 
-        btnSalvar.setText(getString(R.string.campo_corrigir));
+        if (dadosComplAnimal.getEec() == 0)
+            ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
+        else
+            ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec() - 1)).setChecked(true);
+
+        btnSalvar.setText(getString(R.string.atualizar));
     }
 
     @Override
@@ -63,14 +72,14 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         int idRadioButton = radioGroup.getCheckedRadioButtonId();
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
         int eec;
-        if(rb == null)
+        if (rb == null)
             eec = 0;
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
 
         dadosComplAnimal.setData(data);
         dadosComplAnimal.setPesoVivo(Float.parseFloat(inputPesoVivo.getText().toString()));
-        dadosComplAnimal.setEEC(eec);
+        dadosComplAnimal.setEec(eec);
         dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
         dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
         dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLactacao.getText().toString()));
@@ -79,12 +88,10 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         dadosComplAnimal.setGestante(ckbGestante.isChecked());
         dadosComplAnimal.setCio(ckbCio.isChecked());
 
-        //dadosComplAnimal.setAnimal(animal.getId());
-
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarDadosComplActivity.this);
         boolean atualDadosCompl = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplAnimal);
 
-        if(atualDadosCompl) {
+        if (atualDadosCompl) {
             Toast.makeText(EditarDadosComplActivity.this, R.string.msg_sucesso_atualizar_registro, Toast.LENGTH_LONG).show();
             Intent it = new Intent(EditarDadosComplActivity.this, ListaDadosComplActivity.class);
             it.putExtra(ListaDadosComplActivity.EXTRA_ANIMAL, animal);
@@ -97,21 +104,18 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(EditarDadosComplActivity.this, ListaDadosComplActivity.class);
-                it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, super.animal);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(EditarDadosComplActivity.this, ListaDadosComplActivity.class);
+            it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, super.animal);
+            startActivity(it);
+            finish();
         }
+
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(EditarDadosComplActivity.this, ListaDadosComplActivity.class);
         it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, super.animal);
         startActivity(it);

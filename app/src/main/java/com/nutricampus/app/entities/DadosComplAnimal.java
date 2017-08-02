@@ -1,7 +1,6 @@
 package com.nutricampus.app.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
 
 /**
@@ -14,12 +13,12 @@ public class DadosComplAnimal implements Serializable {
 
     private int id;
     private Calendar data;
-    private int id_animal;
+    private int idAnimal;
     private float pesoVivo;
 
-    /** O EEC (Escore de Condição Corporal) mede, em uma escala de 1 a 5, a quantidade de
+    /** O eec (Escore de Condição Corporal) mede, em uma escala de 1 a 5, a quantidade de
      gordura presente no corpo do animal.*/
-    private int EEC;
+    private int eec;
 
     private float caminadaHorizontal;
     private float caminhadaVertical;
@@ -33,45 +32,30 @@ public class DadosComplAnimal implements Serializable {
 
     }
 
-    public DadosComplAnimal(Calendar data, float pesoVivo, int EEC, float caminadaHorizontal,
+
+    public DadosComplAnimal(Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,
                             float caminhadaVertical, int semanaLactacao, boolean isPastando,
                             boolean isLactacao, boolean isGestante, boolean isCio) {
-        this.data = data;
-        this.pesoVivo = pesoVivo;
-        this.EEC = EEC;
-        this.caminadaHorizontal = caminadaHorizontal;
-        this.caminhadaVertical = caminhadaVertical;
-        this.semanaLactacao = semanaLactacao;
-        this.isPastando = isPastando;
-        this.isLactacao = isLactacao;
-        this.isGestante = isGestante;
-        this.isCio = isCio;
+        this(data, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao, isPastando,
+                isLactacao, isGestante, isCio);
+        this.idAnimal = idAnimal;
     }
 
-    public DadosComplAnimal(Calendar data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
+    public DadosComplAnimal(int id, Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,
                             float caminhadaVertical, int semanaLactacao, boolean isPastando,
                             boolean isLactacao, boolean isGestante, boolean isCio) {
-        this.data = data;
-        this.id_animal = id_animal;
-        this.pesoVivo = pesoVivo;
-        this.EEC = EEC;
-        this.caminadaHorizontal = caminadaHorizontal;
-        this.caminhadaVertical = caminhadaVertical;
-        this.semanaLactacao = semanaLactacao;
-        this.isPastando = isPastando;
-        this.isLactacao = isLactacao;
-        this.isGestante = isGestante;
-        this.isCio = isCio;
-    }
 
-    public DadosComplAnimal(int id, Calendar data, int id_animal, float pesoVivo, int EEC, float caminadaHorizontal,
-                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
-                            boolean isLactacao, boolean isGestante, boolean isCio) {
+        this(data, idAnimal, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao, isPastando,
+                isLactacao, isGestante, isCio);
         this.id = id;
-        this.id_animal = id_animal;
+    }
+
+    public DadosComplAnimal(Calendar data, float pesoVivo, int eec, float caminadaHorizontal,
+                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
+                            boolean isLactacao, boolean isGestante, boolean isCio) {
         this.data = data;
         this.pesoVivo = pesoVivo;
-        this.EEC = EEC;
+        this.eec = eec;
         this.caminadaHorizontal = caminadaHorizontal;
         this.caminhadaVertical = caminhadaVertical;
         this.semanaLactacao = semanaLactacao;
@@ -98,11 +82,11 @@ public class DadosComplAnimal implements Serializable {
     }
 
     public int getAnimal() {
-        return id_animal;
+        return idAnimal;
     }
 
     public void setAnimal(int id_animal) {
-        this.id_animal = id_animal;
+        this.idAnimal = id_animal;
     }
 
     public float getPesoVivo() {
@@ -113,12 +97,12 @@ public class DadosComplAnimal implements Serializable {
         this.pesoVivo = pesoVivo;
     }
 
-    public int getEEC() {
-        return EEC;
+    public int getEec() {
+        return eec;
     }
 
-    public void setEEC(int EEC) {
-        this.EEC = EEC;
+    public void setEec(int eec) {
+        this.eec = eec;
     }
 
     public float getCaminadaHorizontal() {
@@ -179,10 +163,10 @@ public class DadosComplAnimal implements Serializable {
     public String toString() {
         return "DadosComplAnimal{" +
                 "id=" + id +
-                ", animal=" + id_animal +
+                ", animal=" + idAnimal +
                 ", data=" + data.toString() +
                 ", pesoVivo=" + pesoVivo +
-                ", EEC=" + EEC +
+                ", eec=" + eec +
                 ", caminadaHorizontal=" + caminadaHorizontal +
                 ", caminhadaVertical=" + caminhadaVertical +
                 ", semanaLactacao=" + semanaLactacao +

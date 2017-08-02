@@ -2,11 +2,10 @@ package com.nutricampus.app.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -27,12 +26,21 @@ import com.nutricampus.app.fragments.DadosComplementaresFragment;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarAnimalActivity extends AppCompatActivity
-        implements DadosAnimalFragment.AoClicarConfirmaDados, DadosComplementaresFragment.SalvarDadosAnimal{
+        implements DadosAnimalFragment.AoClicarConfirmaDados, DadosComplementaresFragment.SalvarDadosAnimal {
 
     protected ViewPager viewPager;
     private Animal animal;
     protected AbasPagerAdapter pagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,20 +77,17 @@ public class CadastrarAnimalActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);
+            startActivity(it);
+            finish();
         }
+
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);
         startActivity(it);
         finish();
@@ -90,19 +95,18 @@ public class CadastrarAnimalActivity extends AppCompatActivity
 
     @Override
     public void salvar(DadosComplAnimal dadosComplAnimal) {
-
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(CadastrarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarAnimalActivity.this);
 
         //Verificação se o usuário tentou inserir sei cadastrar todos os dados ou não os confirmo-los
-        if(animal == null) {
+        if (animal == null) {
             Toast.makeText(CadastrarAnimalActivity.this, getString(R.string.msg_erro_falta_de_dados), Toast.LENGTH_LONG).show();
             return;
         }
 
         //Verificação se o animal já está cadastrado nesta propriedade
-       Animal animalDuplicado = repositorioAnimal.buscarAnimal(animal.getIndentificador(), animal.getPropriedade());
-        if(!(animalDuplicado == null)) {
+        Animal animalDuplicado = repositorioAnimal.buscarAnimal(animal.getIndentificador(), animal.getPropriedade());
+        if (animalDuplicado != null) {
             Toast.makeText(CadastrarAnimalActivity.this, getString(R.string.msg_erro_duplicidade_animal), Toast.LENGTH_LONG).show();
             return;
         }
@@ -110,7 +114,7 @@ public class CadastrarAnimalActivity extends AppCompatActivity
 
         int idAnimal = repositorioAnimal.inserirAnimal(animal);
 
-        if(idAnimal > 0) {
+        if (idAnimal > 0) {
             animal.setId(idAnimal);
         } else {
             Toast.makeText(CadastrarAnimalActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
@@ -120,7 +124,7 @@ public class CadastrarAnimalActivity extends AppCompatActivity
         dadosComplAnimal.setAnimal(idAnimal);
         int idDadosComp = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
 
-        if(idDadosComp > 0) {
+        if (idDadosComp > 0) {
             Toast.makeText(CadastrarAnimalActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             dadosComplAnimal.setId(idDadosComp);
             Intent it = new Intent(CadastrarAnimalActivity.this, ListaAnimaisActivity.class);

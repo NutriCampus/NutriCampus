@@ -11,24 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioAnimal;
-import com.nutricampus.app.database.RepositorioDadosComplAnimal;
-import com.nutricampus.app.database.RepositorioPropriedade;
-import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
-import com.nutricampus.app.entities.Animal;
-import com.nutricampus.app.entities.DadosComplAnimal;
-import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.entities.Usuario;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
@@ -36,11 +33,16 @@ public class LoginActivity extends AppCompatActivity {
 
     // Pega a referência para as views
 
-    @BindView(R.id.input_usuario) EditText editTextUsuario;
-    @BindView(R.id.input_senha) EditText editTextSenha;
-    @BindView(R.id.btn_login)   Button buttonEntrar;
-    @BindView(R.id.link_cadastro) TextView linkCadastro;
-    @BindView(R.id.link_esqueceu_senha) TextView linkEsqueceuSeha;
+    @BindView(R.id.input_usuario)
+    EditText editTextUsuario;
+    @BindView(R.id.input_senha)
+    EditText editTextSenha;
+    @BindView(R.id.btn_login)
+    Button buttonEntrar;
+    @BindView(R.id.link_cadastro)
+    TextView linkCadastro;
+    @BindView(R.id.link_esqueceu_senha)
+    TextView linkEsqueceuSeha;
 
 
     /**

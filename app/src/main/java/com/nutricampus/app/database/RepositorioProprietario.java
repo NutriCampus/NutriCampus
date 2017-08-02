@@ -167,5 +167,14 @@ public class RepositorioProprietario {
         bancoDados.close();
     }
 
+    public void removerTodos() {
+        bancoDados = gerenciador.getWritableDatabase();
+        bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
+                SQLiteManager.PROPRIETARIO_COL_ID + " > ? ",
+                new String[]{String.valueOf("-1")});
+
+        bancoDados.close();
+
+    }
 
 }

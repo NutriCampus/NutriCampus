@@ -1,9 +1,6 @@
 package com.nutricampus.app.entities;
 
-import com.nutricampus.app.utils.Conversor;
-
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
 
 /**
@@ -16,8 +13,8 @@ public class Animal implements Serializable {
 
     private int id;
     private String indentificador;
-    private int id_usuario;
-    private int id_propriedade;
+    private int idUsuario;
+    private int idPropriedade;
     private Calendar dataDeNascimento;
     private boolean isAtivo;
 
@@ -25,23 +22,23 @@ public class Animal implements Serializable {
 
     }
 
-    public Animal(String indentificador, int id_propriedade,
-                  Calendar dataDeNascimento, boolean isAtivo, int id_usuario) {
+    public Animal(String indentificador, int idPropriedade,
+                  Calendar dataDeNascimento, boolean isAtivo, int idUsuario) {
 
         this.indentificador = indentificador;
-        this.id_propriedade = id_propriedade;
+        this.idPropriedade = idPropriedade;
         this.dataDeNascimento = dataDeNascimento;
         this.isAtivo = isAtivo;
-        this.id_usuario = id_usuario;
+        this.idUsuario = idUsuario;
 
     }
 
-    public Animal(int id, String indentificador, int id_propriedade,
+    public Animal(int id, String indentificador, int idPropriedade,
                   Calendar dataDeNascimento, boolean isAtivo) {
 
         this.id = id;
         this.indentificador = indentificador;
-        this.id_propriedade = id_propriedade;
+        this.idPropriedade = idPropriedade;
         this.dataDeNascimento = dataDeNascimento;
         this.isAtivo = isAtivo;
     }
@@ -54,12 +51,12 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getIndentificador() {
@@ -67,11 +64,11 @@ public class Animal implements Serializable {
     }
 
     public int getPropriedade() {
-        return id_propriedade;
+        return idPropriedade;
     }
 
     public void setPropriedade(int propriedade) {
-        this.id_propriedade = propriedade;
+        this.idPropriedade = propriedade;
     }
 
     public void setIndentificador(String indentificador) {
@@ -86,12 +83,12 @@ public class Animal implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public int getId_propriedade() {
-        return id_propriedade;
+    public int getIdPropriedade() {
+        return idPropriedade;
     }
 
-    public void setId_propriedade(int id_propriedade) {
-        this.id_propriedade = id_propriedade;
+    public void setIdPropriedade(int idPropriedade) {
+        this.idPropriedade = idPropriedade;
     }
 
     public boolean isAtivo() {

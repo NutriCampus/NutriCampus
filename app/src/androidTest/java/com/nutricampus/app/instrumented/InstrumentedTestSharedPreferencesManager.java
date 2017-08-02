@@ -41,26 +41,26 @@ public class InstrumentedTestSharedPreferencesManager {
 
     @Test
     public void testarSetarUsuarioNC() {
-        session.setUsuarioNC("teste123");
-        assertEquals("teste123", session.getUsuarioNC());
+        session.setUsuario("teste123");
+        assertEquals("teste123", session.getUsuario());
     }
 
     @Test
     public void testarSetarSenhaNC() {
-        session.setSenhaNC("senha123");
-        assertEquals("senha123", session.getSenhaNC());
+        session.setSenha("senha123");
+        assertEquals("senha123", session.getSenha());
     }
 
     @Test
     public void testarSetarIdNC() {
-        session.setIdNC("9999");
-        assertEquals("9999", session.getIdNC());
+        session.setIdUsuario("9999");
+        assertEquals("9999", session.getIdUsuario());
     }
 
     @Test
     public void testarSetarEmailNC() {
-        session.setEmailNC("testarSetarEmailNC@email.com");
-        assertEquals("testarSetarEmailNC@email.com", session.getEmailNC());
+        session.setEmail("testarSetarEmailNC@email.com");
+        assertEquals("testarSetarEmailNC@email.com", session.getEmail());
     }
 
 }

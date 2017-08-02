@@ -11,9 +11,9 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 public final class Mascara {
-    public static final String CPF_MASK       = "###.###.###-##";
-    public static final String CELULAR_MASK   = "(##) ##### ####";
-    public static final String CEP_MASK       = "#####-###";
+    public static final String CPF_MASK = "###.###.###-##";
+    public static final String CELULAR_MASK = "(##) ##### ####";
+    public static final String CEP_MASK = "#####-###";
 
     private Mascara() {
         throw new IllegalStateException("Classe de utilidades");
@@ -36,12 +36,13 @@ public final class Mascara {
         for (char m : mask.toCharArray()) {
             if (m != '#') {
                 mascara.append(m);
-                continue;
-            }
-            try {
-                mascara.append(text.charAt(i));
-            } catch (Exception e) {
-                break;
+                i--;
+            } else {
+                try {
+                    mascara.append(text.charAt(i));
+                } catch (Exception e) {
+                    break;
+                }
             }
             i++;
         }

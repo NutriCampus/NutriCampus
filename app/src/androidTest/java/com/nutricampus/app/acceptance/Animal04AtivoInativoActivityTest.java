@@ -1,12 +1,10 @@
 package com.nutricampus.app.acceptance;
 
 import android.app.Activity;
-import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -20,9 +18,11 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.Collection;
 
@@ -48,49 +48,57 @@ import static org.hamcrest.Matchers.allOf;
  * Created by jorge on 25/07/17.
  */
 
-
-@LargeTest
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
+@android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AnimalHistoricoActivityTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Animal04AtivoInativoActivityTest {
     private Activity currentActivity;
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void HistoricoAnimal1() throws  Exception {
+    public void animalEditarActivityTest4() throws Exception {//Alterando animal para ativo ou inativo
         prepararTeste();
-        onView(withText("Florinda")).perform(longClick());
-        closeKeyboard();
+
+        onView(withText("Flor")).perform(longClick());
+
         ViewInteraction appCompatTextView6 = onView(
-                allOf(withId(android.R.id.title), withText("Ver histórico de dados"), isDisplayed()));
+                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(click());
+        pressBack();
+
         closeKeyboard();
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.ItensListaAnimal),
+
+        Thread.sleep(1500);
+        onView(withId(R.id.switch_ativo)).perform(click());
+        Thread.sleep(4000);
+        onView(withId(R.id.switch_ativo)).perform(click());
+        Thread.sleep(4000);
+
+        ViewInteraction appCompatButton8 = onView(
+                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
+                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
+                                withParent(withId(R.id.pager)))),
+                        isDisplayed()));
+        appCompatButton8.perform(click());
+
+        ViewInteraction appCompatButton10 = onView(
+                allOf(withId(R.id.btn_salvar)));
+        appCompatButton10.perform(scrollTo(), click());
+        closeKeyboard();
+        ViewInteraction textView4 = onView(
+                allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
-                                allOf(withId(R.id.listDadosCompl),
-                                        withParent(withId(R.id.telaListaDadosCompl))),
+                                allOf(withId(R.id.spinnerPropriedade),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                                0)),
                                 0),
                         isDisplayed()));
-        relativeLayout.perform(click());
-
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.input_peso_vivo), withText("500.0"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(TextInputLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        editText2.check(matches(withText("500.0")));
-
-        ViewInteraction appCompatButton25 = onView(
-                allOf(withId(R.id.btn_salvar), withText("Corrigir")));
-        appCompatButton25.perform(scrollTo(), click());
-        closeKeyboard();
+        textView4.check(matches(withText("Procure uma propriedade")));
 
     }
-
     public void prepararTeste()throws Exception{
         doLogout();
         ViewInteraction appCompatEditText = onView(
@@ -164,3 +172,8 @@ public class AnimalHistoricoActivityTest {
         }
     }
 }
+
+
+
+
+

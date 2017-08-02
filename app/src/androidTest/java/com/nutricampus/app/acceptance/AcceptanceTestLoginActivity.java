@@ -1,10 +1,5 @@
 package com.nutricampus.app.acceptance;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import android.app.Activity;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.GeneralLocation;
@@ -15,9 +10,19 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
+
+import com.nutricampus.app.R;
+import com.nutricampus.app.activities.LoginActivity;
+import com.nutricampus.app.activities.MainActivity;
+import com.nutricampus.app.database.SharedPreferencesManager;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.Collection;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
@@ -25,23 +30,9 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-
-import com.nutricampus.app.R;
-import com.nutricampus.app.activities.LoginActivity;
-import com.nutricampus.app.activities.MainActivity;
-import com.nutricampus.app.database.SharedPreferencesManager;
-
-import java.util.Collection;
 
 //https://github.com/travis-ci/travis-ci/issues/6340
 //https://github.com/thyrlian/AwesomeValidation/blob/master/.travis.yml
@@ -53,6 +44,7 @@ import java.util.Collection;
  * Contact: <paulomatew@gmail.com>
  */
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class AcceptanceTestLoginActivity {

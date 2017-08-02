@@ -3,13 +3,11 @@ package com.nutricampus.app.activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,7 +20,6 @@ import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
-import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 import java.util.ArrayList;
@@ -38,15 +35,20 @@ import butterknife.ButterKnife;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
-public class CadastrarNovoDadoComplActivity extends AppCompatActivity
-        implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener{
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
+public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
+        implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.input_identificador)
     EditText inputIdentificador;
     @BindView(R.id.input_peso_vivo)
     EditText inputPesoVivo;
-    @BindView(R.id.input_data_complementar)
-    EditText inputData;
     @BindView(R.id.input_caminhada_vertical)
     EditText inputCaminhadaVertical;
     @BindView(R.id.input_caminhada_horizontal)
@@ -69,7 +71,6 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
     EditText inputIdPropriedade;
 
     protected Calendar data;
-    private int eec;
     protected Animal animal;
 
     @Override
@@ -77,57 +78,19 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_novo_dado_compl);
 
+        inputData = (EditText) findViewById(R.id.input_data_complementar);
+
         ButterKnife.bind(CadastrarNovoDadoComplActivity.this);
 
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra("animal");
 
-        inicializaCampoData();
+        inicializaCampoData(inputData);
 
         inputIdentificador.setText(animal.getIndentificador());
         inputIdentificador.setFocusable(false);
 
     }
-
-
-
-    protected void inicializaCampoData() {
-        Calendar calendario = Calendar.getInstance();
-        // O valor do mês pelo Calendar varia entre 0 e 11, por isso soma +1
-        if (inputData.getText().toString().equals("")) {
-            data = Calendar.getInstance();
-            data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
-            inputData.setText(Conversor.dataFormatada(data));
-        } else {
-            this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
-        }
-    }
-
-    public void showDatePickerDialog(View v) {
-        Calendar cDefault = Calendar.getInstance();
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                CadastrarNovoDadoComplActivity.this,
-                this,
-                cDefault.get(Calendar.YEAR),
-                cDefault.get(Calendar.MONTH),
-                cDefault.get(Calendar.DAY_OF_MONTH));
-
-        Calendar cMax = Calendar.getInstance();
-        cMax.set(cMax.get(Calendar.YEAR), cMax.get(Calendar.MONTH), cMax.get(Calendar.DATE));
-        datePickerDialog.getDatePicker().setMaxDate(cMax.getTime().getTime());
-
-        datePickerDialog.show();
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int ano, int mes, int dia) {
-        data.set(ano, mes, dia);
-
-        inputData.setText(Conversor.dataFormatada(data));
-        inputData.setError(null);
-    }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
@@ -141,11 +104,11 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // Implementação não necessária para a classe, override necessário deido a interface extendida
     }
 
     public void inserirData(View v) {
-        showDatePickerDialog(v);
+        showDatePickerDialogOnClick(v);
     }
 
 
@@ -154,7 +117,6 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
             Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
-
 
         float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
                 Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
@@ -166,7 +128,8 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
 
         int eec;
-        if(rb == null)
+
+        if (rb == null)
             eec = 0;
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
@@ -182,14 +145,14 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
                 ckbLactacao.isChecked(),
                 ckbGestante.isChecked(),
                 ckbCio.isChecked()
-        );;
+        );
 
         dadosComplAnimal.setAnimal(animal.getId());
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarNovoDadoComplActivity.this);
         int idDadosCompl = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
 
-        if(idDadosCompl > 0) {
+        if (idDadosCompl > 0) {
             Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             dadosComplAnimal.setId(idDadosCompl);
             Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
@@ -230,28 +193,23 @@ public class CadastrarNovoDadoComplActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
-                it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
+            it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
+            startActivity(it);
+            finish();
         }
+
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(CadastrarNovoDadoComplActivity.this, ListaDadosComplActivity.class);
         it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
         startActivity(it);
         finish();
     }
-
-
 
 
 }
