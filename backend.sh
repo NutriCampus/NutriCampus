@@ -55,7 +55,7 @@ echo ">>>>>>> current local datetime: "$horalocal
 echo "##################################################################"
 echo "##################################################################"
 
-if [ "$branch" = "master" ];
+if [ "$branch" = "revisaocodigo" ];
 then
 
 #regex
