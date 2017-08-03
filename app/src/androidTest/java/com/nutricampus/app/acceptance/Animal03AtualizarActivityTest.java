@@ -71,11 +71,13 @@ public class Animal03AtualizarActivityTest {
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(longClick());
         pressBack();
+        Thread.sleep(1500);
         ViewInteraction appCompatButton9 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
+        Thread.sleep(1500);
         appCompatButton9.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText32 = onView(

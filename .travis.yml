@@ -39,7 +39,7 @@ before_script:
     
 script: 
     - datahora=`TZ=America/Recife date "+%A %d/%m/%Y %T"`' America/Recife'
-    - ./gradlew build connectedCheck jacocoTestReport sonarqube -PdisablePreDex --stacktrace
+    - ./gradlew --continue build connectedCheck jacocoTestReport sonarqube -PdisablePreDex --stacktrace
     #- ./gradlew build createDebugCoverageReport jacocTestReport sonarqube -PdisablePreDex --stacktrace
     #Mesmo q dê erro em algum teste integrado, irá continuar e upar o que deu certo pro codecov
     - chmod +x backend.sh && ./backend.sh $GITHUB_PASSHASH_PM $TRAVIS_BRANCH "$datahora"
