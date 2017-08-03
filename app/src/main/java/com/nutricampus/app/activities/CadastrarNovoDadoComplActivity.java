@@ -23,7 +23,6 @@ import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,7 +69,6 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
     @BindView(R.id.input_id_propriedade)
     EditText inputIdPropriedade;
 
-    protected Calendar data;
     protected Animal animal;
 
     @Override

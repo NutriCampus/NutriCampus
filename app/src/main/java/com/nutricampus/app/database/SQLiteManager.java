@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * For project NutriCampus.
  * Contact: <felipeguimaraes540@gmail.com>
  */
+@SuppressWarnings("squid:S2068") // Nome do campo senha
 public class SQLiteManager extends SQLiteOpenHelper {
 
 
