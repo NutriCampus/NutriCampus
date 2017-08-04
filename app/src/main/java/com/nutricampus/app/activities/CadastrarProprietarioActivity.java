@@ -21,15 +21,25 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
 
-    @BindView(R.id.input_nome_proprietario) EditText inputNomeProprietario;
-    @BindView(R.id.input_cpf_proprietario) EditText inputCpfProprietario;
-    @BindView(R.id.input_email_proprietario) EditText inputEmailProprietario;
-    @BindView(R.id.input_fone_proprietario) EditText inputFoneProprietario;
+    @BindView(R.id.input_nome_proprietario)
+    EditText inputNomeProprietario;
+    @BindView(R.id.input_cpf_proprietario)
+    EditText inputCpfProprietario;
+    @BindView(R.id.input_email_proprietario)
+    EditText inputEmailProprietario;
+    @BindView(R.id.input_fone_proprietario)
+    EditText inputFoneProprietario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +55,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public void criarProprietario(View v) {
         if (!validaDados()) {
-            Toast.makeText(CadastrarProprietarioActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarProprietarioActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -64,7 +74,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         int idRetorno = repositorioProprietario.inserirProprietario(proprietario);
 
-        if(idRetorno > -1) {
+        if (idRetorno > -1) {
             proprietario.setId(idRetorno);
 
             //Caixa de Dialogo
@@ -92,7 +102,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validaDados(){
+    private boolean validaDados() {
         boolean valido = true;
 
         if (inputNomeProprietario.getText().toString().isEmpty()) {
@@ -132,20 +142,16 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
+            startActivity(it);
+            finish();
         }
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
         startActivity(it);
         finish();

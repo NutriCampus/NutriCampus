@@ -54,11 +54,9 @@ public class RepositorioProprietarioTesteIntegracao {
 
     @Test
     public void testarBuscaDeProprietarioPeloId() {
-
-        int id = 1;
-
         Proprietario proprietario = new Proprietario("777.888.999.000-00", "proprietario", "proprietario@email.com", "1234-5678");
-        repositorio.inserirProprietario(proprietario);
+
+        int id = repositorio.inserirProprietario(proprietario);
 
         Proprietario proprietarioEncontrado = repositorio.buscarProprietario(id);
 

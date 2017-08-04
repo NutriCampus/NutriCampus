@@ -9,7 +9,6 @@ import android.view.WindowManager;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.CadastrarUsuarioActivity;
-import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -30,9 +29,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 /**
  * Created by Mateus on 29/06/2017.
@@ -40,6 +36,7 @@ import static org.hamcrest.Matchers.not;
  * Contact: <paulomatew@gmail.com>
  */
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class AcceptanceTestCadastrarUsuarioActivity {

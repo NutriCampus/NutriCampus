@@ -12,7 +12,7 @@ public final class LeitorAssets {
         throw new IllegalStateException("Classe de utilidades");
     }
 
-    public static String carregaJSONAssets(String arquivo, Context context) {
+    public static String carregaJSONAssets(String arquivo, Context context) throws IOException {
         String ext = arquivo.substring(arquivo.length() - 5, arquivo.length());
 
         if (!ext.equals(".json"))
@@ -22,22 +22,24 @@ public final class LeitorAssets {
 
     }
 
-    private static String lerArquivo(String arquivo, Context context) {
+    private static String lerArquivo(String arquivo, Context context) throws IOException {
         String conteudo = "";
-
+        InputStream is = null;
         try {
-            InputStream is = context.getAssets().open(arquivo);
+            is = context.getAssets().open(arquivo);
             int tamanho = is.available();
 
             byte[] buffer = new byte[tamanho];
 
             if (is.read(buffer) > 0)
                 conteudo = new String(buffer, "UTF-8");
-
-            is.close();
         } catch (IOException ex) {
             Log.i("IOException", ex.toString());
             return null;
+        } finally {
+            if (is != null)
+                is.close();
+
         }
 
         return conteudo;

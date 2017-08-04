@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,9 +33,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.nutricampus.app.fragments.DadosAnimalFragment.*;
+import static com.nutricampus.app.fragments.DadosAnimalFragment.EXTRA_CAD_ANIMAL;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarPropriedadeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String EXTRA_PROPRIEDADE = "propriedade";
@@ -72,7 +77,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     SharedPreferencesManager session;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +99,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         Proprietario proprietario = (Proprietario)
                 it.getSerializableExtra(CadastrarProprietarioActivity.EXTRA_PROPRIETARIO);
 
-        if(proprietario != null)
+        if (proprietario != null)
             inputIdProprietario.setText(String.valueOf(proprietario.getId()));
 
         // Loading spinner data from database
@@ -194,7 +198,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
                 Integer.parseInt(inputIdProprietario.getText().toString()),
-                Integer.parseInt(session.getIdNC()));
+                Integer.parseInt(session.getIdUsuario()));
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
 
@@ -204,7 +208,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_cadastro_salvo, Toast.LENGTH_LONG).show();
             propriedade.setId(idPropriedade);
 
-            if(voltarCadAnimal == 1) {
+            if (voltarCadAnimal == 1) {
                 Intent it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
                 it.putExtra(EXTRA_PROPRIEDADE, propriedade);
                 startActivity(it);
@@ -269,16 +273,14 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         if (!ValidaFormulario.isTelefoneValido(inputTelefone.getText().toString())) {
             inputTelefone.setError(getString(R.string.msg_erro_telefone_incompleto));
             valido = false;
-        }
-        else
+        } else
             inputTelefone.setError(null);
 
 
         if (!ValidaFormulario.isCEPValido(inputCep.getText().toString())) {
             inputCep.setError(getString(R.string.msg_erro_cep_incompleto));
             valido = false;
-        }
-        else
+        } else
             inputCep.setError(null);
 
 
@@ -303,26 +305,22 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it;
-                if(voltarCadAnimal == 1)
-                    it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
-                else
-                    it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it;
+            if (voltarCadAnimal == 1)
+                it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+            else
+                it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+            startActivity(it);
+            finish();
         }
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it;
-        if(voltarCadAnimal == 1)
+        if (voltarCadAnimal == 1)
             it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
         else
             it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);

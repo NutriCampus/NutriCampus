@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * For project NutriCampus.
  * Contact: <felipeguimaraes540@gmail.com>
  */
+@SuppressWarnings("squid:S2068") // Nome do campo senha
 public class SQLiteManager extends SQLiteOpenHelper {
 
 
@@ -206,13 +207,15 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_USUARIO);
-        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIEDADE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIETARIO);
-        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROPRIEDADE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DADOS_COMPL);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROLE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
         this.onCreate(sqLiteDatabase);
 
     }
+
+
 }

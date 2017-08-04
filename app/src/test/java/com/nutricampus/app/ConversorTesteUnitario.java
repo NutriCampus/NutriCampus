@@ -31,8 +31,8 @@ public class ConversorTesteUnitario {
 
     @Test
     public void stringToBoolean() throws Exception {
-        assertTrue(Conversor.StringToBoolean("true"));
-        assertFalse(Conversor.StringToBoolean("false"));
+        assertTrue(Conversor.stringToBoolean("true"));
+        assertFalse(Conversor.stringToBoolean("false"));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ConversorTesteUnitario {
         Calendar cal = Calendar.getInstance();
         String data1 = "10/08/1992";
 
-        cal.setTimeInMillis(Conversor.StringToDate(data1).getTime());
+        cal.setTimeInMillis(Conversor.stringToDate(data1).getTime());
 
         int month = cal.get(Calendar.MONTH);
 

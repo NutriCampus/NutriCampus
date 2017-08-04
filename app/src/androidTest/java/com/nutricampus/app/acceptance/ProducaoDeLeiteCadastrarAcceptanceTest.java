@@ -29,6 +29,7 @@ import com.nutricampus.app.entities.Proprietario;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +54,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ProducaoDeLeiteCadastrarAcceptanceTest {
@@ -74,9 +76,9 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         return currentActivity;
     }
 
-    @Test
-    public void producaoDeLeiteCadastrarTA1() {
-        String admin = "admin";
+    @Before
+    public void preparaDados() {
+
         String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
         String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
         String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
@@ -87,29 +89,49 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         String bairro1 = "bairro1", bairro2 = "bairro2";
         String cep1 = "00000-000", cep2 = "99999-999";
 
+        int idAnimal1;
+        int idAnimal2;
+        int idPropriedade1;
+        int idPropriedade2;
+        int idProprietario1 = 0;
+        int idProprietario2 = 0;
+
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
         if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
+            idProprietario1 = repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
+            idProprietario2 = repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
         }
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
+            idPropriedade1 = repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", idProprietario1, 1));
+            idPropriedade2 = repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", idProprietario2, 1));
+        } else {
+            idPropriedade1 = repositorioPropriedade.buscarPropriedade(prop1).getId();
+            idPropriedade2 = repositorioPropriedade.buscarPropriedade(prop2).getId();
         }
+
+
         RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
+
+        if (repoAnimal.buscarAnimal(animal1, idPropriedade1) == null) {
+
+            idAnimal1 = repoAnimal.inserirAnimal(new Animal(1, animal1, idPropriedade1, Calendar.getInstance(), true));
+            idAnimal2 = repoAnimal.inserirAnimal(new Animal(2, animal2, idPropriedade2, Calendar.getInstance(), true));
 
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal1, 100, 150, 50, 60, 5, true, true, true, true
             ));
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal2, 100, 150, 50, 60, 5, true, true, true, true
             ));
         }
+
+    }
+
+    @Test
+    public void producaoDeLeiteCadastrarTA1() {
+
 
         if (getActivityInstance() instanceof MainActivity) {
             //dummy if
@@ -164,7 +186,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         try {
-            Thread.sleep(500);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -174,7 +196,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         onView(withText("animalAdmin UM"))
                 .perform(longClick());
         try {
-            Thread.sleep(500);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -250,40 +272,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
 
     @Test
     public void producaoDeLeiteCadastrarTA2() {
-        String admin = "admin";
-        String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
-        String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
-        String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
-        String prop1 = "propriedadeAdminUM", prop2 = "propriedadeAdminDOIS";
-        String animal1 = "animalAdmin UM", animal2 = "animalAdmin DOIS";
-        String tel1 = "(87) 00000 0000", tel2 = "(87) 99999 9999";
-        String rua1 = "rua1", rua2 = "rua2";
-        String bairro1 = "bairro1", bairro2 = "bairro2";
-        String cep1 = "00000-000", cep2 = "99999-999";
 
-        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
-        if (repositorioProprietario.buscarProprietario(cpf1) == null) {
-            repositorioProprietario.inserirProprietario(new Proprietario(1, cpf1, nome1, email1, tel1));
-            repositorioProprietario.inserirProprietario(new Proprietario(2, cpf2, nome2, email2, tel2));
-        }
-        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
-        if (repositorioPropriedade.buscarPropriedade(prop1) == null) {
-            repositorioPropriedade.inserirPropriedade(new Propriedade(1, prop1, tel1, rua1, bairro1, cep1, "Garanhuns", "Pernambuco", "000", 1, 1));
-            repositorioPropriedade.inserirPropriedade(new Propriedade(2, prop2, tel2, rua2, bairro2, cep2, "Caruaru", "Pernambuco", "999", 2, 1));
-        }
-        RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
-        if (repoAnimal.buscarAnimal(animal1, 1) == null) {
-            repoAnimal.inserirAnimal(new Animal(1, animal1, 1, Calendar.getInstance(), true));
-            repoAnimal.inserirAnimal(new Animal(2, animal2, 2, Calendar.getInstance(), true));
-
-            RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 1, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-            repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), 2, 100, 150, 50, 60, 5, true, true, true, true
-            ));
-        }
         if (getActivityInstance() instanceof MainActivity) {
             //dummy if
             try {
@@ -323,7 +312,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         recyclerView.perform(actionOnItemAtPosition(5, click()));
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -331,7 +320,7 @@ public class ProducaoDeLeiteCadastrarAcceptanceTest {
         onView(withText("animalAdmin UM"))
                 .perform(longClick());
         try {
-            Thread.sleep(500);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

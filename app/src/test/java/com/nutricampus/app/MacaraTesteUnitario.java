@@ -29,15 +29,15 @@ public class MacaraTesteUnitario {
 
         String cpf = "08899977763";
         result = Mascara.mascarar(Mascara.CPF_MASK, cpf);
-        assertEquals("088.999.777-63", result);
+        assertEquals(result, "088.999.777-63", result);
 
         String telefone = "87999999999";
         result = Mascara.mascarar(Mascara.CELULAR_MASK, telefone);
-        assertEquals("(87) 99999 9999", result);
+        assertEquals(result, "(87) 99999 9999", result);
 
         String cep = "55250500";
         result = Mascara.mascarar(Mascara.CEP_MASK, cep);
-        assertEquals("55250-500", result);
+        assertEquals(result, "55250-500", result);
     }
 
     @Test

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,8 @@ public class RepositorioEstado {
 
         } catch (JSONException e) {
             Log.i("JSONException", String.valueOf(e));
+        } catch (IOException e) {
+            Log.getStackTraceString(e);
         }
     }
 }
