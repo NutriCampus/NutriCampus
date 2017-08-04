@@ -102,7 +102,7 @@ public class ListaProducaoLeiteActivity extends AbstractListagem {
             filtrarRegistros(new View(ListaProducaoLeiteActivity.this));
         } else {
             Toast.makeText(ListaProducaoLeiteActivity.this,
-                    getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
+                    getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
         }
     }
 

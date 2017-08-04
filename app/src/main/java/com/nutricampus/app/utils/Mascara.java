@@ -50,6 +50,7 @@ public final class Mascara {
         return String.valueOf(mascara);
     }
 
+
     public static TextWatcher insert(final String mask, final EditText ediTxt) {
         return new TextWatcher() {
             boolean isUpdating;

@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -45,6 +46,7 @@ public class ConversorTesteUnitario {
         int month = cal.get(Calendar.MONTH);
 
         assertEquals(month, 7);
+        assertNull(Conversor.stringToDate("JOAO---2"));
     }
 
     @Test

@@ -20,43 +20,56 @@ public class UsuarioTesteUnitario {
 
     private Usuario user1;
     private Usuario user2;
+    private Usuario user3;
 
     @Before
     public void init() {
         user1 = new Usuario(1, "12345", "000.000.000-00", "Nome Um", "nome@email.com", "senha");
-        user2 = new Usuario(1, "12345", "000.000.000-00", "Nome Dois", "nome@email.com", "senha");
+        user3 = new Usuario(1, "12345", "000.000.000-00", "Nome Um", "nome@email.com", "senha");
+        user2 = new Usuario(1, "12346", "000.990.000-01", "Dois", "ne@e.com", "password11");
     }
 
     @Test
     public void testaEqualsUsuarioIguais() throws Exception {
-        String aux = user1.getNome();
-        user1.setNome(user2.getNome());
-        assertTrue(user1.equals(user2));
-        user1.setNome(aux);
+        assertTrue(user1.equals(user3));
     }
 
     @Test
     public void testaEqualsUsuarioDiferentes() throws Exception {
-        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
     }
 
     @Test
     public void testaEqualsComUsuarioNull() throws Exception {
-        Usuario user = null;
+        assertFalse(user1.equals(null));
+    }
 
-        assertFalse(user1.equals(user));
+    @Test
+    public void testaEqualsOutraInstacia() throws Exception {
+        assertFalse(user1.equals(new String()));
     }
 
     @Test
     public void testaHashCodeIguais() {
-        String aux = user1.getNome();
-        user1.setNome(user2.getNome());
-        assertEquals(user1.hashCode(), user2.hashCode());
-        user1.setNome(aux);
+        assertEquals(user1.hashCode(), user3.hashCode());
     }
 
     @Test
     public void testaHashCodediferentes() {
         assertNotEquals(user1.hashCode(), user2.hashCode());
+    }
+
+    @Test
+    public void testaToString() {
+
+        String str = "Usuario{" +
+                "ID: " + user1.getId() +
+                ", crmv/CRZ: '" + user1.getCrmv() + '\'' +
+                ", CPF: '" + user1.getCpf() + '\'' +
+                ", Nome: '" + user1.getNome() + '\'' +
+                ", Email: '" + user1.getEmail() + '\'' +
+                ", Senha: '" + user1.getSenha() + '\'' +
+                '}';
+        assertEquals(str, user1.toString());
     }
 }

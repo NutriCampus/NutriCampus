@@ -13,8 +13,13 @@ public class MacaraTesteUnitario {
 
     @Test
     public void testeCaracterESinal() {
-        boolean isSinal = Mascara.isSinal('.');
-        assertTrue(isSinal);
+        assertTrue(Mascara.isSinal('.'));
+        assertTrue(Mascara.isSinal(' '));
+        assertTrue(Mascara.isSinal('-'));
+        assertTrue(Mascara.isSinal('/'));
+        assertTrue(Mascara.isSinal(','));
+        assertTrue(Mascara.isSinal(')'));
+        assertTrue(Mascara.isSinal('('));
     }
 
     @Test
