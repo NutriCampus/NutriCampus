@@ -1,13 +1,18 @@
 package com.nutricampus.app.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaDadosComplAdapter;
@@ -16,6 +21,7 @@ import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +42,8 @@ public class ListaDadosComplActivity extends AppCompatActivity {
     @BindView(R.id.listDadosCompl)
     ListView listDadosCompl;
 
-    DadosComplAnimal dadosComplAnimal;
+    private Animal animal;
+    private List<DadosComplAnimal> listDados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +52,17 @@ public class ListaDadosComplActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(ListaDadosComplActivity.this);
         Intent intent = getIntent();
-        final Animal animal = (Animal) intent.getSerializableExtra(EXTRA_ANIMAL);
+        animal = (Animal) intent.getSerializableExtra(EXTRA_ANIMAL);
 
-        ArrayList<DadosComplAnimal> listDados = (ArrayList<DadosComplAnimal>)
-                repositorioDadosComplAnimal.buscarTodosDadosCompl(animal.getId());
+        atualizaLista();
 
         registerForContextMenu(listDadosCompl);
-        ListaDadosComplAdapter adapter =
-                new ListaDadosComplAdapter(this, listDados);
-
-        listDadosCompl.setAdapter(adapter);
 
         listDadosCompl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                dadosComplAnimal = (DadosComplAnimal) listDadosCompl.getItemAtPosition(i);
-                Intent intent = new Intent(ListaDadosComplActivity.this, EditarDadosComplActivity.class);
-                intent.putExtra(EXTRA_ANIMAL, animal);
-                intent.putExtra(EXTRA_DADOS_COMPL, dadosComplAnimal);
-                startActivity(intent);
+                abreTelaEditar(i);
             }
         });
 
@@ -85,6 +82,78 @@ public class ListaDadosComplActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        this.atualizaLista();
+    }
+
+    private void atualizaLista() {
+        RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(ListaDadosComplActivity.this);
+
+        if (listDados == null)
+            listDados = new ArrayList<>();
+
+        listDados = repositorioDadosComplAnimal.buscarTodosDadosCompl(animal.getId());
+
+        ListaDadosComplAdapter adapter = new ListaDadosComplAdapter(this, listDados);
+        listDadosCompl.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_contexto_crud, menu);
+        menu.getItem(0).setVisible(false);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.menu_opc_cont_editar:
+                if (info != null)
+                    abreTelaEditar(info.position);
+                return true;
+            case R.id.menu_opc_cont_excluir:
+                confirmarExcluir((DadosComplAnimal) listDadosCompl.getItemAtPosition(info.position));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void excluirRegistro(DadosComplAnimal objeto) {
+        RepositorioDadosComplAnimal repositorio = new RepositorioDadosComplAnimal(ListaDadosComplActivity.this);
+
+        int result = repositorio.removerDadosCompl(objeto);
+
+        if (result > 0) {
+            Toast.makeText(ListaDadosComplActivity.this,
+                    getString(R.string.msg_sucesso_remover_registro), Toast.LENGTH_LONG).show();
+
+            this.atualizaLista();
+        } else {
+            Toast.makeText(ListaDadosComplActivity.this,
+                    getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void confirmarExcluir(final DadosComplAnimal objeto) {
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.msg_excluir_confirmar) + " ?")
+                .setCancelable(false)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        excluirRegistro(objeto);
+                    }
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
@@ -101,5 +170,13 @@ public class ListaDadosComplActivity extends AppCompatActivity {
         Intent it = new Intent(ListaDadosComplActivity.this, ListaAnimaisActivity.class);
         startActivity(it);
         finish();
+    }
+
+    private void abreTelaEditar(int posicao) {
+        DadosComplAnimal dadosComplAnimal = (DadosComplAnimal) listDadosCompl.getItemAtPosition(posicao);
+        Intent intent = new Intent(ListaDadosComplActivity.this, EditarDadosComplActivity.class);
+        intent.putExtra(EXTRA_ANIMAL, animal);
+        intent.putExtra(EXTRA_DADOS_COMPL, dadosComplAnimal);
+        startActivity(intent);
     }
 }
