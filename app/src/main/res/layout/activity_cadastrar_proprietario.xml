@@ -1,81 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="05dp"
-    android:weightSum="1"
-    android:id="@+id/tela_cadastrarproprietarioactvity"
+    android:id="@+id/telaCadastrarProprietarioActivity"
     tools:context="com.nutricampus.app.activities.CadastrarProprietarioActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_inputs_form"
-        android:layout_marginTop="@dimen/margin_inputs_form">
 
-        <EditText
-            android:id="@+id/input_nome_proprietario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/campo_proprietario"
-            android:inputType="textCapWords" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_inputs_form"
-        android:layout_marginTop="@dimen/margin_inputs_form">
-
-        <EditText
-            android:id="@+id/input_cpf_proprietario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/campo_cpf"
-            android:inputType="number" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_inputs_form"
-        android:layout_marginTop="@dimen/margin_inputs_form">
-
-        <EditText
-            android:id="@+id/input_email_proprietario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/campo_email"
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_inputs_form"
-        android:layout_marginTop="@dimen/margin_inputs_form">
-
-        <EditText
-            android:id="@+id/input_fone_proprietario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/campo_telefone"
-            android:inputType="number" />
-    </android.support.design.widget.TextInputLayout>
+    <include layout="@layout/content_form_proprietario" />
 
 
-    <Button
-        android:id="@+id/btn_salvar_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/save"
-        android:onClick="criarProprietario"
-        android:text="@string/save"
-        android:layout_gravity="center"/>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

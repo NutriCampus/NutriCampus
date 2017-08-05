@@ -74,6 +74,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     Button buttonAddProprietario;
 
     private int voltarCadAnimal;
+    private int voltarProprietarios;
     SharedPreferencesManager session;
 
 
@@ -96,6 +97,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         Intent it = getIntent();
         voltarCadAnimal = it.getIntExtra(EXTRA_CAD_ANIMAL, -1);
+        voltarProprietarios = it.getIntExtra(ListaProprietariosActivity.EXTRA_VOLTAR_PROPRIETARIOS, -1);
         Proprietario proprietario = (Proprietario)
                 it.getSerializableExtra(CadastrarProprietarioActivity.EXTRA_PROPRIETARIO);
 
@@ -304,6 +306,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            voltarActivity();
 
         if (item.getItemId() == android.R.id.home) {
             Intent it;
@@ -314,16 +318,25 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             startActivity(it);
             finish();
         }
+
         return true;
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
+        voltarActivity();
+    }
+
+    private void voltarActivity() {
         Intent it;
-        if (voltarCadAnimal == 1)
+
+        if(voltarCadAnimal == 1)
             it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+        else if(voltarProprietarios == 1)
+            it = new Intent(CadastrarPropriedadeActivity.this, ListaProprietariosActivity.class);
         else
             it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+
         startActivity(it);
         finish();
     }

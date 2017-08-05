@@ -96,15 +96,16 @@ public class RepositorioProprietario {
         return null;
     }
 
-    public List<Proprietario> buscarTodosProprietarios() {
+
+    private List<Proprietario> getListaProprietarios(String query) {
 
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Proprietario> proprietarios = new ArrayList<>();
-        String getProprietarios = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO;
+        //String getProprietarios = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO;
 
         try {
-            Cursor c = bancoDados.rawQuery(getProprietarios, null);
+            Cursor c = bancoDados.rawQuery(query, null);
 
             if (c.moveToFirst()) {
                 do {
@@ -127,17 +128,20 @@ public class RepositorioProprietario {
         }
 
         return proprietarios;
+
     }
 
-    public List<String> listarProprietariosNome(){
-        List<String > lista = new ArrayList<>();
-        for (Proprietario proprietario: buscarTodosProprietarios()) {
-            lista.add(proprietario.getNome());
-        }
-
-        return lista;
+    public List<Proprietario> buscarTodosProprietarios(String nome) {
+        return this.getListaProprietarios(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO +
+                " WHERE " + SQLiteManager.PROPRIETARIO_COL_NOME + " LIKE '%" + nome + "%'" +
+                    SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
     }
-    
+
+
+    public List<Proprietario> buscarTodosProprietarios() {
+        return getListaProprietarios(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO +
+                                SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
+    }
     
     public boolean atualizarProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
@@ -158,13 +162,14 @@ public class RepositorioProprietario {
 
     }
 
-    public void removerProprietario(Proprietario proprietario) {
+    public int removerProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
+        int resultado = bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
                 SQLiteManager.PROPRIETARIO_COL_ID + " = ? ",
                 new String[]{String.valueOf(proprietario.getId())});
 
         bancoDados.close();
+        return resultado;
     }
 
     public void removerTodos() {
