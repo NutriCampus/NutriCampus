@@ -1,9 +1,7 @@
 package com.nutricampus.app.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
@@ -143,7 +141,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         if (registro.isEmpty()) {
             this.edtRegistro.setError(getString(R.string.msg_erro_campo));
             valido = false;
-        } else if(registro.length() < 5){
+        } else if (registro.length() < 5) {
             this.edtRegistro.setError(getString(R.string.msg_erro_CRZ));
             valido = false;
         } else {

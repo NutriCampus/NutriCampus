@@ -323,16 +323,16 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 
     private void voltarActivity() {
         Intent it;
 
-        if(voltarCadAnimal == 1)
+        if (voltarCadAnimal == 1)
             it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
-        else if(voltarProprietarios == 1)
+        else if (voltarProprietarios == 1)
             it = new Intent(CadastrarPropriedadeActivity.this, ListaProprietariosActivity.class);
         else
             it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);

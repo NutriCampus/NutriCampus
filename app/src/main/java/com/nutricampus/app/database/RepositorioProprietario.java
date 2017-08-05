@@ -102,7 +102,6 @@ public class RepositorioProprietario {
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Proprietario> proprietarios = new ArrayList<>();
-        //String getProprietarios = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO;
 
         try {
             Cursor c = bancoDados.rawQuery(query, null);

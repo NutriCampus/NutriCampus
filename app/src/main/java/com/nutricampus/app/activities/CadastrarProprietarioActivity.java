@@ -31,11 +31,16 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
 
-    @BindView(R.id.input_nome_proprietario) EditText inputNomeProprietario;
-    @BindView(R.id.input_cpf_proprietario) EditText inputCpfProprietario;
-    @BindView(R.id.input_email_proprietario) EditText inputEmailProprietario;
-    @BindView(R.id.input_fone_proprietario) EditText inputFoneProprietario;
-    @BindView(R.id.btn_salvar_cadastro) Button btnSalvar;
+    @BindView(R.id.input_nome_proprietario)
+    EditText inputNomeProprietario;
+    @BindView(R.id.input_cpf_proprietario)
+    EditText inputCpfProprietario;
+    @BindView(R.id.input_email_proprietario)
+    EditText inputEmailProprietario;
+    @BindView(R.id.input_fone_proprietario)
+    EditText inputFoneProprietario;
+    @BindView(R.id.btn_salvar_cadastro)
+    Button btnSalvar;
 
     private int voltarProprietarios;
 
@@ -83,7 +88,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
 
             Intent intent;
-            if(voltarProprietarios == 1) {
+            if (voltarProprietarios == 1) {
                 intent = new Intent(CadastrarProprietarioActivity.this, ListaProprietariosActivity.class);
             } else {
                 intent = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
@@ -100,7 +105,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean validaDados(){
+    protected boolean validaDados() {
         boolean valido = true;
 
         if (inputNomeProprietario.getText().toString().isEmpty()) {
@@ -146,14 +151,14 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 
     protected void voltarActivity() {
         Intent it;
 
-        if(voltarProprietarios == 1)
+        if (voltarProprietarios == 1)
             it = new Intent(CadastrarProprietarioActivity.this, ListaProprietariosActivity.class);
         else
             it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);

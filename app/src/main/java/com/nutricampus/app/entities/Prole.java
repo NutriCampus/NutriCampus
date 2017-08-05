@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class Prole {
 
     private int id;
-    private int id_matriz;
+    private int idMatriz;
     private Calendar dataDeNascimento;
     private float pesoDeNascimento;
     private boolean isNatimorto;
@@ -18,18 +18,18 @@ public class Prole {
     public Prole() {
     }
 
-    public Prole(int id, int id_matriz, Calendar dataDeNascimento,
+    public Prole(int id, int idMatriz, Calendar dataDeNascimento,
                  float pesoDeNascimento, boolean isNatimorto) {
         this.id = id;
-        this.id_matriz = id_matriz;
+        this.idMatriz = idMatriz;
         this.dataDeNascimento = dataDeNascimento;
         this.pesoDeNascimento = pesoDeNascimento;
         this.isNatimorto = isNatimorto;
     }
 
-    public Prole(int id_matriz, Calendar dataDeNascimento,
+    public Prole(int idMatriz, Calendar dataDeNascimento,
                  float pesoDeNascimento, boolean isNatimorto) {
-        this.id_matriz = id_matriz;
+        this.idMatriz = idMatriz;
         this.dataDeNascimento = dataDeNascimento;
         this.pesoDeNascimento = pesoDeNascimento;
         this.isNatimorto = isNatimorto;
@@ -44,11 +44,11 @@ public class Prole {
     }
 
     public int getMatriz() {
-        return id_matriz;
+        return idMatriz;
     }
 
     public void setMatriz(int id_matriz) {
-        this.id_matriz = id_matriz;
+        this.idMatriz = id_matriz;
     }
 
     public Calendar getDataDeNascimento() {
@@ -79,7 +79,7 @@ public class Prole {
     public String toString() {
         return "Descendente{" +
                 "id=" + id +
-                ", matriz=" + id_matriz +
+                ", matriz=" + idMatriz +
                 ", dataDeNascimento=" + dataDeNascimento.toString() +
                 ", pesoDeNascimento=" + pesoDeNascimento +
                 ", isNatimorto=" + isNatimorto +

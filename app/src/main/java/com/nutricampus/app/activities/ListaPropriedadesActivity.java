@@ -1,25 +1,18 @@
 package com.nutricampus.app.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,24 +40,28 @@ Explicação para a supressão de warnings:
  - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
-public class ListaPropriedadesActivity extends AppCompatActivity {
+public class ListaPropriedadesActivity extends AbstractListComPesquisa {
 
     public static final String EXTRA_PROPRIEDADE = "propriedade";
 
-    @BindView(R.id.listaPropriedades) ListView listPropriedades;
-    @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
-    @BindView(R.id.linha) View linha;
-    @BindView(R.id.fabList) FloatingActionButton fabList;
-    @BindView(R.id.fabPropriedade) FloatingActionButton fabPropriedade;
-    @BindView(R.id.fabProprietario) FloatingActionButton fabProprietario;
-    @BindView(R.id.layoutPropriedade) LinearLayout layoutPropriedade;
-    @BindView(R.id.layoutProprietario) LinearLayout layoutPropritario;
+    @BindView(R.id.listaPropriedades)
+    ListView listPropriedades;
+    @BindView(R.id.text_quantidade_encontrados)
+    TextView mensagemQuantidade;
+    @BindView(R.id.linha)
+    View linha;
+    @BindView(R.id.fabList)
+    FloatingActionButton fabList;
+    @BindView(R.id.fabPropriedade)
+    FloatingActionButton fabPropriedade;
+    @BindView(R.id.fabProprietario)
+    FloatingActionButton fabProprietario;
+    @BindView(R.id.layoutPropriedade)
+    LinearLayout layoutPropriedade;
+    @BindView(R.id.layoutProprietario)
+    LinearLayout layoutPropritario;
 
     SharedPreferencesManager session;
-
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText inputPesquisaPropriedades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +76,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
         listPropriedades.setEmptyView(findViewById(android.R.id.empty));
 
         registerForContextMenu(listPropriedades);
-        carregaListView("");
+        carregarListView();
 
         listPropriedades.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -95,20 +92,18 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
         fabList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(layoutPropriedade.getVisibility() == View.VISIBLE &&
+                if (layoutPropriedade.getVisibility() == View.VISIBLE &&
                         layoutPropritario.getVisibility() == View.VISIBLE) {
 
                     layoutPropriedade.setVisibility(View.GONE);
                     layoutPropritario.setVisibility(View.GONE);
                     layoutPropriedade.startAnimation(mHideLayout);
                     layoutPropritario.startAnimation(mHideLayout);
-                    //mFab.startAnimation(mHideButton);
                 } else {
                     layoutPropriedade.setVisibility(View.VISIBLE);
                     layoutPropritario.setVisibility(View.VISIBLE);
                     layoutPropriedade.startAnimation(mShowLayout);
                     layoutPropritario.startAnimation(mShowLayout);
-                    //mFab.startAnimation(mShowButton);
                 }
             }
         });
@@ -144,7 +139,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        carregaListView("");
+        carregarListView();
     }
 
     @Override
@@ -244,7 +239,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
                                 repositorioProprietario.removerProprietario(proprietario);
                             }
 
-                            carregaListView("");
+                            carregarListView();
                         } else {
                             Toast.makeText(ListaPropriedadesActivity.this,
                                     getString(R.string.msg_excluir_propriedade_falha), Toast.LENGTH_LONG).show();
@@ -255,66 +250,13 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
                 .show();
     }
 
-    protected void gerenciaFuncaoPesquisar() {
-        ActionBar action = getSupportActionBar(); //get the actionbar
-
-        if (isSearchOpened) { //test if the search is open
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-                carregaListView("");
-            }
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(inputPesquisaPropriedades.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            mSearchAction.setIcon(R.drawable.ic_search_light);
-
-            isSearchOpened = false;
-        } else { //open the search entry
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(true); //enable it to display a
-                // custom view in the action bar.
-                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
-                action.setDisplayShowTitleEnabled(false); //hide the title
-
-                inputPesquisaPropriedades = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
-
-
-                //this is a listener to do a search when the user clicks on search button
-                inputPesquisaPropriedades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            carregaListView(inputPesquisaPropriedades.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-
-                });
-
-
-                inputPesquisaPropriedades.requestFocus();
-
-                //open the keyboard focused in the edtSearch
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(inputPesquisaPropriedades, InputMethodManager.SHOW_IMPLICIT);
-
-
-                //add the close icon
-                mSearchAction.setIcon(R.drawable.ic_close);
-
-                isSearchOpened = true;
-            }
-        }
+    private void carregarListView() {
+        carregarListView(new ResultadoPesquisa(0, ""));
     }
 
-    private void carregaListView(String nome) {
-        List<Propriedade> lista = this.buscarPropriedades(nome);
+    @Override
+    protected void carregarListView(ResultadoPesquisa resultadoPesquisa) {
+        List<Propriedade> lista = this.buscarPropriedades(resultadoPesquisa.getString());
 
         ListaPropriedadesAdapter adapter =
                 new ListaPropriedadesAdapter(lista, this);

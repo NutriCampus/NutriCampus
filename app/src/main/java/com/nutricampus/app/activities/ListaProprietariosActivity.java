@@ -3,11 +3,11 @@ package com.nutricampus.app.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -140,11 +140,11 @@ public class ListaProprietariosActivity extends AppCompatActivity {
     }
 
     private void chamarActivity(int posicao, Class classe) {
-        Proprietario proprietario = null;
+        Proprietario proprietario;
         Intent intent = new Intent(ListaProprietariosActivity.this, classe);
 
         //if para controlar a chamada ao cadastro de proprietário
-        if(posicao != -1) {
+        if (posicao != -1) {
             proprietario = (Proprietario) listaProprietarios.getItemAtPosition(posicao);
             intent.putExtra(ListaProprietariosActivity.EXTRA_PROPRIETARIO, proprietario);
         }
@@ -155,7 +155,7 @@ public class ListaProprietariosActivity extends AppCompatActivity {
 
     private void confirmarExcluir(final Proprietario proprietario) {
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.msg_excluir_confirmar_propritario,"\"" + proprietario.getNome() + "\"" ))
+                .setMessage(getString(R.string.msg_excluir_confirmar_propritario, "\"" + proprietario.getNome() + "\""))
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -179,7 +179,7 @@ public class ListaProprietariosActivity extends AppCompatActivity {
                             if (!(propriedades.isEmpty())) {
                                 for (Propriedade p : propriedades) {
                                     listAnimal = repositorioAnimal.buscarPorPropridade(p.getId());
-                                    for(Animal a : listAnimal)
+                                    for (Animal a : listAnimal)
                                         repositorioAnimal.removerAnimal(a);
 
                                     repositorioPropriedade.removerPropriedade(p);
@@ -188,8 +188,7 @@ public class ListaProprietariosActivity extends AppCompatActivity {
 
                             carregarListView("");
 
-                        }
-                        else{
+                        } else {
                             Toast.makeText(ListaProprietariosActivity.this,
                                     getString(R.string.msg_excluir_proprietario_falha), Toast.LENGTH_LONG).show();
                         }
@@ -209,7 +208,7 @@ public class ListaProprietariosActivity extends AppCompatActivity {
         ActionBar action = getSupportActionBar(); //get the actionbar
 
         //Testa se a busca está aberta
-        if(isSearchOpened){
+        if (isSearchOpened) {
 
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
@@ -279,12 +278,15 @@ public class ListaProprietariosActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
                 break;
+            default:
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(ListaProprietariosActivity.this, ListaPropriedadesActivity.class);
         startActivity(it);
         finish();

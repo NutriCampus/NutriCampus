@@ -14,7 +14,7 @@ public class ProducaoDeLeite {
     private int id;
 
     // A produção possui uma depedência a um determinado animal.
-    private int id_animal;
+    private int idAnimal;
 
     private Calendar data;
 
@@ -31,10 +31,10 @@ public class ProducaoDeLeite {
 
     }
 
-    public ProducaoDeLeite(Calendar data, int id_animal, float qntProduzida, float pctLactose,
+    public ProducaoDeLeite(Calendar data, int idAnimal, float qntProduzida, float pctLactose,
                            float pctProteinaVerdadeira, float pctProteinaBruta, float gordura) {
         this.data = data;
-        this.id_animal = id_animal;
+        this.idAnimal = idAnimal;
         this.qntProduzida = qntProduzida;
         this.pctLactose = pctLactose;
         this.pctProteinaVerdadeira = pctProteinaVerdadeira;
@@ -42,9 +42,9 @@ public class ProducaoDeLeite {
         this.gordura = gordura;
     }
 
-    public ProducaoDeLeite(int id, Calendar data, int id_animal, float qntProduzida, float pctLactose,
+    public ProducaoDeLeite(int id, Calendar data, int idAnimal, float qntProduzida, float pctLactose,
                            float pctProteinaVerdadeira, float pctProteinaBruta, float gordura) {
-        this(data, id_animal, qntProduzida, pctLactose, pctProteinaVerdadeira, pctProteinaBruta, gordura);
+        this(data, idAnimal, qntProduzida, pctLactose, pctProteinaVerdadeira, pctProteinaBruta, gordura);
         this.id = id;
     }
 
@@ -56,9 +56,13 @@ public class ProducaoDeLeite {
         this.id = id;
     }
 
-    public int getAnimal() { return id_animal; }
+    public int getAnimal() {
+        return idAnimal;
+    }
 
-    public void setAnimal(int id_animal) { this.id_animal = id_animal; }
+    public void setAnimal(int id_animal) {
+        this.idAnimal = id_animal;
+    }
 
     public Calendar getData() {
         return data;
@@ -100,12 +104,12 @@ public class ProducaoDeLeite {
         this.pctProteinaBruta = pctProteinaBruta;
     }
 
-    public int getId_animal() {
-        return id_animal;
+    public int getIdAnimal() {
+        return idAnimal;
     }
 
-    public void setId_animal(int id_animal) {
-        this.id_animal = id_animal;
+    public void setIdAnimal(int idAnimal) {
+        this.idAnimal = idAnimal;
     }
 
     public float getGordura() {
@@ -120,7 +124,7 @@ public class ProducaoDeLeite {
     public String toString() {
         return "ProducaoDeLeite{" +
                 "id=" + id +
-                "Animal=" + id_animal +
+                "Animal=" + idAnimal +
                 ", data=" + data.toString() +
                 ", qntProduzida=" + qntProduzida +
                 ", pctLactose=" + pctLactose +

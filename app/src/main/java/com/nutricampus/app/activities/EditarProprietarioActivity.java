@@ -12,7 +12,6 @@ import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -49,7 +48,7 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
     public void salvar(View v) {
 
         if (!validaDados()) {
-            Toast.makeText(EditarProprietarioActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(EditarProprietarioActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -67,8 +66,8 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
 
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         Proprietario proprietarioCpfDuplicado = repositorioProprietario.buscarProprietario(cpfDuplicado);
-        if(proprietarioCpfDuplicado != null &&
-            (!cpfDuplicado.equals(proprietario.getCpf()))) {
+        if (proprietarioCpfDuplicado != null &&
+                (!cpfDuplicado.equals(proprietario.getCpf()))) {
 
             Toast.makeText(EditarProprietarioActivity.this,
                     getString(R.string.msg_erro_cadastro_proprietario),
@@ -103,7 +102,7 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 
