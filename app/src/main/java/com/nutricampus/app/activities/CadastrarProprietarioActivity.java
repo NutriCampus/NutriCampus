@@ -150,7 +150,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         voltarActivity();
     }
 
-    private void voltarActivity() {
+    protected void voltarActivity() {
         Intent it;
 
         if(voltarProprietarios == 1)

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="05dp"
     android:weightSum="1"
-    android:layout_marginTop="30dp">
+    android:layout_margin="@dimen/margin_form"
+    android:background="@drawable/caixa_arredondada">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -72,6 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/save"
+        android:drawableStart="@drawable/save"
         android:onClick="salvar"
         android:text="@string/save"
         android:layout_gravity="center"/>

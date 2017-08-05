@@ -11,15 +11,6 @@
     <include layout="@layout/content_lista_propriedades" />
 
 
-    <!--
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_add_propriedade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_light"/> -->
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabList"
         android:layout_width="wrap_content"
@@ -45,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Propriedade"
+            android:text="@string/text_floating_propriedade"
             style="@style/TextAppearance.AppCompat.Medium"
             android:id="@+id/tituloFabPropriedade"
             android:layout_marginTop="22dp"
@@ -62,7 +53,7 @@
             app:srcCompat="@drawable/plus"
             android:clickable="true"
             app:fabSize="mini"
-            app:backgroundTint="@color/colorFabPropriedade"/>/>
+            app:backgroundTint="@color/colorFabPropriedade" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Proprietários"
+            android:text="@string/text_floating_proprietarios"
             style="@style/TextAppearance.AppCompat.Medium"
             android:id="@+id/tituloFabProprietario"
             android:layout_marginTop="22dp"

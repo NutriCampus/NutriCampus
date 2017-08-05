@@ -41,7 +41,7 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
         inputEmailProprietario.setText(proprietario.getEmail());
         inputFoneProprietario.setText(proprietario.getTelefone());
 
-        btnSalvar.setText("Atualizar");
+        btnSalvar.setText(getString(R.string.atualizar));
     }
 
 
@@ -107,7 +107,8 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
         voltarActivity();
     }
 
-    private void voltarActivity() {
+    @Override
+    protected void voltarActivity() {
         Intent it = new Intent(EditarProprietarioActivity.this, ListaProprietariosActivity.class);
         startActivity(it);
         finish();

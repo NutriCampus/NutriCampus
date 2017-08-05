@@ -215,6 +215,8 @@
     <string name="menu_ver_producao_leite">Ver produção de leite</string>
     <string name="menu_ver_prole">Ver prole</string>
     <string name="msg_selecione_propriedade">Por favor, selecione uma propriedade cadastrada.</string>
+    <string name="text_floating_propriedade">Propriedade</string>
+    <string name="text_floating_proprietarios">Proprietários</string>
 
 
 </resources>
