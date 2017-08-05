@@ -338,6 +338,7 @@ public class ProducaoDeLeiteBuscarAcceptanceTest {
         ViewInteraction appCompatButton9 = onView(
                 allOf(withId(R.id.btn_filtrar_producao), isDisplayed()));
         appCompatButton9.perform(click());
+
         try {
             Thread.sleep(500);
             onView(withText("01/07/2017")).perform(longClick());

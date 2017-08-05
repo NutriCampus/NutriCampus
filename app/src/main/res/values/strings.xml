@@ -70,7 +70,7 @@
     <string name="msg_cadastro_salvo">Cadastro realizado com sucesso</string>
     <string name="msg_cadastre_proprietario">Cadastre um proprietário</string>
     <string name="msg_cadastre_propriedade">Cadastre uma propriedade</string>
-    <string name="msg_spinner_proprietario">Selecione uma proprietário</string>
+    <string name="msg_spinner_proprietario">Selecione um proprietário</string>
     <string name="msg_spinner_propriedade">Procure uma propriedade</string>
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>

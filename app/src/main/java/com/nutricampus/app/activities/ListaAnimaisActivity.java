@@ -104,7 +104,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_proprietario);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_animais);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

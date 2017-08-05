@@ -83,7 +83,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_proprietario);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_propriedade);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

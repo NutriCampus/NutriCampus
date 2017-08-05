@@ -19,6 +19,7 @@ import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
 import org.hamcrest.Description;
@@ -41,11 +42,8 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -87,100 +85,22 @@ public class Animal01CadastroActivityTest {
         // Necessário utilizar uma adição direta já que pela tela de cadastro dá erro, pois a tela
         // é pequena no emulador e o botão de add não é encontrado.
         Proprietario proprietario = new Proprietario("04998517490", "Jorge Veloso", "jvsveloso@gmail.com.com", "(99) 99999 9999");
-        repositorioProprietario.inserirProprietario(proprietario);
+        int idProprietario = repositorioProprietario.inserirProprietario(proprietario);
 
-        closeKeyboard();
+        Propriedade propriedade = new Propriedade("Propriedade 1", "87999999999", "Rua da Indepencia",
+                "Mundaú", "55290-000", "Garanhuns", "Pernambuco", "213", idProprietario, 1);
+
+        repositorioPropriedade.inserirPropriedade(propriedade);
+
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         floatingActionButton.perform(click());
         closeKeyboard();
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
-        appCompatButton2.perform(click());
-        closeKeyboard();
 
-
-        Thread.sleep(1400);
-        ViewInteraction appCompatSpinner = onView(
-                withId(R.id.spinner_proprietario));
         Thread.sleep(1000);
-
-        appCompatSpinner.perform(scrollTo(), click());
-        closeKeyboard();
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("Jorge Veloso"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                1),
-                        isDisplayed()));
-        Thread.sleep(1000);
-
-        appCompatCheckedTextView.perform(click());
-        closeKeyboard();
-
-        ViewInteraction appCompatEditText13 = onView(
-                withId(R.id.input_nome_propriedade));
-        appCompatEditText13.perform(scrollTo(), replaceText("Propriedade 1"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_telefone_propriedade)));
-        appCompatEditText17.perform(scrollTo(), replaceText("(87) 99999 9999"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText18 = onView(
-                withId(R.id.input_rua));
-        appCompatEditText18.perform(scrollTo(), replaceText("Rua da Independencia"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText19 = onView(
-                withId(R.id.input_bairro));
-        appCompatEditText19.perform(scrollTo(), replaceText("Mundaú"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.input_numero), isDisplayed()));
-        appCompatEditText20.perform(replaceText("213"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText22 = onView(
-                allOf(withId(R.id.input_cep), isDisplayed()));
-        appCompatEditText22.perform(replaceText("55290-000"), closeSoftKeyboard());
-        closeKeyboard();
-        onView(withId(R.id.input_estado))
-                .perform(scrollTo())
-                .perform(typeText("P"));
-
-        onView(withId(R.id.input_estado))
-                .perform(typeTextIntoFocusedView("e"));
-
-        closeKeyboard();
-        Thread.sleep(2000);
-        onView(withText("Pernambuco"))
-                .inRoot(isPlatformPopup())
-                .perform(click());
-
-        onView(withId(R.id.input_estado))
-                .check(matches(withText("Pernambuco")));
-        closeKeyboard();
-
-        onView(withId(R.id.input_cidade))
-                .perform(scrollTo())
-                .perform(typeText("Ga"));
-
-        onView(withId(R.id.input_cidade))
-                .perform(typeTextIntoFocusedView("ran"));
-
-        closeKeyboard();
-        Thread.sleep(2000);
-        onView(withText("Garanhuns"))
-                .inRoot(isPlatformPopup())
-                .perform(click());
-
-        closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-        appCompatButton6.perform(scrollTo(), click());
-        closeKeyboard();
 
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
@@ -285,7 +205,7 @@ public class Animal01CadastroActivityTest {
         prepararTeste();
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
@@ -400,98 +320,26 @@ public class Animal01CadastroActivityTest {
     public void animalCadastroActivityTest3() throws Exception {//Cadastro e animal de mesmo id em propriedade diferente
         prepararTeste();
         closeKeyboard();
+
+
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
+        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
+        int idProprietario = repositorioProprietario.buscarProprietario("04998517490").getId();
+
+        Propriedade propriedade = new Propriedade("Propriedade 2", "87999999999", "Rua da Esperança",
+                "Heliopolis", "55295-390", "Garanhuns", "Pernambuco", "213", idProprietario, 1);
+
+        repositorioPropriedade.inserirPropriedade(propriedade);
+
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         Thread.sleep(1000);
 
         floatingActionButton.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
-        Thread.sleep(1000);
 
-        appCompatButton2.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatSpinner = onView(
-                withId(R.id.spinner_proprietario));
-        Thread.sleep(1000);
-
-        appCompatSpinner.perform(scrollTo(), click());
-        closeKeyboard();
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("Jorge Veloso"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                1),
-                        isDisplayed()));
-        Thread.sleep(1000);
-
-        appCompatCheckedTextView.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatEditText13 = onView(
-                withId(R.id.input_nome_propriedade));
-        appCompatEditText13.perform(scrollTo(), replaceText("Propriedade 2"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_telefone_propriedade)));
-        appCompatEditText17.perform(scrollTo(), replaceText("(87) 99999 9999"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText18 = onView(
-                withId(R.id.input_rua));
-        appCompatEditText18.perform(scrollTo(), replaceText("Rua da Esperança"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText19 = onView(
-                withId(R.id.input_bairro));
-        appCompatEditText19.perform(scrollTo(), replaceText("Heliopolis"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.input_numero), isDisplayed()));
-        appCompatEditText20.perform(replaceText("213"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText22 = onView(
-                allOf(withId(R.id.input_cep), isDisplayed()));
-        appCompatEditText22.perform(replaceText("55295-390"), closeSoftKeyboard());
-        closeKeyboard();
-        onView(withId(R.id.input_estado))
-                .perform(scrollTo())
-                .perform(typeText("P"));
-
-        onView(withId(R.id.input_estado))
-                .perform(typeTextIntoFocusedView("e"));
-        closeKeyboard();
-        Thread.sleep(1000);
-
-        onView(withText("Pernambuco"))
-                .inRoot(isPlatformPopup())
-                .perform(click());
-
-        onView(withId(R.id.input_estado))
-                .check(matches(withText("Pernambuco")));
-        closeKeyboard();
-
-        onView(withId(R.id.input_cidade))
-                .perform(scrollTo())
-                .perform(typeText("Ga"));
-
-        onView(withId(R.id.input_cidade))
-                .perform(typeTextIntoFocusedView("ran"));
-
-        closeKeyboard();
-        Thread.sleep(2000);
-
-        onView(withText("Garanhuns"))
-                .inRoot(isPlatformPopup())
-                .perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-        Thread.sleep(1000);
-
-        appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
         ViewInteraction appCompatSpinner4 = onView(
@@ -610,7 +458,7 @@ public class Animal01CadastroActivityTest {
         prepararTeste();
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
@@ -651,7 +499,7 @@ public class Animal01CadastroActivityTest {
         prepararTeste();
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
@@ -712,7 +560,7 @@ public class Animal01CadastroActivityTest {
         prepararTeste();
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_proprietario),
+                allOf(withId(R.id.btn_add_animais),
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));

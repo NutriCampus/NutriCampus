@@ -70,6 +70,7 @@ public class UsuarioTesteUnitario {
                 ", Email: '" + user1.getEmail() + '\'' +
                 ", Senha: '" + user1.getSenha() + '\'' +
                 '}';
+
         assertEquals(str, user1.toString());
     }
 }
