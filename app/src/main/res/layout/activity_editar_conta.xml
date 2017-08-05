@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="05dp"
+    android:weightSum="1"
+    android:id="@+id/telaEditarUsuarioActivity"
+    tools:context="com.nutricampus.app.activities.EditarUsuarioActivity">
+
+    <include layout="@layout/activity_cadastrar_usuario"></include>
+</LinearLayout>
