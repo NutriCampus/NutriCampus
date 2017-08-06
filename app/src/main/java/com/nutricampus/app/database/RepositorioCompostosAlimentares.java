@@ -29,6 +29,7 @@ public class RepositorioCompostosAlimentares {
     }
 
     public int inserirCompostoAlimentar(CompostosAlimentares compostoAlimentar) {
+        compostoAlimentar.print();
         bancoDados = gerenciador.getWritableDatabase();
 
         ContentValues dados = getContentValues(compostoAlimentar);
@@ -110,6 +111,36 @@ public class RepositorioCompostosAlimentares {
         return compostosAlimentares;
     }
 
+    public List<CompostosAlimentares> buscarTodosCompostosAlimentares() {
+
+        bancoDados = gerenciador.getReadableDatabase();
+
+        String sql = "SELECT * FROM " + SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES +
+                " WHERE 1=1";
+
+        ArrayList<CompostosAlimentares> compostosAlimentares = new ArrayList<>();
+        String getCompostosAlimentares = sql;
+
+        try {
+            Cursor c = bancoDados.rawQuery(getCompostosAlimentares, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    compostosAlimentares.add(getDadosFromCursor(c));
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            Log.i("RepCompostosAlimentares", e.toString());
+            return Collections.emptyList();
+        } finally {
+            bancoDados.close();
+        }
+
+        return compostosAlimentares;
+    }
+
     private ContentValues getContentValues(CompostosAlimentares compostosAlimentares) {
         ContentValues dados = new ContentValues();
 
@@ -154,13 +185,14 @@ public class RepositorioCompostosAlimentares {
         return (retorno > 0);
     }
 
-    public void removerCompostoAlimentar(CompostosAlimentares compostoAlimentar) {
+    public int removerCompostoAlimentar(CompostosAlimentares compostoAlimentar) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES,
+        int rs = bancoDados.delete(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES,
                 SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = ? ",
                 new String[]{String.valueOf(compostoAlimentar.getId())});
 
         bancoDados.close();
+        return rs;
     }
 
     private CompostosAlimentares getDadosFromCursor(Cursor c) {

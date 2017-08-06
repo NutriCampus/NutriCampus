@@ -11,21 +11,21 @@ public class CompostosAlimentares {
     private int id;
     private String tipo;
     private String identificador;
-    private float MS;
-    private float FDN;
-    private float EE;
-    private float MM;
-    private float CNF;
-    private float PB;
-    private float NDT;
-    private float FDA;
+    private double MS;
+    private double FDN;
+    private double EE;
+    private double MM;
+    private double CNF;
+    private double PB;
+    private double NDT;
+    private double FDA;
     private String descricao;
 
     public CompostosAlimentares() {
     }
 
-    public CompostosAlimentares(String tipo, String identificador, float MS, float FDN,
-                                float EE, float MM, float CNF, float PB, float NDT, float FDA, String descricao) {
+    public CompostosAlimentares(String tipo, String identificador, double MS, double FDN,
+                                double EE, double MM, double CNF, double PB, double NDT, double FDA, String descricao) {
         this.tipo = tipo;
         this.identificador = identificador;
         this.MS = MS;
@@ -39,8 +39,8 @@ public class CompostosAlimentares {
         this.descricao = descricao;
     }
 
-    public CompostosAlimentares(int id, String tipo, String identificador, float MS, float FDN,
-                                float EE, float MM, float CNF, float PB, float NDT, float FDA, String descricao) {
+    public CompostosAlimentares(int id, String tipo, String identificador, double MS, double FDN,
+                                double EE, double MM, double CNF, double PB, double NDT, double FDA, String descricao) {
         this.id = id;
         this.tipo = tipo;
         this.identificador = identificador;
@@ -79,67 +79,67 @@ public class CompostosAlimentares {
         this.identificador = identificador;
     }
 
-    public float getMS() {
+    public double getMS() {
         return MS;
     }
 
-    public void setMS(float MS) {
+    public void setMS(double MS) {
         this.MS = MS;
     }
 
-    public float getFDN() {
+    public double getFDN() {
         return FDN;
     }
 
-    public void setFDN(float FDN) {
+    public void setFDN(double FDN) {
         this.FDN = FDN;
     }
 
-    public float getEE() {
+    public double getEE() {
         return EE;
     }
 
-    public void setEE(float EE) {
+    public void setEE(double EE) {
         this.EE = EE;
     }
 
-    public float getMM() {
+    public double getMM() {
         return MM;
     }
 
-    public void setMM(float MM) {
+    public void setMM(double MM) {
         this.MM = MM;
     }
 
-    public float getCNF() {
+    public double getCNF() {
         return CNF;
     }
 
-    public void setCNF(float CNF) {
+    public void setCNF(double CNF) {
         this.CNF = CNF;
     }
 
-    public float getPB() {
+    public double getPB() {
         return PB;
     }
 
-    public void setPB(float PB) {
+    public void setPB(double PB) {
         this.PB = PB;
     }
 
-    public float getNDT() {
+    public double getNDT() {
         return NDT;
     }
 
-    public void setNDT(float NDT) {
+    public void setNDT(double NDT) {
         this.NDT = NDT;
     }
 
-    public float getFDA() {
+    public double getFDA() {
         return FDA;
     }
 
-    public void setFDA(float FDA) {
+    public void setFDA(double FDA) {
         this.FDA = FDA;
     }
 
@@ -167,5 +167,9 @@ public class CompostosAlimentares {
                 ", FDA=" + FDA +
                 ", descricao='" + descricao + '\'' +
                 '}';
+    }
+
+    public void print() {
+        System.out.println(this.toString());
     }
 }

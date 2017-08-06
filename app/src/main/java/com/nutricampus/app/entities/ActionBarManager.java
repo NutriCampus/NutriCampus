@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
+import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -95,6 +96,9 @@ public class ActionBarManager {
                                 break;
                             case 3:
                                 intent = new Intent(activity, ListaAnimaisActivity.class);
+                                break;
+                            case 4:
+                                intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();

@@ -106,7 +106,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PROLE_ID = "_id";
     public static final String PROLE_ID_MATRIZ = "id_matriz";
     public static final String PROLE_DATA_DE_NASCIMENTO = "dataDeNascimento";
-    public static final String PROLE_PESO_DE_NASCIMENTO =  "pesoDeNascimento";
+    public static final String PROLE_PESO_DE_NASCIMENTO = "pesoDeNascimento";
     public static final String PROLE_IS_NATIMORTO = "isNatimorto";
 
     //Compostos Alimentares
@@ -122,7 +122,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String COMPOSTOS_ALIMENTARES_PB = "PB";
     public static final String COMPOSTOS_ALIMENTARES_NDT = "NDT";
     public static final String COMPOSTOS_ALIMENTARES_FDA = "FDA";
-    public static final String COMPOSTOS_ALIMENTARES_DESCRICAO =   "descricao";
+    public static final String COMPOSTOS_ALIMENTARES_DESCRICAO = "descricao";
 
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
@@ -149,7 +149,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             DADOS_COMPL_COL_DATA + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_PESO_VIVO + " " + REAL_NOT_NULL +", " +
+            DADOS_COMPL_COL_PESO_VIVO + " " + REAL_NOT_NULL + ", " +
             DADOS_COMPL_COL_EEC + " TEXT," +
             DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " TEXT, " +
             DADOS_COMPL_COL_CAMINHADA_VERTICAL + " TEXT, " +

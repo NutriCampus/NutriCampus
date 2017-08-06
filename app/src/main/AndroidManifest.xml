@@ -128,6 +128,24 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
+            android:name=".activities.CadastrarCompostosAlimentaresActivity"
+            android:parentActivityName=".activities.ListaCompostosAlimentaresActivity"
+            android:label="@string/titulo_novo_composto"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaCompostosAlimentaresActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ListaCompostosAlimentaresActivity"
+            android:label="@string/titulo_lista_compostos_alimentares"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+        <activity
             android:name=".activities.EditarAnimalActivity"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
