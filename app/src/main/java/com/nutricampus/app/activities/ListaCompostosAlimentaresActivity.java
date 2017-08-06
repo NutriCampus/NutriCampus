@@ -3,6 +3,7 @@ package com.nutricampus.app.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -72,7 +73,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
         listCompostosAlimentares.setEmptyView(findViewById(android.R.id.empty));
 
         registerForContextMenu(listCompostosAlimentares);
-        carregaListView("", true);
+        carregaListView("");
 
         listCompostosAlimentares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,7 +96,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        carregaListView("", true);
+        carregaListView("");
 
     }
 
@@ -116,11 +117,14 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        AlertDialog.Builder builder = null;
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_visualizar_composto:
                 if (info != null)
-                    //abreTelaComposto(info.position, ListaAnimaisActivity.class);
-                    return true;
+                    /**/
+                    abreTelaVisualizar(info.position);
+                    /**/
+                return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
                     abreTelaEditar(info.position);
@@ -172,10 +176,10 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
                             Toast.makeText(ListaCompostosAlimentaresActivity.this,
                                     getString(R.string.msg_excluir_composto_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregaListView("", true);
+                            carregaListView("");
                         } else {
                             Toast.makeText(ListaCompostosAlimentaresActivity.this,
-                                    getString(R.string.msg_excluir_propriedade_falha), Toast.LENGTH_LONG).show();
+                                    getString(R.string.msg_excluir_composto_falha), Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -191,7 +195,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
                 action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-                carregaListView("", true);
+                carregaListView("");
             }
             //hides the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -217,7 +221,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
                     @Override
                     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                         if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            carregaListView(inputPesquisaComposto.getText().toString(), false);
+                            carregaListView(inputPesquisaComposto.getText().toString());
                             return true;
                         }
                         return false;
@@ -241,22 +245,14 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
         }
     }
 
-    private void carregaListView(String nome, boolean tudo) {
+    private void carregaListView(String nome) {
         List<CompostosAlimentares> lista = null;
         ListaCompostosAlimentaresAdapter adapter = null;
-        //if (!tudo) {
+
         lista = this.buscarComposto(nome);
 
         adapter = new ListaCompostosAlimentaresAdapter(lista, this);
 
-        listCompostosAlimentares.setAdapter(adapter);
-        /*} else {
-            RepositorioCompostosAlimentares repositorioPropriedade = new RepositorioCompostosAlimentares(this);
-            lista = repositorioPropriedade.buscarTodosCompostosAlimentares();
-            adapter = new ListaCompostosAlimentaresAdapter(lista, this);
-
-
-        }*/
         listCompostosAlimentares.setAdapter(adapter);
 
         if (lista.isEmpty()) {
@@ -280,8 +276,13 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
         return repositorioPropriedade.buscarTodosCompostos(nome);
     }
 
-    private Intent getIntent(CompostosAlimentares compostosAlimentares) {
-        Intent intent = new Intent(this, EditarCompostoActivity.class);
+    private Intent getIntent(CompostosAlimentares compostosAlimentares, boolean isView) {
+        Intent intent;
+        if (isView) {
+            intent = new Intent(this, VisualizarCompostoActivity.class);
+        } else {
+            intent = new Intent(this, EditarCompostoActivity.class);
+        }
 
         intent.putExtra("id", compostosAlimentares.getId());
         intent.putExtra("tipo", compostosAlimentares.getTipo());
@@ -300,14 +301,12 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
 
     private void abreTelaEditar(int posicao) {
         CompostosAlimentares item = (CompostosAlimentares) listCompostosAlimentares.getItemAtPosition(posicao);
-        startActivity(getIntent(item));
+        startActivity(getIntent(item, false));
     }
 
-    /*private void abreTelaAnimal(int posicao, Class activity) {
-        CompostosAlimentares propriedade = (CompostosAlimentares) listPropriedades.getItemAtPosition(posicao);
-        Intent intent = new Intent(ListaCompostosAlimentaresActivity.this, activity);
-        intent.putExtra(EXTRA_PROPRIEDADE, propriedade);
-        startActivity(intent);
-        this.finish();
-    }*/
+
+    private void abreTelaVisualizar(int position) {
+        CompostosAlimentares item = (CompostosAlimentares) listCompostosAlimentares.getItemAtPosition(position);
+        startActivity(getIntent(item, true));
+    }
 }

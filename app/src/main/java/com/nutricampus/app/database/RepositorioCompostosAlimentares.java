@@ -141,36 +141,6 @@ public class RepositorioCompostosAlimentares {
         return compostosAlimentares;
     }
 
-    /*public List<CompostosAlimentares> buscarTodosCompostosAlimentares() {
-
-        bancoDados = gerenciador.getReadableDatabase();
-
-        String sql = "SELECT * FROM " + SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES +
-                " WHERE 1=1";
-
-        ArrayList<CompostosAlimentares> compostosAlimentares = new ArrayList<>();
-        String getCompostosAlimentares = sql;
-
-        try {
-            Cursor c = bancoDados.rawQuery(getCompostosAlimentares, null);
-
-            if (c.moveToFirst()) {
-                do {
-                    compostosAlimentares.add(getDadosFromCursor(c));
-                } while (c.moveToNext());
-                c.close();
-            }
-
-        } catch (Exception e) {
-            Log.i("RepCompostosAlimentares", e.toString());
-            return Collections.emptyList();
-        } finally {
-            bancoDados.close();
-        }
-
-        return compostosAlimentares;
-    }*/
-
     private ContentValues getContentValues(CompostosAlimentares compostosAlimentares) {
         ContentValues dados = new ContentValues();
 
