@@ -90,20 +90,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
             CadastrarUsuarioActivity.this.finish();
-            /*
-            //Caixa de Dialogo
-            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
-            dialog.setTitle("Cadastro");
-            dialog.setMessage(String.format(
-                    "Usuário %s cadastrado com sucesso !", usuario.getNome()));
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    CadastrarUsuarioActivity.this.finish();
-                }
-            });
-            dialog.show();
-            */
+
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }

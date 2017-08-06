@@ -60,18 +60,37 @@ import static org.junit.Assert.fail;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class Animal02BuscarActivityTest {
-    private Activity currentActivity;
-
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+    private Activity currentActivity;
+
+    private static Matcher<View> childAtPosition(
+            final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
 
     @Test
     public void buscarAnimalCadastrado() throws Exception {
-        prepararTeste();
+        realizaLogin();
         clicarMenuAnimais();
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         int id = repositorioPropriedade.buscarPropriedade("Propriedade 2").getId();
+
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
         Animal animal = repositorioAnimal.buscarAnimal("Mimosa", id);
         if (animal != null)
@@ -109,7 +128,7 @@ public class Animal02BuscarActivityTest {
     @Test
     public void buscarComTermosDePesquisaEmBranco() throws Exception {
 
-        prepararTeste();
+        realizaLogin();
         clicarMenuAnimais();
 
         Thread.sleep(500);
@@ -143,7 +162,7 @@ public class Animal02BuscarActivityTest {
 
     @Test
     public void visualizarAnimaisPorPropriedade() throws Exception {
-        prepararTeste();
+        realizaLogin();
         clicarMenuAnimais();
 
         ViewInteraction appCompatSpinner = onView(
@@ -173,12 +192,22 @@ public class Animal02BuscarActivityTest {
 
     }
 
+    //@Ignore // Não tá achando as propriedades
     @Test
     public void visualizarAnimaisPelaListaDePropriedades() throws Exception {
-        prepararTeste();
+        realizaLogin();
+/*
+        SharedPreferencesManager session = new SharedPreferencesManager(InstrumentationRegistry.getTargetContext());
+        int id = session.getIdUsuario().equals("") ? 0 : Integer.parseInt(session.getIdUsuario());
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
+        repositorioPropriedade.buscarPropriedadesPorNome("Propriedade 1",id);
+*/
         clicarMenuPropriedades();
-        Thread.sleep(1500);
+
+        Thread.sleep(500);
         onView(withText("Propriedade 1")).perform(longClick());
+        Thread.sleep(500);
+
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(android.R.id.title), withText("Visualizar animais"), isDisplayed()));
         appCompatTextView.perform(click());
@@ -211,7 +240,7 @@ public class Animal02BuscarActivityTest {
 
     @Test
     public void buscarAnimalNaoCadastrado() throws Exception {
-        prepararTeste();
+        realizaLogin();
         clicarMenuAnimais();
 
         ViewInteraction actionMenuItemView8 = onView(
@@ -253,7 +282,7 @@ public class Animal02BuscarActivityTest {
 
     }
 
-    public void prepararTeste() throws Exception {
+    public void realizaLogin() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -272,25 +301,6 @@ public class Animal02BuscarActivityTest {
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
-    }
-
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
     }
 
     public void doLogout() throws Exception {

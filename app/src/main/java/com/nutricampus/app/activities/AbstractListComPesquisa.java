@@ -13,10 +13,7 @@ import android.widget.TextView;
 
 import com.nutricampus.app.R;
 
-/**
- * Created by kellison on 05/08/17.
- */
-
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 abstract class AbstractListComPesquisa extends AppCompatActivity {
 
     protected MenuItem mSearchAction;

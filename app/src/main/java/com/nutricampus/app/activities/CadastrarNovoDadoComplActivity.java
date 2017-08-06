@@ -109,13 +109,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         showDatePickerDialogOnClick(v);
     }
 
-
-    public void salvarHistoricoAnimal(View v) {
-        if (!validaDados()) {
-            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
-            return;
-        }
-
+    protected DadosComplAnimal getDadosComplAnimal() {
         float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
                 Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
         float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f :
@@ -132,7 +126,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
 
-        DadosComplAnimal dadosComplAnimal = new DadosComplAnimal(
+        return new DadosComplAnimal(
                 data,
                 Float.parseFloat(inputPesoVivo.getText().toString()),
                 eec,
@@ -142,8 +136,16 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
                 ckbPastando.isChecked(),
                 ckbLactacao.isChecked(),
                 ckbGestante.isChecked(),
-                ckbCio.isChecked()
-        );
+                ckbCio.isChecked());
+    }
+
+    public void salvarHistoricoAnimal(View v) {
+        if (!validaDados()) {
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        DadosComplAnimal dadosComplAnimal = getDadosComplAnimal();
 
         dadosComplAnimal.setAnimal(animal.getId());
 

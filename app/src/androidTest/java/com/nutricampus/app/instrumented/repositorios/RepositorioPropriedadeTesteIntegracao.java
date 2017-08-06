@@ -127,7 +127,7 @@ public class RepositorioPropriedadeTesteIntegracao {
         int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
 
         boolean isPropriedadeEncontrada = repositorio.
-                PropriedadesOfProprietario(idProprietario).size() > 1;
+                propriedadesOfProprietario(idProprietario).size() > 1;
 
         assertTrue(isPropriedadeEncontrada);
     }

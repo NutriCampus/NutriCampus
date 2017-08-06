@@ -45,28 +45,6 @@ abstract class AbstractPreparacaoTestes {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-
-    public void prepararTeste() throws Exception {
-        doLogout();
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.input_usuario), isDisplayed()));
-        appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_senha), isDisplayed()));
-        appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
-        appCompatButton.perform(click());
-
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-    }
-
     protected static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
@@ -93,6 +71,27 @@ abstract class AbstractPreparacaoTestes {
         }
     }
 
+    public void realizaLogin() throws Exception {
+        doLogout();
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.input_usuario), isDisplayed()));
+        appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.input_senha), isDisplayed()));
+        appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Open"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+    }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -108,7 +107,7 @@ abstract class AbstractPreparacaoTestes {
 
     public void closeKeyboard() throws Exception {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1300);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

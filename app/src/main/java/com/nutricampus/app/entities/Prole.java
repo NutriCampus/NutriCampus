@@ -47,8 +47,8 @@ public class Prole {
         return idMatriz;
     }
 
-    public void setMatriz(int id_matriz) {
-        this.idMatriz = id_matriz;
+    public void setMatriz(int idMatriz) {
+        this.idMatriz = idMatriz;
     }
 
     public Calendar getDataDeNascimento() {

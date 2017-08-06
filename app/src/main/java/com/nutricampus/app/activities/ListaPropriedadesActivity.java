@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -181,30 +182,6 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            gerenciaFuncaoPesquisar();
-            return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpened) {
-            gerenciaFuncaoPesquisar();
-            return;
-        }
-        super.onBackPressed();
-    }
 
     private void confirmarExcluir(final Propriedade propriedade) {
         new AlertDialog.Builder(this)
@@ -225,7 +202,7 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
 
 
                         boolean isDeleteProprietario = repositorioPropriedade.
-                                PropriedadesOfProprietario(proprietario.getId()).size() > 1;
+                                propriedadesOfProprietario(proprietario.getId()).size() > 1;
 
                         int result = repositorioPropriedade.removerPropriedade(propriedade);
 
@@ -280,7 +257,9 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
     public List<Propriedade> buscarPropriedades(String nome) {
         int id = session.getIdUsuario().equals("") ? 0 : Integer.parseInt(session.getIdUsuario());
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
+        Log.w("USER", id + "");
         return repositorioPropriedade.buscarPropriedadesPorNome(nome, id);
+
     }
 
     private Intent getIntent(Propriedade propriedade) {

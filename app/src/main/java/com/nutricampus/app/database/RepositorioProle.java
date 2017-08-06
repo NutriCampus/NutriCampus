@@ -42,14 +42,14 @@ public class RepositorioProle {
     }
 
     public Prole buscarPorId(int id) {
-        String query = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+        String query = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROLE +
                 " WHERE " + SQLiteManager.PROLE_ID + " = " + id;
 
         return buscar(query).isEmpty() ? null : buscar(query).get(0);
     }
 
     public List<Prole> buscarPorMatriz(int idMatriz) {
-        String query = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+        String query = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROLE +
                 " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + idMatriz;
         return buscar(query);
     }
@@ -85,7 +85,7 @@ public class RepositorioProle {
         bancoDados = gerenciador.getReadableDatabase();
 
         ArrayList<Prole> proles = new ArrayList<>();
-        String getProles = "SELECT * FROM " + SQLiteManager.TABELA_PROLE +
+        String getProles = SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROLE +
                 " WHERE " + SQLiteManager.PROLE_ID_MATRIZ + " = " + idAnimal;
 
         try {

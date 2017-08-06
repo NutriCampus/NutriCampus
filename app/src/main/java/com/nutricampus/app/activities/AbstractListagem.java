@@ -25,11 +25,6 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 
-/**
- * Created by kellison on 01/08/17.
- */
-
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já

@@ -44,10 +44,15 @@ import static org.hamcrest.Matchers.is;
 public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Before
-    public void addProprietario() {
+    public void addProprietario() throws Exception {
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
         if (repositorioProprietario.buscarProprietario("00011122222") == null)
             repositorioProprietario.inserirProprietario(new Proprietario("00011122222", "Proprietario 1", "", ""));
+
+        realizaLogin();
+        clicarMenuPropriedade();
+        closeKeyboard();
+        clicarFloatingButton();
     }
 
     @After
@@ -61,28 +66,27 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
     }
 
     @Test
-    public void cadastraComCamposEmBranco() throws Exception {
-        prepararTeste();
-        clicarMenuPropriedade();
-        closeKeyboard();
-        clicarFloatingButton();
+    public void cadastrarComCamposEmBranco() throws Exception {
 
         Thread.sleep(1200);
 
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
+
+        Thread.sleep(500);
+
         appCompatButton6.perform(scrollTo(), click());
 
-        new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
+            Thread.sleep(3500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void cadastroCompleto() throws Exception {
-        prepararTeste();
-        clicarMenuPropriedade();
-        closeKeyboard();
-        clicarFloatingButton();
+    public void cadastrarComCamposPreenchidos() throws Exception {
 
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
@@ -90,6 +94,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
+        Thread.sleep(500);
         ViewInteraction appCompatCheckedTextView = onView(
                 allOf(withId(android.R.id.text1), withText("Proprietario 1"),
                         childAtPosition(
@@ -98,7 +103,6 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
                                 1),
                         isDisplayed()));
         Thread.sleep(1000);
-
         appCompatCheckedTextView.perform(click());
         closeKeyboard();
 
@@ -107,6 +111,8 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
+
+        Thread.sleep(500);
         appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
@@ -119,18 +125,14 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
     }
 
     @Test
-    public void cadastroSemProprietario() throws Exception {
-        prepararTeste();
-        clicarMenuPropriedade();
-        closeKeyboard();
-        clicarFloatingButton();
-
+    public void cadastrarSemProprietario() throws Exception {
 
         preencheCampos();
 
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
+        Thread.sleep(1000);
         appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
@@ -164,11 +166,14 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         ViewInteraction appCompatEditText20 = onView(
                 allOf(withId(R.id.input_numero), isDisplayed()));
         appCompatEditText20.perform(replaceText("213"), closeSoftKeyboard());
+
         closeKeyboard();
+
         ViewInteraction appCompatEditText22 = onView(
                 allOf(withId(R.id.input_cep), isDisplayed()));
         appCompatEditText22.perform(replaceText("55290-000"), closeSoftKeyboard());
         closeKeyboard();
+
         onView(withId(R.id.input_estado))
                 .perform(scrollTo())
                 .perform(typeText("P"));

@@ -236,7 +236,7 @@ public class ListaAnimaisActivity extends AbstractListComPesquisa
         // Existência necessária devido a herança, mas não implementada.
     }
 
-    public void preencherSpinnerListaPropriedade() {
+    private void preencherSpinnerListaPropriedade() {
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         List<Propriedade> todasPropriedades = repositorioPropriedade.buscarTodasPropriedades();
@@ -255,13 +255,9 @@ public class ListaAnimaisActivity extends AbstractListComPesquisa
             spinnerPropriedade.setAdapter(spinnerPropriedadeAdapter);
 
             int posicao;
-            String idPropriedade = inputIdPropriedade.getText().toString();
+            int id = inputIdPropriedade.getText().toString().isEmpty() ? 0 : Integer.parseInt(inputIdPropriedade.getText().toString());
 
-            if (idPropriedade.isEmpty())
-                posicao = 0;
-            else
-                posicao = spinnerPropriedadeAdapter.getPosition(repositorioPropriedade.buscarPropriedade(
-                        Integer.parseInt(idPropriedade)));
+            posicao = (id == 0) ? 0 : spinnerPropriedadeAdapter.getPosition(repositorioPropriedade.buscarPropriedade(id));
 
 
             spinnerPropriedade.setSelection(posicao);

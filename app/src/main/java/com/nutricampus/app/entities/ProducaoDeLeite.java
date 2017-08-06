@@ -60,8 +60,8 @@ public class ProducaoDeLeite {
         return idAnimal;
     }
 
-    public void setAnimal(int id_animal) {
-        this.idAnimal = id_animal;
+    public void setAnimal(int idAnimal) {
+        this.idAnimal = idAnimal;
     }
 
     public Calendar getData() {

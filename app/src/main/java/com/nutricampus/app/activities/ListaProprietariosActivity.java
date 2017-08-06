@@ -37,6 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaProprietariosActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
@@ -168,7 +169,7 @@ public class ListaProprietariosActivity extends AppCompatActivity {
                         List<Animal> listAnimal;
 
                         ArrayList<Propriedade> propriedades = (ArrayList<Propriedade>)
-                                repositorioPropriedade.PropriedadesOfProprietario(proprietario.getId());
+                                repositorioPropriedade.propriedadesOfProprietario(proprietario.getId());
 
                         int result = repositorioProprietario.removerProprietario(proprietario);
 

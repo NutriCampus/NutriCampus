@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
@@ -29,38 +30,38 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
-/**
- * Created by kellison on 04/08/17.
- */
-
-
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        realizaLogin();
+        Thread.sleep(500);
+
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
+
+        SharedPreferencesManager session = new SharedPreferencesManager(InstrumentationRegistry.getTargetContext());
+        int id = session.getIdUsuario().equals("") ? 0 : Integer.parseInt(session.getIdUsuario());
 
         Proprietario proprietario = new Proprietario("04998517490", "Jorge Veloso", "jvsveloso@gmail.com.com", "(99) 99999 9999");
         int idProprietario = repositorioProprietario.inserirProprietario(proprietario);
 
         Propriedade propriedade = new Propriedade("Propriedade 1", "87999999999", "Rua da Indepencia",
-                "Mundaú", "55290-000", "Garanhuns", "Pernambuco", "213", idProprietario, 1);
+                "Mundaú", "55290-000", "Garanhuns", "Pernambuco", "213", idProprietario, id);
 
-        if (repositorioPropriedade.buscarPropriedadesPorNome("Propriedade 1", 1).size() == 0)
+        if (repositorioPropriedade.buscarPropriedadesPorNome("Propriedade 1", id).size() == 0)
             repositorioPropriedade.inserirPropriedade(propriedade);
+
+        clicarMenuPropriedade();
+        closeKeyboard();
     }
 
     @Test
     public void tentaAtualizarCadastroApenasComProprietário() throws Exception {
-
-        prepararTeste();
-        clicarMenuPropriedade();
-        closeKeyboard();
-
+        Thread.sleep(1000);
         onView(withText("Propriedade 1"))
                 .perform(longClick());
 
@@ -113,7 +114,6 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            Thread.sleep(3500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,11 +121,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Test
     public void tentaAtualizarCadastroSemProprietario() throws Exception {
-
-        prepararTeste();
-        clicarMenuPropriedade();
-        closeKeyboard();
-
+        Thread.sleep(1000);
         onView(withText("Propriedade 1"))
                 .perform(longClick());
 
@@ -160,7 +156,6 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            Thread.sleep(3500);
         } catch (Exception e) {
             e.printStackTrace();
         }
