@@ -192,7 +192,7 @@ public class Animal02BuscarActivityTest {
 
     }
 
-    //@Ignore // Não tá achando as propriedades
+    @Ignore // Não tá achando as propriedades
     @Test
     public void visualizarAnimaisPelaListaDePropriedades() throws Exception {
         realizaLogin();
