@@ -1,9 +1,7 @@
 package com.nutricampus.app.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
@@ -82,22 +80,17 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         Usuario usuario = new Usuario(registro, cpf, nome, email, senha);
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
-        boolean f = repositorioUsuario.inserirUsuario(usuario);
+        int idUsuario = repositorioUsuario.inserirUsuario(usuario);
 
 
-        if (f) {
-            //Caixa de Dialogo
-            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
-            dialog.setTitle("Cadastro");
-            dialog.setMessage(String.format(
-                    "Usuário %s cadastrado com sucesso !", usuario.getNome()));
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    CadastrarUsuarioActivity.this.finish();
-                }
-            });
-            dialog.show();
+        if (idUsuario > -1) {
+            usuario.setId(idUsuario);
+            Toast.makeText(CadastrarUsuarioActivity.this,
+                    getString(R.string.msg_sucesso_cadastro, usuario.getNome()),
+                    Toast.LENGTH_LONG).show();
+
+            CadastrarUsuarioActivity.this.finish();
+
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }
@@ -134,6 +127,9 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
 
         if (registro.isEmpty()) {
             this.edtRegistro.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        } else if (registro.length() < 5) {
+            this.edtRegistro.setError(getString(R.string.msg_erro_CRZ));
             valido = false;
         } else {
             this.edtRegistro.setError(null);

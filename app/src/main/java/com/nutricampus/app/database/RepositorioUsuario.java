@@ -26,7 +26,7 @@ public class RepositorioUsuario {
         gerenciador = new SQLiteManager(context);
     }
 
-    public boolean inserirUsuario(Usuario usuario) {
+    public int inserirUsuario(Usuario usuario) {
         bancoDados = gerenciador.getWritableDatabase();
 
         ContentValues dados = new ContentValues();
@@ -40,8 +40,8 @@ public class RepositorioUsuario {
         long retorno = bancoDados.insert(SQLiteManager.TABELA_USUARIO, null, dados);
         bancoDados.close();
 
-        // if retorno == -1, then false
-        return (retorno != -1);
+        // retorna o id do elemento inserido
+        return (int) retorno;
     }
 
     public Usuario buscarUsuario(String crmv) {

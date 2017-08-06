@@ -63,33 +63,12 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
             return;
         }
 
-        float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
-                Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
-        float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f :
-                Float.parseFloat(inputCaminhadaVertical.getText().toString());
-
-        //Atribuir o valor de EEC
-        int idRadioButton = radioGroup.getCheckedRadioButtonId();
-        RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
-        int eec;
-        if (rb == null)
-            eec = 0;
-        else
-            eec = Integer.parseInt(String.valueOf(rb.getText()));
-
-        dadosComplAnimal.setData(data);
-        dadosComplAnimal.setPesoVivo(Float.parseFloat(inputPesoVivo.getText().toString()));
-        dadosComplAnimal.setEec(eec);
-        dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
-        dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
-        dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLactacao.getText().toString()));
-        dadosComplAnimal.setPastando(ckbPastando.isChecked());
-        dadosComplAnimal.setLactacao(ckbLactacao.isChecked());
-        dadosComplAnimal.setGestante(ckbGestante.isChecked());
-        dadosComplAnimal.setCio(ckbCio.isChecked());
+        DadosComplAnimal dadosComplementares = getDadosComplAnimal();
+        dadosComplementares.setAnimal(dadosComplAnimal.getAnimal());
+        dadosComplementares.setId(dadosComplAnimal.getId());
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarDadosComplActivity.this);
-        boolean atualDadosCompl = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplAnimal);
+        boolean atualDadosCompl = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplementares);
 
         if (atualDadosCompl) {
             Toast.makeText(EditarDadosComplActivity.this, R.string.msg_sucesso_atualizar_registro, Toast.LENGTH_LONG).show();

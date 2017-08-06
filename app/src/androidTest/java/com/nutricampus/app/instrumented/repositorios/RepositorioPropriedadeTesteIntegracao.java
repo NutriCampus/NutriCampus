@@ -126,7 +126,8 @@ public class RepositorioPropriedadeTesteIntegracao {
         Propriedade propriedade = new Propriedade("XXXX", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", idProprietario, idUsuario);
         int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
 
-        boolean isPropriedadeEncontrada = repositorio.isPropriedadeProprietario(idProprietario);
+        boolean isPropriedadeEncontrada = repositorio.
+                propriedadesOfProprietario(idProprietario).size() > 1;
 
         assertTrue(isPropriedadeEncontrada);
     }

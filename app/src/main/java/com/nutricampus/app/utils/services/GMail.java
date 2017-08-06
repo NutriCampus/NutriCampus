@@ -18,10 +18,10 @@ public class GMail {
 
     private static final String TAG = "GMail";
 
-    private static final String emailPort = "587";// gmail's smtp port
-    private static final String smtpAuth = "true";
-    private static final String starttls = "true";
-    private static final String emailHost = "smtp.gmail.com";
+    private static final String EMAIL_PORT = "587";// gmail's smtp port
+    private static final String SMTP_AUTH = "true";
+    private static final String STARTTLS = "true";
+    private static final String EMAIL_HOST = "smtp.gmail.com";
 
     private String fromEmail;
     private String fromPassword;
@@ -42,9 +42,9 @@ public class GMail {
         this.emailBody = emailBody;
 
         emailProperties = System.getProperties();
-        emailProperties.put("mail.smtp.port", emailPort);
-        emailProperties.put("mail.smtp.auth", smtpAuth);
-        emailProperties.put("mail.smtp.starttls.enable", starttls);
+        emailProperties.put("mail.smtp.port", EMAIL_PORT);
+        emailProperties.put("mail.smtp.auth", SMTP_AUTH);
+        emailProperties.put("mail.smtp.STARTTLS.enable", STARTTLS);
         Log.i(TAG, "Mail server properties set.");
     }
 
@@ -71,7 +71,7 @@ public class GMail {
     public void sendEmail() throws MessagingException {
 
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect(emailHost, fromEmail, fromPassword);
+        transport.connect(EMAIL_HOST, fromEmail, fromPassword);
         Log.i(TAG, "allrecipients: " + Arrays.toString(emailMessage.getAllRecipients()));
         transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         transport.close();

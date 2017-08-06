@@ -101,7 +101,7 @@ public class ListaProleActivity extends AbstractListagem {
             filtrarRegistros(new View(ListaProleActivity.this));
         } else {
             Toast.makeText(ListaProleActivity.this,
-                    getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
+                    getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
         }
     }
 

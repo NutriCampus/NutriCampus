@@ -4,14 +4,25 @@ import com.nutricampus.app.utils.Conversor;
 
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
 public class ConversorTesteUnitario {
+
+    @Test
+    public void testaConstrutorPrivate() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        Constructor constructor = Conversor.class.getDeclaredConstructor();
+        assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
+
+    }
 
     @Test
     public void booleanToInt() throws Exception {
@@ -45,6 +56,7 @@ public class ConversorTesteUnitario {
         int month = cal.get(Calendar.MONTH);
 
         assertEquals(month, 7);
+        assertNull(Conversor.stringToDate("JOAO---2"));
     }
 
     @Test

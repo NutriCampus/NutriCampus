@@ -57,8 +57,6 @@ public class DadosComplementaresFragment extends Fragment
     private CheckBox ckbCio;
     private CheckBox ckbGestante;
     private RadioGroup radioGroup;
-    private Button btnSalvar;
-    private Button btnHistRegistros;
     private EditText inputSemanaLact;
 
     private Calendar data;
@@ -100,8 +98,8 @@ public class DadosComplementaresFragment extends Fragment
         ckbCio = (CheckBox) layout.findViewById(R.id.ckb_cio);
         ckbGestante = (CheckBox) layout.findViewById(R.id.ckb_gestante);
         radioGroup = (RadioGroup) layout.findViewById(R.id.rgEec);
-        btnSalvar = (Button) layout.findViewById(R.id.btn_salvar);
-        btnHistRegistros = (Button) layout.findViewById(R.id.btn_hist_registros);
+        Button btnSalvar = (Button) layout.findViewById(R.id.btn_salvar);
+        Button btnHistRegistros = (Button) layout.findViewById(R.id.btn_hist_registros);
 
         btnSalvar.setOnClickListener(this);
         inputData.setOnClickListener(this);
@@ -125,7 +123,7 @@ public class DadosComplementaresFragment extends Fragment
                     ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
                 else
                     ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec() - 1)).setChecked(true);
-                btnSalvar.setText("Atualizar");
+                btnSalvar.setText(getString(R.string.atualizar));
                 btnHistRegistros.setVisibility(View.VISIBLE);
                 btnHistRegistros.setOnClickListener(this);
             }
@@ -134,12 +132,13 @@ public class DadosComplementaresFragment extends Fragment
         return layout;
     }
 
-    protected void inicializaCampoData() {
+    private void inicializaCampoData() {
         Calendar calendario = Calendar.getInstance();
         // O valor do mês pelo Calendar varia entre 0 e 11, por isso soma +1
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+            inputData.setText(Conversor.dataFormatada(data));
         } else {
             this.data.setTime(Conversor.stringToDate(inputData.getText().toString()));
         }
@@ -187,6 +186,7 @@ public class DadosComplementaresFragment extends Fragment
             Intent it = new Intent(getActivity(), ListaDadosComplActivity.class);
             it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
             startActivity(it);
+            return;
         }
 
         if (!validaDados()) {
@@ -241,7 +241,7 @@ public class DadosComplementaresFragment extends Fragment
 
     }
 
-    protected boolean validaDados() {
+    private boolean validaDados() {
         boolean valido = true;
 
         List<TextView> camposTexto = new ArrayList<>();

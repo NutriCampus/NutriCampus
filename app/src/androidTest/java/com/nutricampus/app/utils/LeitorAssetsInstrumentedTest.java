@@ -7,6 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +17,12 @@ import static org.junit.Assert.assertTrue;
 public class LeitorAssetsInstrumentedTest {
     private Context appContext;
 
+    @Test
+    public void testaConstrutorPrivate() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        Constructor constructor = LeitorAssets.class.getDeclaredConstructor();
+        assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
+
+    }
     @Before
     public void init() {
         this.appContext = InstrumentationRegistry.getTargetContext();

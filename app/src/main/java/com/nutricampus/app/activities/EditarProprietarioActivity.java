@@ -1,18 +1,15 @@
 package com.nutricampus.app.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.utils.Mascara;
-
-import butterknife.ButterKnife;
+import com.nutricampus.app.utils.ValidaFormulario;
 
 
 /*
@@ -29,50 +26,90 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_proprietario);
 
-        ButterKnife.bind(this);
-
-        Intent it = getIntent();
-        proprietario = (Proprietario) it.getSerializableExtra("proprietario");
-
-        inputFoneProprietario.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputFoneProprietario));
         inicializarCampos();
     }
 
     public void inicializarCampos() {
 
+        Intent it = getIntent();
+        proprietario = (Proprietario) it.getSerializableExtra("proprietario");
+
         inputNomeProprietario.setText(proprietario.getNome());
         inputCpfProprietario.setText(proprietario.getCpf());
         inputEmailProprietario.setText(proprietario.getEmail());
         inputFoneProprietario.setText(proprietario.getTelefone());
+
+        btnSalvar.setText(getString(R.string.atualizar));
     }
 
-    public void atualizarProprietario(View v) {
+
+    @Override
+    public void salvar(View v) {
+
+        if (!validaDados()) {
+            Toast.makeText(EditarProprietarioActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!ValidaFormulario.validarCpf(inputCpfProprietario.getText().toString())) {
+            Toast.makeText(EditarProprietarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
         proprietario.setNome(inputNomeProprietario.getText().toString());
         proprietario.setEmail(inputEmailProprietario.getText().toString());
         proprietario.setTelefone(inputFoneProprietario.getText().toString());
 
+        String cpfDuplicado = inputCpfProprietario.getText().toString();
+
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
+        Proprietario proprietarioCpfDuplicado = repositorioProprietario.buscarProprietario(cpfDuplicado);
+        if (proprietarioCpfDuplicado != null &&
+                (!cpfDuplicado.equals(proprietario.getCpf()))) {
+
+            Toast.makeText(EditarProprietarioActivity.this,
+                    getString(R.string.msg_erro_cadastro_proprietario),
+                    Toast.LENGTH_LONG).show();
+
+            return;
+        }
+
+
         boolean f = repositorioProprietario.atualizarProprietario(proprietario);
 
         if (f) {
-            //Caixa de Dialogo
-            AlertDialog.Builder dialog = new AlertDialog.Builder(EditarProprietarioActivity.this);
-            dialog.setTitle("Atualização");
-            dialog.setMessage(getString(
-                    R.string.msg_sucesso_atualizar, "Proprietário", proprietario.getNome()));
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    EditarProprietarioActivity.this.finish();
-                }
-            });
-            dialog.show();
+
+            Toast.makeText(EditarProprietarioActivity.this,
+                    getString(R.string.msg_sucesso_atualizar, "Proprietário", ""),
+                    Toast.LENGTH_LONG).show();
+
+            EditarProprietarioActivity.this.finish();
+
         } else {
             Toast.makeText(EditarProprietarioActivity.this, getString(R.string.msg_erro_atualizar_proprietario),
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            voltarActivity();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        voltarActivity();
+    }
+
+    @Override
+    protected void voltarActivity() {
+        Intent it = new Intent(EditarProprietarioActivity.this, ListaProprietariosActivity.class);
+        startActivity(it);
+        finish();
     }
 }

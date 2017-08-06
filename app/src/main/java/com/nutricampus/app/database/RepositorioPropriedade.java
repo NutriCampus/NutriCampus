@@ -178,10 +178,9 @@ public class RepositorioPropriedade {
                 SQLiteManager.PROPRIEDADE_COL_NOME + " LIKE '%" + nome + "%')");
     }
 
-    public boolean isPropriedadeProprietario(int idProprietario) {
+    public List<Propriedade> propriedadesOfProprietario(int idProprietario) {
         return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE +
-                " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario).
-                size() > 1;
+                " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario);
     }
 
 

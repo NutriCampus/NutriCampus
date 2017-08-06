@@ -24,10 +24,7 @@ import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
 /**
@@ -76,9 +73,12 @@ public class AcceptanceTestCadastrarUsuarioActivity {
 
         onView(withId(R.id.btn_salvar_cadastro)).perform(click());
 
-        //Check por dialog https://stackoverflow.com/questions/21045509/check-if-a-dialog-is-displayed-with-espresso
-        onView(withText("Cadastro")).check(matches(isDisplayed()));
-
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText("attempToCreateAccountSuccessfully cadastrado com sucesso!");
+            Thread.sleep(3500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Thread.sleep(3000);
     }
 

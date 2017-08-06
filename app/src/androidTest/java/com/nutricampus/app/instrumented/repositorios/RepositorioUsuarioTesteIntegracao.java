@@ -32,17 +32,17 @@ public class RepositorioUsuarioTesteIntegracao {
 
     @Test
     public void testarInsereUsuarioInexistente() {
-        boolean resultNovoUsuario;
+        int resultNovoUsuario;
 
         Usuario usuarioAdicionado = new Usuario("55555", "222.222.222-22", "usuario", "usuario@email.com", "123456");
         resultNovoUsuario = repositorio.inserirUsuario(usuarioAdicionado);
 
-        assertTrue(resultNovoUsuario);
+        assertTrue(resultNovoUsuario > 0);
     }
 
     @Test
     public void testarInsereUsuarioExistente() {
-        boolean resultUsuarioJaExistente;
+        int resultUsuarioJaExistente;
 
         Usuario usuarioAdicionado = new Usuario("0000", "000.000.000-00", "usuario", "usuario@email.com", "123456");
         repositorio.inserirUsuario(usuarioAdicionado);
@@ -50,7 +50,7 @@ public class RepositorioUsuarioTesteIntegracao {
 
         resultUsuarioJaExistente = repositorio.inserirUsuario(usuarioEncontrado);
 
-        assertFalse(resultUsuarioJaExistente);
+        assertFalse(resultUsuarioJaExistente > 0);
     }
 
     @Test
