@@ -219,6 +219,7 @@
     <string name="campo_tipo">Tipo</string>
     <string name="msg_compostos_erro_preenchimento">Preencha todos os campos</string>
     <string name="menu_visualizar_composto">Visualizar composto</string>
+    <string name="titulo_editar_composto">Editar composto</string>
 
 
 </resources>

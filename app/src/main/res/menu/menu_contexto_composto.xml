@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_crud_novo"
         app:showAsAction="always"/>-->
 
-    <item android:id="@+id/menu_opc_cont_visualizar_animais"
+    <item android:id="@+id/menu_opc_cont_visualizar_composto"
         android:title="@string/menu_visualizar_composto"
         android:icon="@drawable/ic_crud_novo"
         app:showAsAction="always"/>

@@ -41,6 +41,36 @@ public class RepositorioCompostosAlimentares {
         return (int) retorno;
     }
 
+    private List<CompostosAlimentares> getListaCompostos(String query) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        ArrayList<CompostosAlimentares> compostosAlimentares = new ArrayList<>();
+        try {
+            Cursor c = bancoDados.rawQuery(query, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    CompostosAlimentares a = getDadosFromCursor(c);
+                    compostosAlimentares.add(a);
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            Log.i("RepositorioComspostos", e.toString());
+            return Collections.emptyList();
+        } finally {
+            bancoDados.close();
+        }
+
+        return compostosAlimentares;
+    }
+
+    public List<CompostosAlimentares> buscarTodosCompostos(String identificador) {
+        return this.getListaCompostos("SELECT * FROM " + SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES +
+                " WHERE " + SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
+    }
+
     public CompostosAlimentares buscarCompostoAlimentar(String identificador) {
         bancoDados = gerenciador.getReadableDatabase();
 
@@ -111,7 +141,7 @@ public class RepositorioCompostosAlimentares {
         return compostosAlimentares;
     }
 
-    public List<CompostosAlimentares> buscarTodosCompostosAlimentares() {
+    /*public List<CompostosAlimentares> buscarTodosCompostosAlimentares() {
 
         bancoDados = gerenciador.getReadableDatabase();
 
@@ -139,7 +169,7 @@ public class RepositorioCompostosAlimentares {
         }
 
         return compostosAlimentares;
-    }
+    }*/
 
     private ContentValues getContentValues(CompostosAlimentares compostosAlimentares) {
         ContentValues dados = new ContentValues();
@@ -165,7 +195,7 @@ public class RepositorioCompostosAlimentares {
         ContentValues dados = new ContentValues();
 
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO, compostosAlimentares.getTipo());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO, compostosAlimentares.getIdentificador());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR, compostosAlimentares.getIdentificador());
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MS, compostosAlimentares.getMS());
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN, compostosAlimentares.getFDN());
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_EE, compostosAlimentares.getEE());

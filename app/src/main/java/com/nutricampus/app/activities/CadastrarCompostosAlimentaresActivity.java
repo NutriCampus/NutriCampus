@@ -3,6 +3,7 @@ package com.nutricampus.app.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,6 +13,20 @@ import com.nutricampus.app.entities.CompostosAlimentares;
 
 
 public class CadastrarCompostosAlimentaresActivity extends AppCompatActivity {
+    public EditText identificador = null;
+    public EditText tipo = null;
+
+    public EditText ms = null;
+    public EditText fdn = null;
+    public EditText ee = null;
+    public EditText mm = null;
+    public EditText cnf = null;
+    public EditText pb = null;
+    public EditText ndt = null;
+    public EditText fda = null;
+    public EditText descricao = null;
+    public Button btn_salvar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,18 +34,17 @@ public class CadastrarCompostosAlimentaresActivity extends AppCompatActivity {
     }
 
     public void criarComposto(View view) {
-        EditText identificador = (EditText) findViewById(R.id.input_composto_identificador);
-        EditText tipo = (EditText) findViewById(R.id.input_composto_tipo);
-
-        EditText ms = (EditText) findViewById(R.id.input_composto_ms);
-        EditText fdn = (EditText) findViewById(R.id.input_composto_fdn);
-        EditText ee = (EditText) findViewById(R.id.input_composto_ee);
-        EditText mm = (EditText) findViewById(R.id.input_composto_mm);
-        EditText cnf = (EditText) findViewById(R.id.input_composto_cnf);
-        EditText pb = (EditText) findViewById(R.id.input_composto_pb);
-        EditText ndt = (EditText) findViewById(R.id.input_composto_ndt);
-        EditText fda = (EditText) findViewById(R.id.input_composto_fda);
-        EditText descricao = (EditText) findViewById(R.id.input_composto_descricao);
+        identificador = (EditText) findViewById(R.id.input_composto_identificador);
+        tipo = (EditText) findViewById(R.id.input_composto_tipo);
+        ms = (EditText) findViewById(R.id.input_composto_ms);
+        fdn = (EditText) findViewById(R.id.input_composto_fdn);
+        ee = (EditText) findViewById(R.id.input_composto_ee);
+        mm = (EditText) findViewById(R.id.input_composto_mm);
+        cnf = (EditText) findViewById(R.id.input_composto_cnf);
+        pb = (EditText) findViewById(R.id.input_composto_pb);
+        ndt = (EditText) findViewById(R.id.input_composto_ndt);
+        fda = (EditText) findViewById(R.id.input_composto_fda);
+        descricao = (EditText) findViewById(R.id.input_composto_descricao);
 
         if (identificador.getText().toString().isEmpty() ||
                 tipo.getText().toString().isEmpty() ||

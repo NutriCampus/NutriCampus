@@ -117,18 +117,14 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.menu_opc_cont_adicionar_animal:
+            case R.id.menu_opc_cont_visualizar_composto:
                 if (info != null)
-                    //abreTelaAnimal(info.position, CadastrarAnimalActivity.class);
-                    return true;
-            case R.id.menu_opc_cont_visualizar_animais:
-                if (info != null)
-                    //abreTelaAnimal(info.position, ListaAnimaisActivity.class);
+                    //abreTelaComposto(info.position, ListaAnimaisActivity.class);
                     return true;
             case R.id.menu_opc_cont_editar:
                 if (info != null)
-                    //abreTelaEditar(info.position);
-                    return true;
+                    abreTelaEditar(info.position);
+                return true;
             case R.id.menu_opc_cont_excluir:
                 CompostosAlimentares compostosAlimentares = (CompostosAlimentares) listCompostosAlimentares.getItemAtPosition(info.position);
                 confirmarExcluir(compostosAlimentares);
@@ -248,19 +244,19 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     private void carregaListView(String nome, boolean tudo) {
         List<CompostosAlimentares> lista = null;
         ListaCompostosAlimentaresAdapter adapter = null;
-        if (!tudo) {
-            lista = this.buscarComposto(nome);
+        //if (!tudo) {
+        lista = this.buscarComposto(nome);
 
-            adapter = new ListaCompostosAlimentaresAdapter(lista, this);
+        adapter = new ListaCompostosAlimentaresAdapter(lista, this);
 
-            listCompostosAlimentares.setAdapter(adapter);
-        } else {
+        listCompostosAlimentares.setAdapter(adapter);
+        /*} else {
             RepositorioCompostosAlimentares repositorioPropriedade = new RepositorioCompostosAlimentares(this);
             lista = repositorioPropriedade.buscarTodosCompostosAlimentares();
             adapter = new ListaCompostosAlimentaresAdapter(lista, this);
 
 
-        }
+        }*/
         listCompostosAlimentares.setAdapter(adapter);
 
         if (lista.isEmpty()) {
@@ -279,30 +275,33 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
 
     public List<CompostosAlimentares> buscarComposto(String nome) {
         RepositorioCompostosAlimentares repositorioPropriedade = new RepositorioCompostosAlimentares(this);
-        List<CompostosAlimentares> arr = new ArrayList<>();
-        arr.add(repositorioPropriedade.buscarCompostoAlimentar(nome));
-        return arr;
+        //List<CompostosAlimentares> arr = new ArrayList<>();
+        //arr.add(repositorioPropriedade.buscarCompostoAlimentar(nome));
+        return repositorioPropriedade.buscarTodosCompostos(nome);
     }
 
-    private Intent getIntent(Propriedade propriedade) {
-        Intent intent = new Intent(this, EditarPropriedadeActivity.class);
-        intent.putExtra("id", propriedade.getId());
-        intent.putExtra("nome", propriedade.getNome());
-        intent.putExtra("telefone", propriedade.getTelefone());
-        intent.putExtra("rua", propriedade.getLogradouro());
-        intent.putExtra("bairro", propriedade.getBairro());
-        intent.putExtra("numero", propriedade.getNumero());
-        intent.putExtra("cep", propriedade.getCep());
-        intent.putExtra("cidade", propriedade.getCidade());
-        intent.putExtra("estado", propriedade.getEstado());
-        intent.putExtra("idProprietario", propriedade.getIdProprietario());
+    private Intent getIntent(CompostosAlimentares compostosAlimentares) {
+        Intent intent = new Intent(this, EditarCompostoActivity.class);
+
+        intent.putExtra("id", compostosAlimentares.getId());
+        intent.putExtra("tipo", compostosAlimentares.getTipo());
+        intent.putExtra("identificador", compostosAlimentares.getIdentificador());
+        intent.putExtra("ms", compostosAlimentares.getMS());
+        intent.putExtra("fdn", compostosAlimentares.getFDN());
+        intent.putExtra("ee", compostosAlimentares.getEE());
+        intent.putExtra("mm", compostosAlimentares.getMM());
+        intent.putExtra("cnf", compostosAlimentares.getCNF());
+        intent.putExtra("pb", compostosAlimentares.getPB());
+        intent.putExtra("ndt", compostosAlimentares.getNDT());
+        intent.putExtra("fda", compostosAlimentares.getFDA());
+        intent.putExtra("descricao", compostosAlimentares.getDescricao());
         return intent;
     }
 
-    /*private void abreTelaEditar(int posicao) {
+    private void abreTelaEditar(int posicao) {
         CompostosAlimentares item = (CompostosAlimentares) listCompostosAlimentares.getItemAtPosition(posicao);
         startActivity(getIntent(item));
-    }*/
+    }
 
     /*private void abreTelaAnimal(int posicao, Class activity) {
         CompostosAlimentares propriedade = (CompostosAlimentares) listPropriedades.getItemAtPosition(posicao);

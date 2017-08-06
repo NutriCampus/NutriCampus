@@ -129,8 +129,8 @@
         </activity>
         <activity
             android:name=".activities.CadastrarCompostosAlimentaresActivity"
-            android:parentActivityName=".activities.ListaCompostosAlimentaresActivity"
             android:label="@string/titulo_novo_composto"
+            android:parentActivityName=".activities.ListaCompostosAlimentaresActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -145,6 +145,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".activities.EditarCompostoActivity"
+            android:label="@string/titulo_editar_composto"
+            android:parentActivityName=".activities.ListaPropriedadesActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EditarAnimalActivity"
             android:parentActivityName=".activities.MainActivity"
