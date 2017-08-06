@@ -2,6 +2,7 @@
 
 Repositório para a disciplina de Projeto de Desenvolvimento do curso de Bacharelado em Ciência da Computação da Universidade Federal Rural de Pernambuco - Unidade Acadêmica de Garanhuns.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/72d898174d344301bee1fa7fd63c0f21)](https://www.codacy.com/app/kellisonjk/NutriCampus?utm_source=github.com&utm_medium=referral&utm_content=NutriCampus/NutriCampus&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/NutriCampus/NutriCampus.svg?branch=master)](https://travis-ci.org/NutriCampus/NutriCampus)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/NutriCampus/NutriCampus/blob/master/LICENSE)
 [![PivotalTracker](https://img.shields.io/badge/Pivotal%20Tracker-userstories-orange.svg)](https://www.pivotaltracker.com/n/projects/2025941)
