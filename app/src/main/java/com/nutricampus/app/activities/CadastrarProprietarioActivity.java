@@ -20,6 +20,12 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
+
 @java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class CadastrarProprietarioActivity extends AppCompatActivity {
 
@@ -133,13 +139,10 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                voltarActivity();
-                break;
-            default:
-                break;
-        }
+
+        if(item.getItemId() == android.R.id.home)
+            voltarActivity();
+
         return true;
     }
 

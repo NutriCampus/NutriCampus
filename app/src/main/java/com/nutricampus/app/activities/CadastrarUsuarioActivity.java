@@ -7,7 +7,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -30,6 +32,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
     EditText edtRegistro;
     EditText edtEmail;
     EditText edtSenha;
+    Button btnSalvar;
+    TextView txtAlterSenha;
 
     String nome;
     String cpf;
@@ -48,6 +52,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         edtRegistro = (EditText) findViewById(R.id.edtRegistro);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
+        txtAlterSenha = (TextView) findViewById(R.id.txt_alter_senha);
 
         edtCpf.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, edtCpf));
     }
@@ -86,20 +92,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
             CadastrarUsuarioActivity.this.finish();
-            /*
-            //Caixa de Dialogo
-            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
-            dialog.setTitle("Cadastro");
-            dialog.setMessage(String.format(
-                    "Usuário %s cadastrado com sucesso !", usuario.getNome()));
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    CadastrarUsuarioActivity.this.finish();
-                }
-            });
-            dialog.show();
-            */
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }

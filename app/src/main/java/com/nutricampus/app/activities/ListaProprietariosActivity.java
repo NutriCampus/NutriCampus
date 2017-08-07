@@ -37,6 +37,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
+
 public class ListaProprietariosActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";

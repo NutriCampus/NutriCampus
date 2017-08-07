@@ -8,6 +8,7 @@
     android:paddingRight="30dp"
     android:paddingTop="05dp"
     android:weightSum="1"
+    android:layout_marginTop="@dimen/activity_cad_margin"
     android:id="@+id/telaCadastrarUsuario"
     tools:context="com.nutricampus.app.activities.CadastrarUsuarioActivity">
 
@@ -86,6 +87,14 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txt_alter_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alter_senha"
+        android:textColor="@color/colorTxtAlterSenha"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"

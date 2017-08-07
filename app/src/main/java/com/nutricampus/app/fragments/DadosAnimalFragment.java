@@ -187,6 +187,7 @@ public class DadosAnimalFragment extends Fragment
             this.animal.setId_propriedade(((Propriedade) spinnerPropriedade.getSelectedItem()).getId());
             this.animal.setDataDeNascimento(data);
             this.animal.setAtivo(switchAtivo.isChecked());
+            this.animal.setId_usuario(Integer.parseInt(session.getIdNC()));
         }
 
         Activity activity = getActivity();

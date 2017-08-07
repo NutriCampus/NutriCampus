@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
+import com.nutricampus.app.activities.ConfigActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
@@ -95,6 +96,9 @@ public class ActionBarManager {
                                 break;
                             case 3:
                                 intent = new Intent(activity, ListaAnimaisActivity.class);
+                                break;
+                            case 11:
+                                intent = new Intent(activity, ConfigActivity.class);
                                 break;
                             case 12: // Sair
                                 session.logoutUser();

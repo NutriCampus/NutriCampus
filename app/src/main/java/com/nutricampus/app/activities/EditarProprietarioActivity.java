@@ -12,6 +12,11 @@ import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
 
 @java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
 public class EditarProprietarioActivity extends CadastrarProprietarioActivity {

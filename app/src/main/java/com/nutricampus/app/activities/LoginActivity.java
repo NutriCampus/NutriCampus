@@ -102,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
         Usuario usuarioLogado = buscarUsuario(usuario, senha);
 
         if (usuarioLogado != null) {
-            session.createLoginSession(usuarioLogado.getId(), usuarioLogado.getNome(), usuarioLogado.getEmail(), usuarioLogado.getSenha());
+            session.createLoginSession(
+                    usuarioLogado.getId(), usuarioLogado.getNome(), usuarioLogado.getEmail(), usuarioLogado.getSenha(), usuarioLogado.getCrmv());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(LoginActivity.this, getString(R.string.msg_bem_vindo), Toast.LENGTH_LONG).show();
