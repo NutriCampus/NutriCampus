@@ -105,7 +105,7 @@ public class AnimalCadastroActivityTest {
             closeKeyboard();
             ViewInteraction appCompatButton4 = onView(
                     allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"),
-                            withParent(allOf(withId(R.id.tela_cadastrarproprietarioactvity),
+                            withParent(allOf(withId(R.id.telaCadastrarProprietarioActivity),
                                     withParent(withId(android.R.id.content)))),
                             isDisplayed()));
             appCompatButton4.perform(click());
