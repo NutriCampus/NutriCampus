@@ -62,7 +62,7 @@ public class CompostoAlimentarCadastroAcceptanceTest {
     }
 
     @Test
-    public void compostoAlimentarEdicao_TA1_TA2_TA3_TA4() {
+    public void compostoAlimentarCadastro_TA1_TA2_TA3_TA4() {
         String id1 = "identificador123";
         String id2 = "identificador456";
 
