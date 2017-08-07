@@ -24,7 +24,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 6;
+    private static final int VERSAO_BANCO = 7;
 
     /* Modo de acesso ao banco de dados
      *
@@ -105,12 +105,28 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String PRODUCAO_DE_LEITE_PCT_PROTEINA_BRUTA = "pct_proteina_bruta";
     public static final String PRODUCAO_DE_LEITE_GORDURA = "gordura";
 
+    //Prole
     public static final String TABELA_PROLE = "prole";
     public static final String PROLE_ID = "_id";
     public static final String PROLE_ID_MATRIZ = "id_matriz";
     public static final String PROLE_DATA_DE_NASCIMENTO = "dataDeNascimento";
-    public static final String PROLE_PESO_DE_NASCIMENTO =  "pesoDeNascimento";
+    public static final String PROLE_PESO_DE_NASCIMENTO = "pesoDeNascimento";
     public static final String PROLE_IS_NATIMORTO = "isNatimorto";
+
+    //Compostos Alimentares
+    public static final String TABELA_COMPOSTOS_ALIMENTARES = "compostosAlimentares";
+    public static final String COMPOSTOS_ALIMENTARES_ID = "_id";
+    public static final String COMPOSTOS_ALIMENTARES_TIPO = "tipo";
+    public static final String COMPOSTOS_ALIMENTARES_IDENTIFICADOR = "identificador";
+    public static final String COMPOSTOS_ALIMENTARES_MS = "MS";
+    public static final String COMPOSTOS_ALIMENTARES_FDN = "FDN";
+    public static final String COMPOSTOS_ALIMENTARES_EE = "EE";
+    public static final String COMPOSTOS_ALIMENTARES_MM = "MM";
+    public static final String COMPOSTOS_ALIMENTARES_CNF = "CNF";
+    public static final String COMPOSTOS_ALIMENTARES_PB = "PB";
+    public static final String COMPOSTOS_ALIMENTARES_NDT = "NDT";
+    public static final String COMPOSTOS_ALIMENTARES_FDA = "FDA";
+    public static final String COMPOSTOS_ALIMENTARES_DESCRICAO = "descricao";
 
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
@@ -137,7 +153,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             DADOS_COMPL_COL_DATA + " " + TEXT_NOT_NULL + " ," +
             DADOS_COMPL_COL_ID_ANIMAL + " " + TEXT_NOT_NULL + " ," +
-            DADOS_COMPL_COL_PESO_VIVO + " " + REAL_NOT_NULL +", " +
+            DADOS_COMPL_COL_PESO_VIVO + " " + REAL_NOT_NULL + ", " +
             DADOS_COMPL_COL_EEC + " TEXT," +
             DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " TEXT, " +
             DADOS_COMPL_COL_CAMINHADA_VERTICAL + " TEXT, " +
@@ -189,7 +205,19 @@ public class SQLiteManager extends SQLiteOpenHelper {
             "FOREIGN KEY(" + PROPRIEDADE_COL_ID_PROPRIETARIO + ") REFERENCES " + TABELA_PROPRIETARIO + "(" + PROPRIETARIO_COL_ID + ")" +
             "FOREIGN KEY(" + PROPRIEDADE_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
 
-
+    private static final String SQL_CREATE_TABELA_COMPOSTOS_ALIMENTARES = "CREATE TABLE IF NOT EXISTS " + TABELA_COMPOSTOS_ALIMENTARES + "(" +
+            COMPOSTOS_ALIMENTARES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COMPOSTOS_ALIMENTARES_TIPO + " " + TEXT_NOT_NULL + "," +
+            COMPOSTOS_ALIMENTARES_IDENTIFICADOR + " " + TEXT_NOT_NULL + " UNIQUE, " +
+            COMPOSTOS_ALIMENTARES_MS + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_FDN + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_EE + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_MM + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_CNF + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_PB + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_NDT + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_FDA + " " + REAL_NOT_NULL + " , " +
+            COMPOSTOS_ALIMENTARES_DESCRICAO + " " + TEXT_NOT_NULL + " );";
 
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
@@ -205,6 +233,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DADOS_COMPL);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_COMPOSTOS_ALIMENTARES);
     }
 
     @Override
@@ -216,6 +245,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PROLE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_COMPOSTOS_ALIMENTARES);
+
         this.onCreate(sqLiteDatabase);
 
     }
