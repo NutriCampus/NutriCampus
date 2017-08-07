@@ -27,9 +27,11 @@ public class ConversorTesteUnitario {
     @Test
     public void booleanToInt() throws Exception {
 
-        assertEquals(0, Conversor.booleanToInt(false));
-        assertEquals(1, Conversor.booleanToInt(true));
-        assertFalse(1 == Conversor.booleanToInt(false));
+        int trueValor = Conversor.booleanToInt(true);
+        int falseValor = Conversor.booleanToInt(false);
+        assertEquals(0, falseValor);
+        assertEquals(1, trueValor);
+        assertFalse(1 == falseValor);
     }
 
     @Test
@@ -42,8 +44,10 @@ public class ConversorTesteUnitario {
 
     @Test
     public void stringToBoolean() throws Exception {
-        assertTrue(Conversor.stringToBoolean("true"));
-        assertFalse(Conversor.stringToBoolean("false"));
+        boolean val = Conversor.stringToBoolean("true");
+        assertTrue(val);
+        val = Conversor.stringToBoolean("false");
+        assertFalse(val);
     }
 
     @Test

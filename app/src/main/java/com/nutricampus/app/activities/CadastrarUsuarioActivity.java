@@ -29,17 +29,17 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
-    EditText edtNome;
-    EditText edtCpf;
-    EditText edtRegistro;
-    EditText edtEmail;
-    EditText edtSenha;
+    private EditText edtNome;
+    private EditText edtCpf;
+    private EditText edtRegistro;
+    private EditText edtEmail;
+    private EditText edtSenha;
 
-    String nome;
-    String cpf;
-    String registro;
-    String email;
-    String senha;
+    private String nome;
+    private String cpf;
+    private String registro;
+    private String email;
+    private String senha;
 
 
     @Override

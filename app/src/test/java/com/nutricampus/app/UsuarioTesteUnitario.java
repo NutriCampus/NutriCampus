@@ -41,12 +41,13 @@ public class UsuarioTesteUnitario {
 
     @Test
     public void testaEqualsComUsuarioNull() throws Exception {
-        assertFalse(user1.equals(null));
+        Usuario user = null;
+        assertFalse(user1.equals(user));
     }
 
     @Test
     public void testaEqualsOutraInstacia() throws Exception {
-        assertFalse(user1.equals(new String()));
+        assertFalse(user1.equals(new Object()));
     }
 
     @Test

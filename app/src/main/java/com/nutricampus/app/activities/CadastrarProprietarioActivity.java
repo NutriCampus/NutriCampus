@@ -17,9 +17,6 @@ import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -31,25 +28,28 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
 
-    @BindView(R.id.input_nome_proprietario)
-    EditText inputNomeProprietario;
-    @BindView(R.id.input_cpf_proprietario)
-    EditText inputCpfProprietario;
-    @BindView(R.id.input_email_proprietario)
-    EditText inputEmailProprietario;
-    @BindView(R.id.input_fone_proprietario)
-    EditText inputFoneProprietario;
-    @BindView(R.id.btn_salvar_cadastro)
-    Button btnSalvar;
+    protected EditText inputNomeProprietario;
+    protected EditText inputCpfProprietario;
+    protected EditText inputEmailProprietario;
+    protected EditText inputFoneProprietario;
+    protected Button btnSalvar;
 
     private int voltarProprietarios;
+
+    protected void init() {
+        this.inputNomeProprietario = (EditText) findViewById(R.id.input_nome_proprietario);
+        this.inputCpfProprietario = (EditText) findViewById(R.id.input_cpf_proprietario);
+        this.inputEmailProprietario = (EditText) findViewById(R.id.input_email_proprietario);
+        this.inputFoneProprietario = (EditText) findViewById(R.id.input_fone_proprietario);
+        this.btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_proprietario);
 
-        ButterKnife.bind(this);
+        this.init();
 
         inputCpfProprietario.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, inputCpfProprietario));
         inputFoneProprietario.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputFoneProprietario));

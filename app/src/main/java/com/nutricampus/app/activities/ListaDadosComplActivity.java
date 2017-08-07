@@ -23,9 +23,6 @@ import com.nutricampus.app.entities.DadosComplAnimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 /*
 Explicação para a supressão de warnings:
@@ -39,8 +36,7 @@ public class ListaDadosComplActivity extends AppCompatActivity {
     public static final String EXTRA_ANIMAL = "animal";
     public static final String EXTRA_DADOS_COMPL = "dadosCompl";
 
-    @BindView(R.id.listDadosCompl)
-    ListView listDadosCompl;
+    private ListView listDadosCompl;
 
     private Animal animal;
     private List<DadosComplAnimal> listDados;
@@ -50,7 +46,7 @@ public class ListaDadosComplActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_dados_compl);
 
-        ButterKnife.bind(this);
+        listDadosCompl = (ListView) findViewById(R.id.listDadosCompl);
 
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra(EXTRA_ANIMAL);

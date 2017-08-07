@@ -18,7 +18,7 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 abstract class AbstractDataPickerActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    EditText inputData;
+    protected EditText inputData;
     protected Calendar data;
 
     protected void inicializaCampoData(EditText input) {

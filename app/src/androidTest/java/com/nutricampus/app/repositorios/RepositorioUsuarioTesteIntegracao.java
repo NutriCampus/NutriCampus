@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented.repositorios;
+package com.nutricampus.app.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -95,7 +95,7 @@ public class RepositorioUsuarioTesteIntegracao {
     @Test
     public void testarAtualizacaoDeDadosComId() {
 
-        boolean resultUsuarioInexistente, result;
+        boolean result;
         Usuario usuarioEncontrado, usuarioDadosAlterados;
 
         Usuario usuarioAdicionado = new Usuario("0123", "111.111.111-11", "usuario", "usuario@email.com", "123456");

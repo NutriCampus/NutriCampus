@@ -34,38 +34,39 @@ import com.nutricampus.app.entities.Proprietario;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaProprietariosActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
     public static final String EXTRA_VOLTAR_PROPRIETARIOS = "voltar";
 
-    @BindView(R.id.listaProprietarios)
-    ListView listaProprietarios;
-    @BindView(R.id.text_quantidade_encontrados)
-    TextView mensagemQuantidade;
-    @BindView(R.id.linha)
-    View linha;
+    private ListView listaProprietarios;
+    private TextView mensagemQuantidade;
+    private View linha;
 
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText inputPesquisaProprietarios;
+
+    private void init() {
+        this.listaProprietarios = (ListView) findViewById(R.id.listaProprietarios);
+        this.mensagemQuantidade = (TextView) findViewById(R.id.text_quantidade_encontrados);
+        this.linha = findViewById(R.id.linha);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_proprietarios);
 
-        ButterKnife.bind(this);
+        this.init();
+
         registerForContextMenu(listaProprietarios);
 
         listaProprietarios.setEmptyView(findViewById(android.R.id.empty));
         carregarListView("");
 
-        listaProprietarios.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listaProprietarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 chamarActivity(position, EditarProprietarioActivity.class);

@@ -32,7 +32,7 @@ public class ActionBarManager {
     private Toolbar toolbar;
     private Drawer mActionBar;
 
-    SharedPreferencesManager session;
+    private SharedPreferencesManager session;
 
     public ActionBarManager(Activity activity, Toolbar toolbar) {
         this.activity = activity;

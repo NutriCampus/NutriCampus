@@ -16,9 +16,6 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -28,16 +25,18 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastroProleActivity extends AbstractDataPickerActivity {
 
-    @BindView(R.id.input_id_prole)
-    EditText inputId;
+    protected void init() {
+        inputId = (EditText) findViewById(R.id.input_id_prole);
+        checkNatimorto = (CheckBox) findViewById(R.id.check_natimorto);
+        inputPeso = (EditText) findViewById(R.id.input_peso_prole);
+        buttonSalvar = (Button) findViewById(R.id.btn_salvar_prole);
+        inputData = (EditText) findViewById(R.id.input_data_nascimento);
+    }
 
-    @BindView(R.id.check_natimorto)
-    CheckBox checkNatimorto;
-    @BindView(R.id.input_peso_prole)
-    EditText inputPeso;
-
-    @BindView(R.id.btn_salvar_prole)
-    Button buttonSalvar;
+    protected EditText inputId;
+    protected CheckBox checkNatimorto;
+    protected EditText inputPeso;
+    protected Button buttonSalvar;
 
     protected int idAnimalMatriz;
 
@@ -46,9 +45,7 @@ public class CadastroProleActivity extends AbstractDataPickerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_prole);
 
-        inputData = (EditText) findViewById(R.id.input_data_nascimento);
-
-        ButterKnife.bind(this);
+        init();
 
         inicializaCampoData(inputData);
 

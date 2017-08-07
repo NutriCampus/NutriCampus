@@ -87,7 +87,7 @@ public class ListaAnimaisActivity extends AbstractListComPesquisa
         spinnerPropriedade.setOnItemSelectedListener(this);
         preencherSpinnerListaPropriedade();
 
-        listAnimais.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listAnimais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position, EditarAnimalActivity.class);

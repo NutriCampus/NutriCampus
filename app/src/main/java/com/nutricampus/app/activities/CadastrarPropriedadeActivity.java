@@ -23,7 +23,6 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -231,7 +230,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         //Enviar voltarCadAnimal para o cadastro de proprietario para não se perder ao retornar para cadPropriedade
-        it.putExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL, voltarCadAnimal);
+        it.putExtra(EXTRA_CAD_ANIMAL, voltarCadAnimal);
         startActivity(it);
     }
 

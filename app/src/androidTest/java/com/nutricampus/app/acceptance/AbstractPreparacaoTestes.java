@@ -25,6 +25,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -33,17 +34,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 
-/**
- * Created by kellison on 04/08/17.
- */
 
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 abstract class AbstractPreparacaoTestes {
 
-    public Activity currentActivity;
+    protected Activity currentActivity;
 
     @Rule
-    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+    protected ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     protected static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
@@ -64,14 +62,14 @@ abstract class AbstractPreparacaoTestes {
         };
     }
 
-    public void doLogout() throws Exception {
+    protected void doLogout() {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
 
-    public void realizaLogin() throws Exception {
+    protected void realizaLogin() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -85,14 +83,28 @@ abstract class AbstractPreparacaoTestes {
                 allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
         appCompatButton.perform(click());
 
+        Thread.sleep(500);
+    }
+
+    protected void abrirMenu() throws InterruptedException {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open"),
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
+        Thread.sleep(500);
     }
 
-    public Activity getActivityInstance() {
+    protected void clicarItemMenu(int posicao) {
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.material_drawer_recycler_view),
+                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                                withParent(withId(R.id.material_drawer_layout)))),
+                        isDisplayed()));
+        recyclerView.perform(actionOnItemAtPosition(posicao, click()));
+    }
+
+    protected Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
                 Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
@@ -105,7 +117,7 @@ abstract class AbstractPreparacaoTestes {
         return currentActivity;
     }
 
-    public void closeKeyboard() throws Exception {
+    protected void closeKeyboard() {
         try {
             Thread.sleep(1300);
 

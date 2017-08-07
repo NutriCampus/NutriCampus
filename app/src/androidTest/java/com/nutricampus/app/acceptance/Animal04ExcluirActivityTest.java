@@ -40,6 +40,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 /**
  * Created by jorge on 23/07/17.
@@ -79,6 +80,7 @@ public class Animal04ExcluirActivityTest {
             new ToastMatcher().isToastMessageDisplayedWithText("Animal removido com sucesso");
             Thread.sleep(3500);
         } catch (Exception e) {
+            fail("Toast de confirmação não identificado");
             e.printStackTrace();
         }
     }

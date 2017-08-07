@@ -2,7 +2,6 @@ package com.nutricampus.app;
 
 import com.nutricampus.app.utils.Mascara;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -18,7 +17,7 @@ public class MacaraTesteUnitario {
     @Test
     public void testaConstrutorPrivate() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         Constructor constructor = Mascara.class.getDeclaredConstructor();
-        Assert.assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
+        assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
 
     }
 

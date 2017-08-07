@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +18,6 @@ import com.nutricampus.app.utils.services.SendMailTask;
 
 import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -30,22 +27,20 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class RecuperarSenhaActivity extends AppCompatActivity {
 
-    @BindView(R.id.input_usuario_recupera)
-    EditText textEditUsuario;
-    @BindView(R.id.btn_recuperar)
-    Button buttonRecuperarSenha;
+    private EditText textEditUsuario;
+    private Button buttonRecuperarSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_senha);
 
-        ButterKnife.bind(this);
+        textEditUsuario = (EditText) findViewById(R.id.input_usuario_recupera);
+        buttonRecuperarSenha = (Button) findViewById(R.id.btn_recuperar);
 
     }
 
-    @OnClick(R.id.btn_recuperar)
-    public void recuperaSenha() {
+    public void recuperaSenha(View view) {
 
         if (!validaDados()) {
             return;

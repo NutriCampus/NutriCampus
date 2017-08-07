@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,9 +30,6 @@ import com.nutricampus.app.entities.Proprietario;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -45,41 +41,46 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
 
     public static final String EXTRA_PROPRIEDADE = "propriedade";
 
-    @BindView(R.id.listaPropriedades)
-    ListView listPropriedades;
-    @BindView(R.id.text_quantidade_encontrados)
-    TextView mensagemQuantidade;
-    @BindView(R.id.linha)
-    View linha;
-    @BindView(R.id.fabList)
-    FloatingActionButton fabList;
-    @BindView(R.id.fabPropriedade)
-    FloatingActionButton fabPropriedade;
-    @BindView(R.id.fabProprietario)
-    FloatingActionButton fabProprietario;
-    @BindView(R.id.layoutPropriedade)
-    LinearLayout layoutPropriedade;
-    @BindView(R.id.layoutProprietario)
-    LinearLayout layoutPropritario;
+    private ListView listPropriedades;
+    private TextView mensagemQuantidade;
+    private View linha;
+    private FloatingActionButton fabList;
+    private FloatingActionButton fabPropriedade;
+    private FloatingActionButton fabProprietario;
+    private LinearLayout layoutPropriedade;
+    private LinearLayout layoutPropritario;
 
     SharedPreferencesManager session;
+
+    private void init() {
+        session = new SharedPreferencesManager(getApplicationContext());
+
+        this.listPropriedades = (ListView) findViewById(R.id.listaPropriedades);
+        this.mensagemQuantidade = (TextView) findViewById(R.id.text_quantidade_encontrados);
+        this.linha = findViewById(R.id.linha);
+        this.fabList = (FloatingActionButton) findViewById(R.id.fabList);
+        this.fabPropriedade = (FloatingActionButton) findViewById(R.id.fabPropriedade);
+        this.fabProprietario = (FloatingActionButton) findViewById(R.id.fabProprietario);
+        this.layoutPropriedade = (LinearLayout) findViewById(R.id.layoutPropriedade);
+        this.layoutPropritario = (LinearLayout) findViewById(R.id.layoutProprietario);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new SharedPreferencesManager(getApplicationContext());
-        session.checkLogin();
-
         setContentView(R.layout.activity_lista_propriedades);
-        ButterKnife.bind(this);
+
+        this.init();
+
+        session.checkLogin();
 
         listPropriedades.setEmptyView(findViewById(android.R.id.empty));
 
         registerForContextMenu(listPropriedades);
         carregarListView();
 
-        listPropriedades.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listPropriedades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position);
@@ -257,7 +258,6 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
     public List<Propriedade> buscarPropriedades(String nome) {
         int id = session.getIdUsuario().equals("") ? 0 : Integer.parseInt(session.getIdUsuario());
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
-        Log.w("USER", id + "");
         return repositorioPropriedade.buscarPropriedadesPorNome(nome, id);
 
     }

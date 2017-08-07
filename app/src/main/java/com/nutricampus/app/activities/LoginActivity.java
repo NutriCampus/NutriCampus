@@ -7,16 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Usuario;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /*
@@ -29,21 +25,11 @@ Explicação para a supressão de warnings:
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
-    SharedPreferencesManager session;
+    private SharedPreferencesManager session;
 
-    // Pega a referência para as views
-
-    @BindView(R.id.input_usuario)
-    EditText editTextUsuario;
-    @BindView(R.id.input_senha)
-    EditText editTextSenha;
-    @BindView(R.id.btn_login)
-    Button buttonEntrar;
-    @BindView(R.id.link_cadastro)
-    TextView linkCadastro;
-    @BindView(R.id.link_esqueceu_senha)
-    TextView linkEsqueceuSeha;
-
+    private EditText editTextUsuario;
+    private EditText editTextSenha;
+    private Button buttonEntrar;
 
     /**
      * Método para criar usuário automaticamente sem necessidade de cadastrar todas as vezes
@@ -57,6 +43,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void init() {
+        editTextSenha = (EditText) findViewById(R.id.input_senha);
+        editTextUsuario = (EditText) findViewById(R.id.input_usuario);
+        buttonEntrar = (Button) findViewById(R.id.btn_login);
     }
 
     @Override
@@ -75,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        init();
     }
 
     public void cadastroOnClick(View view) {
@@ -97,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        buttonEntrar.setEnabled(false);
+        this.buttonEntrar.setEnabled(false);
 
         String usuario = this.editTextUsuario.getText().toString();
         String senha = this.editTextSenha.getText().toString();
@@ -116,20 +108,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public Usuario buscarUsuario(String usuarioValor, String senhaValor) {
+    private Usuario buscarUsuario(String usuarioValor, String senhaValor) {
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
         return repositorioUsuario.buscarUsuario(usuarioValor, senhaValor);
 
     }
 
-    public void falhaLogin(String mensagem) {
+    private void falhaLogin(String mensagem) {
         String msg = mensagem.isEmpty() ? "" : (", " + mensagem);
         Toast.makeText(LoginActivity.this, getString(R.string.msg_falha_login) + msg, Toast.LENGTH_LONG).show();
 
         buttonEntrar.setEnabled(true);
     }
 
-    public boolean validaDados() {
+    private boolean validaDados() {
         boolean valido = true;
 
         String usuario = this.editTextUsuario.getText().toString();

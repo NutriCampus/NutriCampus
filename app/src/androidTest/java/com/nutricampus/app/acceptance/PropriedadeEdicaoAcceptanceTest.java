@@ -55,7 +55,8 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
         if (repositorioPropriedade.buscarPropriedadesPorNome("Propriedade 1", id).size() == 0)
             repositorioPropriedade.inserirPropriedade(propriedade);
 
-        clicarMenuPropriedade();
+        abrirMenu();
+        clicarItemMenu(3);
         closeKeyboard();
     }
 

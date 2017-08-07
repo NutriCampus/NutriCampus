@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented.repositorios;
+package com.nutricampus.app.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -48,7 +48,7 @@ public class RepositorioPropriedadeTesteIntegracao {
         String nome = "Fazenda ZZZ";
 
         Propriedade propriedade = new Propriedade(nome, "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", 2, idUsuario);
-        int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
+        repositorio.inserirPropriedade(propriedade);
 
         Propriedade propriedadeEncontrada = repositorio.buscarPropriedade(nome);
 
@@ -124,7 +124,7 @@ public class RepositorioPropriedadeTesteIntegracao {
         int idProprietario = 2;
 
         Propriedade propriedade = new Propriedade("XXXX", "1234-5678", "Rua XYZ", "Heliópolis", "55555-555", "Gus", "Pernambuco", "numero", idProprietario, idUsuario);
-        int resultNovaPropriedade = repositorio.inserirPropriedade(propriedade);
+        repositorio.inserirPropriedade(propriedade);
 
         boolean isPropriedadeEncontrada = repositorio.
                 propriedadesOfProprietario(idProprietario).size() > 1;

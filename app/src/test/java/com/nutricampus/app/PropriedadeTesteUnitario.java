@@ -40,7 +40,8 @@ public class PropriedadeTesteUnitario {
 
     @Test
     public void testaEqualsComPropriedadeNull() throws Exception {
-        assertFalse(p1.equals(null));
+        Propriedade propriedade = null;
+        assertFalse(p1.equals(propriedade));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class PropriedadeTesteUnitario {
 
     @Test
     public void testaEqualsOutraInstacia() throws Exception {
-        assertFalse(p1.equals(new String()));
+        assertFalse(p1.equals(new Object()));
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented.repositorios;
+package com.nutricampus.app.repositorios;
 
 import android.support.test.InstrumentationRegistry;
 
@@ -19,17 +19,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by kellison on 04/08/17.
- */
 public class RepositorioProleTesteIntegracao {
-    private RepositorioAnimal repositorioAnimal;
     private RepositorioProle repositorioProle;
 
     @Before
     public void setUp() throws Exception {
         repositorioProle = new RepositorioProle(InstrumentationRegistry.getTargetContext());
-        repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
+        RepositorioAnimal repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
         repositorioAnimal.inserirAnimal(new Animal("mimosa", 1, Calendar.getInstance(), true, 1));
     }
 

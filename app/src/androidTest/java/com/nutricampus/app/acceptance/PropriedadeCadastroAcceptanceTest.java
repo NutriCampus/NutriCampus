@@ -1,6 +1,7 @@
 package com.nutricampus.app.acceptance;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -16,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -23,7 +25,6 @@ import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
@@ -32,6 +33,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.fail;
 
 /**
  * Created by kellison on 04/08/17.
@@ -44,13 +46,14 @@ import static org.hamcrest.Matchers.is;
 public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Before
-    public void addProprietario() throws Exception {
+    public void setUp() throws Exception {
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
         if (repositorioProprietario.buscarProprietario("00011122222") == null)
             repositorioProprietario.inserirProprietario(new Proprietario("00011122222", "Proprietario 1", "", ""));
 
         realizaLogin();
-        clicarMenuPropriedade();
+        abrirMenu();
+        clicarItemMenu(3);
         closeKeyboard();
         clicarFloatingButton();
     }
@@ -81,6 +84,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
             Thread.sleep(3500);
         } catch (Exception e) {
+            fail("Toast de mensagem de falha não identificado");
             e.printStackTrace();
         }
     }
@@ -111,15 +115,19 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-
-        Thread.sleep(500);
         appCompatButton6.perform(scrollTo(), click());
-        closeKeyboard();
 
+        // Usando o meio abaixo já que o Toast não estava sendo identificado pelo check
         try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Cadastro realizado com sucesso");
-            Thread.sleep(3500);
-        } catch (Exception e) {
+            Thread.sleep(500);
+
+            onView(withText("Propriedade OMEGA")).perform(click());
+            pressBack();
+            // View is in hierarchy
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -140,10 +148,10 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
             Thread.sleep(3500);
         } catch (Exception e) {
+            fail("Toast de mensagem de falha não identificado");
             e.printStackTrace();
         }
     }
-
 
     private void preencheCampos() throws Exception {
 
@@ -208,15 +216,6 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         Thread.sleep(1000);
     }
 
-    private void clicarMenuPropriedade() {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(3, click()));
-
-    }
 
     private void clicarFloatingButton() throws Exception {
         ViewInteraction floatingActionButton = onView(withId(R.id.fabList));
