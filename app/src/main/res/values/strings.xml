@@ -18,7 +18,7 @@
     <string name="entrar">Entrar</string>
     <string name="recuperar_senha">Recuperar senha</string>
 
-    <string name="alter_senha">Caso altere a senha, ocorrerá logout..</string>
+    <string name="alter_senha">Caso altere a senha, ocorrerá logout em sua conta.</string>
     <string name="menu_adicionar">Adicionar</string>
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
