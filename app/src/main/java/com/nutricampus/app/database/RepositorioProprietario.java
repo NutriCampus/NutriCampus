@@ -161,7 +161,7 @@ public class RepositorioProprietario {
         return (retorno > 0);
 
     }
-
+    /*
     public int removerProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
         int resultado = bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
@@ -171,6 +171,28 @@ public class RepositorioProprietario {
         bancoDados.close();
         return resultado;
     }
+    */
+
+    public int removerProprietario(Proprietario proprietario) {
+        return excluirRegistros(proprietario.getId());
+    }
+
+    public int removerProprietario(int id) {
+        return excluirRegistros(id);
+    }
+
+    private int excluirRegistros(int id) {
+        bancoDados = gerenciador.getWritableDatabase();
+
+        int resultado = bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
+                SQLiteManager.PROPRIETARIO_COL_ID + " = ? ",
+                new String[]{String.valueOf(id)});
+
+        bancoDados.close();
+
+        return resultado;
+    }
+
 
 
 }

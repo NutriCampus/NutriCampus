@@ -122,6 +122,7 @@ public class RepositorioProle {
 
     }
 
+    /*
     public int removerProle(Prole prole) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_PROLE,
@@ -129,6 +130,34 @@ public class RepositorioProle {
                 new String[]{String.valueOf(prole.getId())});
 
         bancoDados.close();
+        return result;
+    }*/
+
+    public int removerProle(Prole prole) {
+        return excluirRegistros(prole.getId(), 1);
+    }
+
+    public int removerProle(int idAnimal) {
+        return excluirRegistros(idAnimal, 2);
+    }
+
+
+    private int excluirRegistros(int id, int tipo) {
+        bancoDados = gerenciador.getWritableDatabase();
+        String coluna;
+
+        //tipo = 1 (ID DadosCompl) | tipo = 2 (ID Animal)
+        if (tipo == 1)
+            coluna = SQLiteManager.PROLE_ID;
+        else
+            coluna = SQLiteManager.PROLE_ID_MATRIZ;
+
+        int result = bancoDados.delete(SQLiteManager.TABELA_PROLE,
+                coluna + " = ? ",
+                new String[]{String.valueOf(id)});
+
+        bancoDados.close();
+
         return result;
     }
 

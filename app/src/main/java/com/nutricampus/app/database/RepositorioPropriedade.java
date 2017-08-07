@@ -183,6 +183,11 @@ public class RepositorioPropriedade {
                 " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO + " = " + idProprietario);
     }
 
+    public List<Propriedade> buscarPropriedadesPorUsuario(int idUsuario) {
+        return this.getListaPropriedades(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIEDADE +
+                " WHERE " + SQLiteManager.PROPRIEDADE_COL_ID_USUARIO + " = " + idUsuario);
+    }
+
 
 
     public boolean atualizarPropriedade(Propriedade propriedade) {
@@ -200,12 +205,41 @@ public class RepositorioPropriedade {
 
     }
 
+    /*
     public int removerPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
 
         int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
                 SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
                 new String[]{String.valueOf(propriedade.getId())});
+
+        bancoDados.close();
+
+        return result;
+    }
+    */
+    public int removerPropriedade(Propriedade propriedade) {
+        return excluirRegistros(propriedade.getId(), 1);
+    }
+
+    public int removerPropriedadePorProprietario(int idProprietario) {
+        return excluirRegistros(idProprietario, 2);
+    }
+
+    private int excluirRegistros(int id, int tipo) {
+        bancoDados = gerenciador.getWritableDatabase();
+        String coluna;
+
+        //tipo = 1 (ID propriedade) | tipo = 2 (ID Usuario) | tipo = 3 (ID Proprietário)
+        if(tipo == 1)
+            coluna = SQLiteManager.PROPRIEDADE_COL_ID;
+        else
+            coluna = SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO;
+
+
+        int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
+                coluna + " = ? ",
+                new String[]{String.valueOf(id)});
 
         bancoDados.close();
 

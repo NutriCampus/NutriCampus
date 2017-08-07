@@ -115,12 +115,12 @@ public class RepositorioDadosComplAnimal {
         return (retorno > 0);
     }
 
-    public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int id_animal) {
+    /*public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int id_animal) {
         return this.getListaDadosComplAnimal(
                 SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL + "WHERE " + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + String.valueOf(id_animal));
-    }
+    }*/
 
-    public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
+    /*public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_DADOS_COMPL,
                 SQLiteManager.DADOS_COMPL_COL_ID + " = ? ",
@@ -129,7 +129,37 @@ public class RepositorioDadosComplAnimal {
         bancoDados.close();
 
         return result;
+    }*/
+
+    public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
+        return excluirRegistros(dadosComplAnimal.getId(), 1);
     }
+
+    public int removerDadosCompl(int idAnimal) {
+        return excluirRegistros(idAnimal, 2);
+    }
+
+
+    private int excluirRegistros(int id, int tipo) {
+        bancoDados = gerenciador.getWritableDatabase();
+        String coluna;
+
+        //tipo = 1 (ID DadosCompl) | tipo = 2 (ID Animal)
+        if(tipo == 1)
+            coluna = SQLiteManager.DADOS_COMPL_COL_ID;
+        else
+            coluna = SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL;
+
+        int result = bancoDados.delete(SQLiteManager.TABELA_DADOS_COMPL,
+                coluna + " = ? ",
+                new String[]{String.valueOf(id)});
+
+        bancoDados.close();
+
+        return result;
+    }
+
+
 
     private DadosComplAnimal getDadosFromCursor(Cursor cursor) {
 
