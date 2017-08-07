@@ -209,9 +209,9 @@ public class CompostoAlimentarEdicaoAcceptanceTest {
             e.printStackTrace();
         }
 
-        repositorioCompostosAlimentares.removerCompostoAlimentar(ca2);
-        List<CompostosAlimentares> identificador999 = repositorioCompostosAlimentares.buscarTodosCompostos("identificador999");
-        for (CompostosAlimentares in : identificador999) {
+        //repositorioCompostosAlimentares.removerCompostoAlimentar(ca2);
+        List<CompostosAlimentares> arr = repositorioCompostosAlimentares.buscarTodosCompostos("identificador");
+        for (CompostosAlimentares in : arr) {
             repositorioCompostosAlimentares.removerCompostoAlimentar(in);
         }
     }
