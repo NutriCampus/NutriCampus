@@ -79,6 +79,8 @@ public class CadastrarCompostosAlimentaresActivity extends AppCompatActivity {
                 Toast.makeText(CadastrarCompostosAlimentaresActivity.this,
                         getString(R.string.msg_cadastro_salvo), Toast.LENGTH_SHORT).show();
                 CadastrarCompostosAlimentaresActivity.this.finish();
+            } else {
+                Toast.makeText(CadastrarCompostosAlimentaresActivity.this, getString(R.string.msg_erro_cadastro_composto), Toast.LENGTH_LONG).show();
             }
         }
 

@@ -175,11 +175,15 @@ public class RepositorioCompostosAlimentares {
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT, compostosAlimentares.getNDT());
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA, compostosAlimentares.getFDA());
         dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO, compostosAlimentares.getDescricao());
+        int retorno = 0;
+        try {
+            retorno = bancoDados.update(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES,
+                    dados, SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = ?",
+                    new String[]{String.valueOf(compostosAlimentares.getId())});
 
-        int retorno = bancoDados.update(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES,
-                dados, SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = ?",
-                new String[]{String.valueOf(compostosAlimentares.getId())});
+        } catch (Exception ex) {
 
+        }
         bancoDados.close();
 
         return (retorno > 0);

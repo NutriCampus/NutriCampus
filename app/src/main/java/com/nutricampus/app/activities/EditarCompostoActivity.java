@@ -104,7 +104,7 @@ public class EditarCompostoActivity extends CadastrarCompostosAlimentaresActivit
                         getString(R.string.msg_sucesso_atualizar_registro), Toast.LENGTH_SHORT).show();
                 EditarCompostoActivity.this.finish();
             } else {
-                Toast.makeText(EditarCompostoActivity.this, "Erro ao gravar Composto", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarCompostoActivity.this, "Erro ao gravar Composto", Toast.LENGTH_SHORT).show();
             }
         }
     }

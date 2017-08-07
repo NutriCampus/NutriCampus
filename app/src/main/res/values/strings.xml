@@ -222,6 +222,6 @@
     <string name="titulo_editar_composto">Editar composto</string>
     <string name="titulo_visualizar_composto">Visualizar composto</string>
     <string name="msg_excluir_composto_falha">Falha ao tentar remover o composto</string>
-
+    <string name="msg_erro_cadastro_composto">Composto já cadastrado!</string>
 
 </resources>
