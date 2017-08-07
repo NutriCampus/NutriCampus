@@ -20,16 +20,24 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 /**
  * Created by Felipe on 01/08/2017.
  * For project NutriCampus.
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
+
 
     @BindView(R.id.input_nome_proprietario) EditText inputNomeProprietario;
     @BindView(R.id.input_cpf_proprietario) EditText inputCpfProprietario;
@@ -38,6 +46,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     @BindView(R.id.btn_salvar_cadastro) Button btnSalvar;
 
     private int voltarProprietarios;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public void salvar(View v) {
         if (!validaDados()) {
-            Toast.makeText(CadastrarProprietarioActivity.this,R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastrarProprietarioActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -74,7 +83,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         int idRetorno = repositorioProprietario.inserirProprietario(proprietario);
 
-        if(idRetorno > -1) {
+        if (idRetorno > -1) {
             proprietario.setId(idRetorno);
 
             Toast.makeText(CadastrarProprietarioActivity.this,
@@ -100,7 +109,9 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         }
     }
 
+
     protected boolean validaDados(){
+
         boolean valido = true;
 
         if (inputNomeProprietario.getText().toString().isEmpty()) {
@@ -147,6 +158,7 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     }
 
     @Override
+
     public void onBackPressed(){
         voltarActivity();
     }
@@ -158,7 +170,6 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
             it = new Intent(CadastrarProprietarioActivity.this, ListaProprietariosActivity.class);
         else
             it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
-
 
         startActivity(it);
         finish();

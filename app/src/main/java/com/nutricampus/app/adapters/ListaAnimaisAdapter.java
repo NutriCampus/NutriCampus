@@ -64,7 +64,7 @@ public class ListaAnimaisAdapter extends BaseAdapter {
             ativo.setText("Inativo");
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(context);
-        Propriedade p = repositorioPropriedade.buscarPropriedade(animal.getId_propriedade());
+        Propriedade p = repositorioPropriedade.buscarPropriedade(animal.getIdPropriedade());
         propriedade.setText(p.getNome());
 
         return linha;

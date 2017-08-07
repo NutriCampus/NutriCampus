@@ -8,7 +8,14 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Propriedade;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
     @Override
@@ -20,7 +27,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
 
     private void inicializaCampos() {
 
-        int id = getIntent().getIntExtra("id",0);
+        int id = getIntent().getIntExtra("id", 0);
 
         inputId.setText(String.valueOf(id));
 
@@ -33,7 +40,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         inputEstado.setText(getIntent().getStringExtra("estado"));
         inputTelefone.setText(getIntent().getStringExtra("telefone"));
 
-        int idProprietario = getIntent().getIntExtra("idProprietario",0);
+        int idProprietario = getIntent().getIntExtra("idProprietario", 0);
 
         inputIdProprietario.setText(String.valueOf(idProprietario));
 
@@ -51,7 +58,7 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
         }
 
         Propriedade propriedade = new Propriedade(
-                Integer.parseInt( inputId.getText().toString()),
+                Integer.parseInt(inputId.getText().toString()),
                 inputNome.getText().toString(),
                 inputTelefone.getText().toString(),
                 inputRua.getText().toString(),
@@ -61,13 +68,13 @@ public class EditarPropriedadeActivity extends CadastrarPropriedadeActivity {
                 inputEstado.getText().toString(),
                 inputNumero.getText().toString(),
                 Integer.parseInt(inputIdProprietario.getText().toString()),
-                Integer.parseInt(session.getIdNC()));
+                Integer.parseInt(session.getIdUsuario()));
 
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         boolean result = repositorioPropriedade.atualizarPropriedade(propriedade);
 
-        if(result) {
+        if (result) {
             Toast.makeText(EditarPropriedadeActivity.this, getString(R.string.msg_sucesso_atualizar, "Propriedade", propriedade.getNome()),
                     Toast.LENGTH_LONG).show();
             this.onBackPressed();

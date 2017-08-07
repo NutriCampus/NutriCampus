@@ -115,11 +115,6 @@ public class RepositorioDadosComplAnimal {
         return (retorno > 0);
     }
 
-    /*public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int id_animal) {
-        return this.getListaDadosComplAnimal(
-                SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL + "WHERE " + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + String.valueOf(id_animal));
-    }*/
-
     /*public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_DADOS_COMPL,
@@ -187,7 +182,7 @@ public class RepositorioDadosComplAnimal {
         dados.put(SQLiteManager.DADOS_COMPL_COL_DATA, dadosComplAnimal.getData().getTimeInMillis());
         dados.put(SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL, dadosComplAnimal.getAnimal());
         dados.put(SQLiteManager.DADOS_COMPL_COL_PESO_VIVO, dadosComplAnimal.getPesoVivo());
-        dados.put(SQLiteManager.DADOS_COMPL_COL_EEC, dadosComplAnimal.getEEC());
+        dados.put(SQLiteManager.DADOS_COMPL_COL_EEC, dadosComplAnimal.getEec());
         dados.put(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL, dadosComplAnimal.getCaminadaHorizontal());
         dados.put(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL, dadosComplAnimal.getCaminhadaVertical());
         dados.put(SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO, dadosComplAnimal.getSemanaLactacao());

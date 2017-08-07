@@ -3,11 +3,11 @@ package com.nutricampus.app.acceptance;
 
 import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -15,7 +15,11 @@ import android.view.ViewParent;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.activities.MainActivity;
+import com.nutricampus.app.database.RepositorioAnimal;
+import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Proprietario;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -34,7 +38,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
@@ -58,17 +61,33 @@ import static org.hamcrest.Matchers.is;
  * Created by jorge on 21/07/17.
  */
 
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AnimalCadastroActivityTest {
+public class Animal01CadastroActivityTest {
     private Activity currentActivity;
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
+
     @Test
     public void animalCadastroActivityTest1() throws Exception {//Cadastro Total(Inserindo nova propriedade)
         prepararTeste();
+
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
+        RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
+        RepositorioAnimal repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
+
+        repositorioPropriedade.removerTodos();
+        repositorioProprietario.removerTodos();
+        repositorioAnimal.removerTodos();
+
+
+        // Necessário utilizar uma adição direta já que pela tela de cadastro dá erro, pois a tela
+        // é pequena no emulador e o botão de add não é encontrado.
+        Proprietario proprietario = new Proprietario("04998517490", "Jorge Veloso", "jvsveloso@gmail.com.com", "(99) 99999 9999");
+        repositorioProprietario.inserirProprietario(proprietario);
 
         closeKeyboard();
         ViewInteraction floatingActionButton = onView(
@@ -82,38 +101,27 @@ public class AnimalCadastroActivityTest {
                 allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
         appCompatButton2.perform(click());
         closeKeyboard();
-        ViewInteraction appCompatButton3 = onView(
-                withId(R.id.btn_add_proprietario));
-        appCompatButton3.perform(scrollTo(), click());
+
+
+        Thread.sleep(1400);
+        ViewInteraction appCompatSpinner = onView(
+                withId(R.id.spinner_proprietario));
+        Thread.sleep(1000);
+
+        appCompatSpinner.perform(scrollTo(), click());
+        closeKeyboard();
+        ViewInteraction appCompatCheckedTextView = onView(
+                allOf(withId(android.R.id.text1), withText("Jorge Veloso"),
+                        childAtPosition(
+                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                                        withParent(withClassName(is("android.widget.FrameLayout")))),
+                                1),
+                        isDisplayed()));
+        Thread.sleep(1000);
+
+        appCompatCheckedTextView.perform(click());
         closeKeyboard();
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.input_nome_proprietario), isDisplayed()));
-        appCompatEditText3.perform(replaceText("Jorge Veloso"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.input_cpf_proprietario), isDisplayed()));
-        appCompatEditText7.perform(replaceText("04998517490"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.input_email_proprietario), isDisplayed()));
-        appCompatEditText8.perform(replaceText("jvsveloso@gmail.com.com"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.input_fone_proprietario),isDisplayed()));
-        appCompatEditText12.perform(replaceText("(99) 99999 9999"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatButton4 = onView(
-                allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarproprietarioactvity),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        appCompatButton4.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(android.R.id.button1), withText("OK")));
-        appCompatButton5.perform(scrollTo(), click());
-        closeKeyboard();
         ViewInteraction appCompatEditText13 = onView(
                 withId(R.id.input_nome_propriedade));
         appCompatEditText13.perform(scrollTo(), replaceText("Propriedade 1"), closeSoftKeyboard());
@@ -146,6 +154,7 @@ public class AnimalCadastroActivityTest {
                 .perform(typeTextIntoFocusedView("e"));
 
         closeKeyboard();
+        Thread.sleep(2000);
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -153,6 +162,7 @@ public class AnimalCadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .check(matches(withText("Pernambuco")));
         closeKeyboard();
+
         onView(withId(R.id.input_cidade))
                 .perform(scrollTo())
                 .perform(typeText("Ga"));
@@ -161,6 +171,7 @@ public class AnimalCadastroActivityTest {
                 .perform(typeTextIntoFocusedView("ran"));
 
         closeKeyboard();
+        Thread.sleep(2000);
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -267,6 +278,7 @@ public class AnimalCadastroActivityTest {
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest2() throws Exception {//Cadastro selecionando propriedade existente
         closeKeyboard();
@@ -283,12 +295,9 @@ public class AnimalCadastroActivityTest {
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
         closeKeyboard();
+        Thread.sleep(2000);
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                1),
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
@@ -301,6 +310,8 @@ public class AnimalCadastroActivityTest {
                 allOf(withId(R.id.input_data_nascimento), isDisplayed()));
         appCompatEditText55.perform(replaceText("17/07/2013"), closeSoftKeyboard());
         closeKeyboard();
+
+        Thread.sleep(1500);
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
@@ -352,15 +363,22 @@ public class AnimalCadastroActivityTest {
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
+
+        Thread.sleep(1000);
+
         appCompatCheckBox.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
+        Thread.sleep(1000);
+
         appCompatRadioButton.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
+        Thread.sleep(1000);
+
         appCompatButton10.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction textView4 = onView(
@@ -372,9 +390,12 @@ public class AnimalCadastroActivityTest {
                                                 0)),
                                 0),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest3() throws Exception {//Cadastro e animal de mesmo id em propriedade diferente
         prepararTeste();
@@ -384,14 +405,20 @@ public class AnimalCadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.btn_add_propriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatButton2.perform(click());
         closeKeyboard();
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
+        Thread.sleep(1000);
+
         appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView = onView(
@@ -401,6 +428,8 @@ public class AnimalCadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText13 = onView(
@@ -434,6 +463,8 @@ public class AnimalCadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .perform(typeTextIntoFocusedView("e"));
         closeKeyboard();
+        Thread.sleep(1000);
+
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -441,6 +472,7 @@ public class AnimalCadastroActivityTest {
         onView(withId(R.id.input_estado))
                 .check(matches(withText("Pernambuco")));
         closeKeyboard();
+
         onView(withId(R.id.input_cidade))
                 .perform(scrollTo())
                 .perform(typeText("Ga"));
@@ -449,17 +481,23 @@ public class AnimalCadastroActivityTest {
                 .perform(typeTextIntoFocusedView("ran"));
 
         closeKeyboard();
+        Thread.sleep(2000);
+
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
+        Thread.sleep(1000);
+
         appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatSpinner4.perform(click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView2 = onView(
@@ -469,6 +507,8 @@ public class AnimalCadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 2),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText23 = onView(
@@ -481,11 +521,14 @@ public class AnimalCadastroActivityTest {
         appCompatEditText55.perform(replaceText("17/12/2015"), closeSoftKeyboard());
         closeKeyboard();
 
+        Thread.sleep(1500);
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatButton8.perform(click());
         closeKeyboard();
         ViewInteraction editText = onView(
@@ -532,15 +575,21 @@ public class AnimalCadastroActivityTest {
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
+        Thread.sleep(1000);
+
         appCompatCheckBox.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
+        Thread.sleep(1000);
+
         appCompatRadioButton.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
+        Thread.sleep(1000);
+
         appCompatButton10.perform(scrollTo(), click());
         closeKeyboard();
         ViewInteraction textView4 = onView(
@@ -555,6 +604,7 @@ public class AnimalCadastroActivityTest {
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest4() throws Exception {//Cadastro e animal sem informar os dados
         prepararTeste();
@@ -564,15 +614,23 @@ public class AnimalCadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         pressBack();
+
+        Thread.sleep(1500);
         ViewInteraction appCompatButton5 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
+        closeKeyboard();
+        Thread.sleep(1000);
+
         appCompatButton5.perform(click());
+
 
         closeKeyboard();
         ViewInteraction textView = onView(
@@ -587,6 +645,7 @@ public class AnimalCadastroActivityTest {
         textView.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest5() throws Exception {//Cadastro e animal sem informar a propriedade
         prepararTeste();
@@ -596,10 +655,14 @@ public class AnimalCadastroActivityTest {
                         withParent(allOf(withId(R.id.telaListaAnimais),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         floatingActionButton.perform(click());
         closeKeyboard();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatSpinner4.perform(click());
         closeKeyboard();
         ViewInteraction appCompatCheckedTextView2 = onView(
@@ -609,15 +672,23 @@ public class AnimalCadastroActivityTest {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
                         isDisplayed()));
+        Thread.sleep(1000);
+
         appCompatCheckedTextView2.perform(click());
         closeKeyboard();
         pressBack();
+        Thread.sleep(1500);
+
         ViewInteraction appCompatButton5 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
+        closeKeyboard();
+        Thread.sleep(1000);
+
         appCompatButton5.perform(click());
+
         closeKeyboard();
         swipeUp();
 
@@ -634,6 +705,7 @@ public class AnimalCadastroActivityTest {
         textView.check(matches(withText("Propriedade 1")));
 
     }
+
     @Test
     public void animalCadastroActivityTest6() throws Exception {//Cadastro de animal em duplicidade
         closeKeyboard();
@@ -736,7 +808,7 @@ public class AnimalCadastroActivityTest {
         closeKeyboard();
     }
 
-    public void prepararTeste()throws Exception{
+    public void prepararTeste() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -782,12 +854,14 @@ public class AnimalCadastroActivityTest {
             }
         };
     }
+
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -800,6 +874,7 @@ public class AnimalCadastroActivityTest {
 
         return currentActivity;
     }
+
     public void closeKeyboard() throws Exception {
         try {
             Thread.sleep(1000);

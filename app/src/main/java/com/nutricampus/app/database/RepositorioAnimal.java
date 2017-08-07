@@ -161,6 +161,16 @@ public class RepositorioAnimal {
         return result;
     }
 
+    public void removerTodos() {
+        bancoDados = gerenciador.getWritableDatabase();
+        bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
+                SQLiteManager.ANIMAL_COL_ID + " > ? ",
+                new String[]{String.valueOf("-1")});
+
+        bancoDados.close();
+
+    }
+
     private Animal getDadosFromCursor(Cursor cursor) {
         Calendar data = Calendar.getInstance();
         data.setTimeInMillis(Long.valueOf(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO))));
@@ -180,7 +190,7 @@ public class RepositorioAnimal {
         dados.put(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE, animal.getPropriedade());
         dados.put(SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO, animal.getDataDeNascimento().getTimeInMillis());
         dados.put(SQLiteManager.ANIMAL_COL_IS_ATIVO, animal.isAtivo());
-        dados.put(SQLiteManager.ANIMAL_COL_ID_USUARIO, animal.getId_usuario());
+        dados.put(SQLiteManager.ANIMAL_COL_ID_USUARIO, animal.getIdUsuario());
 
         return dados;
     }

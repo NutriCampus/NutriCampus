@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -47,14 +46,26 @@ import butterknife.ButterKnife;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaAnimaisActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.spinnerPropriedade) Spinner spinnerPropriedade;
-    @BindView(R.id.listaAnimais) ListView listAnimais;
-    @BindView(R.id.text_quantidades_encontrados) TextView registrosEncontrados;
-    @BindView(R.id.linha) View linha;
-    @BindView(R.id.input_id_propriedade) EditText inputIdPropriedade;
+    @BindView(R.id.spinnerPropriedade)
+    Spinner spinnerPropriedade;
+    @BindView(R.id.listaAnimais)
+    ListView listAnimais;
+    @BindView(R.id.text_quantidades_encontrados)
+    TextView registrosEncontrados;
+    @BindView(R.id.linha)
+    View linha;
+    @BindView(R.id.input_id_propriedade)
+    EditText inputIdPropriedade;
 
     private Propriedade propriedade;
 
@@ -66,7 +77,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_animais);
-        Log.w("MEME", new Animal().getClass().getSimpleName());
+
         ButterKnife.bind(this);
 
         listAnimais.setEmptyView(findViewById(android.R.id.empty));
@@ -76,7 +87,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
         propriedade = (Propriedade) getIntent().getSerializableExtra(ListaPropriedadesActivity.EXTRA_PROPRIEDADE);
 
-        if(propriedade == null) {
+        if (propriedade == null) {
             carregarListView(0, "");
         } else {
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
@@ -88,7 +99,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
         listAnimais.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position, EditarAnimalActivity.class);
             }
         });
@@ -116,7 +127,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_animal,menu);
+        inflater.inflate(R.menu.menu_contexto_animal, menu);
     }
 
     @Override
@@ -153,7 +164,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
     private void confirmarExcluir(final Animal animal) {
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.msg_excluir_confirmar_animal) + " \"" + animal.getIndentificador() + "\" ?" )
+                .setMessage(getString(R.string.msg_excluir_confirmar_animal) + " \"" + animal.getIndentificador() + "\" ?")
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -162,7 +173,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
                         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(ListaAnimaisActivity.this);
 
                         int idAnimal = animal.getId();
-                        int idPropriedade = animal.getPropriedade();
                         int resultAnimal = repositorioAnimal.removerAnimal(animal);
 
                         DadosComplAnimal dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(idAnimal);
@@ -188,14 +198,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
         chamarActivity(posicao, classe);
     }
 
-    private void abreTelaHistorico(int posicao, Class classe) {
-        chamarActivity(posicao, classe);
-    }
-
-    private void abreTelaComAnimal(int position, Class classe) {
-        chamarActivity(position, classe);
-    }
-
     private void chamarActivity(int posicao, Class classe) {
         Animal animal = (Animal) listAnimais.getItemAtPosition(posicao);
         Intent intent = new Intent(ListaAnimaisActivity.this, classe);
@@ -213,7 +215,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaAnimaisActivity.this);
         List<Animal> animais;
 
-        if(idPropriedade == 0)
+        if (idPropriedade == 0)
             animais = repositorioAnimal.buscarTodosAnimais(idenficador);
         else
             animais = repositorioAnimal.buscarPorIdentificador(idPropriedade, idenficador);
@@ -239,18 +241,18 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        // Existência necessária devido a herança, mas não implementada.
     }
 
     public void preencherSpinnerListaPropriedade() {
 
-        RepositorioPropriedade repositorioPropriedade= new RepositorioPropriedade(getBaseContext());
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         List<Propriedade> todasPropriedades = repositorioPropriedade.buscarTodasPropriedades();
 
         if (!(todasPropriedades.isEmpty())) {
 
             // Adiciona a msg de "Selecione..." no spinner da propriedade
-            Propriedade posZero = new Propriedade(0, getString(R.string.msg_spinner_propriedade), "", "", "", "", "", "", "", 1,1);
+            Propriedade posZero = new Propriedade(0, getString(R.string.msg_spinner_propriedade), "", "", "", "", "", "", "", 1, 1);
             todasPropriedades.add(0, posZero);
 
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(this,
@@ -272,7 +274,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
             spinnerPropriedade.setSelection(posicao);
         } else {
-            Propriedade prop = new Propriedade(0, "<< " + getString(R.string.msg_cadastre_propriedade) + " >>", "", "", "", "", "", "", "", 1,1);
+            Propriedade prop = new Propriedade(0, "<< " + getString(R.string.msg_cadastre_propriedade) + " >>", "", "", "", "", "", "", "", 1, 1);
             todasPropriedades.add(prop);
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, todasPropriedades);
@@ -381,6 +383,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // Método herdado apenas pelo motivo de ser necessáiro pelo uso da
+        // interface OnItemSelectedListener
     }
 }

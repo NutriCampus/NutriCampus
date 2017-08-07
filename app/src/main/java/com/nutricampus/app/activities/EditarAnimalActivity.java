@@ -12,6 +12,13 @@ import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarAnimalActivity extends CadastrarAnimalActivity {
 
     private int idAnimalAtual;
@@ -22,9 +29,9 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        Animal animal = (Animal) intent.getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
+        Animal dadosAnimal = (Animal) intent.getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
 
-        inicializarViewPager(animal, EditarAnimalActivity.this, null);
+        inicializarViewPager(dadosAnimal, EditarAnimalActivity.this, null);
 
     }
 
@@ -41,21 +48,17 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent it = new Intent(EditarAnimalActivity.this, ListaAnimaisActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Intent it = new Intent(EditarAnimalActivity.this, ListaAnimaisActivity.class);
+            startActivity(it);
+            finish();
         }
 
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent it = new Intent(EditarAnimalActivity.this, ListaAnimaisActivity.class);
         startActivity(it);
         finish();
@@ -67,31 +70,32 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarAnimalActivity.this);
 
         //Verificação se o usuário tentou inserir sei cadastrar todos os dados ou não os confirmo-los
-        if(animal == null) {
+        if (animal == null) {
             Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_erro_falta_de_dados), Toast.LENGTH_LONG).show();
             return;
         }
 
         //Verificação se o animal já está cadastrado nesta propriedade
         Animal animalDuplicado = repositorioAnimal.buscarAnimal(animal.getIndentificador(), animal.getPropriedade());
-        if(!(animalDuplicado == null) && idAnimalAtual != animalDuplicado.getId()) {
+        if ((animalDuplicado != null) && idAnimalAtual != animalDuplicado.getId()) {
             Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_erro_duplicidade_animal), Toast.LENGTH_LONG).show();
             return;
         }
 
         boolean atualAnimal = repositorioAnimal.atualizarAnimal(animal);
 
-        if(atualAnimal) {
+        if (atualAnimal) {
             Toast.makeText(EditarAnimalActivity.this, "Animal atualizado", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(EditarAnimalActivity.this, "Erro ao atualizar animal" , Toast.LENGTH_LONG).show();
+            Toast.makeText(EditarAnimalActivity.this, "Erro ao atualizar animal", Toast.LENGTH_LONG).show();
             return;
         }
 
-        //dadosComplAnimal.setAnimal(animal.getId());
         boolean atualDadosComp = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplAnimal);
 
-        if(atualDadosComp && atualAnimal) {
+        // atualAnimal foi removido da condição jpa uqe caso a execução chegue nesse trecho do código,
+        // o seu valor sempre será true (visto que não entrou no else acima)
+        if (atualDadosComp) {
             Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_sucesso_atualizar, animal.getIndentificador(), ""),
                     Toast.LENGTH_LONG).show();
             Intent it = new Intent(EditarAnimalActivity.this, ListaAnimaisActivity.class);

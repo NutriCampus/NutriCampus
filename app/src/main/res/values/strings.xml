@@ -125,7 +125,7 @@
     <string name="campo_data_registro">Data de registro</string>
     <string name="campo_caminhada_vertical">Caminhada vertical (m)</string>
     <string name="campo_caminhada_horizontal">Caminhada Horizontal (m)</string>
-    <string name="campo_eec">EEC</string>
+    <string name="campo_eec">eec</string>
     <string name="campo_eec1">1</string>
     <string name="campo_eec2">2</string>
     <string name="campo_eec3">3</string>

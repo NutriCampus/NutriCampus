@@ -42,7 +42,7 @@ public class ListaProleAdapter extends BaseAdapter {
     public View getView(int indice, final View convertView, ViewGroup viewGroup) {
         final View view = act.getLayoutInflater()
                 .inflate(R.layout.lista_prole_personalizada, viewGroup, false);
-        final Prole prole = this.prole.get(indice);
+        final Prole itemProle = this.prole.get(indice);
 
         //pegando as referências das View
 
@@ -51,12 +51,12 @@ public class ListaProleAdapter extends BaseAdapter {
         TextView peso = (TextView) view.findViewById(R.id.lista_prole_peso);
 
         //populando as Views
-        id.setText(String.valueOf(prole.getId()));
-        data.setText(Conversor.dataFormatada(prole.getDataDeNascimento()));
+        id.setText(String.valueOf(itemProle.getId()));
+        data.setText(Conversor.dataFormatada(itemProle.getDataDeNascimento()));
 
         String str;
-        if (!prole.isNatimorto())
-            str = act.getString(R.string.unidade_medida_kg, "Peso:", prole.getPesoDeNascimento());
+        if (!itemProle.isNatimorto())
+            str = act.getString(R.string.unidade_medida_kg, "Peso:", itemProle.getPesoDeNascimento());
         else
             str = act.getString(R.string.campo_natimorto);
 

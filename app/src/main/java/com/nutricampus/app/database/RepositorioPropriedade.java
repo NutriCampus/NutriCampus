@@ -246,6 +246,17 @@ public class RepositorioPropriedade {
         return result;
     }
 
+    public void removerTodos() {
+        bancoDados = gerenciador.getWritableDatabase();
+        bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
+                SQLiteManager.PROPRIEDADE_COL_ID + " > ? ",
+                new String[]{String.valueOf("-1")});
+
+        bancoDados.close();
+
+    }
+
+
 
     private ContentValues getContentValues(Propriedade propriedade) {
         ContentValues dados = new ContentValues();

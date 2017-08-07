@@ -9,6 +9,14 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
 import com.nutricampus.app.entities.ProducaoDeLeite;
 
+
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarProducaoLeiteActivity extends CadastroProducaoLeiteActivity {
 
     @Override

@@ -36,12 +36,18 @@ import java.util.List;
  * Contact: <felipeguimaraes540@gmail.com>
  */
 
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class DadosComplementaresFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
     public static final String EXTRA_ANIMAL = "animal";
 
-    private EditText inputIdAnimal;
     private EditText inputData;
     private EditText inputPeso;
     private EditText inputCaminhadaVertical;
@@ -115,10 +121,10 @@ public class DadosComplementaresFragment extends Fragment
                 ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
                 ckbGestante.setChecked(dadosComplAnimal.isGestante());
                 ckbCio.setChecked(dadosComplAnimal.isCio());
-                if(dadosComplAnimal.getEEC() == 0)
-                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC())).setChecked(true);
+                if (dadosComplAnimal.getEec() == 0)
+                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
                 else
-                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEEC() - 1)).setChecked(true);
+                    ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec() - 1)).setChecked(true);
                 btnSalvar.setText("Atualizar");
                 btnHistRegistros.setVisibility(View.VISIBLE);
                 btnHistRegistros.setOnClickListener(this);
@@ -134,9 +140,10 @@ public class DadosComplementaresFragment extends Fragment
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+
             inputData.setText(Conversor.dataFormatada(data));
         } else {
-            this.data.setTime(Conversor.StringToDate(inputData.getText().toString()));
+            this.data.setTime(Conversor.stringToDate(inputData.getText().toString()));
         }
     }
 
@@ -219,7 +226,7 @@ public class DadosComplementaresFragment extends Fragment
         } else {
             dadosComplAnimal.setData(data);
             dadosComplAnimal.setPesoVivo(Float.parseFloat(inputPeso.getText().toString()));
-            dadosComplAnimal.setEEC(eec);
+            dadosComplAnimal.setEec(eec);
             dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
             dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
             dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLact.getText().toString()));

@@ -6,6 +6,8 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -31,11 +33,10 @@ public class LeitorAssetsInstrumentedTest {
 
     @Test
     public void carregaAssetsNaoJson() {
-        String conteudo = null;
         try {
-            conteudo = LeitorAssets.carregaJSONAssets("testAsset.txt", appContext);
-        } catch (IllegalArgumentException e) {
-            assertNull(conteudo);
+            LeitorAssets.carregaJSONAssets("testAsset.txt", appContext);
+        } catch (IllegalArgumentException | IOException e) {
+            assertNull(null);
         }
 
     }

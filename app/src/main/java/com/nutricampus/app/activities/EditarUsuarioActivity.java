@@ -45,7 +45,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
 
         session = new SharedPreferencesManager(this);
         repositorioUsuario = new RepositorioUsuario(EditarUsuarioActivity.this);
-        usuario = repositorioUsuario.buscarUsuario(session.getCrmvNC(), session.getSenhaNC());
+        usuario = repositorioUsuario.buscarUsuario(session.getCrmvNC(), session.getSenha());
 
         inicializarCampos();
     }

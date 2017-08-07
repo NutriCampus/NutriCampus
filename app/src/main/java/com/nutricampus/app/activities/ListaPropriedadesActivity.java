@@ -40,10 +40,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@java.lang.SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
-public class ListaPropriedadesActivity extends AppCompatActivity{
+/*
+Explicação para a supressão de warnings:
+ - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
+ que refere-se a herança das classes das activities Android
+ - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
+*/
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
+public class ListaPropriedadesActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIEDADE = "propriedade";
+
 
     @BindView(R.id.listaPropriedades) ListView listPropriedades;
     @BindView(R.id.text_quantidade_encontrados) TextView mensagemQuantidade;
@@ -77,7 +84,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
         listPropriedades.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position);
             }
         });
@@ -115,6 +122,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 layoutPropritario.startAnimation(mHideLayout);
                 Intent intent = new Intent(ListaPropriedadesActivity.this, CadastrarPropriedadeActivity.class);
                 startActivity(intent);
+
                 ListaPropriedadesActivity.this.finish();
             }
         });
@@ -129,6 +137,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 Intent intent = new Intent(ListaPropriedadesActivity.this, ListaProprietariosActivity.class);
                 startActivity(intent);
                 ListaPropriedadesActivity.this.finish();
+
             }
         });
     }
@@ -150,7 +159,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_propriedade,menu);
+        inflater.inflate(R.menu.menu_contexto_propriedade, menu);
     }
 
     @Override
@@ -196,16 +205,16 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        if(isSearchOpened) {
+        if (isSearchOpened) {
             gerenciaFuncaoPesquisar();
             return;
         }
         super.onBackPressed();
     }
 
-    private void confirmarExcluir(final Propriedade propriedade){
+    private void confirmarExcluir(final Propriedade propriedade) {
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.msg_excluir_confirmar_propriedade,"\"" + propriedade.getNome() + "\"" ))
+                .setMessage(getString(R.string.msg_excluir_confirmar_propriedade, "\"" + propriedade.getNome() + "\""))
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -215,7 +224,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaPropriedadesActivity.this);
 
                         List<Animal> listAnimal = repositorioAnimal.buscarPorPropridade(propriedade.getId());
-                        for(Animal a : listAnimal)
+                        for (Animal a : listAnimal)
                             repositorioAnimal.removerAnimal(a);
 
                         Proprietario proprietario = repositorioProprietario.buscarProprietario(propriedade.getIdProprietario());
@@ -237,8 +246,7 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                             }
 
                             carregaListView("");
-                        }
-                        else{
+                        } else {
                             Toast.makeText(ListaPropriedadesActivity.this,
                                     getString(R.string.msg_excluir_propriedade_falha), Toast.LENGTH_LONG).show();
                         }
@@ -248,10 +256,10 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
                 .show();
     }
 
-    protected void gerenciaFuncaoPesquisar(){
+    protected void gerenciaFuncaoPesquisar() {
         ActionBar action = getSupportActionBar(); //get the actionbar
 
-        if(isSearchOpened){ //test if the search is open
+        if (isSearchOpened) { //test if the search is open
 
             if (action != null) {
                 action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
@@ -328,27 +336,28 @@ public class ListaPropriedadesActivity extends AppCompatActivity{
 
     }
 
-    public List<Propriedade> buscarPropriedades(String nome){
+    public List<Propriedade> buscarPropriedades(String nome) {
+        int id = session.getIdUsuario().equals("") ? 0 : Integer.parseInt(session.getIdUsuario());
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
-        return repositorioPropriedade.buscarPropriedadesPorNome(nome, Integer.parseInt(session.getIdNC()));
+        return repositorioPropriedade.buscarPropriedadesPorNome(nome, id);
     }
 
-    private Intent getIntent(Propriedade propriedade){
+    private Intent getIntent(Propriedade propriedade) {
         Intent intent = new Intent(this, EditarPropriedadeActivity.class);
-        intent.putExtra("id",propriedade.getId());
-        intent.putExtra("nome",propriedade.getNome());
-        intent.putExtra("telefone",propriedade.getTelefone());
-        intent.putExtra("rua",propriedade.getLogradouro());
-        intent.putExtra("bairro",propriedade.getBairro());
-        intent.putExtra("numero",propriedade.getNumero());
-        intent.putExtra("cep",propriedade.getCep());
-        intent.putExtra("cidade",propriedade.getCidade());
-        intent.putExtra("estado",propriedade.getEstado());
-        intent.putExtra("idProprietario",propriedade.getIdProprietario());
+        intent.putExtra("id", propriedade.getId());
+        intent.putExtra("nome", propriedade.getNome());
+        intent.putExtra("telefone", propriedade.getTelefone());
+        intent.putExtra("rua", propriedade.getLogradouro());
+        intent.putExtra("bairro", propriedade.getBairro());
+        intent.putExtra("numero", propriedade.getNumero());
+        intent.putExtra("cep", propriedade.getCep());
+        intent.putExtra("cidade", propriedade.getCidade());
+        intent.putExtra("estado", propriedade.getEstado());
+        intent.putExtra("idProprietario", propriedade.getIdProprietario());
         return intent;
     }
 
-    private void abreTelaEditar(int posicao){
+    private void abreTelaEditar(int posicao) {
         Propriedade item = (Propriedade) listPropriedades.getItemAtPosition(posicao);
         startActivity(getIntent(item));
     }

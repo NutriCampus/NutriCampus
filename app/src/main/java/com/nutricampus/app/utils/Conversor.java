@@ -27,9 +27,11 @@ public final class Conversor {
         return ( i == 1 );
     }
 
-    public static boolean StringToBoolean(String s) { return (s.equals("true"));}
+    public static boolean stringToBoolean(String s) {
+        return (s.equals("true"));
+    }
 
-    public static Date StringToDate(String string) {
+    public static Date stringToDate(String string) {
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -48,7 +50,7 @@ public final class Conversor {
     }
 
     private static String colocaZeroEsquerda(int valor) {
-        return ((valor < 10) ? ("0" + String.valueOf(valor)) : String.valueOf(valor));
+        return ((valor < 10) ? ("0" + valor) : String.valueOf(valor));
     }
 
     public static int mesStringParaInt(String mes) {
@@ -66,8 +68,7 @@ public final class Conversor {
         meses.put("novembro", 10);
         meses.put("dezembro", 11);
 
-        int valor = (meses.get(String.valueOf(mes).toLowerCase()) != null) ? meses.get(String.valueOf(mes).toLowerCase()) : 12;
-        return valor;
+        return (meses.get(String.valueOf(mes).toLowerCase()) != null) ? meses.get(String.valueOf(mes).toLowerCase()) : 12;
     }
 
 }

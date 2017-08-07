@@ -6,6 +6,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -19,11 +20,10 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
-import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
 import java.util.Collection;
 
@@ -34,55 +34,64 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 /**
- * Created by jorge on 23/07/17.
+ * Created by jorge on 25/07/17.
  */
 
-
-@android.support.test.filters.LargeTest
+@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
+@LargeTest
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AnimalExcluirActivityTest {
+@Ignore // Animal "Florinda" não cadastrado anteriormente
+public class Animal05HistoricoActivityTest {
     private Activity currentActivity;
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void animalCadastroActivityTest2() throws Exception {//Excluir Animal ("Sim")
+    public void HistoricoAnimal1() throws  Exception {
         prepararTeste();
+        onView(withText("Florinda")).perform(longClick());
         closeKeyboard();
-        ViewInteraction recyclerView2 = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView2.perform(actionOnItemAtPosition(5, click()));
-
-        onView(withText("Flor")).perform(longClick());
-
         ViewInteraction appCompatTextView6 = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
+                allOf(withId(android.R.id.title), withText("Ver histórico de dados"), isDisplayed()));
         appCompatTextView6.perform(click());
+        closeKeyboard();
+        ViewInteraction relativeLayout = onView(
+                allOf(withId(R.id.ItensListaAnimal),
+                        childAtPosition(
+                                allOf(withId(R.id.listDadosCompl),
+                                        withParent(withId(R.id.telaListaDadosCompl))),
+                                0),
+                        isDisplayed()));
+        relativeLayout.perform(click());
 
-        ViewInteraction appCompatButton22 = onView(
-                allOf(withId(android.R.id.button1), withText("Sim")));
-        appCompatButton22.perform(scrollTo(), click());
+        ViewInteraction editText2 = onView(
+                allOf(withId(R.id.input_peso_vivo), withText("500.0"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(TextInputLayout.class),
+                                        0),
+                                0),
+                        isDisplayed()));
+        editText2.check(matches(withText("500.0")));
+
+        ViewInteraction appCompatButton25 = onView(
+                allOf(withId(R.id.btn_salvar), withText("Corrigir")));
+        appCompatButton25.perform(scrollTo(), click());
+        closeKeyboard();
+
     }
+
     public void prepararTeste()throws Exception{
         doLogout();
         ViewInteraction appCompatEditText = onView(
@@ -102,6 +111,13 @@ public class AnimalExcluirActivityTest {
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
+
+        ViewInteraction recyclerView2 = onView(
+                allOf(withId(R.id.material_drawer_recycler_view),
+                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                                withParent(withId(R.id.material_drawer_layout)))),
+                        isDisplayed()));
+        recyclerView2.perform(actionOnItemAtPosition(5, click()));
     }
 
     private static Matcher<View> childAtPosition(

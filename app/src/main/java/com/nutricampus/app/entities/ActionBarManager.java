@@ -52,7 +52,7 @@ public class ActionBarManager {
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(session.getUsuarioNC()).withEmail(session.getEmailNC())
+                        new ProfileDrawerItem().withName(session.getUsuario()).withEmail(session.getEmail())
                         //.withIcon(getResources().getDrawable(R.drawable.profile))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
