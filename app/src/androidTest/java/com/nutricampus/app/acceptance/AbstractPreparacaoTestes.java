@@ -38,12 +38,12 @@ import static org.hamcrest.Matchers.allOf;
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 abstract class AbstractPreparacaoTestes {
 
-    protected Activity currentActivity;
+    public Activity currentActivity;
 
     @Rule
-    protected ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    protected static Matcher<View> childAtPosition(
+    public static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
         return new TypeSafeMatcher<View>() {
@@ -62,14 +62,14 @@ abstract class AbstractPreparacaoTestes {
         };
     }
 
-    protected void doLogout() {
+    public void doLogout() {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
 
-    protected void realizaLogin() throws Exception {
+    public void realizaLogin() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -86,7 +86,7 @@ abstract class AbstractPreparacaoTestes {
         Thread.sleep(500);
     }
 
-    protected void abrirMenu() throws InterruptedException {
+    public void abrirMenu() throws InterruptedException {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open"),
                         withParent(withId(R.id.toolbar)),
@@ -95,7 +95,7 @@ abstract class AbstractPreparacaoTestes {
         Thread.sleep(500);
     }
 
-    protected void clicarItemMenu(int posicao) {
+    public void clicarItemMenu(int posicao) {
         ViewInteraction recyclerView = onView(
                 allOf(withId(R.id.material_drawer_recycler_view),
                         withParent(allOf(withId(R.id.material_drawer_slider_layout),
@@ -104,7 +104,7 @@ abstract class AbstractPreparacaoTestes {
         recyclerView.perform(actionOnItemAtPosition(posicao, click()));
     }
 
-    protected Activity getActivityInstance() {
+    public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
                 Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
@@ -117,7 +117,7 @@ abstract class AbstractPreparacaoTestes {
         return currentActivity;
     }
 
-    protected void closeKeyboard() {
+    public void closeKeyboard() {
         try {
             Thread.sleep(1300);
 
