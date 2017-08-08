@@ -47,13 +47,13 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(longClick());
         pressBack();
-        espera(1500);
+        Thread.sleep(1500);
         ViewInteraction appCompatButton9 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),
                                 withParent(withId(R.id.pager)))),
                         isDisplayed()));
-        espera(1500);
+        Thread.sleep(1500);
         appCompatButton9.perform(click());
         closeKeyboard();
         ViewInteraction appCompatEditText32 = onView(
@@ -134,7 +134,6 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
-
     @Test
     public void animalAtuaizarActivityTest3() throws Exception {
         onView(withText("Flor")).perform(longClick());
@@ -180,7 +179,6 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
-
     @Test
     public void animalEditarActivityTest4() throws Exception {//Alterando animal para ativo ou inativo
         onView(withText("Flor")).perform(longClick());
@@ -190,9 +188,9 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
         appCompatTextView6.perform(click());
         pressBack();
         onView(withId(R.id.switch_ativo)).perform(click());
-        espera(2000);
+        Thread.sleep(2000);
         onView(withId(R.id.switch_ativo)).perform(click());
-        espera(2000);
+        Thread.sleep(2000);
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
                         withParent(allOf(withId(R.id.fragmentDadosAnimal),

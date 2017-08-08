@@ -68,7 +68,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
         appCompatEditText5.perform(replaceText(id1), closeSoftKeyboard());
         espera();
 
-        clicarBotao(R.id.btn_salvar_cadastro, false);
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
         try {
             espera(500);
@@ -85,7 +85,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
         preencheCampos();
 
-        clicarBotao(R.id.btn_salvar_cadastro, false);
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
         try {
             espera(500);
@@ -108,7 +108,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
         preencheCampos();
 
-        clicarBotao(R.id.btn_salvar_cadastro, false);
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
         try {
             espera(500);

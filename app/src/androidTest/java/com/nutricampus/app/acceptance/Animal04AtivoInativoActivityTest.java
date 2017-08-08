@@ -51,11 +51,11 @@ public class Animal04AtivoInativoActivityTest extends AbstractPreparacaoTestes {
 
         closeKeyboard();
 
-        espera(1500);
+        Thread.sleep(1500);
         onView(withId(R.id.switch_ativo)).perform(click());
-        espera(4000);
+        Thread.sleep(4000);
         onView(withId(R.id.switch_ativo)).perform(click());
-        espera(4000);
+        Thread.sleep(4000);
 
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
@@ -109,8 +109,3 @@ public class Animal04AtivoInativoActivityTest extends AbstractPreparacaoTestes {
         recyclerView2.perform(actionOnItemAtPosition(5, click()));
     }
 }
-
-
-
-
-
