@@ -1,6 +1,7 @@
 package com.nutricampus.app.acceptance;
 
 import android.app.Activity;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -119,8 +120,22 @@ abstract class AbstractPreparacaoTestes {
 
     public void closeKeyboard() {
         try {
+            Espresso.closeSoftKeyboard();
             Thread.sleep(1300);
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void espera() {
+        espera(1500);
+    }
+
+    public void espera(int tempo) {
+        try {
+            Thread.sleep(tempo);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
