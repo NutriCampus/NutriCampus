@@ -17,9 +17,6 @@ import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 /**
  * Created by Felipe on 01/08/2017.
@@ -43,8 +40,6 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     protected EditText inputEmailProprietario;
     protected EditText inputFoneProprietario;
     protected Button btnSalvar;
-
-    private int voltarProprietarios;
 
     protected void init() {
         this.inputNomeProprietario = (EditText) findViewById(R.id.input_nome_proprietario);
