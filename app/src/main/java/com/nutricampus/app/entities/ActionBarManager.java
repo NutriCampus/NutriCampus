@@ -100,6 +100,7 @@ public class ActionBarManager {
                                 break;
                             case 4:
                                 intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
+                                break;
                             case 11:
                                 intent = new Intent(activity, ConfigActivity.class);
                                 break;

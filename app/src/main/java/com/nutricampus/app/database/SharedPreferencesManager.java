@@ -34,7 +34,7 @@ public class SharedPreferencesManager {
     private static final String KEY_SENHA = PREF_NAME + "senha";
     private static final String KEY_EMAIL = PREF_NAME + "email";
     private static final String KEY_ID_USUARIO = PREF_NAME + "idUsuario";
-    private final String KEY_CRMVNC = PREF_NAME + "crmvNC";
+    private static final String KEY_CRMVNC = PREF_NAME + "crmvNC";
     private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {

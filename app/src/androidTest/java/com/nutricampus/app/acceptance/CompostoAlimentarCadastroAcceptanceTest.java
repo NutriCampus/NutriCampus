@@ -7,7 +7,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
 import com.nutricampus.app.entities.CompostosAlimentares;
 
@@ -24,8 +23,6 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
@@ -40,12 +37,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
         id1 = "identificador123";
         repositorioCompostosAlimentares = new RepositorioCompostosAlimentares(InstrumentationRegistry.getTargetContext());
 
-        if (getActivityInstance() instanceof MainActivity) {
-            espera(4500);
-        } else {
-            realizaLogin();
-        }
-
+        realizaLogin();
         abrirMenu();
         clicarItemMenu(6);
         espera(500);
@@ -65,7 +57,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-01: Cadastrar novos compostos alimentares sem informar seus nutrientes;
-    public void cadastrarCompostoSemNutrientes_TA1() {
+    public void cadastrarCompostoSemNutrientesTA1() {
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.input_composto_identificador), isDisplayed()));
@@ -76,7 +68,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
         appCompatEditText5.perform(replaceText(id1), closeSoftKeyboard());
         espera();
 
-        clicarSalvar();
+        clicarBotao(R.id.btn_salvar_cadastro, false);
 
         try {
             espera(500);
@@ -89,11 +81,11 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-02: Cadastrar novos compostos alimentares informando todos os seus nutrientes;
-    public void cadastrarCompostoComNutrientes_TA2() {
+    public void cadastrarCompostoComNutrientesTA2() {
 
         preencheCampos();
 
-        clicarSalvar();
+        clicarBotao(R.id.btn_salvar_cadastro, false);
 
         try {
             espera(500);
@@ -107,7 +99,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-03: Cadastrar novos compostos alimentares que já estejam na base de dados;
-    public void cadastrarCompostoComIdentificadorJaExistente_TA3() {
+    public void cadastrarCompostoComIdentificadorJaExistenteTA3() {
 
         //Adicionando primeiro composto
         CompostosAlimentares compostosAlimentares =
@@ -116,7 +108,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
         preencheCampos();
 
-        clicarSalvar();
+        clicarBotao(R.id.btn_salvar_cadastro, false);
 
         try {
             espera(500);
@@ -126,16 +118,6 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
             e.printStackTrace();
         }
 
-    }
-
-
-    public void clicarSalvar() {
-        ViewInteraction appCompatButton01 = onView(
-                allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarcompostosalimentares),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        appCompatButton01.perform(click());
     }
 
     public void preencheCampos() {
@@ -199,15 +181,4 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
         appCompatEditText16.perform(replaceText("descrição"), closeSoftKeyboard());
         espera();
     }
-
-    /* public void closeKeyboard() {
-     try {
-     Espresso.closeSoftKeyboard();
-     espera(500);
-
-     } catch (Exception e) {
-     e.printStackTrace();
-     }
-     }*/
-
 }

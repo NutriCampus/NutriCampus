@@ -58,7 +58,7 @@ public class Animal05HistoricoActivityTest {
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void HistoricoAnimal1() throws  Exception {
+    public void HistoricoAnimal1() throws Exception {
         prepararTeste();
         onView(withText("Florinda")).perform(longClick());
         closeKeyboard();
@@ -92,7 +92,7 @@ public class Animal05HistoricoActivityTest {
 
     }
 
-    public void prepararTeste()throws Exception{
+    public void prepararTeste() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -138,12 +138,14 @@ public class Animal05HistoricoActivityTest {
             }
         };
     }
+
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -156,6 +158,7 @@ public class Animal05HistoricoActivityTest {
 
         return currentActivity;
     }
+
     public void closeKeyboard() throws Exception {
         try {
             Thread.sleep(1000);

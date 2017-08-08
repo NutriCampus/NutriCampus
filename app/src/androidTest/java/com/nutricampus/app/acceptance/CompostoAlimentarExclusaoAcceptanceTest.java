@@ -7,7 +7,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
 import com.nutricampus.app.entities.CompostosAlimentares;
 
@@ -20,7 +19,6 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -28,6 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
@@ -55,12 +54,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca1);
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca2);
 
-        if (getActivityInstance() instanceof MainActivity) {
-            espera(4500);
-        } else {
-            realizaLogin();
-        }
-
+        realizaLogin();
         abrirMenu();
         clicarItemMenu(6);
         espera(500);
@@ -76,7 +70,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-01: Deletar um composto alimentar deixando (no mínimo) um composto na base;
-    public void excluirComposto_TA1() {
+    public void excluirCompostoTA1() {
 
         longClickElemento(id1);
         clicarExcluir();
@@ -87,6 +81,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
             espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
 
         ViewInteraction linearLayout = onView(
@@ -102,7 +97,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-02: Deletar um composto alimentar da base deixando a mesma sem nenhum composto alimentar
-    public void excluirComposto_TA2() {
+    public void excluirCompostoTA2() {
 
         longClickElemento(id1);
         clicarExcluir();
@@ -113,6 +108,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
             espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
 
 
@@ -125,10 +121,6 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
                         0),
                         isDisplayed()));
         linearLayout2.check(doesNotExist());
-    }
-
-    public void longClickElemento(String texto) {
-        onView(withText(texto)).perform(longClick());
     }
 
     public void clicarExcluir() {

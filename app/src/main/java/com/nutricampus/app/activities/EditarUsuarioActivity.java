@@ -2,15 +2,14 @@ package com.nutricampus.app.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -24,7 +23,6 @@ import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.entities.Usuario;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -155,19 +153,52 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
         boolean isAtualizado = repositorioUsuario.atualizarUsuario(usuario);
 
         if (isAtualizado) {
+            Toast.makeText(EditarUsuarioActivity.this,
+                    getString(R.string.msg_sucesso_atualizar_usuario),
+                    Toast.LENGTH_LONG).show();
+
             if(isLogoff)
                 session.logoutUser();
             else
                 EditarUsuarioActivity.this.finish();
 
-            Toast.makeText(EditarUsuarioActivity.this,
-                    getString(R.string.msg_sucesso_atualizar, usuario.getNome(), ""),
-                    Toast.LENGTH_LONG).show();
-
         } else {
             Toast.makeText(EditarUsuarioActivity.this,
                     getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean validarDados() {
+        boolean valido = true;
+
+        nome = this.edtNome.getText().toString();
+        email = this.edtEmail.getText().toString();
+        senha = this.edtSenha.getText().toString();
+
+        List<TextView> campos = new ArrayList<>();
+        campos.add(edtNome);
+        campos.add(edtEmail);
+        campos.add(edtSenha);
+
+        for (TextView view : ValidaFormulario.camposTextosVazios(campos)) {
+            view.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            edtEmail.setError(getString(R.string.msg_erro_email));
+            valido = false;
+        }
+
+        if (senha.length() < 5) {
+            this.edtSenha.setError(getString(R.string.msg_erro_senha));
+            valido = false;
+        } else {
+            this.edtSenha.setError(null);
+        }
+
+        return valido;
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.database.RepositorioProducaoDeLeite;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.ProducaoDeLeite;
@@ -111,11 +112,12 @@ public class ProducaoDeLeiteExclusaoAcceptanceTest {
 
 
         RepositorioAnimal repoAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(InstrumentationRegistry.getTargetContext()).getIdUsuario() + "0");
 
         if (repoAnimal.buscarAnimal(animal1, idPropriedade1) == null) {
 
-            idAnimal1 = repoAnimal.inserirAnimal(new Animal(1, animal1, idPropriedade1, Calendar.getInstance(), true));
-            idAnimal2 = repoAnimal.inserirAnimal(new Animal(2, animal2, idPropriedade2, Calendar.getInstance(), true));
+            idAnimal1 = repoAnimal.inserirAnimal(new Animal(1, animal1, idPropriedade1, Calendar.getInstance(), true, idUsuario));
+            idAnimal2 = repoAnimal.inserirAnimal(new Animal(2, animal2, idPropriedade2, Calendar.getInstance(), true, idUsuario));
 
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(

@@ -21,7 +21,6 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -29,6 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.fail;
 
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
@@ -117,6 +117,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
     }
 
@@ -159,18 +160,10 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
     }
 
-    private void clicarMenuPropriedade() {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(3, click()));
-
-    }
 
 }
 

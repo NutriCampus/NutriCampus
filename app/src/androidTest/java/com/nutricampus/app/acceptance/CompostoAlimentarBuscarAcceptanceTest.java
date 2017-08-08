@@ -7,7 +7,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
 import com.nutricampus.app.entities.CompostosAlimentares;
 
@@ -19,14 +18,12 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -61,15 +58,11 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca3);
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca4);
 
-        if (getActivityInstance() instanceof MainActivity) {
-            espera(4500);
-        } else {
-            realizaLogin();
-        }
-
+        realizaLogin();
         abrirMenu();
         clicarItemMenu(6);
         espera(500);
+        clicarIconePesquisa();
     }
 
     @After
@@ -82,9 +75,7 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-01: Buscar um composto alimentar informando o nome;
-    public void buscarCompostoInformandoNome_TA1() throws Exception {
-
-        clicarPesquisar();
+    public void buscarCompostoInformandoNomeTA1() throws Exception {
 
         ViewInteraction appCompatEditText16 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
@@ -110,9 +101,7 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-02: Buscar um composto alimentar sem informar o nome;
-    public void buscarCompostoSemInformarNome_TA2() {
-
-        clicarPesquisar();
+    public void buscarCompostoSemInformarNomeTA2() {
 
         ViewInteraction appCompatEditText33 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
@@ -138,9 +127,7 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-03: Buscar um composto alimentar que não esteja na base de dados.
-    public void buscarCompostoInexistente_TA3() {
-
-        clicarPesquisar();
+    public void buscarCompostoInexistenteTA3() {
 
         ViewInteraction appCompatEditText31 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
@@ -161,11 +148,5 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
 
         // o linearLayout não existe então não houve retorno na busca
         linearLayout2.check(doesNotExist());
-    }
-
-    public void clicarPesquisar() {
-        ViewInteraction actionMenuItemView5 = onView(
-                allOf(withId(R.id.action_search), withContentDescription("faw_search"), isDisplayed()));
-        actionMenuItemView5.perform(click());
     }
 }

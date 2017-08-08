@@ -81,7 +81,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.btn_salvar), withText("Atualizar")));
         appCompatButton11.perform(scrollTo(), click());
         closeKeyboard();
-                            ViewInteraction textView4 = onView(
+        ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
                                 allOf(withId(R.id.spinnerPropriedade),
@@ -134,6 +134,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
+
     @Test
     public void animalAtuaizarActivityTest3() throws Exception {
         onView(withText("Flor")).perform(longClick());
@@ -179,6 +180,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
+
     @Test
     public void animalEditarActivityTest4() throws Exception {//Alterando animal para ativo ou inativo
         onView(withText("Flor")).perform(longClick());

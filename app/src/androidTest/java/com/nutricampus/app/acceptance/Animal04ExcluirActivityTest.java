@@ -56,7 +56,7 @@ public class Animal04ExcluirActivityTest extends AbstractPreparacaoTestes {
     }
 
     @Before
-    public void prepararTeste()throws Exception{
+    public void prepararTeste() throws Exception {
         realizaLogin();
         abrirMenu();
         clicarItemMenu(5);

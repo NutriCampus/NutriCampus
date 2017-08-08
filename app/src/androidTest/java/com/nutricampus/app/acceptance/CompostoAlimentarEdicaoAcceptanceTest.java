@@ -7,7 +7,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
 import com.nutricampus.app.entities.CompostosAlimentares;
 
@@ -56,12 +55,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca1);
         repositorioCompostosAlimentares.inserirCompostoAlimentar(ca2);
 
-        if (getActivityInstance() instanceof MainActivity) {
-            espera(4500);
-        } else {
-            realizaLogin();
-        }
-
+        realizaLogin();
         abrirMenu();
         clicarItemMenu(6);
         espera(500);
@@ -77,7 +71,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-01: Atualizar o composto alimentar por um nome já cadastrado;
-    public void atualizarCompostoPorNomeJaExistente_TA1() {
+    public void atualizarCompostoPorNomeJaExistenteTA1() {
         onView(withText(id1)).perform(longClick());
 
         espera(500);
@@ -102,7 +96,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-02: Atualizar o composto alimentar por um nome ainda não cadastrado;
-    public void atualizarCompostoNormalmente_TA2() {
+    public void atualizarCompostoNormalmenteTA2() {
 
         onView(withText(id1)).perform(longClick());
 
@@ -138,7 +132,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-03: Atualizar o composto alimentar por um nome vazio;
-    public void atualizarCompostoPorNomeVazio_TA3() {
+    public void atualizarCompostoPorNomeVazioTA3() {
 
         onView(withText(id1)).perform(longClick());
 
@@ -165,7 +159,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
     @Test
     //TA-04: Atualizar o composto alimentar deixando um nutriente vazio;
-    public void atualizarCompostoComNutrienteVazio_TA4() {
+    public void atualizarCompostoComNutrienteVazioTA4() {
         onView(withText(id1)).perform(longClick());
 
         espera(500);

@@ -25,7 +25,9 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -72,20 +74,27 @@ abstract class AbstractPreparacaoTestes {
     }
 
     public void realizaLogin() throws Exception {
-        doLogout();
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.input_usuario), isDisplayed()));
-        appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
+        if (getActivityInstance() instanceof MainActivity) {
+            espera(2500);
+        } else {
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_senha), isDisplayed()));
-        appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+            doLogout();
+            espera(500);
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
-        appCompatButton.perform(click());
+            ViewInteraction appCompatEditText = onView(
+                    allOf(withId(R.id.input_usuario), isDisplayed()));
+            appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
 
-        Thread.sleep(500);
+            ViewInteraction appCompatEditText2 = onView(
+                    allOf(withId(R.id.input_senha), isDisplayed()));
+            appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+
+            ViewInteraction appCompatButton = onView(
+                    allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
+            appCompatButton.perform(click());
+
+            espera(500);
+        }
     }
 
     public void abrirMenu() throws InterruptedException {
@@ -94,7 +103,7 @@ abstract class AbstractPreparacaoTestes {
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
-        Thread.sleep(500);
+        espera(500);
     }
 
     public void clicarItemMenu(int posicao) {
@@ -104,6 +113,10 @@ abstract class AbstractPreparacaoTestes {
                                 withParent(withId(R.id.material_drawer_layout)))),
                         isDisplayed()));
         recyclerView.perform(actionOnItemAtPosition(posicao, click()));
+    }
+
+    public void clicarItemMenuComTexto(String texto) {
+        onView(withText(texto)).perform(click());
     }
 
     public Activity getActivityInstance() {
@@ -152,4 +165,34 @@ abstract class AbstractPreparacaoTestes {
             fail("Toast não identificado");
         }
     }
+
+
+    public void clicarFloatingButton(int id) throws Exception {
+        ViewInteraction floatingItem = onView(withId(id));
+        floatingItem.perform(click());
+
+        espera(600);
+    }
+
+    public void clicarIconePesquisa() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.action_search), withContentDescription("faw_search"), isDisplayed()));
+        actionMenuItemView.perform(click());
+    }
+
+    public void clicarBotao(int id, boolean scroll) {
+        espera(500);
+        ViewInteraction appCompatButton = onView(withId(id));
+
+        if (scroll)
+            appCompatButton.perform(scrollTo(), click());
+        else
+            appCompatButton.perform(click());
+
+    }
+
+    public void longClickElemento(String texto) {
+        onView(withText(texto)).perform(longClick());
+    }
+
 }

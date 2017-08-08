@@ -19,12 +19,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
     private static final String FOREIGN_KEY_INIT = "FOREIGN KEY(";
     private static final String FOREIGN_KEY_REF = ") REFERENCES ";
+    private static final String DELETE_CASCADE = " ON DELETE CASCADE";
 
     public static final String SELECT_TODOS = "SELECT * FROM ";
     public static final String ORDER_BY = " ORDER BY ";
-
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
-    private static final String DELETE_CASCADE = " ON DELETE CASCADE";
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";

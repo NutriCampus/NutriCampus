@@ -31,17 +31,19 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
-    private EditText edtNome;
-    private EditText edtCpf;
-    private EditText edtRegistro;
-    private EditText edtEmail;
-    private EditText edtSenha;
+    protected EditText edtNome;
+    protected EditText edtCpf;
+    protected EditText edtRegistro;
+    protected EditText edtEmail;
+    protected EditText edtSenha;
+    protected TextView txtAlterSenha;
+    protected Button btnSalvar;
 
-    private String nome;
-    private String cpf;
-    private String registro;
-    private String email;
-    private String senha;
+    protected String nome;
+    protected String cpf;
+    protected String registro;
+    protected String email;
+    protected String senha;
 
 
     @Override
@@ -54,8 +56,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         edtRegistro = (EditText) findViewById(R.id.edtRegistro);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
-        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
         txtAlterSenha = (TextView) findViewById(R.id.txt_alter_senha);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
 
         edtCpf.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, edtCpf));
     }

@@ -9,7 +9,6 @@ import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.view.WindowManager;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.CadastrarPropriedadeActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.activities.MainActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
@@ -38,25 +37,26 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class AcceptanceTestLocalizarPropriedade {
-        private Activity currentActivity;
-        @Rule
-        public ActivityTestRule<ListaPropriedadesActivity> mActivityRule = new ActivityTestRule<>(
-                ListaPropriedadesActivity.class);
+    private Activity currentActivity;
+    @Rule
+    public ActivityTestRule<ListaPropriedadesActivity> mActivityRule = new ActivityTestRule<>(
+            ListaPropriedadesActivity.class);
 
-        @Before
-        public void unlockScreen() {
-            final ListaPropriedadesActivity activity = mActivityRule.getActivity();
-            Runnable wakeUpDevice = new Runnable() {
-                public void run() {
-                    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                }
-            };
-            activity.runOnUiThread(wakeUpDevice);
-        }
-        @Test
-        public void attempToLocatePropriedadeSuccessfully() throws Exception {//Inserindo novo proprietario ainda nao cadastrado
+    @Before
+    public void unlockScreen() {
+        final ListaPropriedadesActivity activity = mActivityRule.getActivity();
+        Runnable wakeUpDevice = new Runnable() {
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        };
+        activity.runOnUiThread(wakeUpDevice);
+    }
+
+    @Test
+    public void attempToLocatePropriedadeSuccessfully() throws Exception {//Inserindo novo proprietario ainda nao cadastrado
 
         /*ViewInteraction appCompatSpinner = onView( withId(R.id.spinner_proprietario));
         appCompatSpinner.perform(scrollTo(), click());
@@ -66,57 +66,60 @@ public class AcceptanceTestLocalizarPropriedade {
                 withParent(withClassName(is("android.widget.FrameLayout")))), 0), isDisplayed()));
         appCompatTextView.perform(click());
 */
-        onView(withId(R.id.input_pesquisa_propriedades)).perform(click());
-            closeKeyboard();
+       /* onView(withId(R.id.input_pesquisa_propriedades)).perform(click());
+            closeKeyboard();*/
 
-         ViewInteraction appCompatTextView = onView( allOf(withId(android.R.id.text1), withText("Pernambuco"), isDisplayed()));
-            //appCompatTextView2.perform(click()); ViewInteraction appCompatAutoCompleteTextView2 = onView( withId(R.id.input_cidade));
+        ViewInteraction appCompatTextView = onView(allOf(withId(android.R.id.text1), withText("Pernambuco"), isDisplayed()));
+        //appCompatTextView2.perform(click()); ViewInteraction appCompatAutoCompleteTextView2 = onView( withId(R.id.input_cidade));
 
-            onView(withId(R.id.input_nome_proprietario)).perform(typeText("TesteProprietario"));
-            closeKeyboard();
-            onView(withId(R.id.input_cpf_proprietario)).perform(typeText("04998517490"));
-            closeKeyboard();
-            onView(withId(R.id.input_email_proprietario)).perform(typeText("jvsveloso@gmail.com"));
-            closeKeyboard();
-            onView(withId(R.id.input_fone_proprietario)).perform(typeText("87996248834"));
-            closeKeyboard();
-            onView(withId(R.id.btn_salvar_cadastro)).perform(click());
-            closeKeyboard();
-            onView(withId(R.id.input_nome_propriedade)).perform(typeText("Jorge"));
-            closeKeyboard();
-            onView(withId(R.id.input_telefone_propriedade)).perform(typeText("87996248834"));
-            closeKeyboard();
-            onView(withId(R.id.input_rua)).perform(typeText("Rua Fulano de Tal"));
-            closeKeyboard();
-            onView(withId(R.id.input_bairro)).perform(typeText("Heliopolis"));
-            closeKeyboard();
-            onView(withId(R.id.input_numero)).perform(typeText("123"));
-            closeKeyboard();
-            onView(withId(R.id.input_cep)).perform(typeText("55296200"));
-            closeKeyboard();
+        onView(withId(R.id.input_nome_proprietario)).perform(typeText("TesteProprietario"));
+        closeKeyboard();
+        onView(withId(R.id.input_cpf_proprietario)).perform(typeText("04998517490"));
+        closeKeyboard();
+        onView(withId(R.id.input_email_proprietario)).perform(typeText("jvsveloso@gmail.com"));
+        closeKeyboard();
+        onView(withId(R.id.input_fone_proprietario)).perform(typeText("87996248834"));
+        closeKeyboard();
+        onView(withId(R.id.btn_salvar_cadastro)).perform(click());
+        closeKeyboard();
+        onView(withId(R.id.input_nome_propriedade)).perform(typeText("Jorge"));
+        closeKeyboard();
+        onView(withId(R.id.input_telefone_propriedade)).perform(typeText("87996248834"));
+        closeKeyboard();
+        onView(withId(R.id.input_rua)).perform(typeText("Rua Fulano de Tal"));
+        closeKeyboard();
+        onView(withId(R.id.input_bairro)).perform(typeText("Heliopolis"));
+        closeKeyboard();
+        onView(withId(R.id.input_numero)).perform(typeText("123"));
+        closeKeyboard();
+        onView(withId(R.id.input_cep)).perform(typeText("55296200"));
+        closeKeyboard();
 
-                       closeKeyboard();
+        closeKeyboard();
 //        appCompatAutoCompleteTextView2.perform(scrollTo(), replaceText("Gara"), closeSoftKeyboard());
 //                ViewInteraction appCompatTextView3 = onView( allOf(withId(android.R.id.text1),
 //                withText("Garanhuns"), isDisplayed())); appCompatTextView3.perform(click());
 
-            //onView(withId(R.id.input_estado)).perform(typeText("Pernambuco"));
-            //closeKeyboard();
-            //onView(withId(R.id.input_cidade)).perform(typeText("Garanhuns"));
-            closeKeyboard();
-            onView(withId(R.id.btn_salvar_propriedade)).perform(click());
-            Thread.sleep(3000);
-        }
+        //onView(withId(R.id.input_estado)).perform(typeText("Pernambuco"));
+        //closeKeyboard();
+        //onView(withId(R.id.input_cidade)).perform(typeText("Garanhuns"));
+        closeKeyboard();
+        onView(withId(R.id.btn_salvar_propriedade)).perform(click());
+        Thread.sleep(3000);
+    }
+
     public void closeKeyboard() throws Exception {
         closeSoftKeyboard();
         Thread.sleep(1000);
     }
+
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {

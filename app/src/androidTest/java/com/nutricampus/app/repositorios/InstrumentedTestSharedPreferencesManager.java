@@ -26,14 +26,14 @@ public class InstrumentedTestSharedPreferencesManager {
 
     @Test
     public void testarCriarSessaoLogin() {
-        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456");
+        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456", "123456");
 
         assertTrue(session.isLoggedIn());
     }
 
     @Test
     public void testarRealizarLogout() {
-        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456");
+        session.createLoginSession(1, "usuario", "usuario@mail.com", "123456", "123456");
         session.logoutUser();
 
         assertFalse(session.isLoggedIn());
@@ -61,6 +61,12 @@ public class InstrumentedTestSharedPreferencesManager {
     public void testarSetarEmailNC() {
         session.setEmail("testarSetarEmailNC@email.com");
         assertEquals("testarSetarEmailNC@email.com", session.getEmail());
+    }
+
+    @Test
+    public void testarSetarCrmvNC() {
+        session.setCrmvNC("123456");
+        assertEquals("123456", session.getCrmvNC());
     }
 
 }

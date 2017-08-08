@@ -64,6 +64,7 @@
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
     <string name="msg_sucesso_atualizar_registro">Registro atualizado com sucesso</string>
+    <string name="msg_sucesso_atualizar_usuario">Usuário atualizado com sucesso</string>
     <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
     <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
     <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>

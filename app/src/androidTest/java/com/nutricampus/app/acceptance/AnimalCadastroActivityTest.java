@@ -7,7 +7,6 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -34,7 +33,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
@@ -100,12 +98,12 @@ public class AnimalCadastroActivityTest {
         appCompatEditText8.perform(replaceText("jvsveloso@gmail.com.com"), closeSoftKeyboard());
         closeKeyboard();
         ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.input_fone_proprietario),isDisplayed()));
+                allOf(withId(R.id.input_fone_proprietario), isDisplayed()));
         appCompatEditText12.perform(replaceText("(99) 99999 9999"), closeSoftKeyboard());
         closeKeyboard();
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.btn_salvar_cadastro), withText("Salvar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarproprietarioactvity),
+                        withParent(allOf(withId(R.id.telaCadastrarProprietarioActivity),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         appCompatButton4.perform(click());
@@ -267,6 +265,7 @@ public class AnimalCadastroActivityTest {
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest2() throws Exception {//Cadastro selecionando propriedade existente
         closeKeyboard();
@@ -375,6 +374,7 @@ public class AnimalCadastroActivityTest {
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest3() throws Exception {//Cadastro e animal de mesmo id em propriedade diferente
         prepararTeste();
@@ -555,6 +555,7 @@ public class AnimalCadastroActivityTest {
         textView4.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest4() throws Exception {//Cadastro e animal sem informar os dados
         prepararTeste();
@@ -587,6 +588,7 @@ public class AnimalCadastroActivityTest {
         textView.check(matches(withText("Procure uma propriedade")));
         closeKeyboard();
     }
+
     @Test
     public void animalCadastroActivityTest5() throws Exception {//Cadastro e animal sem informar a propriedade
         prepararTeste();
@@ -634,6 +636,7 @@ public class AnimalCadastroActivityTest {
         textView.check(matches(withText("Propriedade 1")));
 
     }
+
     @Test
     public void animalCadastroActivityTest6() throws Exception {//Cadastro de animal em duplicidade
         closeKeyboard();
@@ -736,7 +739,7 @@ public class AnimalCadastroActivityTest {
         closeKeyboard();
     }
 
-    public void prepararTeste()throws Exception{
+    public void prepararTeste() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -782,12 +785,14 @@ public class AnimalCadastroActivityTest {
             }
         };
     }
+
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -800,6 +805,7 @@ public class AnimalCadastroActivityTest {
 
         return currentActivity;
     }
+
     public void closeKeyboard() throws Exception {
         try {
             Thread.sleep(1000);

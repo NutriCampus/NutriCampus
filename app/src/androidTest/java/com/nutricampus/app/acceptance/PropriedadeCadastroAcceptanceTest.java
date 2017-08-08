@@ -51,7 +51,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         abrirMenu();
         clicarItemMenu(3);
         closeKeyboard();
-        clicarFloatingButton();
+        clicarFloatingButtonPropriedade();
     }
 
     @After
@@ -210,17 +210,9 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         espera(1000);
     }
 
-
-    private void clicarFloatingButton() throws Exception {
-        ViewInteraction floatingActionButton = onView(withId(R.id.fabList));
-        floatingActionButton.perform(click());
-        espera(500);
-
-        ViewInteraction floatingItem = onView(withId(R.id.fabPropriedade));
-        floatingItem.perform(click());
-
-        closeKeyboard();
+    public void clicarFloatingButtonPropriedade() throws Exception {
+        clicarFloatingButton(R.id.fabList);
+        clicarFloatingButton(R.id.fabPropriedade);
     }
-
 }
 

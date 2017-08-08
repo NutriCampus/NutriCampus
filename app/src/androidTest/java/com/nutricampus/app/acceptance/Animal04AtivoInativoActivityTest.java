@@ -80,7 +80,8 @@ public class Animal04AtivoInativoActivityTest extends AbstractPreparacaoTestes {
         textView4.check(matches(withText("Procure uma propriedade")));
 
     }
-    public void prepararTeste()throws Exception{
+
+    public void prepararTeste() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));

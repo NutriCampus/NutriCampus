@@ -16,7 +16,7 @@
             android:background="@drawable/caixa_arredondada"
             android:orientation="vertical"
             android:layout_margin="@dimen/margin_form"
-            android:id="@+id/resultado_busca_propriedades">
+            android:id="@+id/resultado_busca_proprietarios">
 
             <TextView
                 android:id="@+id/text_quantidade_encontrados"

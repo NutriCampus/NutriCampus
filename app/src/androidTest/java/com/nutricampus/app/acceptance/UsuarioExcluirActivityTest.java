@@ -1,21 +1,17 @@
 package com.nutricampus.app.acceptance;
 
-import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.LoginActivity;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.entities.Proprietario;
 
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -40,19 +36,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
-/**
- * Created by jorge on 08/08/17.
- */
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
-
-    public Activity currentActivity;
-    @Rule
-    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
-
     @Test
     public void deletarUsuarioSemRegistrosActivityTest() {
 
