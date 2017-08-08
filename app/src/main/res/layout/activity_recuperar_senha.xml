@@ -44,6 +44,7 @@
             android:layout_marginBottom="18dp"
             android:layout_marginTop="18dp"
             android:padding="12dp"
-            android:text="@string/recuperar_senha" />
+            android:text="@string/recuperar_senha"
+            android:onClick="recuperaSenha" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

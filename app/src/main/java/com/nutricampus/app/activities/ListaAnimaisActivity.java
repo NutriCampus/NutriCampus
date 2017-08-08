@@ -1,21 +1,15 @@
 package com.nutricampus.app.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -53,7 +47,7 @@ Explicação para a supressão de warnings:
  - "squid:S1172" = erro do sonarqube para os parametros "view" não utilizados
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
-public class ListaAnimaisActivity extends AppCompatActivity
+public class ListaAnimaisActivity extends AbstractListComPesquisa
         implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.spinnerPropriedade)
@@ -68,10 +62,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
     EditText inputIdPropriedade;
 
     private Propriedade propriedade;
-
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText inputPesquisa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,23 +78,23 @@ public class ListaAnimaisActivity extends AppCompatActivity
         propriedade = (Propriedade) getIntent().getSerializableExtra(ListaPropriedadesActivity.EXTRA_PROPRIEDADE);
 
         if (propriedade == null) {
-            carregarListView(0, "");
+            carregarListView(new ResultadoPesquisa(0, ""));
         } else {
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
-            carregarListView(propriedade.getId(), "");
+            carregarListView(new ResultadoPesquisa(propriedade.getId(), ""));
         }
 
         spinnerPropriedade.setOnItemSelectedListener(this);
         preencherSpinnerListaPropriedade();
 
-        listAnimais.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listAnimais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 abreTelaEditar(position, EditarAnimalActivity.class);
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_proprietario);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_animais);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,7 +172,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
                             Toast.makeText(ListaAnimaisActivity.this,
                                     getString(R.string.msg_excluir_animal_sucesso), Toast.LENGTH_LONG).show();
 
-                            carregarListView(0, "");
+                            carregarListView(new ResultadoPesquisa(0, ""));
 
                         } else {
                             Toast.makeText(ListaAnimaisActivity.this,
@@ -211,14 +201,16 @@ public class ListaAnimaisActivity extends AppCompatActivity
         preencherSpinnerListaPropriedade();
     }
 
-    private void carregarListView(int idPropriedade, String idenficador) {
+
+    @Override
+    protected void carregarListView(ResultadoPesquisa resultadoPesquisa) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(ListaAnimaisActivity.this);
         List<Animal> animais;
 
-        if (idPropriedade == 0)
-            animais = repositorioAnimal.buscarTodosAnimais(idenficador);
+        if (resultadoPesquisa.getId() == 0)
+            animais = repositorioAnimal.buscarTodosAnimais(resultadoPesquisa.getString());
         else
-            animais = repositorioAnimal.buscarPorIdentificador(idPropriedade, idenficador);
+            animais = repositorioAnimal.buscarPorIdentificador(resultadoPesquisa.getId(), resultadoPesquisa.getString());
 
         ListaAnimaisAdapter adapter =
                 new ListaAnimaisAdapter(this, animais);
@@ -244,7 +236,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         // Existência necessária devido a herança, mas não implementada.
     }
 
-    public void preencherSpinnerListaPropriedade() {
+    private void preencherSpinnerListaPropriedade() {
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getBaseContext());
         List<Propriedade> todasPropriedades = repositorioPropriedade.buscarTodasPropriedades();
@@ -263,13 +255,9 @@ public class ListaAnimaisActivity extends AppCompatActivity
             spinnerPropriedade.setAdapter(spinnerPropriedadeAdapter);
 
             int posicao;
-            String idPropriedade = inputIdPropriedade.getText().toString();
+            int id = inputIdPropriedade.getText().toString().isEmpty() ? 0 : Integer.parseInt(inputIdPropriedade.getText().toString());
 
-            if (idPropriedade.isEmpty())
-                posicao = 0;
-            else
-                posicao = spinnerPropriedadeAdapter.getPosition(repositorioPropriedade.buscarPropriedade(
-                        Integer.parseInt(idPropriedade)));
+            posicao = (id == 0) ? 0 : spinnerPropriedadeAdapter.getPosition(repositorioPropriedade.buscarPropriedade(id));
 
 
             spinnerPropriedade.setSelection(posicao);
@@ -284,91 +272,6 @@ public class ListaAnimaisActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            gerenciaFuncaoPesquisar();
-            return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpened) {
-            gerenciaFuncaoPesquisar();
-            return;
-        }
-        super.onBackPressed();
-    }
-
-    private void gerenciaFuncaoPesquisar() {
-        ActionBar action = getSupportActionBar(); //get the actionbar
-        int id = 0;
-
-        if (isSearchOpened) { //test if the search is open
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-
-                carregarListView(id, "");
-            }
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(inputPesquisa.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            mSearchAction.setIcon(R.drawable.ic_search_light);
-
-            isSearchOpened = false;
-        } else { //open the search entry
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(true); //enable it to display a
-                // custom view in the action bar.
-                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
-                action.setDisplayShowTitleEnabled(false); //hide the title
-
-                inputPesquisa = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
-
-
-                //this is a listener to do a search when the user clicks on search button
-                inputPesquisa.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            carregarListView(0, inputPesquisa.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-
-                });
-
-
-                inputPesquisa.requestFocus();
-
-                //open the keyboard focused in the edtSearch
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(inputPesquisa, InputMethodManager.SHOW_IMPLICIT);
-
-
-                //add the close icon
-                mSearchAction.setIcon(R.drawable.ic_close);
-
-                isSearchOpened = true;
-            }
-        }
-    }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
@@ -376,7 +279,7 @@ public class ListaAnimaisActivity extends AppCompatActivity
         if ((parent != null) && (parent.getItemAtPosition(position) instanceof Propriedade)) {
             propriedade = (Propriedade) parent.getItemAtPosition(position);
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
-            carregarListView(propriedade.getId(), "");
+            carregarListView(new ResultadoPesquisa(propriedade.getId(), ""));
         }
 
     }

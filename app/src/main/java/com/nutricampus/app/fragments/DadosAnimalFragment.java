@@ -56,8 +56,6 @@ public class DadosAnimalFragment extends Fragment
     private EditText inputIdentificador;
     private EditText inputData;
     private Switch switchAtivo;
-    private Button btnConfirmarDados;
-    private Button btnAddPropriedade;
     private EditText inputIdPropriedade;
 
     private Calendar data;
@@ -97,8 +95,8 @@ public class DadosAnimalFragment extends Fragment
         inputData = (EditText) layout.findViewById(R.id.input_data_nascimento);
         spinnerPropriedade = (Spinner) layout.findViewById(R.id.spinnerPropriedade);
         switchAtivo = (Switch) layout.findViewById(R.id.switch_ativo);
-        btnConfirmarDados = (Button) layout.findViewById(R.id.btnConfimarDados);
-        btnAddPropriedade = (Button) layout.findViewById(R.id.btn_add_propriedade);
+        Button btnConfirmarDados = (Button) layout.findViewById(R.id.btnConfimarDados);
+        Button btnAddPropriedade = (Button) layout.findViewById(R.id.btn_add_propriedade);
         inputIdPropriedade = (EditText) layout.findViewById(R.id.input_id_propriedade);
 
         btnConfirmarDados.setOnClickListener(this);

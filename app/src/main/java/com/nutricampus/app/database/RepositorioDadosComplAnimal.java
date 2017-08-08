@@ -53,7 +53,6 @@ public class RepositorioDadosComplAnimal {
                 do {
                     dadosComplAnimais.add(getDadosFromCursor(c));
                 } while (c.moveToNext());
-                Log.e("EF", " isEmpty " + dadosComplAnimais.isEmpty());
                 c.close();
             }
 
@@ -73,11 +72,11 @@ public class RepositorioDadosComplAnimal {
     }
 
 
-    public DadosComplAnimal buscarDadosComplAnimal(int id_animal) {
+    public DadosComplAnimal buscarDadosComplAnimal(int idAnimal) {
         bancoDados = gerenciador.getReadableDatabase();
 
         String colunasWhere = SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = ? ";
-        String[] valoresWhere = new String[]{String.valueOf(id_animal)};
+        String[] valoresWhere = new String[]{String.valueOf(idAnimal)};
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_DADOS_COMPL, new String[]{
                         SQLiteManager.DADOS_COMPL_COL_ID,
@@ -115,9 +114,9 @@ public class RepositorioDadosComplAnimal {
         return (retorno > 0);
     }
 
-    public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int id_animal) {
+    public List<DadosComplAnimal> listarHistoricoDadosComplAnimais(int idAnimal) {
         return this.getListaDadosComplAnimal(
-                SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL + "WHERE " + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + id_animal);
+                SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL + "WHERE " + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + idAnimal);
     }
 
     public int removerDadosCompl(DadosComplAnimal dadosComplAnimal) {

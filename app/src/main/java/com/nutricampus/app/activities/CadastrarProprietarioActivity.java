@@ -1,13 +1,12 @@
 package com.nutricampus.app.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,9 +16,6 @@ import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /*
 Explicação para a supressão de warnings:
@@ -32,28 +28,37 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROPRIETARIO = "proprietario";
 
-    @BindView(R.id.input_nome_proprietario)
-    EditText inputNomeProprietario;
-    @BindView(R.id.input_cpf_proprietario)
-    EditText inputCpfProprietario;
-    @BindView(R.id.input_email_proprietario)
-    EditText inputEmailProprietario;
-    @BindView(R.id.input_fone_proprietario)
-    EditText inputFoneProprietario;
+    protected EditText inputNomeProprietario;
+    protected EditText inputCpfProprietario;
+    protected EditText inputEmailProprietario;
+    protected EditText inputFoneProprietario;
+    protected Button btnSalvar;
+
+    private int voltarProprietarios;
+
+    protected void init() {
+        this.inputNomeProprietario = (EditText) findViewById(R.id.input_nome_proprietario);
+        this.inputCpfProprietario = (EditText) findViewById(R.id.input_cpf_proprietario);
+        this.inputEmailProprietario = (EditText) findViewById(R.id.input_email_proprietario);
+        this.inputFoneProprietario = (EditText) findViewById(R.id.input_fone_proprietario);
+        this.btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_proprietario);
 
-        ButterKnife.bind(this);
+        this.init();
 
         inputCpfProprietario.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, inputCpfProprietario));
         inputFoneProprietario.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputFoneProprietario));
 
+        voltarProprietarios = getIntent().getIntExtra(ListaProprietariosActivity.EXTRA_VOLTAR_PROPRIETARIOS, -1);
+
     }
 
-    public void criarProprietario(View v) {
+    public void salvar(View v) {
         if (!validaDados()) {
             Toast.makeText(CadastrarProprietarioActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
             return;
@@ -77,32 +82,30 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         if (idRetorno > -1) {
             proprietario.setId(idRetorno);
 
-            //Caixa de Dialogo
-            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastrarProprietarioActivity.this);
-            dialog.setTitle("Cadastro");
-            dialog.setMessage(getString(
-                    R.string.msg_sucesso, "Proprietário", proprietario.getNome()));
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
+            Toast.makeText(CadastrarProprietarioActivity.this,
+                    getString(R.string.msg_sucesso_cadastro, proprietario.getNome()),
+                    Toast.LENGTH_LONG).show();
 
-                    intent.putExtra(EXTRA_PROPRIETARIO, proprietario);
-                    intent.putExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL,
-                            getIntent().getIntExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL, -1));
 
-                    startActivity(intent);
-                    CadastrarProprietarioActivity.this.finish();
-                }
-            });
-            dialog.show();
+            Intent intent;
+            if (voltarProprietarios == 1) {
+                intent = new Intent(CadastrarProprietarioActivity.this, ListaProprietariosActivity.class);
+            } else {
+                intent = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
+                intent.putExtra(EXTRA_PROPRIETARIO, proprietario);
+                intent.putExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL,
+                        getIntent().getIntExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL, -1));
+            }
+
+            startActivity(intent);
+            CadastrarProprietarioActivity.this.finish();
 
         } else {
             Toast.makeText(CadastrarProprietarioActivity.this, getString(R.string.msg_erro_cadastro_proprietario), Toast.LENGTH_LONG).show();
         }
     }
 
-    private boolean validaDados() {
+    protected boolean validaDados() {
         boolean valido = true;
 
         if (inputNomeProprietario.getText().toString().isEmpty()) {
@@ -141,18 +144,25 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == android.R.id.home) {
-            Intent it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
-            startActivity(it);
-            finish();
+            voltarActivity();
         }
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        Intent it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
+        voltarActivity();
+    }
+
+    protected void voltarActivity() {
+        Intent it;
+
+        if (voltarProprietarios == 1)
+            it = new Intent(CadastrarProprietarioActivity.this, ListaProprietariosActivity.class);
+        else
+            it = new Intent(CadastrarProprietarioActivity.this, CadastrarPropriedadeActivity.class);
+
         startActivity(it);
         finish();
     }

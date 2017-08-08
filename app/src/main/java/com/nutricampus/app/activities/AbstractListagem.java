@@ -23,13 +23,6 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.util.Calendar;
 
-import butterknife.BindView;
-
-/**
- * Created by kellison on 01/08/17.
- */
-
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -38,27 +31,30 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 abstract class AbstractListagem extends AppCompatActivity {
-    @BindView(R.id.text_quantidade_encontrados)
-    TextView mensagemQuantidade;
-    @BindView(R.id.linha)
-    View linha;
-    @BindView(R.id.spinner_meses)
-    Spinner spinnerMeses;
-    @BindView(R.id.spinner_anos)
-    Spinner spinnerAnos;
+
+    protected TextView mensagemQuantidade;
+    protected View linha;
+    protected Spinner spinnerMeses;
+    protected Spinner spinnerAnos;
+
+    protected SharedPreferencesManager session;
 
     protected ListView listView;
-
-    SharedPreferencesManager session;
-
-    Class cadastro;
-
+    protected Class cadastro;
     protected int idAnimal;
+
+    protected void init() {
+        this.mensagemQuantidade = (TextView) findViewById(R.id.text_quantidade_encontrados);
+        this.linha = findViewById(R.id.linha);
+        this.spinnerAnos = (Spinner) findViewById(R.id.spinner_anos);
+        this.spinnerMeses = (Spinner) findViewById(R.id.spinner_meses);
+        session = new SharedPreferencesManager(getApplicationContext());
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        session = new SharedPreferencesManager(getApplicationContext());
+        this.init();
         session.checkLogin();
 
         if (this.getIntent() != null)

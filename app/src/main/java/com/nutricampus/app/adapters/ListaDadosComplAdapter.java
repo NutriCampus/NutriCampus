@@ -21,8 +21,8 @@ import java.util.List;
 
 public class ListaDadosComplAdapter extends BaseAdapter {
 
-    Context context;
-    List<DadosComplAnimal> dados;
+    private final Context context;
+    private final List<DadosComplAnimal> dados;
 
     public ListaDadosComplAdapter(Context context, List<DadosComplAnimal> dados) {
         this.context = context;

@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,12 @@ public class ValidaFormularioInstrumentedTest {
     private TextView nome;
     private TextView sobrenome;
 
+    @Test
+    public void testaConstrutorPrivate() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        Constructor constructor = ValidaFormulario.class.getDeclaredConstructor();
+        assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
 
+    }
     @Before
     public void init() {
         this.appContext = InstrumentationRegistry.getTargetContext();

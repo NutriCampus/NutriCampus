@@ -20,9 +20,9 @@ import com.nutricampus.app.fragments.DadosComplementaresFragment;
 
 public class AbasPagerAdapter extends FragmentPagerAdapter {
 
-    String[] titulos;
-    Animal animal;
-    Propriedade propriedade;
+    private final String[] titulos;
+    private final Animal animal;
+    private final Propriedade propriedade;
 
     public AbasPagerAdapter(Animal animal, Context context, FragmentManager fm, Propriedade propriedade) {
         super(fm);
@@ -35,11 +35,10 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                DadosAnimalFragment dadosAnimalFragment = DadosAnimalFragment.newInstance(this.animal, this.propriedade);
-                return dadosAnimalFragment;
+                return DadosAnimalFragment.newInstance(this.animal, this.propriedade);
+
             case 1:
-                DadosComplementaresFragment dadosComplementaresFragment = DadosComplementaresFragment.newInstance(this.animal);
-                return dadosComplementaresFragment;
+                return DadosComplementaresFragment.newInstance(this.animal);
             default:
                 return null;
         }

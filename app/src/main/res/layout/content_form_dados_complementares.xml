@@ -68,7 +68,8 @@
                 android:focusable="false"
                 android:hint="@string/campo_data_registro"
                 android:inputType="date"
-                android:onClick="inserirData" />
+                android:onClick="inserirData"
+                android:enabled="false"/>
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>

@@ -16,8 +16,6 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -33,10 +31,10 @@ public class ListaProleActivity extends AbstractListagem {
 
         setContentView(R.layout.activity_lista_prole);
 
+        this.init();
         listView = (ListView) findViewById(R.id.lista_prole);
         cadastro = CadastroProleActivity.class;
 
-        ButterKnife.bind(this);
 
         registerForContextMenu(listView);
         carregaListView();
@@ -101,7 +99,7 @@ public class ListaProleActivity extends AbstractListagem {
             filtrarRegistros(new View(ListaProleActivity.this));
         } else {
             Toast.makeText(ListaProleActivity.this,
-                    getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
+                    getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
         }
     }
 

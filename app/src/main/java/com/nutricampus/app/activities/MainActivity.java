@@ -23,13 +23,9 @@ Explicação para a supressão de warnings:
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public ActionBarManager getActionBarMainActivity() {
-        return actionBar;
-    }
-
     private ActionBarManager actionBar;
 
-    SharedPreferencesManager session;
+    private SharedPreferencesManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

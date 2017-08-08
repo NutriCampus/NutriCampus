@@ -50,6 +50,7 @@ public final class Mascara {
         return String.valueOf(mascara);
     }
 
+
     public static TextWatcher insert(final String mask, final EditText ediTxt) {
         return new TextWatcher() {
             boolean isUpdating;
@@ -68,10 +69,9 @@ public final class Mascara {
                 for (int i = 0; i < mask.length(); i++) {
                     char m = mask.charAt(i);
                     if (m != '#') {
-                        if ((index == str.length()) && (str.length() < old.length())) {
-                            continue;
+                        if (!((index == str.length()) && (str.length() < old.length()))) {
+                            mascara.append(m);
                         }
-                        mascara.append(m);
                         continue;
                     }
 
@@ -85,11 +85,11 @@ public final class Mascara {
                 }
 
                 if (mascara.length() > 0) {
-                    char last_char = mascara.charAt(mascara.length() - 1);
+                    char lastChar = mascara.charAt(mascara.length() - 1);
                     boolean hadSign = false;
-                    while (isSinal(last_char) && str.length() == old.length()) {
+                    while (isSinal(lastChar) && str.length() == old.length()) {
                         mascara = new StringBuilder(mascara.substring(0, mascara.length() - 1));
-                        last_char = mascara.charAt(mascara.length() - 1);
+                        lastChar = mascara.charAt(mascara.length() - 1);
                         hadSign = true;
                     }
 

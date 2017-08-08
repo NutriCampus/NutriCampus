@@ -22,8 +22,8 @@ import java.util.List;
 
 public class ListaAnimaisAdapter extends BaseAdapter {
 
-    Context context;
-    List<Animal> animais;
+    private final Context context;
+    private final List<Animal> animais;
 
     public ListaAnimaisAdapter(Context context, List<Animal> animais) {
         this.context = context;

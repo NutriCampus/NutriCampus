@@ -15,9 +15,6 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -27,32 +24,35 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastroProducaoLeiteActivity extends AbstractDataPickerActivity {
 
-    @BindView(R.id.input_id_producao)
-    EditText inputId;
+    protected EditText inputId;
+    protected EditText inputLactose;
+    protected EditText inputQuantidadeLeite;
+    protected EditText inputGordura;
+    protected EditText inputProteinaBruta;
+    protected EditText inputProteinaVerdadeira;
 
-    @BindView(R.id.input_lactose)
-    EditText inputLactose;
-    @BindView(R.id.input_quantidade_leite)
-    EditText inputQuantidadeLeite;
-    @BindView(R.id.input_gordura)
-    EditText inputGordura;
-    @BindView(R.id.input_proteina_bruta)
-    EditText inputProteinaBruta;
-    @BindView(R.id.input_proteina_verdadeira)
-    EditText inputProteinaVerdadeira;
-
-    @BindView(R.id.btn_salvar_producao)
-    Button buttonSalvar;
+    protected Button buttonSalvar;
 
     protected int idAnimal;
+
+    protected void init() {
+        inputId = (EditText) findViewById(R.id.input_id_producao);
+        inputLactose = (EditText) findViewById(R.id.input_lactose);
+        inputQuantidadeLeite = (EditText) findViewById(R.id.input_quantidade_leite);
+        inputGordura = (EditText) findViewById(R.id.input_gordura);
+        inputProteinaBruta = (EditText) findViewById(R.id.input_proteina_bruta);
+        inputProteinaVerdadeira = (EditText) findViewById(R.id.input_proteina_verdadeira);
+        buttonSalvar = (Button) findViewById(R.id.btn_salvar_producao);
+        inputData = (EditText) findViewById(R.id.input_data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_producao_leite);
-        inputData = (EditText) findViewById(R.id.input_data);
 
-        ButterKnife.bind(this);
+        init();
+
         inicializaCampoData(inputData);
 
         if (this.getIntent() != null)

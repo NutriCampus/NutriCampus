@@ -25,9 +25,6 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by Felipe on 19/07/2017.
  * For project NutriCampus.
@@ -44,41 +41,44 @@ Explicação para a supressão de warnings:
 public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.input_identificador)
-    EditText inputIdentificador;
-    @BindView(R.id.input_peso_vivo)
-    EditText inputPesoVivo;
-    @BindView(R.id.input_caminhada_vertical)
-    EditText inputCaminhadaVertical;
-    @BindView(R.id.input_caminhada_horizontal)
-    EditText inputCaminhadaHorizontal;
-    @BindView(R.id.input_semana_lactacao)
-    EditText inputSemanaLactacao;
-    @BindView(R.id.ckb_pastando)
-    CheckBox ckbPastando;
-    @BindView(R.id.ckb_lactacao)
-    CheckBox ckbLactacao;
-    @BindView(R.id.ckb_cio)
-    CheckBox ckbCio;
-    @BindView(R.id.ckb_gestante)
-    CheckBox ckbGestante;
-    @BindView(R.id.rgEec)
-    RadioGroup radioGroup;
-    @BindView(R.id.btn_salvar)
-    Button btnSalvar;
-    @BindView(R.id.input_id_propriedade)
-    EditText inputIdPropriedade;
+    protected EditText inputIdentificador;
+    protected EditText inputPesoVivo;
+    protected EditText inputCaminhadaVertical;
+    protected EditText inputCaminhadaHorizontal;
+    protected EditText inputSemanaLactacao;
+    protected CheckBox ckbPastando;
+    protected CheckBox ckbLactacao;
+    protected CheckBox ckbCio;
+    protected CheckBox ckbGestante;
+    protected RadioGroup radioGroup;
+    protected Button btnSalvar;
+    protected EditText inputIdPropriedade;
 
     protected Animal animal;
+
+    protected void init() {
+        inputIdentificador = (EditText) findViewById(R.id.input_identificador);
+        inputPesoVivo = (EditText) findViewById(R.id.input_peso_vivo);
+        inputCaminhadaVertical = (EditText) findViewById(R.id.input_caminhada_vertical);
+        inputCaminhadaHorizontal = (EditText) findViewById(R.id.input_caminhada_horizontal);
+        inputSemanaLactacao = (EditText) findViewById(R.id.input_semana_lactacao);
+        inputIdPropriedade = (EditText) findViewById(R.id.input_id_propriedade);
+        ckbPastando = (CheckBox) findViewById(R.id.ckb_pastando);
+        ckbLactacao = (CheckBox) findViewById(R.id.ckb_lactacao);
+        ckbCio = (CheckBox) findViewById(R.id.ckb_cio);
+        ckbGestante = (CheckBox) findViewById(R.id.ckb_gestante);
+        radioGroup = (RadioGroup) findViewById(R.id.rgEec);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar);
+
+        inputData = (EditText) findViewById(R.id.input_data_complementar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_novo_dado_compl);
 
-        inputData = (EditText) findViewById(R.id.input_data_complementar);
-
-        ButterKnife.bind(CadastrarNovoDadoComplActivity.this);
+        this.init();
 
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra("animal");
@@ -109,13 +109,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         showDatePickerDialogOnClick(v);
     }
 
-
-    public void salvarHistoricoAnimal(View v) {
-        if (!validaDados()) {
-            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
-            return;
-        }
-
+    protected DadosComplAnimal getDadosComplAnimal() {
         float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
                 Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
         float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f :
@@ -132,7 +126,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
 
-        DadosComplAnimal dadosComplAnimal = new DadosComplAnimal(
+        return new DadosComplAnimal(
                 data,
                 Float.parseFloat(inputPesoVivo.getText().toString()),
                 eec,
@@ -142,8 +136,16 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
                 ckbPastando.isChecked(),
                 ckbLactacao.isChecked(),
                 ckbGestante.isChecked(),
-                ckbCio.isChecked()
-        );
+                ckbCio.isChecked());
+    }
+
+    public void salvarHistoricoAnimal(View v) {
+        if (!validaDados()) {
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, R.string.msg_erro_cadastro_geral, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        DadosComplAnimal dadosComplAnimal = getDadosComplAnimal();
 
         dadosComplAnimal.setAnimal(animal.getId());
 

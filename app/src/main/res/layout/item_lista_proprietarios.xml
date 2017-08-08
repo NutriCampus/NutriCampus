@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/padding_basico"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ItensListaProprietarios">
+
+    <TextView
+        android:id="@+id/lista_proprietario_id"
+        android:text=""
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/lista_proprietario_nome"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:text="@string/proprietario"
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lista_proprietario_fone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_telefone"
+                android:paddingLeft="@dimen/padding_list"
+                android:paddingBottom="@dimen/padding_list"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

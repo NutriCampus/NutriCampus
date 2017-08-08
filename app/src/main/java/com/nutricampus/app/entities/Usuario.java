@@ -17,6 +17,7 @@ public class Usuario {
 
     public Usuario() { }
 
+
     public Usuario(String crmv, String cpf, String nome, String email, String senha) {
         this.crmv = crmv;
         this.cpf = cpf;

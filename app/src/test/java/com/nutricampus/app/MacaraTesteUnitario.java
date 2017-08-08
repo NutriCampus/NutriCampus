@@ -4,17 +4,32 @@ import com.nutricampus.app.utils.Mascara;
 
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 
 public class MacaraTesteUnitario {
+    @Test
+    public void testaConstrutorPrivate() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        Constructor constructor = Mascara.class.getDeclaredConstructor();
+        assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
+
+    }
 
     @Test
     public void testeCaracterESinal() {
-        boolean isSinal = Mascara.isSinal('.');
-        assertTrue(isSinal);
+        assertTrue(Mascara.isSinal('.'));
+        assertTrue(Mascara.isSinal(' '));
+        assertTrue(Mascara.isSinal('-'));
+        assertTrue(Mascara.isSinal('/'));
+        assertTrue(Mascara.isSinal(','));
+        assertTrue(Mascara.isSinal(')'));
+        assertTrue(Mascara.isSinal('('));
     }
 
     @Test

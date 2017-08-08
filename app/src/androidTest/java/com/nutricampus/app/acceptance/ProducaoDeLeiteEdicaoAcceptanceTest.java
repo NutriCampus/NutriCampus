@@ -69,10 +69,6 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         return currentActivity;
     }
 
-    private RepositorioProducaoDeLeite repositorioProducaoDeLeite;
-    private ProducaoDeLeite producaoDeLeite1;
-    private ProducaoDeLeite producaoDeLeite2;
-
     @Before
     public void preparaDados() {
 

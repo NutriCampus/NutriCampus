@@ -40,6 +40,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 /**
  * Created by jorge on 23/07/17.
@@ -55,7 +56,7 @@ public class Animal04ExcluirActivityTest {
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void animalCadastroActivityTest2() throws Exception {//Excluir Animal ("Sim")
+    public void excluiAnimalCadastrado() throws Exception {//Excluir Animal ("Sim")
         prepararTeste();
         closeKeyboard();
         ViewInteraction recyclerView2 = onView(
@@ -74,10 +75,19 @@ public class Animal04ExcluirActivityTest {
         ViewInteraction appCompatButton22 = onView(
                 allOf(withId(android.R.id.button1), withText("Sim")));
         appCompatButton22.perform(scrollTo(), click());
+
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText("Animal removido com sucesso");
+            Thread.sleep(3500);
+        } catch (Exception e) {
+            fail("Toast de confirmação não identificado");
+            e.printStackTrace();
+        }
     }
 
     public void prepararTeste()throws Exception{
         doLogout();
+        Thread.sleep(500);
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
         appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());

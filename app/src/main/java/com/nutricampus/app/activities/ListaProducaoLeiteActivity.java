@@ -16,8 +16,6 @@ import com.nutricampus.app.utils.Conversor;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 
 /*
 Explicação para a supressão de warnings:
@@ -28,20 +26,21 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaProducaoLeiteActivity extends AbstractListagem {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_lista_producao);
+
+        this.init();
+
         listView = (ListView) findViewById(R.id.lista_producao);
         cadastro = CadastroProducaoLeiteActivity.class;
-        ButterKnife.bind(this);
 
         registerForContextMenu(listView);
         carregaListView();
 
-        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listView.showContextMenuForChild(view);
@@ -102,7 +101,7 @@ public class ListaProducaoLeiteActivity extends AbstractListagem {
             filtrarRegistros(new View(ListaProducaoLeiteActivity.this));
         } else {
             Toast.makeText(ListaProducaoLeiteActivity.this,
-                    getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
+                    getString(R.string.msg_erro_deletar_registro), Toast.LENGTH_LONG).show();
         }
     }
 

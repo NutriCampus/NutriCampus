@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:layout_margin="@dimen/margin_form"
+    android:background="@drawable/caixa_arredondada">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_nome_proprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_proprietario"
+            android:inputType="textCapWords" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_cpf_proprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_cpf"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_email_proprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_inputs_form"
+        android:layout_marginTop="@dimen/margin_inputs_form">
+
+        <EditText
+            android:id="@+id/input_fone_proprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/campo_telefone"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_salvar_cadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/save"
+        android:drawableStart="@drawable/save"
+        android:onClick="salvar"
+        android:text="@string/save"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

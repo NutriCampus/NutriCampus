@@ -23,7 +23,6 @@ import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
-import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -74,6 +73,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     Button buttonAddProprietario;
 
     private int voltarCadAnimal;
+    private int voltarProprietarios;
     SharedPreferencesManager session;
 
 
@@ -96,6 +96,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         Intent it = getIntent();
         voltarCadAnimal = it.getIntExtra(EXTRA_CAD_ANIMAL, -1);
+        voltarProprietarios = it.getIntExtra(ListaProprietariosActivity.EXTRA_VOLTAR_PROPRIETARIOS, -1);
         Proprietario proprietario = (Proprietario)
                 it.getSerializableExtra(CadastrarProprietarioActivity.EXTRA_PROPRIETARIO);
 
@@ -229,7 +230,7 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public void criarProprietario(View view) {
         Intent it = new Intent(this, CadastrarProprietarioActivity.class);
         //Enviar voltarCadAnimal para o cadastro de proprietario para não se perder ao retornar para cadPropriedade
-        it.putExtra(DadosAnimalFragment.EXTRA_CAD_ANIMAL, voltarCadAnimal);
+        it.putExtra(EXTRA_CAD_ANIMAL, voltarCadAnimal);
         startActivity(it);
     }
 
@@ -304,6 +305,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            voltarActivity();
 
         if (item.getItemId() == android.R.id.home) {
             Intent it;
@@ -314,16 +317,25 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
             startActivity(it);
             finish();
         }
+
         return true;
     }
 
     @Override
     public void onBackPressed() {
+        voltarActivity();
+    }
+
+    private void voltarActivity() {
         Intent it;
+
         if (voltarCadAnimal == 1)
             it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
+        else if (voltarProprietarios == 1)
+            it = new Intent(CadastrarPropriedadeActivity.this, ListaProprietariosActivity.class);
         else
             it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
+
         startActivity(it);
         finish();
     }

@@ -15,7 +15,7 @@ public final class LeitorAssets {
     public static String carregaJSONAssets(String arquivo, Context context) throws IOException {
         String ext = arquivo.substring(arquivo.length() - 5, arquivo.length());
 
-        if (!ext.equals(".json"))
+        if (!(".json".equals(ext)))
             throw new IllegalArgumentException("Arquivo deve ser do tipo JSON");
 
         return lerArquivo(arquivo, context);

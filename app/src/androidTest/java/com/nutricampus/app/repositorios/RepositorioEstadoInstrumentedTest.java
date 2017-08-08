@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented.repositorios;
+package com.nutricampus.app.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.nutricampus.app.instrumented.repositorios;
+package com.nutricampus.app.repositorios;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -85,7 +85,7 @@ public class RepositorioProprietarioTesteIntegracao {
     public void testarAtualizacaoDeDadosComCpf() {
 
         String cpf = "444.444.444.45";
-        boolean resultProprietarioInexistente, result;
+        boolean result;
         Proprietario proprietario, proprietarioBuscado, proprietarioEncontrado;
 
         proprietario = new Proprietario(cpf, "proprietario", "proprietario@email.com", "1234-5678");
