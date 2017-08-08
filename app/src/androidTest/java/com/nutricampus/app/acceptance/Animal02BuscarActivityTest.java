@@ -69,12 +69,12 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText7 = onView(
                 allOf(withId(R.id.input_pesquisa), withText("Mim"), isDisplayed()));
 
-        Thread.sleep(1000);
+        espera(1000);
 
         appCompatEditText7.perform(pressImeActionButton());
 
         try {
-            Thread.sleep(500);
+            espera(500);
 
             onView(withText("Mimosa")).perform(click());
             pressBack();
@@ -82,8 +82,6 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             fail("Não existe essa view");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -93,7 +91,7 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         abrirMenu();
         clicarItemMenu(5);
 
-        Thread.sleep(500);
+        espera(500);
         ViewInteraction registrosEncontrados = onView(withId(R.id.text_quantidades_encontrados));
         registrosEncontrados.check(matches(withText("2 animais encontrados")));
 
@@ -109,13 +107,13 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
 
         appCompatEditText6.perform(pressImeActionButton());
 
-        Thread.sleep(500);
+        espera(500);
 
         appCompatEditText6.perform(replaceText(""), closeSoftKeyboard());
 
         appCompatEditText6.perform(pressImeActionButton());
 
-        Thread.sleep(500);
+        espera(500);
         ViewInteraction registrosEncontradosAposPesquisa = onView(withId(R.id.text_quantidades_encontrados));
 
         registrosEncontradosAposPesquisa.check(matches(withText("2 animais encontrados")));
@@ -148,7 +146,7 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         textView3.check(matches(withText("Propriedade 2")));
 
 
-        Thread.sleep(500);
+        espera(500);
         ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
 
         registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));
@@ -162,9 +160,9 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         abrirMenu();
         clicarItemMenu(5);
 
-        Thread.sleep(500);
+        espera(500);
         onView(withText("Propriedade 1")).perform(longClick());
-        Thread.sleep(500);
+        espera(500);
 
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(android.R.id.title), withText("Visualizar animais"), isDisplayed()));
@@ -182,7 +180,7 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         textView5.check(matches(withText("Propriedade 1")));
 
         try {
-            Thread.sleep(500);
+            espera(500);
 
             onView(withText("Mimosa")).perform(click());
             pressBack();
@@ -190,8 +188,6 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             fail("Não existe essa view");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
     }
@@ -214,7 +210,7 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.input_pesquisa), withText("Manhosa"), isDisplayed()));
         appCompatEditText10.perform(pressImeActionButton());
 
-        Thread.sleep(500);
+        espera(500);
         ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
 
         registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));

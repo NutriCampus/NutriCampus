@@ -50,7 +50,7 @@ public class ListaPropriedadesActivity extends AbstractListComPesquisa {
     private LinearLayout layoutPropriedade;
     private LinearLayout layoutPropritario;
 
-    SharedPreferencesManager session;
+    private SharedPreferencesManager session;
 
     private void init() {
         session = new SharedPreferencesManager(getApplicationContext());

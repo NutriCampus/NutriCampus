@@ -1,84 +1,59 @@
 package com.nutricampus.app.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaCompostosAlimentaresAdapter;
-import com.nutricampus.app.adapters.ListaPropriedadesAdapter;
-import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
-import com.nutricampus.app.database.RepositorioPropriedade;
-import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.SharedPreferencesManager;
-import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.CompostosAlimentares;
-import com.nutricampus.app.entities.Propriedade;
-import com.nutricampus.app.entities.Proprietario;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
+public class ListaCompostosAlimentaresActivity extends AbstractListComPesquisa {
 
-@SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
-public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
+    private ListView listCompostosAlimentares;
+    private TextView mensagemQuantidade;
+    private View linha;
 
-    public static final String EXTRA_PROPRIEDADE = "propriedade";
-
-    @BindView(R.id.listaCompostosAlimentares)
-    ListView listCompostosAlimentares;
-    @BindView(R.id.text_quantidade_encontrados)
-    TextView mensagemQuantidade;
-    @BindView(R.id.linha)
-    View linha;
-
-    SharedPreferencesManager session;
-
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText inputPesquisaComposto;
+    private void init() {
+        listCompostosAlimentares = (ListView) findViewById(R.id.listaCompostosAlimentares);
+        mensagemQuantidade = (TextView) findViewById(R.id.text_quantidade_encontrados);
+        linha = findViewById(R.id.linha);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new SharedPreferencesManager(getApplicationContext());
-        session.checkLogin();
+        new SharedPreferencesManager(getApplicationContext()).checkLogin();
 
         setContentView(R.layout.activity_lista_compostos_alimentares);
-        ButterKnife.bind(this);
 
+        init();
         listCompostosAlimentares.setEmptyView(findViewById(android.R.id.empty));
 
         registerForContextMenu(listCompostosAlimentares);
-        carregaListView("");
+        carregarListView();
 
         listCompostosAlimentares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //abreTelaEditar(position);
+                listCompostosAlimentares.showContextMenuForChild(view);
             }
         });
 
@@ -93,18 +68,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        carregaListView("");
 
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mSearchAction = menu.findItem(R.id.action_search);
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -117,7 +81,6 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        AlertDialog.Builder builder = null;
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_visualizar_composto:
                 if (info != null)
@@ -139,28 +102,15 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+        carregarListView();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            gerenciaFuncaoPesquisar();
-            return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpened) {
-            gerenciaFuncaoPesquisar();
-            return;
-        }
-        super.onBackPressed();
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mSearchAction = menu.findItem(R.id.action_search);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void confirmarExcluir(final CompostosAlimentares compostosAlimentares) {
@@ -175,8 +125,7 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
                         if (result > 0) {
                             Toast.makeText(ListaCompostosAlimentaresActivity.this,
                                     getString(R.string.msg_excluir_composto_sucesso), Toast.LENGTH_LONG).show();
-
-                            carregaListView("");
+                            carregarListView();
                         } else {
                             Toast.makeText(ListaCompostosAlimentaresActivity.this,
                                     getString(R.string.msg_excluir_composto_falha), Toast.LENGTH_LONG).show();
@@ -187,71 +136,14 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
                 .show();
     }
 
-    protected void gerenciaFuncaoPesquisar() {
-        ActionBar action = getSupportActionBar(); //get the actionbar
-
-        if (isSearchOpened) { //test if the search is open
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-                action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-                carregaListView("");
-            }
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(inputPesquisaComposto.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            mSearchAction.setIcon(R.drawable.ic_search_light);
-
-            isSearchOpened = false;
-        } else { //open the search entry
-
-            if (action != null) {
-                action.setDisplayShowCustomEnabled(true); //enable it to display a
-                // custom view in the action bar.
-                action.setCustomView(R.layout.barra_pesquisa);//add the custom view
-                action.setDisplayShowTitleEnabled(false); //hide the title
-
-                inputPesquisaComposto = (EditText) action.getCustomView().findViewById(R.id.input_pesquisa); //the text editor
-
-
-                //this is a listener to do a search when the user clicks on search button
-                inputPesquisaComposto.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        if (i == EditorInfo.IME_ACTION_SEARCH) {
-                            carregaListView(inputPesquisaComposto.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-
-                });
-
-
-                inputPesquisaComposto.requestFocus();
-
-                //open the keyboard focused in the edtSearch
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(inputPesquisaComposto, InputMethodManager.SHOW_IMPLICIT);
-
-
-                //add the close icon
-                mSearchAction.setIcon(R.drawable.ic_close);
-
-                isSearchOpened = true;
-            }
-        }
+    public void carregarListView() {
+        carregarListView(new ResultadoPesquisa(0, ""));
     }
 
-    private void carregaListView(String nome) {
-        List<CompostosAlimentares> lista = null;
-        ListaCompostosAlimentaresAdapter adapter = null;
-
-        lista = this.buscarComposto(nome);
-
-        adapter = new ListaCompostosAlimentaresAdapter(lista, this);
+    @Override
+    protected void carregarListView(ResultadoPesquisa resultadoPesquisa) {
+        List<CompostosAlimentares> lista = this.buscarComposto(resultadoPesquisa.getString());
+        ListaCompostosAlimentaresAdapter adapter = new ListaCompostosAlimentaresAdapter(lista, this);
 
         listCompostosAlimentares.setAdapter(adapter);
 
@@ -271,8 +163,6 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
 
     public List<CompostosAlimentares> buscarComposto(String nome) {
         RepositorioCompostosAlimentares repositorioPropriedade = new RepositorioCompostosAlimentares(this);
-        //List<CompostosAlimentares> arr = new ArrayList<>();
-        //arr.add(repositorioPropriedade.buscarCompostoAlimentar(nome));
         return repositorioPropriedade.buscarTodosCompostos(nome);
     }
 
@@ -287,14 +177,14 @@ public class ListaCompostosAlimentaresActivity extends AppCompatActivity {
         intent.putExtra("id", compostosAlimentares.getId());
         intent.putExtra("tipo", compostosAlimentares.getTipo());
         intent.putExtra("identificador", compostosAlimentares.getIdentificador());
-        intent.putExtra("ms", compostosAlimentares.getMS());
-        intent.putExtra("fdn", compostosAlimentares.getFDN());
-        intent.putExtra("ee", compostosAlimentares.getEE());
-        intent.putExtra("mm", compostosAlimentares.getMM());
-        intent.putExtra("cnf", compostosAlimentares.getCNF());
-        intent.putExtra("pb", compostosAlimentares.getPB());
-        intent.putExtra("ndt", compostosAlimentares.getNDT());
-        intent.putExtra("fda", compostosAlimentares.getFDA());
+        intent.putExtra("ms", compostosAlimentares.getMs());
+        intent.putExtra("fdn", compostosAlimentares.getFdn());
+        intent.putExtra("ee", compostosAlimentares.getEe());
+        intent.putExtra("mm", compostosAlimentares.getMm());
+        intent.putExtra("cnf", compostosAlimentares.getCnf());
+        intent.putExtra("pb", compostosAlimentares.getPb());
+        intent.putExtra("ndt", compostosAlimentares.getNdt());
+        intent.putExtra("fda", compostosAlimentares.getFda());
         intent.putExtra("descricao", compostosAlimentares.getDescricao());
         return intent;
     }

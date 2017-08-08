@@ -28,16 +28,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String NOME_BANCO = "NutriCampusBD";
     private static final int VERSAO_BANCO = 7;
 
-    /* Modo de acesso ao banco de dados
-     *
-     * Configura as permissões de acesso ao banco de dados.
-     *
-     * 0 - Modo privado (apenas essa aplicação pode usar o banco).
-     * 1 - Modo leitura para todos (outras aplicações podem usar o banco).
-     * 2 - Modo escrita para todos (outras aplicações podem usar o banco).
-     * private static final int DATABASE_ACESS = 0; */
-
-
     /* Constantes para criação de tabelas */
     protected static Context context;
 

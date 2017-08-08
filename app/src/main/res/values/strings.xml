@@ -223,7 +223,7 @@
     <string name="text_floating_propriedade">Propriedade</string>
     <string name="text_floating_proprietarios">Proprietários</string>
 
-    <string name="campo_composto">Nome Composto</string>
+    <string name="campo_composto">Nome do Composto</string>
     <string name="campo_tipo">Tipo</string>
     <string name="msg_compostos_erro_preenchimento">Preencha todos os campos</string>
     <string name="menu_visualizar_composto">Visualizar composto</string>
@@ -231,5 +231,15 @@
     <string name="titulo_visualizar_composto">Visualizar composto</string>
     <string name="msg_excluir_composto_falha">Falha ao tentar remover o composto</string>
     <string name="msg_erro_cadastro_composto">Composto já cadastrado!</string>
+    <string name="campo_descricao">Descrição</string>
+    <string name="camp_fda">fda (%)</string>
+    <string name="campo_ndt">ndt (%)</string>
+    <string name="campo_pb">pb (%)</string>
+    <string name="campo_cnf">cnf (%)</string>
+    <string name="campo_mm">mm (%)</string>
+    <string name="campo_ee">ee (%)</string>
+    <string name="campo_fdn">fdn (%)</string>
+    <string name="campo_ms">ms (%)</string>
+    <string name="msg_erro_gravar_composto">Erro ao gravar Composto</string>
 
 </resources>

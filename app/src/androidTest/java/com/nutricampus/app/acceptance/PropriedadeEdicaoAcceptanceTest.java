@@ -38,7 +38,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
     @Before
     public void setUp() throws Exception {
         realizaLogin();
-        Thread.sleep(500);
+        espera(500);
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
@@ -62,11 +62,11 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Test
     public void tentaAtualizarCadastroApenasComProprietário() throws Exception {
-        Thread.sleep(1000);
+        espera(1000);
         onView(withText("Propriedade 1"))
                 .perform(longClick());
 
-        Thread.sleep(1200);
+        espera(1200);
 
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
@@ -105,7 +105,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
                 .perform(scrollTo())
                 .perform(replaceText(" "));
 
-        Thread.sleep(1200);
+        espera(1200);
 
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
@@ -122,11 +122,11 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Test
     public void tentaAtualizarCadastroSemProprietario() throws Exception {
-        Thread.sleep(1000);
+        espera(1000);
         onView(withText("Propriedade 1"))
                 .perform(longClick());
 
-        Thread.sleep(1200);
+        espera(1200);
 
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
@@ -134,7 +134,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
-        Thread.sleep(1000);
+        espera(1000);
 
         appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
@@ -145,7 +145,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 0),
                         isDisplayed()));
-        Thread.sleep(1000);
+        espera(1000);
 
         appCompatCheckedTextView.perform(click());
         closeKeyboard();

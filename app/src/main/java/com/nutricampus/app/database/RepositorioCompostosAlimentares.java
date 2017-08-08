@@ -9,7 +9,6 @@ import android.util.Log;
 import com.nutricampus.app.entities.CompostosAlimentares;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class RepositorioCompostosAlimentares {
     }
 
     public int inserirCompostoAlimentar(CompostosAlimentares compostoAlimentar) {
-        compostoAlimentar.print();
         bancoDados = gerenciador.getWritableDatabase();
 
         ContentValues dados = getContentValues(compostoAlimentar);
@@ -92,21 +90,9 @@ public class RepositorioCompostosAlimentares {
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            return new CompostosAlimentares(
-                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_ID)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MS)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_EE)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MM)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_PB)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT)),
-                    cursor.getFloat(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO)));
-
+            return getDadosFromCursor(cursor);
         }
+
         cursor.close();
         return null;
     }
@@ -119,10 +105,9 @@ public class RepositorioCompostosAlimentares {
                 " WHERE " + SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = " + id;
 
         ArrayList<CompostosAlimentares> compostosAlimentares = new ArrayList<>();
-        String getCompostosAlimentares = sql;
 
         try {
-            Cursor c = bancoDados.rawQuery(getCompostosAlimentares, null);
+            Cursor c = bancoDados.rawQuery(sql, null);
 
             if (c.moveToFirst()) {
                 do {
@@ -141,48 +126,16 @@ public class RepositorioCompostosAlimentares {
         return compostosAlimentares;
     }
 
-    private ContentValues getContentValues(CompostosAlimentares compostosAlimentares) {
-        ContentValues dados = new ContentValues();
-
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO, compostosAlimentares.getTipo());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR, compostosAlimentares.getIdentificador());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MS, compostosAlimentares.getMS());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN, compostosAlimentares.getFDN());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_EE, compostosAlimentares.getEE());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MM, compostosAlimentares.getMM());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF, compostosAlimentares.getCNF());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_PB, compostosAlimentares.getPB());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT, compostosAlimentares.getNDT());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA, compostosAlimentares.getFDA());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO, compostosAlimentares.getDescricao());
-
-        return dados;
-    }
-
     public boolean atualizarCompostosAlimentares(CompostosAlimentares compostosAlimentares) {
         bancoDados = gerenciador.getWritableDatabase();
-
-        ContentValues dados = new ContentValues();
-
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO, compostosAlimentares.getTipo());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR, compostosAlimentares.getIdentificador());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MS, compostosAlimentares.getMS());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN, compostosAlimentares.getFDN());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_EE, compostosAlimentares.getEE());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MM, compostosAlimentares.getMM());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF, compostosAlimentares.getCNF());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_PB, compostosAlimentares.getPB());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT, compostosAlimentares.getNDT());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA, compostosAlimentares.getFDA());
-        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO, compostosAlimentares.getDescricao());
         int retorno = 0;
         try {
             retorno = bancoDados.update(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES,
-                    dados, SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = ?",
+                    getContentValues(compostosAlimentares), SQLiteManager.COMPOSTOS_ALIMENTARES_ID + " = ?",
                     new String[]{String.valueOf(compostosAlimentares.getId())});
 
         } catch (Exception ex) {
-
+            Log.i("RepCompostosAlimentares", ex.toString());
         }
         bancoDados.close();
 
@@ -200,23 +153,40 @@ public class RepositorioCompostosAlimentares {
     }
 
     private CompostosAlimentares getDadosFromCursor(Cursor c) {
-        Calendar data = Calendar.getInstance();
         CompostosAlimentares compostosAlimentares = new CompostosAlimentares();
 
         compostosAlimentares.setId(c.getInt(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_ID)));
         compostosAlimentares.setTipo(c.getString(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO)));
         compostosAlimentares.setIdentificador(c.getString(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR)));
-        compostosAlimentares.setMS(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MS)));
-        compostosAlimentares.setFDN(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN)));
-        compostosAlimentares.setEE(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_EE)));
-        compostosAlimentares.setMM(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MM)));
-        compostosAlimentares.setCNF(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF)));
-        compostosAlimentares.setPB(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_PB)));
-        compostosAlimentares.setNDT(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT)));
-        compostosAlimentares.setFDA(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA)));
+        compostosAlimentares.setMs(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MS)));
+        compostosAlimentares.setFdn(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN)));
+        compostosAlimentares.setEe(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_EE)));
+        compostosAlimentares.setMm(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_MM)));
+        compostosAlimentares.setCnf(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF)));
+        compostosAlimentares.setPb(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_PB)));
+        compostosAlimentares.setNdt(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT)));
+        compostosAlimentares.setFda(c.getFloat(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA)));
         compostosAlimentares.setDescricao(c.getString(c.getColumnIndex(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO)));
 
         return compostosAlimentares;
+    }
+
+    private ContentValues getContentValues(CompostosAlimentares compostosAlimentares) {
+        ContentValues dados = new ContentValues();
+
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO, compostosAlimentares.getTipo());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR, compostosAlimentares.getIdentificador());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MS, compostosAlimentares.getMs());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDN, compostosAlimentares.getFdn());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_EE, compostosAlimentares.getEe());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_MM, compostosAlimentares.getMm());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_CNF, compostosAlimentares.getCnf());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_PB, compostosAlimentares.getPb());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_NDT, compostosAlimentares.getNdt());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_FDA, compostosAlimentares.getFda());
+        dados.put(SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO, compostosAlimentares.getDescricao());
+
+        return dados;
     }
 
 }

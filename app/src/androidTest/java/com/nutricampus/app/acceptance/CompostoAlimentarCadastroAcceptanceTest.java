@@ -28,7 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoTestes {

@@ -34,6 +34,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
@@ -138,6 +139,17 @@ abstract class AbstractPreparacaoTestes {
             Thread.sleep(tempo);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    public void validaToast(String mensagem) {
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText(mensagem);
+            espera(4000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Toast não identificado");
         }
     }
 }

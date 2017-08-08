@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tela_cadastrarcompostosalimentares"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e4e4e4"
+    android:minHeight="300dp"
+    android:minWidth="300dp"
     android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
     android:paddingTop="05dp"
     android:weightSum="1"
     tools:context="com.nutricampus.app.activities.CadastrarCompostosAlimentaresActivity">
@@ -15,220 +15,232 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/caixa_arredondada"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/margin_form">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="0.4">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/input_composto_identificador"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/campo_composto"
-                android:inputType="textCapWords"
-                android:nextFocusForward="@+id/input_composto_tipo" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="0.6">
-
-            <EditText
-                android:id="@+id/input_composto_tipo"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/campo_tipo"
-                android:inputType="text|number"
-                android:nextFocusForward="@+id/input_composto_ms" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="0.4">
+
+                <EditText
+                    android:id="@+id/input_composto_identificador"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_composto"
+                    android:inputType="textCapWords"
+                    android:nextFocusForward="@+id/input_composto_tipo" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="0.6">
+
+                <EditText
+                    android:id="@+id/input_composto_tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/campo_tipo"
+                    android:inputType="text|number"
+                    android:nextFocusForward="@+id/input_composto_ms" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_ms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_ms"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_fdn" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_fdn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_fdn"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_ee" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_ee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_ee"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_mm" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_mm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_mm"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_cnf" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_cnf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_cnf"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_pb" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_pb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_pb"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_ndt" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_ndt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_ndt"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_fda" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_fda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/camp_fda"
+                    android:inputType="numberDecimal"
+                    android:nextFocusForward="@+id/input_composto_descricao" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_inputs_form"
+                android:layout_marginTop="@dimen/margin_inputs_form"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_composto_descricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/campo_descricao"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_salvar_cadastro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:layout_marginTop="18dp"
+            android:padding="12dp"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/save"
+            android:drawableStart="@drawable/save"
+            android:onClick="criarComposto"
+            android:text="@string/save" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_ms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="MS%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_fdn" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_fdn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="FDN%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_ee" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_ee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="EE%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_mm" />
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_mm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="MM%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_cnf" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_cnf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="CNF%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_pb" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_pb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="PB%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_ndt" />
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_ndt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="NDT%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_fda" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_fda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="FDA%"
-                android:inputType="numberDecimal"
-                android:nextFocusForward="@+id/input_composto_descricao" />
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_inputs_form"
-            android:layout_marginTop="@dimen/margin_inputs_form"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/input_composto_descricao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descrição"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/btn_salvar_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:drawableLeft="@drawable/save"
-        android:onClick="criarComposto"
-        android:text="@string/save" />
-
-</LinearLayout>
+</ScrollView>

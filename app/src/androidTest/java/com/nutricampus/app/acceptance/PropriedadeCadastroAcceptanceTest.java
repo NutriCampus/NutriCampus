@@ -67,18 +67,18 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
     @Test
     public void cadastrarComCamposEmBranco() throws Exception {
 
-        Thread.sleep(1200);
+        espera(1200);
 
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
 
-        Thread.sleep(500);
+        espera(500);
 
         appCompatButton6.perform(scrollTo(), click());
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             fail("Toast de mensagem de falha não identificado");
             e.printStackTrace();
@@ -90,11 +90,11 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         ViewInteraction appCompatSpinner = onView(
                 withId(R.id.spinner_proprietario));
-        Thread.sleep(1000);
+        espera(1000);
 
         appCompatSpinner.perform(scrollTo(), click());
         closeKeyboard();
-        Thread.sleep(500);
+        espera(500);
         ViewInteraction appCompatCheckedTextView = onView(
                 allOf(withId(android.R.id.text1), withText("Proprietario 1"),
                         childAtPosition(
@@ -102,7 +102,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
                         isDisplayed()));
-        Thread.sleep(1000);
+        espera(1000);
         appCompatCheckedTextView.perform(click());
         closeKeyboard();
 
@@ -115,7 +115,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         // Usando o meio abaixo já que o Toast não estava sendo identificado pelo check
         try {
-            Thread.sleep(500);
+            espera(500);
 
             onView(withText("Propriedade OMEGA")).perform(click());
             pressBack();
@@ -123,8 +123,6 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             fail("Não existe essa view");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -136,13 +134,13 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         closeKeyboard();
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-        Thread.sleep(1000);
+        espera(1000);
         appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             fail("Toast de mensagem de falha não identificado");
             e.printStackTrace();
@@ -186,7 +184,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
                 .perform(typeTextIntoFocusedView("e"));
 
         closeKeyboard();
-        Thread.sleep(2000);
+        espera(2000);
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -204,19 +202,19 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         closeKeyboard();
 
-        Thread.sleep(2000);
+        espera(2000);
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
 
-        Thread.sleep(1000);
+        espera(1000);
     }
 
 
     private void clicarFloatingButton() throws Exception {
         ViewInteraction floatingActionButton = onView(withId(R.id.fabList));
         floatingActionButton.perform(click());
-        Thread.sleep(500);
+        espera(500);
 
         ViewInteraction floatingItem = onView(withId(R.id.fabPropriedade));
         floatingItem.perform(click());

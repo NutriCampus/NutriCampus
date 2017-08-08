@@ -11,48 +11,39 @@ public class CompostosAlimentares {
     private int id;
     private String tipo;
     private String identificador;
-    private double MS;
-    private double FDN;
-    private double EE;
-    private double MM;
-    private double CNF;
-    private double PB;
-    private double NDT;
-    private double FDA;
+    private double ms;
+    private double fdn;
+    private double ee;
+    private double mm;
+    private double cnf;
+    private double pb;
+    private double ndt;
+    private double fda;
     private String descricao;
 
     public CompostosAlimentares() {
     }
 
-    public CompostosAlimentares(String tipo, String identificador, double MS, double FDN,
-                                double EE, double MM, double CNF, double PB, double NDT, double FDA, String descricao) {
+    public CompostosAlimentares(String tipo, String identificador, double ms, double fdn,
+                                double ee, double mm, double cnf, double pb, double ndt, double fda, String descricao) {
         this.tipo = tipo;
         this.identificador = identificador;
-        this.MS = MS;
-        this.FDN = FDN;
-        this.EE = EE;
-        this.MM = MM;
-        this.CNF = CNF;
-        this.PB = PB;
-        this.NDT = NDT;
-        this.FDA = FDA;
+        this.ms = ms;
+        this.fdn = fdn;
+        this.ee = ee;
+        this.mm = mm;
+        this.cnf = cnf;
+        this.pb = pb;
+        this.ndt = ndt;
+        this.fda = fda;
         this.descricao = descricao;
     }
 
-    public CompostosAlimentares(int id, String tipo, String identificador, double MS, double FDN,
-                                double EE, double MM, double CNF, double PB, double NDT, double FDA, String descricao) {
+    public CompostosAlimentares(int id, String tipo, String identificador, double ms, double fdn,
+                                double ee, double mm, double cnf, double pb, double ndt, double fda, String descricao) {
+
+        this(tipo, identificador, ms, fdn, ee, mm, cnf, pb, ndt, fda, descricao);
         this.id = id;
-        this.tipo = tipo;
-        this.identificador = identificador;
-        this.MS = MS;
-        this.FDN = FDN;
-        this.EE = EE;
-        this.MM = MM;
-        this.CNF = CNF;
-        this.PB = PB;
-        this.NDT = NDT;
-        this.FDA = FDA;
-        this.descricao = descricao;
     }
 
     public int getId() {
@@ -79,68 +70,68 @@ public class CompostosAlimentares {
         this.identificador = identificador;
     }
 
-    public double getMS() {
-        return MS;
+    public double getMs() {
+        return ms;
     }
 
-    public void setMS(double MS) {
-        this.MS = MS;
+    public void setMs(double ms) {
+        this.ms = ms;
     }
 
-    public double getFDN() {
-        return FDN;
+    public double getFdn() {
+        return fdn;
     }
 
-    public void setFDN(double FDN) {
-        this.FDN = FDN;
+    public void setFdn(double fdn) {
+        this.fdn = fdn;
     }
 
-    public double getEE() {
-        return EE;
+    public double getEe() {
+        return ee;
     }
 
-    public void setEE(double EE) {
-        this.EE = EE;
+    public void setEe(double ee) {
+        this.ee = ee;
     }
 
-    public double getMM() {
-        return MM;
+    public double getMm() {
+        return mm;
     }
 
-    public void setMM(double MM) {
-        this.MM = MM;
+    public void setMm(double mm) {
+        this.mm = mm;
     }
 
-    public double getCNF() {
-        return CNF;
+    public double getCnf() {
+        return cnf;
     }
 
-    public void setCNF(double CNF) {
-        this.CNF = CNF;
+    public void setCnf(double cnf) {
+        this.cnf = cnf;
     }
 
-    public double getPB() {
-        return PB;
+    public double getPb() {
+        return pb;
     }
 
-    public void setPB(double PB) {
-        this.PB = PB;
+    public void setPb(double pb) {
+        this.pb = pb;
     }
 
-    public double getNDT() {
-        return NDT;
+    public double getNdt() {
+        return ndt;
     }
 
-    public void setNDT(double NDT) {
-        this.NDT = NDT;
+    public void setNdt(double ndt) {
+        this.ndt = ndt;
     }
 
-    public double getFDA() {
-        return FDA;
+    public double getFda() {
+        return fda;
     }
 
-    public void setFDA(double FDA) {
-        this.FDA = FDA;
+    public void setFda(double fda) {
+        this.fda = fda;
     }
 
     public String getDescricao() {
@@ -157,19 +148,16 @@ public class CompostosAlimentares {
                 "id=" + id +
                 ", tipo='" + tipo + '\'' +
                 ", identificador='" + identificador + '\'' +
-                ", MS=" + MS +
-                ", FDN=" + FDN +
-                ", EE=" + EE +
-                ", MM=" + MM +
-                ", CNF=" + CNF +
-                ", PB=" + PB +
-                ", NDT=" + NDT +
-                ", FDA=" + FDA +
+                ", ms=" + ms +
+                ", fdn=" + fdn +
+                ", ee=" + ee +
+                ", mm=" + mm +
+                ", cnf=" + cnf +
+                ", pb=" + pb +
+                ", ndt=" + ndt +
+                ", fda=" + fda +
                 ", descricao='" + descricao + '\'' +
                 '}';
     }
 
-    public void print() {
-        System.out.println(this.toString());
-    }
 }

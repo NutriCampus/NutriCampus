@@ -23,13 +23,15 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
-@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
@@ -88,18 +90,11 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
                 allOf(withId(R.id.input_composto_identificador), isDisplayed()));
         appCompatEditText1.perform(replaceText(id2), closeSoftKeyboard());
 
-        espera(500);
-
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(R.id.btn_salvar_cadastro), withText("Atualizar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarcompostosalimentares),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        appCompatButton5.perform(click());
+        clicarAtualizar();
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Composto já cadastrado!");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,13 +127,12 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
         appCompatEditText2.perform(replaceText("identificador999"), closeSoftKeyboard());
         appCompatEditText3.perform(replaceText("999999"), closeSoftKeyboard());
 
-        try {
-            Thread.sleep(500);
-            new ToastMatcher().isToastMessageDisplayedWithText("Registro atualizado com sucesso");
-            Thread.sleep(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        espera(500);
+
+        clicarAtualizar();
+
+        ViewInteraction text = onView(allOf(withId(R.id.lista_composto_nome), withText("identificador999")));
+        text.check(matches(withText("identificador999")));
 
     }
 
@@ -146,8 +140,7 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
     //TA-03: Atualizar o composto alimentar por um nome vazio;
     public void atualizarCompostoPorNomeVazio_TA3() {
 
-        onView(withText(id1))
-                .perform(longClick());
+        onView(withText(id1)).perform(longClick());
 
         espera(500);
 
@@ -159,21 +152,20 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
                 allOf(withId(R.id.input_composto_identificador), isDisplayed()));
         appCompatEditText2.perform(replaceText(""), closeSoftKeyboard());
 
-        espera(500);
-
         clicarAtualizar();
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Preencha todos os campos");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
     }
 
     @Test
     //TA-04: Atualizar o composto alimentar deixando um nutriente vazio;
-    public void atualizarCompostoPorNomeJaExistente_TA4() {
+    public void atualizarCompostoComNutrienteVazio_TA4() {
         onView(withText(id1)).perform(longClick());
 
         espera(500);
@@ -186,26 +178,22 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
                 allOf(withId(R.id.input_composto_ms), isDisplayed()));
         appCompatEditText3.perform(replaceText(""), closeSoftKeyboard());
 
-        espera(500);
-
         clicarAtualizar();
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Preencha todos os campos");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
 
     }
 
     public void clicarAtualizar() {
-        ViewInteraction appCompatButton7 = onView(
-                allOf(withId(R.id.btn_salvar_cadastro), withText("Atualizar"),
-                        withParent(allOf(withId(R.id.tela_cadastrarcompostosalimentares),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        appCompatButton7.perform(click());
+        espera(500);
+        ViewInteraction appCompatButton = onView(withId(R.id.btn_salvar_cadastro));
+        appCompatButton.perform(scrollTo(), click());
     }
 
 }

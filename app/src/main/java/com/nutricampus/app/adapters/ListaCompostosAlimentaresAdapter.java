@@ -41,7 +41,7 @@ public class ListaCompostosAlimentaresAdapter extends BaseAdapter {
     public View getView(int indice, final View convertView, ViewGroup viewGroup) {
         final View view = act.getLayoutInflater()
                 .inflate(R.layout.lista_composto_personalizada, viewGroup, false);
-        final CompostosAlimentares compostosAlimentares = this.compostosAlimentares.get(indice);
+        final CompostosAlimentares compostos = this.compostosAlimentares.get(indice);
 
         //pegando as referências das Views
         TextView id = (TextView) view.findViewById(R.id.lista_composto_id);
@@ -50,10 +50,10 @@ public class ListaCompostosAlimentaresAdapter extends BaseAdapter {
         TextView descricao = (TextView) view.findViewById(R.id.lista_composto_descricao);
 
         //populando as Views
-        id.setText(String.valueOf(compostosAlimentares.getId()));
-        nome.setText(compostosAlimentares.getIdentificador());
-        tipo.setText(compostosAlimentares.getTipo());
-        descricao.setText(compostosAlimentares.getDescricao());
+        id.setText(String.valueOf(compostos.getId()));
+        nome.setText(compostos.getIdentificador());
+        tipo.setText(compostos.getTipo());
+        descricao.setText(compostos.getDescricao());
 
         return view;
     }

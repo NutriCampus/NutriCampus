@@ -3,14 +3,10 @@ package com.nutricampus.app.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioCompostosAlimentares;
-import com.nutricampus.app.entities.CompostosAlimentares;
 
-@SuppressWarnings("squid:S1172") // Ignora o erro do sonarqube para os parametros "view"
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class VisualizarCompostoActivity extends CadastrarCompostosAlimentaresActivity {
 
     @Override
@@ -21,19 +17,7 @@ public class VisualizarCompostoActivity extends CadastrarCompostosAlimentaresAct
     }
 
     private void inicializaCampos() {
-        identificador = (EditText) findViewById(R.id.input_composto_identificador);
-        tipo = (EditText) findViewById(R.id.input_composto_tipo);
-        ms = (EditText) findViewById(R.id.input_composto_ms);
-        fdn = (EditText) findViewById(R.id.input_composto_fdn);
-        ee = (EditText) findViewById(R.id.input_composto_ee);
-        mm = (EditText) findViewById(R.id.input_composto_mm);
-        cnf = (EditText) findViewById(R.id.input_composto_cnf);
-        pb = (EditText) findViewById(R.id.input_composto_pb);
-        ndt = (EditText) findViewById(R.id.input_composto_ndt);
-        fda = (EditText) findViewById(R.id.input_composto_fda);
-        descricao = (EditText) findViewById(R.id.input_composto_descricao);
-
-        int id = getIntent().getIntExtra("id", 0);
+        super.init();
 
         identificador.setText(getIntent().getStringExtra("identificador"));
         identificador.setEnabled(false);
@@ -58,7 +42,7 @@ public class VisualizarCompostoActivity extends CadastrarCompostosAlimentaresAct
         descricao.setText(getIntent().getStringExtra("descricao"));
         descricao.setEnabled(false);
 
-        btn_salvar = (Button) findViewById(R.id.btn_salvar_cadastro);
-        btn_salvar.setVisibility(View.GONE);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
+        btnSalvar.setVisibility(View.GONE);
     }
 }

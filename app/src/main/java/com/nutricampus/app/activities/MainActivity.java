@@ -25,13 +25,11 @@ public class MainActivity extends AppCompatActivity
 
     private ActionBarManager actionBar;
 
-    private SharedPreferencesManager session;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new SharedPreferencesManager(getApplicationContext());
+        SharedPreferencesManager session = new SharedPreferencesManager(getApplicationContext());
         session.checkLogin();
 
         setContentView(R.layout.activity_main);

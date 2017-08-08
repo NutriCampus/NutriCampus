@@ -11,5 +11,5 @@
     tools:context="com.nutricampus.app.activities.CadastrarNovoDadoComplActivity"
     android:background="#e4e4e4">
 
-    <include layout="@layout/content_form_dados_complementares"></include>
+    <include layout="@layout/content_form_dados_complementares" />
 </ScrollView>

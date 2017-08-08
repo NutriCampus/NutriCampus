@@ -29,7 +29,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-@java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
+@java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoTestes {
@@ -84,7 +84,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Composto removido com sucesso");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,7 +110,7 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
         try {
             new ToastMatcher().isToastMessageDisplayedWithText("Composto removido com sucesso");
-            Thread.sleep(3500);
+            espera(3500);
         } catch (Exception e) {
             e.printStackTrace();
         }
