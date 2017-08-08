@@ -103,14 +103,9 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         clicarExcluir();
         clicarSim();
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Composto removido com sucesso");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-
+        longClickElemento(id2);
+        clicarExcluir();
+        clicarSim();
 
         ViewInteraction linearLayout2 = onView(
                 allOf(childAtPosition(

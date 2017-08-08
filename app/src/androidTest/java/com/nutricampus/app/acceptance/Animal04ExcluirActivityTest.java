@@ -3,7 +3,6 @@ package com.nutricampus.app.acceptance;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +30,7 @@ public class Animal04ExcluirActivityTest extends AbstractPreparacaoTestes {
 
     @Test
     public void excluiAnimalCadastrado() throws Exception {//Excluir Animal ("Sim")
+        doLogout();
         realizaLogin();
         abrirMenu();
         clicarItemMenu(5);
@@ -53,13 +53,6 @@ public class Animal04ExcluirActivityTest extends AbstractPreparacaoTestes {
             fail("Toast de confirmação não identificado");
             e.printStackTrace();
         }
-    }
-
-    @Before
-    public void prepararTeste() throws Exception {
-        realizaLogin();
-        abrirMenu();
-        clicarItemMenu(5);
     }
 
 }

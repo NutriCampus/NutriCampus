@@ -39,15 +39,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLinha"
-                android:layout_marginBottom="10dp"
-                />
+                android:layout_marginBottom="10dp" />
+
             <ListView
                 android:id="@+id/listaCompostosAlimentares"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:choiceMode="multipleChoice"
                 android:listSelector="@color/colorItemListSelected"
-                android:longClickable="true"/>
+                android:longClickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,13 +56,12 @@
                 android:text="@string/campo_nenhum_composto"
                 android:drawableTop="@drawable/farm"
                 android:id="@android:id/empty"
-                android:gravity="center"/>
+                android:gravity="center" />
 
         </LinearLayout>
 
 
     </LinearLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>

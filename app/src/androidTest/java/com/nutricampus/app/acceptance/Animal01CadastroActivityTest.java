@@ -101,12 +101,8 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText55.perform(replaceText("17/07/2017"), closeSoftKeyboard());
         closeKeyboard();
 
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
@@ -205,13 +201,8 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText55.perform(replaceText("17/07/2013"), closeSoftKeyboard());
         closeKeyboard();
 
-        Thread.sleep(1500);
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
 
         ViewInteraction editText = onView(
@@ -339,15 +330,8 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText55.perform(replaceText("17/12/2015"), closeSoftKeyboard());
         closeKeyboard();
 
-        Thread.sleep(1500);
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        Thread.sleep(1000);
+        clicarBotao(R.id.btnConfimarDados, true);
 
-        appCompatButton8.perform(click());
         closeKeyboard();
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
@@ -437,15 +421,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         pressBack();
 
         Thread.sleep(1500);
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        closeKeyboard();
-        Thread.sleep(1000);
-
-        appCompatButton5.perform(click());
+        clicarBotao(R.id.btnConfimarDados, true);
 
 
         closeKeyboard();
@@ -493,15 +469,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         pressBack();
         Thread.sleep(1500);
 
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        closeKeyboard();
-        Thread.sleep(1000);
-
-        appCompatButton5.perform(click());
+        clicarBotao(R.id.btnConfimarDados, true);
 
         closeKeyboard();
         swipeUp();
@@ -552,12 +520,8 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText55.perform(replaceText("17/07/2013"), closeSoftKeyboard());
         closeKeyboard();
 
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
         closeKeyboard();
         ViewInteraction editText = onView(

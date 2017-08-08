@@ -32,7 +32,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerPropriedade"/>
+                android:id="@+id/spinnerPropriedade" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLinha"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
             <ListView
                 android:id="@+id/listaAnimais"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:choiceMode="multipleChoice"
                 android:listSelector="@color/colorItemListSelected"
-                android:longClickable="true"/>
+                android:longClickable="true" />
 
 
             <TextView
@@ -76,7 +76,7 @@
                 android:layout_gravity="center"
                 android:text="@string/campo_nenhum_animal"
                 android:drawableTop="@drawable/cow"
-                android:id="@android:id/empty"/>
+                android:id="@android:id/empty" />
 
         </LinearLayout>
 
@@ -88,6 +88,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_light"/>
+        app:srcCompat="@drawable/ic_add_light" />
 
 </android.support.design.widget.CoordinatorLayout>
