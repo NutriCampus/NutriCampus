@@ -76,12 +76,14 @@
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_proprietario_sucesso">Proprietário removido com sucesso </string>
+    <string name="msg_excluir_composto_sucesso">Composto removido com sucesso </string>
     <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_proprietario_falha">Falha ao tentar remover o proprietátio</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover</string>
     <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
     <string name="msg_excluir_confirmar_propritario">Tem certeza que deseja remover o(a) proprietário(a) %1$s, isso excluirá as propriedades vinculados a ele(a)?</string>
+    <string name="msg_excluir_confirmar_composto_alimentar">Tem certeza que deseja remover o Composto %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
     <string name="proprietario">Proprietário</string>
@@ -108,6 +110,7 @@
     <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
     <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
     <string name="campo_nenhum_proprietario">Nenhum proprietário cadastrado</string>
+    <string name="campo_nenhum_composto">Nenhum composto cadastrado</string>
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>
@@ -172,12 +175,14 @@
     <!-- titulos das telas -->
     <string name="titulo_recuperar_senha">Recuperar senha</string>
     <string name="titulo_novo_usuario">Novo usuário</string>
+    <string name="titulo_novo_composto">Novo composto</string>
     <string name="titulo_novo_proprietario">Novo proprietário</string>
     <string name="titulo_nova_producao_leite">Novo registro</string>
     <string name="titulo_nova_prole">Nova Prole</string>
     <string name="titulo_prole">Prole</string>
     <string name="titulo_editar_prole">Editar prole</string>
     <string name="titulo_lista_propriedade">Propriedades</string>
+    <string name="titulo_lista_compostos_alimentares">Compostos Alimentares</string>
     <string name="titulo_add_propriedade">Nova propriedade</string>
     <string name="titulo_editar_propriedade">Editar propriedade</string>
     <string name="titulo_editar_producao">Editar produção de leite</string>
@@ -218,5 +223,13 @@
     <string name="text_floating_propriedade">Propriedade</string>
     <string name="text_floating_proprietarios">Proprietários</string>
 
+    <string name="campo_composto">Nome Composto</string>
+    <string name="campo_tipo">Tipo</string>
+    <string name="msg_compostos_erro_preenchimento">Preencha todos os campos</string>
+    <string name="menu_visualizar_composto">Visualizar composto</string>
+    <string name="titulo_editar_composto">Editar composto</string>
+    <string name="titulo_visualizar_composto">Visualizar composto</string>
+    <string name="msg_excluir_composto_falha">Falha ao tentar remover o composto</string>
+    <string name="msg_erro_cadastro_composto">Composto já cadastrado!</string>
 
 </resources>
