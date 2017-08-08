@@ -138,6 +138,7 @@ public class DadosComplementaresFragment extends Fragment
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+
             inputData.setText(Conversor.dataFormatada(data));
         } else {
             this.data.setTime(Conversor.stringToDate(inputData.getText().toString()));

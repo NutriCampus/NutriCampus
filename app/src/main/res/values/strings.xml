@@ -18,6 +18,7 @@
     <string name="entrar">Entrar</string>
     <string name="recuperar_senha">Recuperar senha</string>
 
+    <string name="alter_senha">Caso altere a senha, ocorrerá logout..</string>
     <string name="menu_adicionar">Adicionar</string>
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
@@ -86,6 +87,8 @@
     <string name="msg_excluir_confirmar_composto_alimentar">Tem certeza que deseja remover o Composto %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
+    <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
+
     <string name="proprietario">Proprietário</string>
     <string name="campo_nome">Nome</string>
     <string name="campo_crz_crmv">CRZ/CRMV</string>
@@ -97,6 +100,14 @@
 
     <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
     <string name="unidade_medida_porcento">%</string>
+
+    <!-- Preference -->
+    <string name="titulo_conta">Conta</string>
+    <string name="pref_conta">conta</string>
+    <string name="titulo_sincronizacao">Sincronizar dados</string>
+    <string name="sumario_sincronizacao">Enviar dados para o servidor</string>
+    <string name="pref_sincronizar">sincronizar</string>
+
 
     <!-- Strings: Animais, Prole -->
     <string name="campo_animal">Animal</string>

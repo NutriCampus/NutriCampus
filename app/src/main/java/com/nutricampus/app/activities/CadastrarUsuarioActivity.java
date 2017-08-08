@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -52,6 +54,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         edtRegistro = (EditText) findViewById(R.id.edtRegistro);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
+        txtAlterSenha = (TextView) findViewById(R.id.txt_alter_senha);
 
         edtCpf.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, edtCpf));
     }
@@ -90,7 +94,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
             CadastrarUsuarioActivity.this.finish();
-
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }

@@ -23,6 +23,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String SELECT_TODOS = "SELECT * FROM ";
     public static final String ORDER_BY = " ORDER BY ";
 
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
+    private static final String DELETE_CASCADE = " ON DELETE CASCADE";
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
@@ -239,8 +241,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_COMPOSTOS_ALIMENTARES);
         this.onCreate(sqLiteDatabase);
-
     }
-
 
 }

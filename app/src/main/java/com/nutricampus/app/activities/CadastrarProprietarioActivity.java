@@ -17,6 +17,16 @@ import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Mascara;
 import com.nutricampus.app.utils.ValidaFormulario;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
+
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já
@@ -43,6 +53,8 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         this.inputFoneProprietario = (EditText) findViewById(R.id.input_fone_proprietario);
         this.btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
     }
+
+    private int voltarProprietarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,14 +156,14 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if(item.getItemId() == android.R.id.home)
             voltarActivity();
-        }
+
         return true;
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         voltarActivity();
     }
 

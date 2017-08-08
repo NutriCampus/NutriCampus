@@ -223,8 +223,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     public void criarProprietario(View view) {
@@ -302,22 +300,10 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public void onNothingSelected(AdapterView<?> adapterView) {
         // Implementação necessário por causa da Interface usada nesta classe
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home)
             voltarActivity();
-
-        if (item.getItemId() == android.R.id.home) {
-            Intent it;
-            if (voltarCadAnimal == 1)
-                it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
-            else
-                it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-            startActivity(it);
-            finish();
-        }
-
         return true;
     }
 

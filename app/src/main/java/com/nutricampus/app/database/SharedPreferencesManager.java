@@ -34,6 +34,7 @@ public class SharedPreferencesManager {
     private static final String KEY_SENHA = PREF_NAME + "senha";
     private static final String KEY_EMAIL = PREF_NAME + "email";
     private static final String KEY_ID_USUARIO = PREF_NAME + "idUsuario";
+    private final String KEY_CRMVNC = PREF_NAME + "crmvNC";
     private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {
@@ -103,7 +104,16 @@ public class SharedPreferencesManager {
         editor.commit();
     }
 
-    public void createLoginSession(int id, String name, String email, String senha){
+    public String getCrmvNC() {
+        return pref.getString(KEY_CRMVNC, "");
+    }
+
+    public void setCrmvNC(String keyCrmvNC) {
+        editor.putString(KEY_CRMVNC, keyCrmvNC);
+        editor.commit();
+    }
+
+    public void createLoginSession(int id, String name, String email, String senha, String crmv){
         // Storing login value as TRUE
         editor.putBoolean(KEY_LOGADO, true);
 
@@ -114,6 +124,7 @@ public class SharedPreferencesManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_SENHA, senha);
         editor.putString(KEY_ID_USUARIO, Integer.toString(id));
+        editor.putString(KEY_CRMVNC, crmv);
 
         // commit changes
         editor.commit();

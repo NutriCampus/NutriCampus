@@ -12,6 +12,12 @@ import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.utils.ValidaFormulario;
 
 
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
+
 /*
 Explicação para a supressão de warnings:
  - "squid:MaximumInheritanceDepth" = herança extendida em muitos niveis (mais que 5), permitido aqui já

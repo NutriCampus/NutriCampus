@@ -13,7 +13,9 @@ import com.nutricampus.app.entities.Proprietario;
 import java.util.List;
 
 /**
- * Created by felipe on 01/08/17.
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
  */
 
 public class ListaProprietariosAdapter extends BaseAdapter {

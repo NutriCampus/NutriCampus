@@ -9,4 +9,5 @@
     <color name="colorFabTextView">#FFFFFF</color>
     <color name="colorFabProprietarios">#3F51B5</color>
     <color name="colorFabPropriedade">#FFC107</color>
+    <color name="colorTxtAlterSenha">#FFA500</color>
 </resources>

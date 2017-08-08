@@ -138,13 +138,15 @@ public class RepositorioUsuario {
 
     }
 
-    public void removerUsuario(Usuario usuario) {
+    public int removerUsuario(Usuario usuario) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_USUARIO,
+        int linhasAfetadas = bancoDados.delete(SQLiteManager.TABELA_USUARIO,
                 SQLiteManager.USUARIO_COL_ID + " = ? ",
                 new String[]{String.valueOf(usuario.getId())});
 
         bancoDados.close();
+
+        return linhasAfetadas;
     }
 
 }
