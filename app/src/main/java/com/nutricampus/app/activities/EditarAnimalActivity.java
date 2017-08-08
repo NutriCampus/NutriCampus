@@ -2,6 +2,7 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
 
         Intent intent = getIntent();
         Animal dadosAnimal = (Animal) intent.getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
+
+        Log.e("FGP", "idProp: " + dadosAnimal.getIdPropriedade());
 
         inicializarViewPager(dadosAnimal, EditarAnimalActivity.this, null);
 
