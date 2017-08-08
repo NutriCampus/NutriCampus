@@ -31,6 +31,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,7 @@ import static org.hamcrest.Matchers.allOf;
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@Ignore
 public class ProducaoDeLeiteCadastrarAcceptanceTest {
 
     public Activity currentActivity = null;

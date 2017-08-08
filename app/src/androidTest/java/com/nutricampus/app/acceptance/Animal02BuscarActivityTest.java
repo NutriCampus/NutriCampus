@@ -41,7 +41,7 @@ import static org.junit.Assert.fail;
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-
+@Ignore
 public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
 
     @Test

@@ -4,6 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -26,6 +27,7 @@ import static org.junit.Assert.fail;
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore
 public class Animal04ExcluirActivityTest extends AbstractPreparacaoTestes {
 
     @Test

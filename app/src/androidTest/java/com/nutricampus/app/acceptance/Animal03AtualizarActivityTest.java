@@ -9,6 +9,7 @@ import com.nutricampus.app.R;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -33,6 +34,7 @@ import static org.hamcrest.Matchers.is;
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore
 public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Test
