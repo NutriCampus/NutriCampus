@@ -113,7 +113,7 @@ public class SharedPreferencesManager {
         editor.commit();
     }
 
-    public void createLoginSession(int id, String name, String email, String senha, String crmv){
+    public void createLoginSession(int id, String name, String email, String senha, String crmv) {
         // Storing login value as TRUE
         editor.putBoolean(KEY_LOGADO, true);
 
@@ -129,9 +129,10 @@ public class SharedPreferencesManager {
         // commit changes
         editor.commit();
     }
-    public void checkLogin(){
+
+    public void checkLogin() {
         // Check login status
-        if(!this.isLoggedIn()){
+        if (!this.isLoggedIn()) {
             // user is not logged in redirect him to Login Activity
             Intent i = new Intent(context, LoginActivity.class);
             // Closing all the Activities
@@ -147,7 +148,7 @@ public class SharedPreferencesManager {
     }
 
 
-    public void logoutUser(){
+    public void logoutUser() {
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
@@ -164,7 +165,7 @@ public class SharedPreferencesManager {
         context.startActivity(i);
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return pref.getBoolean(KEY_LOGADO, false);
     }
 }

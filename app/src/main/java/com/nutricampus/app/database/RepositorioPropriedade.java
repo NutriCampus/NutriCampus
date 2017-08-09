@@ -189,7 +189,6 @@ public class RepositorioPropriedade {
     }
 
 
-
     public boolean atualizarPropriedade(Propriedade propriedade) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -205,19 +204,6 @@ public class RepositorioPropriedade {
 
     }
 
-    /*
-    public int removerPropriedade(Propriedade propriedade) {
-        bancoDados = gerenciador.getWritableDatabase();
-
-        int result = bancoDados.delete(SQLiteManager.TABELA_PROPRIEDADE,
-                SQLiteManager.PROPRIEDADE_COL_ID + " = ? ",
-                new String[]{String.valueOf(propriedade.getId())});
-
-        bancoDados.close();
-
-        return result;
-    }
-    */
     public int removerPropriedade(Propriedade propriedade) {
         return excluirRegistros(propriedade.getId(), 1);
     }
@@ -231,7 +217,7 @@ public class RepositorioPropriedade {
         String coluna;
 
         //tipo = 1 (ID propriedade) | tipo = 2 (ID Usuario) | tipo = 3 (ID Proprietário)
-        if(tipo == 1)
+        if (tipo == 1)
             coluna = SQLiteManager.PROPRIEDADE_COL_ID;
         else
             coluna = SQLiteManager.PROPRIEDADE_COL_ID_PROPRIETARIO;
@@ -255,7 +241,6 @@ public class RepositorioPropriedade {
         bancoDados.close();
 
     }
-
 
 
     private ContentValues getContentValues(Propriedade propriedade) {

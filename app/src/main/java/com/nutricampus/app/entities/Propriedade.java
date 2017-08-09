@@ -22,7 +22,8 @@ public class Propriedade implements Serializable {
     private int idProprietario;
     private int idUsuario;
 
-    public Propriedade() {}
+    public Propriedade() {
+    }
 
     public Propriedade(String nome, String telefone, String logradouro, String bairro, String cep,
                        String cidade, String estado, String numero, int idProprietario, int idUsuario) {
@@ -136,20 +137,20 @@ public class Propriedade implements Serializable {
     @Override
     public boolean equals(Object obj) {
 
-        if( (obj == null) || !(obj instanceof Propriedade))
+        if ((obj == null) || !(obj instanceof Propriedade))
             return false;
 
         Propriedade objeto = (Propriedade) obj;
 
         return ((objeto.getId() == (this.getId())) &&
-                (objeto.getNome().equals(this.getNome()))  &&
+                (objeto.getNome().equals(this.getNome())) &&
                 (objeto.getTelefone().equals(this.getTelefone())) &&
                 (objeto.getLogradouro().equals(this.getLogradouro())) &&
-                (objeto.getBairro().equals(this.getBairro()))  &&
-                (objeto.getCep().equals(this.getCep()))  &&
-                (objeto.getCidade().equals(this.getCidade()))  &&
-                (objeto.getEstado().equals(this.getEstado()))  &&
-                (objeto.getNumero().equals(this.getNumero()))  &&
+                (objeto.getBairro().equals(this.getBairro())) &&
+                (objeto.getCep().equals(this.getCep())) &&
+                (objeto.getCidade().equals(this.getCidade())) &&
+                (objeto.getEstado().equals(this.getEstado())) &&
+                (objeto.getNumero().equals(this.getNumero())) &&
                 (objeto.getIdProprietario() == (this.getIdProprietario())) &&
                 (objeto.getIdUsuario() == (this.getIdUsuario())));
 

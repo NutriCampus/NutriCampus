@@ -51,13 +51,13 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
         longClickElemento("Jorge Veloso");
         clicarBotao(android.R.id.title, "Excluir");
 
-        clicarBotao(android.R.id.button2, "Sim");
+        clicarBotao(android.R.id.button1, "Sim");
 
         espera(500);
         longClickElemento("ProprietarioTeste1");
         clicarBotao(android.R.id.title, "Excluir");
 
-        clicarBotao(android.R.id.button2, "Sim");
+        clicarBotao(android.R.id.button1, "Sim");
 
         espera(500);
 
@@ -96,9 +96,10 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
         closeKeyboard();
 
         longClickElemento("ProprietarioTeste1");
+
         clicarBotao(android.R.id.title, "Excluir");
 
-        clicarBotao(android.R.id.button2, "Sim");
+        clicarBotao(android.R.id.button1, "Sim");
 
         espera(1000);
 

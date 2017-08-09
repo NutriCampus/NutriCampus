@@ -1,8 +1,8 @@
 package com.nutricampus.app.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.nutricampus.app.R;
@@ -18,14 +18,14 @@ public class ConfigActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             voltarActivity();
 
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 

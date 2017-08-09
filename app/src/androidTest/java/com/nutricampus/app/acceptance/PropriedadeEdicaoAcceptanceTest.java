@@ -97,10 +97,10 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
         clicarBotao(R.id.spinner_proprietario, true);
 
         onView(allOf(withId(android.R.id.text1), withText("Selecione um proprietário"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                0),
+                childAtPosition(
+                        allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                                withParent(withClassName(is("android.widget.FrameLayout")))),
+                        0),
                 isDisplayed
                         ()))
                 .perform(click());

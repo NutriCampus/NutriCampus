@@ -20,11 +20,11 @@ public final class Conversor {
     }
 
     public static int booleanToInt(boolean bol) {
-        return ( bol ? 1 : 0);
+        return (bol ? 1 : 0);
     }
 
     public static boolean intToBoolean(int i) {
-        return ( i == 1 );
+        return (i == 1);
     }
 
     public static boolean stringToBoolean(String s) {

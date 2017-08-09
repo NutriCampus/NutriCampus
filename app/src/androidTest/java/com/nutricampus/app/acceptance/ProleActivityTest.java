@@ -60,7 +60,7 @@ public class ProleActivityTest {
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void Prole1CadastroActivityTest() throws Exception {//CADASTRO DE DIVERSOS DE FORMAS DIFERENTES
+    public void cadastroActivityTest() throws Exception {//CADASTRO DE DIVERSOS DE FORMAS DIFERENTES
 
         prepararTeste();
         addAnimal();
@@ -166,7 +166,7 @@ public class ProleActivityTest {
     }
 
     @Test
-    public void Prole2AtualizaActivityTest() throws Exception {
+    public void atualizaActivityTest() throws Exception {
         prepararTeste();
         closeKeyboard();
         onView(withText("Florinda")).perform(longClick());
@@ -224,7 +224,7 @@ public class ProleActivityTest {
     }
 
     @Test
-    public void Prole3BuscarActivityTest() throws Exception {
+    public void buscarActivityTest() throws Exception {
         prepararTeste();
         closeKeyboard();
         onView(withText("Florinda")).perform(longClick());
@@ -274,7 +274,7 @@ public class ProleActivityTest {
     }
 
     @Test
-    public void Prole4ExcluirActivityTest() throws Exception {
+    public void excluirActivityTest() throws Exception {
         prepararTeste();
         closeKeyboard();
 

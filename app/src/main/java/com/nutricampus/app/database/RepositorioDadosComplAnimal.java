@@ -133,7 +133,7 @@ public class RepositorioDadosComplAnimal {
         String coluna;
 
         //tipo = 1 (ID DadosCompl) | tipo = 2 (ID Animal)
-        if(tipo == 1)
+        if (tipo == 1)
             coluna = SQLiteManager.DADOS_COMPL_COL_ID;
         else
             coluna = SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL;
@@ -146,7 +146,6 @@ public class RepositorioDadosComplAnimal {
 
         return result;
     }
-
 
 
     private DadosComplAnimal getDadosFromCursor(Cursor cursor) {

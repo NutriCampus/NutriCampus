@@ -36,9 +36,14 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
         id1 = "Identificador1";
         id2 = "Identificador2";
         String tipo = "tipo1234";
-        double ms = 999, fdn = 888, ee = 777;
-        double mm = 666, cnf = 555, pb = 444;
-        double ndt = 333, fda = 222;
+        double ms = 999,
+                fdn = 888,
+                ee = 777;
+        double mm = 666,
+                cnf = 555,
+                pb = 444;
+        double ndt = 333,
+                fda = 222;
         String descricao = "descricao1";
 
         repositorioCompostosAlimentares = new RepositorioCompostosAlimentares(InstrumentationRegistry.getTargetContext());

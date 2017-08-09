@@ -2,8 +2,8 @@ package com.nutricampus.app.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.preference.Preference;
+import android.preference.PreferenceFragment;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.EditarUsuarioActivity;
@@ -17,15 +17,14 @@ import com.nutricampus.app.activities.EditarUsuarioActivity;
 public class ConfigFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
 
-    Preference preferenceConta;
+    private Preference preferenceConta;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferencias);
 
-        preferenceConta = (Preference) findPreference(
-                getString(R.string.pref_conta));
+        preferenceConta = findPreference(getString(R.string.pref_conta));
 
         preferenceConta.setOnPreferenceClickListener(this);
     }

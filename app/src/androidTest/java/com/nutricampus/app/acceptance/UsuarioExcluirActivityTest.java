@@ -42,6 +42,7 @@ public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
     public void prepararTesteUsuario() throws Exception {
         doLogout();
         criarUsuario();
+        espera(200);
         realizaLogin();
         abrirMenu();
         clicarItemMenuComTexto("Configurações");
@@ -98,15 +99,16 @@ public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
 
     @Override
     public void realizaLogin() throws Exception {
-        substituiTexto(R.id.input_usuario, "123456");
-        substituiTexto(R.id.input_senha, "123456");
+        espera(1000);
+        substituiTexto(R.id.input_usuario, "abcdef");
+        substituiTexto(R.id.input_senha, "abcdef");
         closeKeyboard();
         clicarBotao(R.id.btn_login, false);
     }
 
     public void criarUsuario() {
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(InstrumentationRegistry.getTargetContext());
-        Usuario usuario = new Usuario("123456", "56671187851", "Jorge", "jorge@mail.com", "123456");
+        Usuario usuario = new Usuario("abcdef", "00000000000", "Jorge", "jorge@mail.com", "abcdef");
         idUsuario = repositorioUsuario.inserirUsuario(usuario);
     }
 
@@ -115,8 +117,8 @@ public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(InstrumentationRegistry.getTargetContext());
 
-        int idProprietario = repositorioProprietario.inserirProprietario(new Proprietario("04998517490", "Jorge Veloso", "jvsveloso@gmail.com", "(87) 99999 9999"));
-        int idPropriedade = repositorioPropriedade.inserirPropriedade(new Propriedade("Propriedade 1", "87999999999", "Rua da Indepencia",
+        int idProprietario = repositorioProprietario.inserirProprietario(new Proprietario("00000000000", "Jorge Veloso", "jvsveloso@gmail.com", "(87) 99999 9999"));
+        int idPropriedade = repositorioPropriedade.inserirPropriedade(new Propriedade("Propriedade 1", "00000000000", "Rua da Indepencia",
                 "Mundaú", "55290-000", "Garanhuns", "Pernambuco", "213", idProprietario, idUsuario));
 
         repositorioAnimal.inserirAnimal(new Animal("Mimosa", idPropriedade, Calendar.getInstance(), true, idUsuario));

@@ -91,7 +91,7 @@ public class ActionBarManager {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Intent intent = null;
-                        switch ((int) drawerItem.getIdentifier()){
+                        switch ((int) drawerItem.getIdentifier()) {
                             case 1:
                                 intent = new Intent(activity, ListaPropriedadesActivity.class);
                                 break;

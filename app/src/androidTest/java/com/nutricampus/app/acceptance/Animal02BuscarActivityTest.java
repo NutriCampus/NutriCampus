@@ -113,11 +113,15 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
 
         appCompatEditText6.perform(pressImeActionButton());
 
-        espera(500);
-        ViewInteraction registrosEncontradosAposPesquisa = onView(withId(R.id.text_quantidades_encontrados));
+        try {
+            espera(500);
+            ViewInteraction registrosEncontradosAposPesquisa = onView(withId(R.id.text_quantidades_encontrados));
 
-        registrosEncontradosAposPesquisa.check(matches(withText("2 animais encontrados")));
-
+            registrosEncontradosAposPesquisa.check(matches(withText("2 animais encontrados")));
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
+        }
     }
 
     @Test
@@ -145,11 +149,15 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView3.check(matches(withText("Propriedade 2")));
 
+        try {
+            espera(500);
+            ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
 
-        espera(500);
-        ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
-
-        registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));
+            registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
+        }
 
     }
 
@@ -210,11 +218,15 @@ public class Animal02BuscarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.input_pesquisa), withText("Manhosa"), isDisplayed()));
         appCompatEditText10.perform(pressImeActionButton());
 
-        espera(500);
-        ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
+        try {
+            espera(500);
+            ViewInteraction registrosEncontradosAposPesquisa = onView(withId(android.R.id.empty));
 
-        registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));
-
+            registrosEncontradosAposPesquisa.check(matches(withText("Nenhum animal cadastrado")));
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
+        }
     }
 
 }

@@ -133,15 +133,15 @@ public class RepositorioProprietario {
     public List<Proprietario> buscarTodosProprietarios(String nome) {
         return this.getListaProprietarios(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO +
                 " WHERE " + SQLiteManager.PROPRIETARIO_COL_NOME + " LIKE '%" + nome + "%'" +
-                    SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
+                SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
     }
 
 
     public List<Proprietario> buscarTodosProprietarios() {
         return getListaProprietarios(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_PROPRIETARIO +
-                                SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
+                SQLiteManager.ORDER_BY + SQLiteManager.PROPRIETARIO_COL_NOME);
     }
-    
+
     public boolean atualizarProprietario(Proprietario proprietario) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -160,17 +160,6 @@ public class RepositorioProprietario {
         return (retorno > 0);
 
     }
-    /*
-    public int removerProprietario(Proprietario proprietario) {
-        bancoDados = gerenciador.getWritableDatabase();
-        int resultado = bancoDados.delete(SQLiteManager.TABELA_PROPRIETARIO,
-                SQLiteManager.PROPRIETARIO_COL_ID + " = ? ",
-                new String[]{String.valueOf(proprietario.getId())});
-
-        bancoDados.close();
-        return resultado;
-    }
-    */
 
     public int removerProprietario(Proprietario proprietario) {
         return excluirRegistros(proprietario.getId());

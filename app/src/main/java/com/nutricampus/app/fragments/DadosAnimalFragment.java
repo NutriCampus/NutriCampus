@@ -46,7 +46,7 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class DadosAnimalFragment extends Fragment
-        implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_ANIMAL = "animal";
     public static final String EXTRA_PROPRIEDADE = "propriedade";
@@ -62,7 +62,7 @@ public class DadosAnimalFragment extends Fragment
     private Animal animal;
     private Propriedade propriedade;
 
-    SharedPreferencesManager session;
+    private SharedPreferencesManager session;
 
     public static DadosAnimalFragment newInstance(Animal animal, Propriedade propriedade) {
         Bundle args = new Bundle();
@@ -106,12 +106,12 @@ public class DadosAnimalFragment extends Fragment
         preencherSpinnerListaPropriedade();
         inicializaCampoData();
 
-        if(propriedade != null) {
+        if (propriedade != null) {
             inputIdPropriedade.setText(String.valueOf(propriedade.getId()));
             preencherSpinnerListaPropriedade();
         }
 
-        if(animal != null) {
+        if (animal != null) {
             inputIdentificador.setText(animal.getIndentificador());
             inputData.setText(Conversor.dataFormatada(animal.getDataDeNascimento()));
             switchAtivo.setChecked(animal.isAtivo());
@@ -163,12 +163,12 @@ public class DadosAnimalFragment extends Fragment
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.input_data_nascimento) {
+        if (v.getId() == R.id.input_data_nascimento) {
             showDatePickerDialog(v);
             return;
         }
 
-        if(v.getId() == R.id.btn_add_propriedade) {
+        if (v.getId() == R.id.btn_add_propriedade) {
             Intent intent = new Intent(getActivity(), CadastrarPropriedadeActivity.class);
             intent.putExtra(EXTRA_CAD_ANIMAL, 1);
             startActivity(intent);
@@ -180,7 +180,7 @@ public class DadosAnimalFragment extends Fragment
             return;
         }
 
-        if(animal == null) {
+        if (animal == null) {
             animal = new Animal(
                     inputIdentificador.getText().toString(),
                     ((Propriedade) spinnerPropriedade.getSelectedItem()).getId(),
@@ -196,7 +196,7 @@ public class DadosAnimalFragment extends Fragment
         }
 
         Activity activity = getActivity();
-        if(activity instanceof AoClicarConfirmaDados) {
+        if (activity instanceof AoClicarConfirmaDados) {
             AoClicarConfirmaDados listener = (AoClicarConfirmaDados) activity;
             listener.confirmarDados(this.animal);
         }
@@ -241,13 +241,13 @@ public class DadosAnimalFragment extends Fragment
 
     public void preencherSpinnerListaPropriedade() {
 
-        RepositorioPropriedade repositorioPropriedade= new RepositorioPropriedade(getActivity());
+        RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(getActivity());
         List<Propriedade> todasPropriedades = repositorioPropriedade.buscarTodasPropriedades();
 
         if (!(todasPropriedades.isEmpty())) {
 
             // Adiciona a msg de "Selecione..." no spinner da propriedade
-            Propriedade posZero = new Propriedade(0, getString(R.string.msg_spinner_propriedade), "", "", "", "", "", "", "", 1,1);
+            Propriedade posZero = new Propriedade(0, getString(R.string.msg_spinner_propriedade), "", "", "", "", "", "", "", 1, 1);
             todasPropriedades.add(0, posZero);
 
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(getActivity(),
@@ -269,7 +269,7 @@ public class DadosAnimalFragment extends Fragment
 
             spinnerPropriedade.setSelection(posicao);
         } else {
-            Propriedade prop = new Propriedade(0, "<< " + getString(R.string.msg_cadastre_propriedade) + " >>", "", "", "", "", "", "", "", 1,1);
+            Propriedade prop = new Propriedade(0, "<< " + getString(R.string.msg_cadastre_propriedade) + " >>", "", "", "", "", "", "", "", 1, 1);
             todasPropriedades.add(prop);
             ArrayAdapter<Propriedade> spinnerPropriedadeAdapter = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_item, todasPropriedades);

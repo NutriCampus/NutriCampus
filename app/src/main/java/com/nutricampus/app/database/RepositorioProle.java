@@ -131,17 +131,6 @@ public class RepositorioProle {
 
     }
 
-    /*
-    public int removerProle(Prole prole) {
-        bancoDados = gerenciador.getWritableDatabase();
-        int result = bancoDados.delete(SQLiteManager.TABELA_PROLE,
-                SQLiteManager.PROLE_ID + " = ? ",
-                new String[]{String.valueOf(prole.getId())});
-
-        bancoDados.close();
-        return result;
-    }*/
-
     public int removerProle(Prole prole) {
         return excluirRegistros(prole.getId(), 1);
     }

@@ -79,15 +79,23 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
 
     @Test
     public void producaoDeLeiteEdicaoTA1() {
-        String nome1 = "nomeAdmin proprietario", nome2 = "nomeAdmin proprietario";
-        String email1 = "email@proprietario1.com", email2 = "email@proprietario2.com";
-        String cpf1 = "000.000.000-000", cpf2 = "999.999.999-99";
-        String prop1 = "propriedadeAdminUM", prop2 = "propriedadeAdminDOIS";
-        String animal1 = "animalAdmin UM", animal2 = "animalAdmin DOIS";
-        String tel1 = "(87) 00000 0000", tel2 = "(87) 99999 9999";
+        String nome1 = "nomeAdmin proprietario",
+                nome2 = "nomeAdmin proprietario";
+        String email1 = "email@proprietario1.com",
+                email2 = "email@proprietario2.com";
+        String cpf1 = "000.000.000-000",
+                cpf2 = "999.999.999-99";
+        String prop1 = "propriedadeAdminUM",
+                prop2 = "propriedadeAdminDOIS";
+        String animal1 = "animalAdmin UM",
+                animal2 = "animalAdmin DOIS";
+        String tel1 = "(87) 00000 0000",
+                tel2 = "(87) 99999 9999";
         String rua1 = "rua1", rua2 = "rua2";
-        String bairro1 = "bairro1", bairro2 = "bairro2";
-        String cep1 = "00000-000", cep2 = "99999-999";
+        String bairro1 = "bairro1",
+                bairro2 = "bairro2";
+        String cep1 = "00000-000",
+                cep2 = "99999-999";
 
         int idAnimal1;
         int idAnimal2;

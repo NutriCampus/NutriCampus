@@ -32,10 +32,10 @@ import java.util.List;
 @java.lang.SuppressWarnings("squid:S1172")
 public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
 
-    SharedPreferencesManager session;
-    RepositorioUsuario repositorioUsuario;
-    Usuario usuario;
-    boolean isLogoff = false;
+    private SharedPreferencesManager session;
+    private RepositorioUsuario repositorioUsuario;
+    private Usuario usuario;
+    private boolean isLogoff = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +57,9 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             voltarActivity();
-        else if(item.getItemId() == R.id.acao_delete)
+        else if (item.getItemId() == R.id.acao_delete)
             deletarUsuario();
 
 
@@ -92,7 +92,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
                             if (!(propriedades.isEmpty())) {
                                 for (Propriedade p : propriedades) {
                                     List<Animal> listAnimal = repositorioAnimal.buscarPorPropridade(p.getId());
-                                    for(Animal a : listAnimal) {
+                                    for (Animal a : listAnimal) {
                                         repositorioDadosComplAnimal.removerDadosCompl(a.getId());
                                         repositorioProle.removerProle(a.getId());
                                         repositorioProducaoDeLeite.removerProducaoDeLeite(a.getId());
@@ -109,8 +109,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
                             EditarUsuarioActivity.this.finish();
                             session.logoutUser();
 
-                        }
-                        else{
+                        } else {
                             Toast.makeText(EditarUsuarioActivity.this,
                                     "Não foi possivel excuir", Toast.LENGTH_LONG).show();
                         }
@@ -143,7 +142,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
             return;
         }
 
-        if(!(senha.equals(usuario.getSenha())))
+        if (!(senha.equals(usuario.getSenha())))
             isLogoff = true;
 
         usuario.setNome(nome);
@@ -157,7 +156,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
                     getString(R.string.msg_sucesso_atualizar_usuario),
                     Toast.LENGTH_LONG).show();
 
-            if(isLogoff)
+            if (isLogoff)
                 session.logoutUser();
             else
                 EditarUsuarioActivity.this.finish();
@@ -209,7 +208,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 

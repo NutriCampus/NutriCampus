@@ -54,7 +54,7 @@ public class Animal05HistoricoActivityTest {
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void HistoricoAnimal1() throws Exception {
+    public void historicoAnimal1() throws Exception {
         prepararTeste();
         onView(withText("Florinda")).perform(longClick());
         closeKeyboard();

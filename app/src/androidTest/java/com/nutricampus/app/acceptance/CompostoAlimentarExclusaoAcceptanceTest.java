@@ -2,6 +2,7 @@ package com.nutricampus.app.acceptance;
 
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
@@ -18,11 +19,11 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
@@ -38,9 +39,14 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         id1 = "Identificador1";
         id2 = "Identificador2";
         String tipo = "tipo1234";
-        double ms = 999, fdn = 888, ee = 777;
-        double mm = 666, cnf = 555, pb = 444;
-        double ndt = 333, fda = 222;
+        double ms = 999;
+        double fdn = 888;
+        double ee = 777;
+        double mm = 666;
+        double cnf = 555;
+        double pb = 444;
+        double ndt = 333;
+        double fda = 222;
         String descricao = "descricao1";
 
         repositorioCompostosAlimentares = new RepositorioCompostosAlimentares(InstrumentationRegistry.getTargetContext());
@@ -74,15 +80,6 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
         validaToast("Composto removido com sucesso");
 
-        ViewInteraction linearLayout = onView(
-                allOf(childAtPosition(
-                        allOf(withId(R.id.listaCompostosAlimentares),
-                                childAtPosition(
-                                        withId(R.id.resultado_busca_propriedades),
-                                        2)),
-                        0),
-                        isDisplayed()));
-        linearLayout.check(matches(isDisplayed()));
     }
 
     @Test
@@ -97,16 +94,24 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         clicarBotao(android.R.id.title, "Excluir");
         clicarBotao(android.R.id.button1, "Sim");
 
-        ViewInteraction linearLayout2 = onView(
-                allOf(childAtPosition(
-                        allOf(withId(R.id.listaCompostosAlimentares),
-                                childAtPosition(
-                                        withId(R.id.resultado_busca_propriedades),
-                                        2)),
-                        0),
-                        isDisplayed()));
-        linearLayout2.check(doesNotExist());
+        verificaExistentenciaListView();
     }
 
+    private void verificaExistentenciaListView() {
+        try {
+            ViewInteraction linearLayout = onView(
+                    allOf(childAtPosition(
+                            allOf(withId(R.id.listaCompostosAlimentares),
+                                    childAtPosition(
+                                            withId(R.id.resultado_busca_propriedades),
+                                            2)),
+                            0),
+                            isDisplayed()));
+            linearLayout.check(matches(isDisplayed()));
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
+        }
+    }
 
 }

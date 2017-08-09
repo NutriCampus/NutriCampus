@@ -114,7 +114,6 @@ public class RepositorioProducaoDeLeite {
     }
 
 
-
     public boolean atualizarProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
 

@@ -107,7 +107,7 @@ public class RepositorioAnimal {
 
     public List<Animal> buscarTodosAnimais(String identificador) {
         return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL +
-                    " WHERE " + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
+                " WHERE " + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
     }
 
     public List<Animal> buscarPorPropridade(int idPropriedade) {
@@ -122,18 +122,6 @@ public class RepositorioAnimal {
     }
 
 
-    /*
-    public int removerAnimal(Animal animal) {
-        bancoDados = gerenciador.getWritableDatabase();
-        int result = bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
-                SQLiteManager.ANIMAL_COL_ID + " = ? ",
-                new String[]{String.valueOf(animal.getId())});
-
-        bancoDados.close();
-
-        return result;
-    }*/
-
     public int removerAnimal(Animal animal) {
         return excluirRegistros(animal.getId(), 1);
     }
@@ -147,7 +135,7 @@ public class RepositorioAnimal {
         String coluna;
 
         //tipo = 1 (ID animal) | tipo = 2 (ID Usuario)
-        if(tipo == 1)
+        if (tipo == 1)
             coluna = SQLiteManager.ANIMAL_COL_ID;
         else
             coluna = SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE;

@@ -102,6 +102,8 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void atualizarSenhaCadastrada() {
 
+        closeKeyboard();
+
         substituiTexto(R.id.edtSenha, "123457");
         usuario.setSenha("123457");
         espera(500);

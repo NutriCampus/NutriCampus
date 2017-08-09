@@ -41,6 +41,8 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
     protected EditText inputFoneProprietario;
     protected Button btnSalvar;
 
+    private int voltarProprietarios;
+
     protected void init() {
         this.inputNomeProprietario = (EditText) findViewById(R.id.input_nome_proprietario);
         this.inputCpfProprietario = (EditText) findViewById(R.id.input_cpf_proprietario);
@@ -48,8 +50,6 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
         this.inputFoneProprietario = (EditText) findViewById(R.id.input_fone_proprietario);
         this.btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
     }
-
-    private int voltarProprietarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,14 +151,14 @@ public class CadastrarProprietarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             voltarActivity();
 
         return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         voltarActivity();
     }
 

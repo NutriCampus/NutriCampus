@@ -11,7 +11,7 @@ import com.nutricampus.app.entities.CompostosAlimentares;
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarCompostoActivity extends CadastrarCompostosAlimentaresActivity {
 
-    CompostosAlimentares compostosAlimentares = new CompostosAlimentares();
+    private CompostosAlimentares compostosAlimentares = new CompostosAlimentares();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
