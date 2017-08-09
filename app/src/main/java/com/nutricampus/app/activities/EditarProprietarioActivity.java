@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,6 +73,7 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
 
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(getBaseContext());
         Proprietario proprietarioCpfDuplicado = repositorioProprietario.buscarProprietario(cpfDuplicado);
+
         if (proprietarioCpfDuplicado != null &&
                 (!cpfDuplicado.equals(proprietario.getCpf()))) {
 
@@ -81,9 +83,16 @@ public class EditarProprietarioActivity extends CadastrarProprietarioActivity {
 
             return;
         }
+        boolean f;
 
-
-        boolean f = repositorioProprietario.atualizarProprietario(proprietario);
+        try {
+            f = repositorioProprietario.atualizarProprietario(proprietario);
+        } catch (SQLiteConstraintException e) {
+            Toast.makeText(EditarProprietarioActivity.this,
+                    getString(R.string.msg_erro_cadastro_proprietario),
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if (f) {
 

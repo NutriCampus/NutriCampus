@@ -78,11 +78,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        if (!ValidaFormulario.validarCpf(cpf)) {
-            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
-            return;
-        }
-
         Usuario usuario = new Usuario(registro, cpf, nome, email, senha);
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
@@ -123,12 +118,14 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         if (cpf.isEmpty()) {
             this.edtNome.setError(getString(R.string.msg_erro_campo));
             valido = false;
-        } else if (cpf.length() < 14) {
-            this.edtCpf.setError(getString(R.string.msg_erro_cpf_1));
+        } else if (!ValidaFormulario.validarCpf(cpf)) {
+            this.edtCpf.setError(getString(R.string.msg_erro_cpf_2));
             valido = false;
+            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
         } else {
             this.edtCpf.setError(null);
         }
+
 
         if (registro.isEmpty()) {
             this.edtRegistro.setError(getString(R.string.msg_erro_campo));

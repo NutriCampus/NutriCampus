@@ -2,7 +2,6 @@ package com.nutricampus.app.acceptance;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
@@ -19,8 +18,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
@@ -67,51 +64,33 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
     @Test
     public void cadastrarComCamposEmBranco() throws Exception {
 
-        espera(1200);
-
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-
         espera(500);
 
-        appCompatButton6.perform(scrollTo(), click());
-
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            espera(3500);
-        } catch (Exception e) {
-            fail("Toast de mensagem de falha não identificado");
-            e.printStackTrace();
-        }
+        clicarBotao(R.id.btn_salvar_propriedade, true);
+        validaToast("Campos inválidos");
     }
 
     @Test
     public void cadastrarComCamposPreenchidos() throws Exception {
 
-        ViewInteraction appCompatSpinner = onView(
-                withId(R.id.spinner_proprietario));
-        espera(1000);
+        clicarBotao(R.id.spinner_proprietario, true);
 
-        appCompatSpinner.perform(scrollTo(), click());
-        closeKeyboard();
         espera(500);
-        ViewInteraction appCompatCheckedTextView = onView(
+
+        onView(
                 allOf(withId(android.R.id.text1), withText("Proprietario 1"),
                         childAtPosition(
                                 allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 1),
-                        isDisplayed()));
-        espera(1000);
-        appCompatCheckedTextView.perform(click());
+                        isDisplayed()))
+                .perform(click());
+
         closeKeyboard();
 
         preencheCampos();
 
-        closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-        appCompatButton6.perform(scrollTo(), click());
+        clicarBotao(R.id.btn_salvar_propriedade, true);
 
         // Usando o meio abaixo já que o Toast não estava sendo identificado pelo check
         try {
@@ -132,49 +111,22 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         preencheCampos();
 
         closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Salvar")));
-        espera(1000);
-        appCompatButton6.perform(scrollTo(), click());
-        closeKeyboard();
+        clicarBotao(R.id.btn_salvar_propriedade, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            espera(3500);
-        } catch (Exception e) {
-            fail("Toast de mensagem de falha não identificado");
-            e.printStackTrace();
-        }
+        validaToast("Campos inválidos");
     }
 
     private void preencheCampos() throws Exception {
 
-        ViewInteraction appCompatEditText13 = onView(
-                withId(R.id.input_nome_propriedade));
-        appCompatEditText13.perform(scrollTo(), replaceText("Propriedade OMEGA"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_telefone_propriedade)));
-        appCompatEditText17.perform(scrollTo(), replaceText("(87) 99999 9999"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText18 = onView(
-                withId(R.id.input_rua));
-        appCompatEditText18.perform(scrollTo(), replaceText("Rua da Independencia"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText19 = onView(
-                withId(R.id.input_bairro));
-        appCompatEditText19.perform(scrollTo(), replaceText("Mundaú"), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.input_numero), isDisplayed()));
-        appCompatEditText20.perform(replaceText("213"), closeSoftKeyboard());
+        substituiTexto(R.id.input_nome_propriedade, "Propriedade OMEGA");
+        substituiTexto(R.id.input_telefone_propriedade, "(87) 99999 9999");
+        substituiTexto(R.id.input_rua, "Rua da Independencia");
+        substituiTexto(R.id.input_bairro, "Mundaú");
+        substituiTexto(R.id.input_numero, "213");
+        substituiTexto(R.id.input_cep, "55290-000");
+        substituiTexto(R.id.input_bairro, "Mundaú");
 
-        closeKeyboard();
-
-        ViewInteraction appCompatEditText22 = onView(
-                allOf(withId(R.id.input_cep), isDisplayed()));
-        appCompatEditText22.perform(replaceText("55290-000"), closeSoftKeyboard());
-        closeKeyboard();
+        espera(300);
 
         onView(withId(R.id.input_estado))
                 .perform(scrollTo())
@@ -184,7 +136,8 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
                 .perform(typeTextIntoFocusedView("e"));
 
         closeKeyboard();
-        espera(2000);
+        espera(1000);
+
         onView(withText("Pernambuco"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -202,12 +155,10 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         closeKeyboard();
 
-        espera(2000);
+        espera(1000);
         onView(withText("Garanhuns"))
                 .inRoot(isPlatformPopup())
                 .perform(click());
-
-        espera(1000);
     }
 
     public void clicarFloatingButtonPropriedade() throws Exception {

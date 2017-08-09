@@ -1,7 +1,6 @@
 package com.nutricampus.app.acceptance;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
@@ -17,10 +16,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.longClick;
-import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -28,7 +23,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.fail;
 
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
@@ -63,105 +57,57 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
     @Test
     public void tentaAtualizarCadastroApenasComProprietário() throws Exception {
         espera(1000);
-        onView(withText("Propriedade 1"))
-                .perform(longClick());
 
-        espera(1200);
+        longClickElemento("Propriedade 1");
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        espera(500);
 
-        ViewInteraction appCompatEditText13 = onView(
-                withId(R.id.input_nome_propriedade));
-        appCompatEditText13.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_telefone_propriedade)));
-        appCompatEditText17.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText18 = onView(
-                withId(R.id.input_rua));
-        appCompatEditText18.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText19 = onView(
-                withId(R.id.input_bairro));
-        appCompatEditText19.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.input_numero), isDisplayed()));
-        appCompatEditText20.perform(replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText22 = onView(
-                allOf(withId(R.id.input_cep), isDisplayed()));
-        appCompatEditText22.perform(replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        onView(withId(R.id.input_estado))
-                .perform(scrollTo())
-                .perform(replaceText(" "));
+        substituiTexto(R.id.input_nome_propriedade, "");
+        substituiTexto(R.id.input_telefone_propriedade, "");
+        substituiTexto(R.id.input_rua, "");
+        substituiTexto(R.id.input_bairro, "");
+        substituiTexto(R.id.input_numero, "");
+        substituiTexto(R.id.input_cep, "");
+        substituiTexto(R.id.input_bairro, "");
+        substituiTexto(R.id.input_cidade, "");
+        substituiTexto(R.id.input_estado, "");
 
-
-        onView(withId(R.id.input_cidade))
-                .perform(scrollTo())
-                .perform(replaceText(" "));
-
-        espera(1200);
+        espera(500);
 
         closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Atualizar")));
-        appCompatButton6.perform(scrollTo(), click());
-        closeKeyboard();
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        clicarBotao(R.id.btn_salvar_propriedade, true);
+
+        validaToast("Campos inválidos");
     }
 
     @Test
     public void tentaAtualizarCadastroSemProprietario() throws Exception {
         espera(1000);
-        onView(withText("Propriedade 1"))
-                .perform(longClick());
+        longClickElemento("Propriedade 1");
 
-        espera(1200);
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(R.id.spinner_proprietario, true);
 
-        ViewInteraction appCompatSpinner = onView(
-                withId(R.id.spinner_proprietario));
-        espera(1000);
-
-        appCompatSpinner.perform(scrollTo(), click());
-        closeKeyboard();
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("Selecione um proprietário"),
+        onView(allOf(withId(android.R.id.text1), withText("Selecione um proprietário"),
                         childAtPosition(
                                 allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
                                         withParent(withClassName(is("android.widget.FrameLayout")))),
                                 0),
-                        isDisplayed()));
+                isDisplayed
+                        ()))
+                .perform(click());
+        closeKeyboard();
+
         espera(1000);
 
-        appCompatCheckedTextView.perform(click());
-        closeKeyboard();
-        closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Atualizar")));
-        appCompatButton6.perform(scrollTo(), click());
         closeKeyboard();
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        clicarBotao(R.id.btn_salvar_propriedade, true);
+
+        validaToast("Campos inválidos");
     }
 
 

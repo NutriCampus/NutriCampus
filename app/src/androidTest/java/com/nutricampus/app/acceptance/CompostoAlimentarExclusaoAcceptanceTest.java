@@ -18,15 +18,11 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.fail;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
@@ -70,19 +66,13 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-01: Deletar um composto alimentar deixando (no mínimo) um composto na base;
-    public void excluirCompostoTA1() {
+    public void excluirCompostoDeixandoUmTA1() {
 
         longClickElemento(id1);
-        clicarExcluir();
-        clicarSim();
+        clicarBotao(android.R.id.title, "Excluir");
+        clicarBotao(android.R.id.button1, "Sim");
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Composto removido com sucesso");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        validaToast("Composto removido com sucesso");
 
         ViewInteraction linearLayout = onView(
                 allOf(childAtPosition(
@@ -97,15 +87,15 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
 
     @Test
     //TA-02: Deletar um composto alimentar da base deixando a mesma sem nenhum composto alimentar
-    public void excluirCompostoTA2() {
+    public void excluirTodosOsCompostosTA2() {
 
         longClickElemento(id1);
-        clicarExcluir();
-        clicarSim();
+        clicarBotao(android.R.id.title, "Excluir");
+        clicarBotao(android.R.id.button1, "Sim");
 
         longClickElemento(id2);
-        clicarExcluir();
-        clicarSim();
+        clicarBotao(android.R.id.title, "Excluir");
+        clicarBotao(android.R.id.button1, "Sim");
 
         ViewInteraction linearLayout2 = onView(
                 allOf(childAtPosition(
@@ -118,18 +108,5 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         linearLayout2.check(doesNotExist());
     }
 
-    public void clicarExcluir() {
-        espera(500);
-
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-        appCompatTextView.perform(click());
-    }
-
-    public void clicarSim() {
-        ViewInteraction appCompatButton4 = onView(
-                allOf(withId(android.R.id.button1), withText("Sim")));
-        appCompatButton4.perform(scrollTo(), click());
-    }
 
 }

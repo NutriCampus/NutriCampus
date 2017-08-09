@@ -3,10 +3,10 @@ package com.nutricampus.app.acceptance;
 import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -48,9 +48,6 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
-/**
- * Created by jorge on 25/07/17.
- */
 
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest

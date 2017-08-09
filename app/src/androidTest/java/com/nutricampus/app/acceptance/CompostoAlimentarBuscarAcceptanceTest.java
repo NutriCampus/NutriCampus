@@ -18,9 +18,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -76,26 +74,13 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
     @Test
     //TA-01: Buscar um composto alimentar informando o nome;
     public void buscarCompostoInformandoNomeTA1() throws Exception {
-
-        ViewInteraction appCompatEditText16 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText16.perform(replaceText("A1"), closeSoftKeyboard());
+        substituiTexto(R.id.input_pesquisa, "A1");
 
         ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_pesquisa), withText("A1"), isDisplayed()));
+                allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText17.perform(pressImeActionButton());
 
-        ViewInteraction linearLayout = onView(
-                allOf(childAtPosition(
-                        allOf(withId(R.id.listaCompostosAlimentares),
-                                childAtPosition(
-                                        withId(R.id.resultado_busca_propriedades),
-                                        2)),
-                        0),
-                        isDisplayed()));
-
-        ViewInteraction text = onView(withId(R.id.lista_composto_nome));
-        text.check(matches(withText("identificadorA1")));
+        onView(withId(R.id.lista_composto_nome)).check(matches(withText("identificadorA1")));
 
     }
 
@@ -103,13 +88,11 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
     //TA-02: Buscar um composto alimentar sem informar o nome;
     public void buscarCompostoSemInformarNomeTA2() {
 
-        ViewInteraction appCompatEditText33 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText33.perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.input_pesquisa, "");
 
-        ViewInteraction appCompatEditText34 = onView(
-                allOf(withId(R.id.input_pesquisa), withText(""), isDisplayed()));
-        appCompatEditText34.perform(pressImeActionButton());
+        ViewInteraction appCompatEditText17 = onView(
+                allOf(withId(R.id.input_pesquisa), isDisplayed()));
+        appCompatEditText17.perform(pressImeActionButton());
 
         ViewInteraction linearLayout1 = onView(
                 allOf(childAtPosition(
@@ -129,13 +112,11 @@ public class CompostoAlimentarBuscarAcceptanceTest extends AbstractPreparacaoTes
     //TA-03: Buscar um composto alimentar que não esteja na base de dados.
     public void buscarCompostoInexistenteTA3() {
 
-        ViewInteraction appCompatEditText31 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText31.perform(replaceText("X1"), closeSoftKeyboard());
+        substituiTexto(R.id.input_pesquisa, "X1");
 
-        ViewInteraction appCompatEditText32 = onView(
-                allOf(withId(R.id.input_pesquisa), withText("X1"), isDisplayed()));
-        appCompatEditText32.perform(pressImeActionButton());
+        ViewInteraction appCompatEditText17 = onView(
+                allOf(withId(R.id.input_pesquisa), isDisplayed()));
+        appCompatEditText17.perform(pressImeActionButton());
 
         ViewInteraction linearLayout2 = onView(
                 allOf(childAtPosition(

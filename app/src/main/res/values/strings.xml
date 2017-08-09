@@ -252,6 +252,6 @@
     <string name="campo_ee">ee (%)</string>
     <string name="campo_fdn">fdn (%)</string>
     <string name="campo_ms">ms (%)</string>
-    <string name="msg_erro_gravar_composto">Erro ao gravar Composto</string>
+    <string name="msg_erro_gravar_composto">Erro ao gravar composto</string>
 
 </resources>

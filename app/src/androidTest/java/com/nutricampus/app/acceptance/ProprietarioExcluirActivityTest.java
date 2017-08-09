@@ -17,9 +17,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.longClick;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -50,27 +47,17 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void excluirTodosProprietariosActivityTest() throws Exception {
 
-        closeKeyboard();
-        onView(withText("Jorge Veloso")).perform(longClick());
-        closeKeyboard();
-        ViewInteraction appCompatTextView1 = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-        appCompatTextView1.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(android.R.id.button1), withText("Sim")));
-        appCompatButton2.perform(scrollTo(), click());
-        closeKeyboard();
 
-        onView(withText("ProprietarioTeste1")).perform(longClick());
+        longClickElemento("Jorge Veloso");
+        clicarBotao(android.R.id.title, "Excluir");
 
-        ViewInteraction appCompatTextView7 = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-        appCompatTextView7.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton10 = onView(
-                allOf(withId(android.R.id.button1), withText("Sim")));
-        appCompatButton10.perform(scrollTo(), click());
+        clicarBotao(android.R.id.button2, "Sim");
+
+        espera(500);
+        longClickElemento("ProprietarioTeste1");
+        clicarBotao(android.R.id.title, "Excluir");
+
+        clicarBotao(android.R.id.button2, "Sim");
 
         espera(500);
 
@@ -90,10 +77,9 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void excluirQuaseTodosProprietariosActivityTest() throws Exception {
 
-        onView(withText("Jorge Veloso")).perform(longClick());
-        ViewInteraction appCompatTextView5 = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-        appCompatTextView5.perform(click());
+        longClickElemento("Jorge Veloso");
+        clicarBotao(android.R.id.title, "Excluir");
+
 
         ViewInteraction textView10 = onView(
                 allOf(withId(android.R.id.message), withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedades vinculados a ele(a)?"),
@@ -106,27 +92,17 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
         textView10.check(matches(withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedades vinculados a ele(a)?")));
         closeKeyboard();
 
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(android.R.id.button2), withText("Não")));
-        appCompatButton8.perform(scrollTo(), click());
+        clicarBotao(android.R.id.button2, "Não");
         closeKeyboard();
 
-        onView(withText("ProprietarioTeste1")).perform(longClick());
-        closeKeyboard();
-        ViewInteraction appCompatTextView7 = onView(
-                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
-        appCompatTextView7.perform(click());
-        closeKeyboard();
-        ViewInteraction appCompatButton10 = onView(
-                allOf(withId(android.R.id.button1), withText("Sim")));
-        appCompatButton10.perform(scrollTo(), click());
+        longClickElemento("ProprietarioTeste1");
+        clicarBotao(android.R.id.title, "Excluir");
+
+        clicarBotao(android.R.id.button2, "Sim");
 
         espera(1000);
 
-
-        ViewInteraction text = onView(withId(R.id.lista_proprietario_nome));
-
-        text.check(matches(withText("Jorge Veloso")));
+        onView(withId(R.id.lista_proprietario_nome)).check(matches(withText("Jorge Veloso")));
     }
 
     @After

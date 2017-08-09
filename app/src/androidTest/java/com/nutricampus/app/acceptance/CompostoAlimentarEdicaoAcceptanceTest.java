@@ -2,7 +2,6 @@ package com.nutricampus.app.acceptance;
 
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -18,17 +17,11 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.longClick;
-import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.fail;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
@@ -76,22 +69,13 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
         espera(500);
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatEditText1 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText1.perform(replaceText(id2), closeSoftKeyboard());
+        substituiTexto(R.id.input_composto_identificador, id2);
 
-        clicarAtualizar();
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Composto já cadastrado!");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        validaToast("Erro ao gravar composto");
     }
 
     @Test
@@ -102,31 +86,19 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
         espera(500);
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText2.perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.input_composto_identificador, "identificador999");
 
         espera(500);
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.input_composto_ms), isDisplayed()));
-        appCompatEditText3.perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.input_composto_ms, "999999");
 
         espera(500);
 
-        appCompatEditText2.perform(replaceText("identificador999"), closeSoftKeyboard());
-        appCompatEditText3.perform(replaceText("999999"), closeSoftKeyboard());
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        espera(500);
-
-        clicarAtualizar();
-
-        ViewInteraction text = onView(allOf(withId(R.id.lista_composto_nome), withText("identificador999")));
-        text.check(matches(withText("identificador999")));
+        onView(allOf(withId(R.id.lista_composto_nome), withText("identificador999"))).check(matches(withText("identificador999")));
 
     }
 
@@ -138,23 +110,13 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
         espera(500);
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText2.perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.input_composto_identificador, "");
 
-        clicarAtualizar();
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Preencha todos os campos");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        validaToast("Preencha todos os campos");
     }
 
     @Test
@@ -164,30 +126,14 @@ public class CompostoAlimentarEdicaoAcceptanceTest extends AbstractPreparacaoTes
 
         espera(500);
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.input_composto_ms), isDisplayed()));
-        appCompatEditText3.perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.input_composto_ms, "");
 
-        clicarAtualizar();
+        clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Preencha todos os campos");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-
+        validaToast("Preencha todos os campos");
     }
 
-    public void clicarAtualizar() {
-        espera(500);
-        ViewInteraction appCompatButton = onView(withId(R.id.btn_salvar_cadastro));
-        appCompatButton.perform(scrollTo(), click());
-    }
 
 }

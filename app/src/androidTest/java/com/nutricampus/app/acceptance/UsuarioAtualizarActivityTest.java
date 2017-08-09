@@ -23,15 +23,12 @@ import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.fail;
 
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
@@ -56,7 +53,8 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
         SharedPreferencesManager session = new SharedPreferencesManager(InstrumentationRegistry.getTargetContext());
         session.createLoginSession(idUsuario, "Jorge", "jorge@mail.com", "123456", "123456");
 
-        currentActivity.startActivity(new Intent(currentActivity, MainActivity.class));
+        if (!(getActivityInstance() instanceof MainActivity))
+            currentActivity.startActivity(new Intent(currentActivity, MainActivity.class));
 
         abrirMenu();
 
@@ -83,42 +81,28 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Usuário atualizado com sucesso");
-            espera(2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        validaToast("Usuário atualizado com sucesso");
     }
 
     @Test
     public void atualizarComCamposVazios() throws InterruptedException {
 
         closeKeyboard();
-        onView(allOf(withId(R.id.edtNome))).perform(replaceText(""), closeSoftKeyboard());
-
-        onView(allOf(withId(R.id.edtEmail))).perform(replaceText(""), closeSoftKeyboard());
-
-        onView(allOf(withId(R.id.edtSenha))).perform(replaceText(""), closeSoftKeyboard());
+        substituiTexto(R.id.edtNome, "");
+        substituiTexto(R.id.edtEmail, "");
+        substituiTexto(R.id.edtSenha, "");
 
         closeKeyboard();
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-            espera(2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        validaToast("Campos inválidos");
     }
 
     @Test
     public void atualizarSenhaCadastrada() {
 
-        onView(allOf(withId(R.id.edtSenha))).perform(replaceText("123457"), closeSoftKeyboard());
+        substituiTexto(R.id.edtSenha, "123457");
         usuario.setSenha("123457");
         espera(500);
         clicarBotao(R.id.btn_salvar_cadastro, true);
@@ -137,12 +121,10 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         editText3.check(matches(withText("")));
 
-        onView(allOf(withId(R.id.input_usuario))).perform(replaceText("123456"), closeSoftKeyboard());
 
-        onView(allOf(withId(R.id.input_senha))).perform(replaceText("123457"), closeSoftKeyboard());
-
-        onView(allOf(withId(R.id.btn_login), withText("Entrar"))).perform(click());
-
+        substituiTexto(R.id.input_usuario, "123456");
+        substituiTexto(R.id.input_senha, "123457");
+        clicarBotao(R.id.btn_login, false);
         espera(1500);
 
         onView(withId(R.id.inicio)).check(matches(withText("Bem-vindo ao NutriCampus")));

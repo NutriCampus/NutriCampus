@@ -2,7 +2,7 @@ package com.nutricampus.app.acceptance;
 
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -18,12 +18,10 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.allOf;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.junit.Assert.fail;
 
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 @LargeTest
@@ -42,9 +40,7 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
         clicarItemMenu(6);
         espera(500);
 
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.btn_add_composto_alimentar), isDisplayed()));
-        floatingActionButton.perform(click());
+        clicarFloatingButton(R.id.btn_add_composto_alimentar);
     }
 
     @After
@@ -59,24 +55,13 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
     //TA-01: Cadastrar novos compostos alimentares sem informar seus nutrientes;
     public void cadastrarCompostoSemNutrientesTA1() {
 
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText4.perform(click());
+        substituiTexto(R.id.input_composto_identificador, id1);
 
-        ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText5.perform(replaceText(id1), closeSoftKeyboard());
-        espera();
+        espera(500);
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            espera(500);
-            new ToastMatcher().isToastMessageDisplayedWithText("Preencha todos os campos");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        validaToast("Preencha todos os campos");
     }
 
     @Test
@@ -87,14 +72,18 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
+        espera(500);
+
+        // Usando o meio abaixo já que o Toast não estava sendo identificado pelo check
         try {
             espera(500);
-            new ToastMatcher().isToastMessageDisplayedWithText("Cadastro realizado com sucesso");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
+            onView(withText(id1)).perform(click());
+            pressBack();
+            // View is in hierarchy
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            fail("Não existe essa view");
         }
-
     }
 
     @Test
@@ -110,75 +99,23 @@ public class CompostoAlimentarCadastroAcceptanceTest extends AbstractPreparacaoT
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
-        try {
-            espera(500);
-            new ToastMatcher().isToastMessageDisplayedWithText("Composto já cadastrado!");
-            espera(3500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        validaToast("Composto já cadastrado!");
     }
 
     public void preencheCampos() {
 
-        ViewInteraction appCompatEditText01 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText01.perform(click());
+        substituiTexto(R.id.input_composto_identificador, id1);
+        substituiTexto(R.id.input_composto_tipo, "22");
+        substituiTexto(R.id.input_composto_ms, "11");
+        substituiTexto(R.id.input_composto_fdn, "22");
+        substituiTexto(R.id.input_composto_ee, "33");
+        substituiTexto(R.id.input_composto_mm, "44");
+        substituiTexto(R.id.input_composto_cnf, "55");
+        substituiTexto(R.id.input_composto_pb, "55");
+        substituiTexto(R.id.input_composto_ndt, "66");
+        substituiTexto(R.id.input_composto_fda, "77");
+        substituiTexto(R.id.input_composto_descricao, "descrição");
 
-        ViewInteraction appCompatEditText02 = onView(
-                allOf(withId(R.id.input_composto_identificador), isDisplayed()));
-        appCompatEditText02.perform(replaceText(id1), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.input_composto_tipo), isDisplayed()));
-        appCompatEditText6.perform(replaceText("22"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.input_composto_ms), isDisplayed()));
-        appCompatEditText7.perform(replaceText("11"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.input_composto_fdn), isDisplayed()));
-        appCompatEditText8.perform(replaceText("22"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText9 = onView(
-                allOf(withId(R.id.input_composto_ee), isDisplayed()));
-        appCompatEditText9.perform(replaceText("33"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText10 = onView(
-                allOf(withId(R.id.input_composto_mm), isDisplayed()));
-        appCompatEditText10.perform(replaceText("44"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText11 = onView(
-                allOf(withId(R.id.input_composto_cnf), isDisplayed()));
-        appCompatEditText11.perform(replaceText("55"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.input_composto_pb), isDisplayed()));
-        appCompatEditText12.perform(replaceText("55"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText14 = onView(
-                allOf(withId(R.id.input_composto_ndt), isDisplayed()));
-        appCompatEditText14.perform(replaceText("66"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText15 = onView(
-                allOf(withId(R.id.input_composto_fda), isDisplayed()));
-        appCompatEditText15.perform(replaceText("77"), closeSoftKeyboard());
-        espera();
-
-        ViewInteraction appCompatEditText16 = onView(
-                allOf(withId(R.id.input_composto_descricao), isDisplayed()));
-        appCompatEditText16.perform(replaceText("descrição"), closeSoftKeyboard());
         espera();
     }
 }

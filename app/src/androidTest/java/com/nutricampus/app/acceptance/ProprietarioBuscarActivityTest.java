@@ -20,9 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -57,15 +55,15 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void buscaProprietarioSemInformarNome() throws Exception {
 
-        ViewInteraction appCompatEditText42 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText42.perform(replaceText(""), closeSoftKeyboard());
+
+        substituiTexto(R.id.input_pesquisa, "");
 
         ViewInteraction appCompatEditText41 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
         closeKeyboard();
+        espera(2000);
 
         ViewInteraction linearLayout3 = onView(
                 allOf(withId(R.id.resultado_busca_proprietarios),
@@ -78,23 +76,20 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
         linearLayout3.check(matches(isDisplayed()));
 
 
-        ViewInteraction text = onView(withId(R.id.text_quantidade_encontrados));
-
-        text.check(matches(withText("5 registros encontrados")));
+        onView(withId(R.id.text_quantidade_encontrados)).check(matches(withText("5 registros encontrados")));
     }
 
     @Test
     public void buscaProprietarioPorNome() throws Exception {
-        ViewInteraction appCompatEditText42 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText42.perform(replaceText("Lariza"), closeSoftKeyboard());
+
+        substituiTexto(R.id.input_pesquisa, "Lariza");
 
         ViewInteraction appCompatEditText41 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
         closeKeyboard();
-        Thread.sleep(2000);
+        espera(2000);
 
         ViewInteraction linearLayout3 = onView(
                 allOf(withId(R.id.resultado_busca_proprietarios),
@@ -106,24 +101,21 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         linearLayout3.check(matches(isDisplayed()));
 
-        ViewInteraction text = onView(withId(R.id.lista_proprietario_nome));
-
-        text.check(matches(withText("Lariza")));
+        onView(withId(R.id.lista_proprietario_nome)).check(matches(withText("Lariza")));
     }
 
     @Test
     public void buscaProprietarioNaoExiste() throws Exception {//Cadastro Total(Inserindo nova propriedade)
 
-        ViewInteraction appCompatEditText42 = onView(
-                allOf(withId(R.id.input_pesquisa), isDisplayed()));
-        appCompatEditText42.perform(replaceText("Vitor"), closeSoftKeyboard());
+        substituiTexto(R.id.input_pesquisa, "Vitor");
 
         ViewInteraction appCompatEditText41 = onView(
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
         closeKeyboard();
-        Thread.sleep(2000);
+        espera(2000);
+
         ViewInteraction linearLayout = onView(
                 allOf(childAtPosition(
                         allOf(withId(R.id.listaProprietarios),

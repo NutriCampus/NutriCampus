@@ -80,39 +80,29 @@ abstract class AbstractPreparacaoTestes {
 
             doLogout();
             espera(500);
-
-            ViewInteraction appCompatEditText = onView(
-                    allOf(withId(R.id.input_usuario), isDisplayed()));
-            appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
-
-            ViewInteraction appCompatEditText2 = onView(
-                    allOf(withId(R.id.input_senha), isDisplayed()));
-            appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
-
-            ViewInteraction appCompatButton = onView(
-                    allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
-            appCompatButton.perform(click());
+            substituiTexto(R.id.input_usuario, "admin");
+            substituiTexto(R.id.input_senha, "admin");
+            closeKeyboard();
+            clicarBotao(R.id.btn_login, false);
 
             espera(500);
         }
     }
 
-    public void abrirMenu() throws InterruptedException {
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+    public void abrirMenu() {
+        onView(allOf(withContentDescription("Open"),
+                withParent(withId(R.id.toolbar)),
+                isDisplayed()))
+                .perform(click());
         espera(500);
     }
 
     public void clicarItemMenu(int posicao) {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(posicao, click()));
+        onView(allOf(withId(R.id.material_drawer_recycler_view),
+                withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                        withParent(withId(R.id.material_drawer_layout)))),
+                isDisplayed()))
+                .perform(actionOnItemAtPosition(posicao, click()));
     }
 
     public void clicarItemMenuComTexto(String texto) {
@@ -159,7 +149,7 @@ abstract class AbstractPreparacaoTestes {
     public void validaToast(String mensagem) {
         try {
             new ToastMatcher().isToastMessageDisplayedWithText(mensagem);
-            espera(4000);
+            espera(2000);
         } catch (Exception e) {
             e.printStackTrace();
             fail("Toast não identificado");
@@ -168,16 +158,14 @@ abstract class AbstractPreparacaoTestes {
 
 
     public void clicarFloatingButton(int id) throws Exception {
-        ViewInteraction floatingItem = onView(withId(id));
-        floatingItem.perform(click());
+        onView(withId(id)).perform(click());
 
         espera(600);
     }
 
     public void clicarIconePesquisa() {
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.action_search), withContentDescription("faw_search"), isDisplayed()));
-        actionMenuItemView.perform(click());
+        onView(allOf(withId(R.id.action_search), withContentDescription("faw_search"),
+                isDisplayed())).perform(click());
     }
 
     public void clicarBotao(int id, boolean scroll) {
@@ -191,8 +179,16 @@ abstract class AbstractPreparacaoTestes {
 
     }
 
+    public void clicarBotao(int id, String texto) {
+        espera(500);
+        onView(allOf(withId(id), withText(texto), isDisplayed())).perform(click());
+    }
+
     public void longClickElemento(String texto) {
         onView(withText(texto)).perform(longClick());
     }
 
+    public void substituiTexto(int id, String texto) {
+        onView(withId(id)).perform(replaceText(texto), closeSoftKeyboard());
+    }
 }
