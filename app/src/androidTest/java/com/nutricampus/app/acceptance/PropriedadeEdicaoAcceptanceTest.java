@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -70,7 +71,11 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
         substituiTexto(R.id.input_numero, "");
         substituiTexto(R.id.input_cep, "");
         substituiTexto(R.id.input_bairro, "");
+
+        onView(withId(R.id.input_cidade)).perform(scrollTo());
         substituiTexto(R.id.input_cidade, "");
+
+        onView(withId(R.id.input_estado)).perform(scrollTo());
         substituiTexto(R.id.input_estado, "");
 
         espera(500);
