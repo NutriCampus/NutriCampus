@@ -9,6 +9,7 @@ import com.nutricampus.app.R;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -29,14 +30,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
-/**
- * Created by jorge on 25/07/17.
- */
-
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @android.support.test.filters.LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore
 public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Test
@@ -48,13 +46,9 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
         appCompatTextView6.perform(longClick());
         pressBack();
         Thread.sleep(1500);
-        ViewInteraction appCompatButton9 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        Thread.sleep(1500);
-        appCompatButton9.perform(click());
+
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
         ViewInteraction appCompatEditText32 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
@@ -81,7 +75,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.btn_salvar), withText("Atualizar")));
         appCompatButton11.perform(scrollTo(), click());
         closeKeyboard();
-                            ViewInteraction textView4 = onView(
+        ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
                                 allOf(withId(R.id.spinnerPropriedade),
@@ -115,12 +109,9 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
         pressBack();
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
 
         ViewInteraction textView4 = onView(
@@ -134,6 +125,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
+
     @Test
     public void animalAtuaizarActivityTest3() throws Exception {
         onView(withText("Flor")).perform(longClick());
@@ -155,12 +147,9 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
         pressBack();
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
@@ -179,6 +168,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
     }
+
     @Test
     public void animalEditarActivityTest4() throws Exception {//Alterando animal para ativo ou inativo
         onView(withText("Flor")).perform(longClick());
@@ -191,12 +181,9 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(2000);
         onView(withId(R.id.switch_ativo)).perform(click());
         Thread.sleep(2000);
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnConfimarDados), withText("Confirmar dados"),
-                        withParent(allOf(withId(R.id.fragmentDadosAnimal),
-                                withParent(withId(R.id.pager)))),
-                        isDisplayed()));
-        appCompatButton8.perform(click());
+
+        clicarBotao(R.id.btnConfimarDados, true);
+
         closeKeyboard();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));

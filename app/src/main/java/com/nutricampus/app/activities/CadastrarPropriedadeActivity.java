@@ -29,9 +29,6 @@ import com.nutricampus.app.utils.ValidaFormulario;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.nutricampus.app.fragments.DadosAnimalFragment.EXTRA_CAD_ANIMAL;
 
 /*
@@ -45,32 +42,35 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
     public static final String EXTRA_PROPRIEDADE = "propriedade";
 
-    @BindView(R.id.input_id_propriedade)
-    EditText inputId;
-    @BindView(R.id.input_id_proprietario)
-    EditText inputIdProprietario;
-    @BindView(R.id.input_nome_propriedade)
-    EditText inputNome;
-    @BindView(R.id.input_cep)
-    EditText inputCep;
-    @BindView(R.id.input_rua)
-    EditText inputRua;
-    @BindView(R.id.input_bairro)
-    EditText inputBairro;
-    @BindView(R.id.input_numero)
-    EditText inputNumero;
-    @BindView(R.id.input_telefone_propriedade)
-    EditText inputTelefone;
-    @BindView(R.id.input_cidade)
-    AutoCompleteTextView inputCidade;
-    @BindView(R.id.input_estado)
-    AutoCompleteTextView inputEstado;
-    @BindView(R.id.btn_salvar_propriedade)
-    Button buttonSalvar;
-    @BindView(R.id.spinner_proprietario)
-    Spinner spinnerProprietario;
-    @BindView(R.id.btn_add_proprietario)
-    Button buttonAddProprietario;
+    protected EditText inputId;
+    protected EditText inputIdProprietario;
+    protected EditText inputNome;
+    protected EditText inputCep;
+    protected EditText inputRua;
+    protected EditText inputBairro;
+    protected EditText inputNumero;
+    protected EditText inputTelefone;
+    protected AutoCompleteTextView inputCidade;
+    protected AutoCompleteTextView inputEstado;
+    protected Button buttonSalvar;
+    protected Spinner spinnerProprietario;
+    protected Button buttonAddProprietario;
+
+    protected void init() {
+        inputId = (EditText) findViewById(R.id.input_id_propriedade);
+        inputIdProprietario = (EditText) findViewById(R.id.input_id_proprietario);
+        inputNome = (EditText) findViewById(R.id.input_nome_propriedade);
+        inputCep = (EditText) findViewById(R.id.input_cep);
+        inputRua = (EditText) findViewById(R.id.input_rua);
+        inputBairro = (EditText) findViewById(R.id.input_bairro);
+        inputNumero = (EditText) findViewById(R.id.input_numero);
+        inputTelefone = (EditText) findViewById(R.id.input_telefone_propriedade);
+        inputEstado = (AutoCompleteTextView) findViewById(R.id.input_estado);
+        inputCidade = (AutoCompleteTextView) findViewById(R.id.input_cidade);
+        spinnerProprietario = (Spinner) findViewById(R.id.spinner_proprietario);
+        buttonSalvar = (Button) findViewById(R.id.btn_salvar_propriedade);
+        buttonAddProprietario = (Button) findViewById(R.id.btn_add_proprietario);
+    }
 
     private int voltarCadAnimal;
     private int voltarProprietarios;
@@ -86,7 +86,8 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
 
         setContentView(R.layout.activity_cadastrar_propriedade);
 
-        ButterKnife.bind(this);
+        init();
+
         addAutoCompletes();
 
         inputTelefone.addTextChangedListener(Mascara.insert(Mascara.CELULAR_MASK, inputTelefone));
@@ -223,8 +224,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         } else {
             Toast.makeText(CadastrarPropriedadeActivity.this, R.string.msg_erro_cadastro, Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     public void criarProprietario(View view) {
@@ -307,17 +306,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home)
             voltarActivity();
-
-        if (item.getItemId() == android.R.id.home) {
-            Intent it;
-            if (voltarCadAnimal == 1)
-                it = new Intent(CadastrarPropriedadeActivity.this, CadastrarAnimalActivity.class);
-            else
-                it = new Intent(CadastrarPropriedadeActivity.this, ListaPropriedadesActivity.class);
-            startActivity(it);
-            finish();
-        }
-
         return true;
     }
 

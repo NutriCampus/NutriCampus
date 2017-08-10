@@ -33,14 +33,11 @@ public class Animal implements Serializable {
 
     }
 
-    public Animal(int id, String indentificador, int idPropriedade,
-                  Calendar dataDeNascimento, boolean isAtivo) {
 
+    public Animal(int id, String identificador, int id_propriedade,
+                  Calendar dataDeNascimento, boolean isAtivo, int id_usuario) {
+        this(identificador, id_propriedade, dataDeNascimento, isAtivo, id_usuario);
         this.id = id;
-        this.indentificador = indentificador;
-        this.idPropriedade = idPropriedade;
-        this.dataDeNascimento = dataDeNascimento;
-        this.isAtivo = isAtivo;
     }
 
     public int getId() {
@@ -106,7 +103,8 @@ public class Animal implements Serializable {
                 ", indentificador='" + indentificador + '\'' +
                 ", dataDeNascimento=" + dataDeNascimento +
                 ", isAtivo=" + isAtivo +
-                '}';
+                ", idUsuario=" + idUsuario +
+                "}";
     }
 
 }

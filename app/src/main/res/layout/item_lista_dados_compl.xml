@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="@dimen/padding_basico"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,15 +12,15 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
-        <TextView
-            android:id="@+id/lista_dados_data"
-            android:layout_width="336dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:paddingLeft="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list"
-            android:text="@string/campo_data"
-            android:textAlignment="viewStart"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/lista_dados_data"
+        android:layout_width="336dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:paddingLeft="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/campo_data"
+        android:textAlignment="viewStart"
+        android:textSize="20sp" />
 
 </RelativeLayout>

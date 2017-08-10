@@ -23,6 +23,7 @@
             android:inputType="text"
             android:text=""
             android:visibility="gone" />
+
         <EditText
             android:id="@+id/input_id_proprietario"
             android:layout_width="match_parent"
@@ -47,6 +48,7 @@
                 android:layout_marginBottom="@dimen/margin_inputs_form"
                 android:layout_marginTop="@dimen/margin_inputs_form"
                 android:spinnerMode="dialog" />
+
             <Button
                 android:text=""
                 android:textSize="18sp"
@@ -54,8 +56,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/btn_add_proprietario"
-                android:drawableLeft="@drawable/add">
-            </Button>
+                android:drawableLeft="@drawable/add"></Button>
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -129,7 +130,7 @@
                     android:layout_width="167dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/campo_numero"
-                    android:inputType="text"/>
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -142,7 +143,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/campo_cep"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 

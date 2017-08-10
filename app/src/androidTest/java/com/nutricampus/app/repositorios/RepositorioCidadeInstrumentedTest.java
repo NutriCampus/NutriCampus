@@ -19,14 +19,12 @@ import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class RepositorioCidadeInstrumentedTest {
-    private Context appContext;
 
     private RepositorioCidade repo;
 
     @Before
     public void init() {
-
-        this.appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext = InstrumentationRegistry.getTargetContext();
 
         this.repo = new RepositorioCidade(appContext);
     }

@@ -2,7 +2,8 @@ package com.nutricampus.app.entities;
 
 import java.util.Calendar;
 
-/** Created by Diego Bezerra on 15/06/17.
+/**
+ * Created by Diego Bezerra on 15/06/17.
  * For project NutriCampus.
  * Contact: <diego.defb@gmail.com>
  */

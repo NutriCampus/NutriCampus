@@ -1,7 +1,6 @@
 package com.nutricampus.app.acceptance;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
@@ -17,11 +16,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.longClick;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -38,7 +33,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
     @Before
     public void setUp() throws Exception {
         realizaLogin();
-        Thread.sleep(500);
+        espera(500);
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(InstrumentationRegistry.getTargetContext());
         RepositorioProprietario repositorioProprietario = new RepositorioProprietario(InstrumentationRegistry.getTargetContext());
@@ -62,115 +57,64 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
     @Test
     public void tentaAtualizarCadastroApenasComProprietário() throws Exception {
-        Thread.sleep(1000);
-        onView(withText("Propriedade 1"))
-                .perform(longClick());
+        espera(1000);
 
-        Thread.sleep(1200);
+        longClickElemento("Propriedade 1");
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        espera(500);
 
-        ViewInteraction appCompatEditText13 = onView(
-                withId(R.id.input_nome_propriedade));
-        appCompatEditText13.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText17 = onView(
-                allOf(withId(R.id.input_telefone_propriedade)));
-        appCompatEditText17.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText18 = onView(
-                withId(R.id.input_rua));
-        appCompatEditText18.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText19 = onView(
-                withId(R.id.input_bairro));
-        appCompatEditText19.perform(scrollTo(), replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.input_numero), isDisplayed()));
-        appCompatEditText20.perform(replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        ViewInteraction appCompatEditText22 = onView(
-                allOf(withId(R.id.input_cep), isDisplayed()));
-        appCompatEditText22.perform(replaceText(""), closeSoftKeyboard());
-        closeKeyboard();
-        onView(withId(R.id.input_estado))
-                .perform(scrollTo())
-                .perform(replaceText(" "));
+        substituiTexto(R.id.input_nome_propriedade, "");
+        substituiTexto(R.id.input_telefone_propriedade, "");
+        substituiTexto(R.id.input_rua, "");
+        substituiTexto(R.id.input_bairro, "");
+        substituiTexto(R.id.input_numero, "");
+        substituiTexto(R.id.input_cep, "");
+        substituiTexto(R.id.input_bairro, "");
 
+        onView(withId(R.id.input_cidade)).perform(scrollTo());
+        substituiTexto(R.id.input_cidade, "");
 
-        onView(withId(R.id.input_cidade))
-                .perform(scrollTo())
-                .perform(replaceText(" "));
+        onView(withId(R.id.input_estado)).perform(scrollTo());
+        substituiTexto(R.id.input_estado, "");
 
-        Thread.sleep(1200);
+        espera(500);
 
         closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Atualizar")));
-        appCompatButton6.perform(scrollTo(), click());
-        closeKeyboard();
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        clicarBotao(R.id.btn_salvar_propriedade, true);
+
+        validaToast("Campos inválidos");
     }
 
     @Test
     public void tentaAtualizarCadastroSemProprietario() throws Exception {
-        Thread.sleep(1000);
-        onView(withText("Propriedade 1"))
-                .perform(longClick());
+        espera(1000);
+        longClickElemento("Propriedade 1");
 
-        Thread.sleep(1200);
+        clicarBotao(android.R.id.title, "Editar");
 
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(R.id.spinner_proprietario, true);
 
-        ViewInteraction appCompatSpinner = onView(
-                withId(R.id.spinner_proprietario));
-        Thread.sleep(1000);
-
-        appCompatSpinner.perform(scrollTo(), click());
-        closeKeyboard();
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("Selecione um proprietário"),
-                        childAtPosition(
-                                allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                                        withParent(withClassName(is("android.widget.FrameLayout")))),
-                                0),
-                        isDisplayed()));
-        Thread.sleep(1000);
-
-        appCompatCheckedTextView.perform(click());
-        closeKeyboard();
-        closeKeyboard();
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_salvar_propriedade), withText("Atualizar")));
-        appCompatButton6.perform(scrollTo(), click());
+        onView(allOf(withId(android.R.id.text1), withText("Selecione um proprietário"),
+                childAtPosition(
+                        allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                                withParent(withClassName(is("android.widget.FrameLayout")))),
+                        0),
+                isDisplayed
+                        ()))
+                .perform(click());
         closeKeyboard();
 
-        try {
-            new ToastMatcher().isToastMessageDisplayedWithText("Campos inválidos");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        espera(1000);
+
+        closeKeyboard();
+
+        clicarBotao(R.id.btn_salvar_propriedade, true);
+
+        validaToast("Campos inválidos");
     }
 
-    private void clicarMenuPropriedade() {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(3, click()));
-
-    }
 
 }
 

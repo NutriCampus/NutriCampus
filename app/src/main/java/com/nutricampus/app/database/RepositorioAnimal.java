@@ -79,7 +79,8 @@ public class RepositorioAnimal {
                         SQLiteManager.ANIMAL_COL_IDENTIFICADOR,
                         SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE,
                         SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO,
-                        SQLiteManager.ANIMAL_COL_IS_ATIVO},
+                        SQLiteManager.ANIMAL_COL_IS_ATIVO,
+                        SQLiteManager.ANIMAL_COL_ID_USUARIO},
                 colunasWhere,
                 valoresWhere, null, null, null, null);
 
@@ -106,7 +107,7 @@ public class RepositorioAnimal {
 
     public List<Animal> buscarTodosAnimais(String identificador) {
         return this.getListaAnimais("SELECT * FROM " + SQLiteManager.TABELA_ANIMAL +
-                    " WHERE " + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
+                " WHERE " + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
     }
 
     public List<Animal> buscarPorPropridade(int idPropriedade) {
@@ -120,11 +121,28 @@ public class RepositorioAnimal {
                 " AND (" + SQLiteManager.ANIMAL_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%')");
     }
 
+
     public int removerAnimal(Animal animal) {
+        return excluirRegistros(animal.getId(), 1);
+    }
+
+    public int removerAnimalPropriedade(int idPropriedade) {
+        return excluirRegistros(idPropriedade, 2);
+    }
+
+    private int excluirRegistros(int id, int tipo) {
         bancoDados = gerenciador.getWritableDatabase();
+        String coluna;
+
+        //tipo = 1 (ID animal) | tipo = 2 (ID Usuario)
+        if (tipo == 1)
+            coluna = SQLiteManager.ANIMAL_COL_ID;
+        else
+            coluna = SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE;
+
         int result = bancoDados.delete(SQLiteManager.TABELA_ANIMAL,
-                SQLiteManager.ANIMAL_COL_ID + " = ? ",
-                new String[]{String.valueOf(animal.getId())});
+                coluna + " = ? ",
+                new String[]{String.valueOf(id)});
 
         bancoDados.close();
 
@@ -150,8 +168,8 @@ public class RepositorioAnimal {
                 cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IDENTIFICADOR)),
                 cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE)),
                 data,
-                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO)))));
-
+                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_IS_ATIVO)))),
+                cursor.getInt(cursor.getColumnIndex(SQLiteManager.ANIMAL_COL_ID_USUARIO)));
     }
 
     private ContentValues getContentValues(Animal animal) {

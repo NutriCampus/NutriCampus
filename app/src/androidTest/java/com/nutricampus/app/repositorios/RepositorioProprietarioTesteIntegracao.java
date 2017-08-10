@@ -24,8 +24,6 @@ public class RepositorioProprietarioTesteIntegracao {
     private Context appContext = InstrumentationRegistry.getTargetContext();
     private RepositorioProprietario repositorio = new RepositorioProprietario(appContext);
 
-
-
     @Test
     public void testarInsereProprietarioInexistente() {
 
@@ -86,7 +84,9 @@ public class RepositorioProprietarioTesteIntegracao {
 
         String cpf = "444.444.444.45";
         boolean result;
-        Proprietario proprietario, proprietarioBuscado, proprietarioEncontrado;
+        Proprietario proprietario,
+                proprietarioBuscado,
+                proprietarioEncontrado;
 
         proprietario = new Proprietario(cpf, "proprietario", "proprietario@email.com", "1234-5678");
         repositorio.inserirProprietario(proprietario);
@@ -122,7 +122,8 @@ public class RepositorioProprietarioTesteIntegracao {
     public void testarRemocaoProprietario() {
 
         String cpf = "666.666.666.67";
-        Proprietario proprietario, proprietarioEncontrado;
+        Proprietario proprietario,
+                proprietarioEncontrado;
 
         proprietario = new Proprietario(cpf, "proprietario", "proprietario@email.com", "1234-5678");
         repositorio.inserirProprietario(proprietario);

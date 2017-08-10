@@ -18,6 +18,7 @@
     <string name="entrar">Entrar</string>
     <string name="recuperar_senha">Recuperar senha</string>
 
+    <string name="alter_senha">Caso altere a senha, ocorrerá logout..</string>
     <string name="menu_adicionar">Adicionar</string>
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
@@ -63,6 +64,7 @@
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
     <string name="msg_sucesso_atualizar_registro">Registro atualizado com sucesso</string>
+    <string name="msg_sucesso_atualizar_usuario">Usuário atualizado com sucesso</string>
     <string name="msg_erro_deletar_registro">Falha ao tentar remover o registro</string>
     <string name="msg_erro_atualizar_registro">Falha ao tentar atualizar o registro</string>
     <string name="msg_sucesso_remover_registro">Registro removido com sucesso</string>
@@ -76,13 +78,17 @@
 
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_proprietario_sucesso">Proprietário removido com sucesso </string>
+    <string name="msg_excluir_composto_sucesso">Composto removido com sucesso </string>
     <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_proprietario_falha">Falha ao tentar remover o proprietátio</string>
     <string name="msg_excluir_confirmar">Tem certeza que deseja remover</string>
     <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
     <string name="msg_excluir_confirmar_propritario">Tem certeza que deseja remover o(a) proprietário(a) %1$s, isso excluirá as propriedades vinculados a ele(a)?</string>
+    <string name="msg_excluir_confirmar_composto_alimentar">Tem certeza que deseja remover o Composto %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
+
+    <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
 
     <string name="proprietario">Proprietário</string>
     <string name="campo_nome">Nome</string>
@@ -96,6 +102,14 @@
     <string name="unidade_medida_kg">%1$s %2$.2f kg</string>
     <string name="unidade_medida_porcento">%</string>
 
+    <!-- Preference -->
+    <string name="titulo_conta">Conta</string>
+    <string name="pref_conta">conta</string>
+    <string name="titulo_sincronizacao">Sincronizar dados</string>
+    <string name="sumario_sincronizacao">Enviar dados para o servidor</string>
+    <string name="pref_sincronizar">sincronizar</string>
+
+
     <!-- Strings: Animais, Prole -->
     <string name="campo_animal">Animal</string>
     <string name="campo_genero">Gênero</string>
@@ -108,6 +122,7 @@
     <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
     <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
     <string name="campo_nenhum_proprietario">Nenhum proprietário cadastrado</string>
+    <string name="campo_nenhum_composto">Nenhum composto cadastrado</string>
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>
@@ -172,12 +187,14 @@
     <!-- titulos das telas -->
     <string name="titulo_recuperar_senha">Recuperar senha</string>
     <string name="titulo_novo_usuario">Novo usuário</string>
+    <string name="titulo_novo_composto">Novo composto</string>
     <string name="titulo_novo_proprietario">Novo proprietário</string>
     <string name="titulo_nova_producao_leite">Novo registro</string>
     <string name="titulo_nova_prole">Nova Prole</string>
     <string name="titulo_prole">Prole</string>
     <string name="titulo_editar_prole">Editar prole</string>
     <string name="titulo_lista_propriedade">Propriedades</string>
+    <string name="titulo_lista_compostos_alimentares">Compostos Alimentares</string>
     <string name="titulo_add_propriedade">Nova propriedade</string>
     <string name="titulo_editar_propriedade">Editar propriedade</string>
     <string name="titulo_editar_producao">Editar produção de leite</string>
@@ -218,5 +235,23 @@
     <string name="text_floating_propriedade">Propriedade</string>
     <string name="text_floating_proprietarios">Proprietários</string>
 
+    <string name="campo_composto">Nome do Composto</string>
+    <string name="campo_tipo">Tipo</string>
+    <string name="msg_compostos_erro_preenchimento">Preencha todos os campos</string>
+    <string name="menu_visualizar_composto">Visualizar composto</string>
+    <string name="titulo_editar_composto">Editar composto</string>
+    <string name="titulo_visualizar_composto">Visualizar composto</string>
+    <string name="msg_excluir_composto_falha">Falha ao tentar remover o composto</string>
+    <string name="msg_erro_cadastro_composto">Composto já cadastrado!</string>
+    <string name="campo_descricao">Descrição</string>
+    <string name="camp_fda">fda (%)</string>
+    <string name="campo_ndt">ndt (%)</string>
+    <string name="campo_pb">pb (%)</string>
+    <string name="campo_cnf">cnf (%)</string>
+    <string name="campo_mm">mm (%)</string>
+    <string name="campo_ee">ee (%)</string>
+    <string name="campo_fdn">fdn (%)</string>
+    <string name="campo_ms">ms (%)</string>
+    <string name="msg_erro_gravar_composto">Erro ao gravar composto</string>
 
 </resources>

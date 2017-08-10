@@ -34,6 +34,12 @@ import com.nutricampus.app.entities.Proprietario;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Felipe on 01/08/2017.
+ * For project NutriCampus.
+ * Contact: <felipeguimaraes540@gmail.com>
+ */
+
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class ListaProprietariosActivity extends AppCompatActivity {
 

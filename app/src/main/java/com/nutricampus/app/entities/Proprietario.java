@@ -16,7 +16,8 @@ public class Proprietario implements Serializable {
     private String telefone;
     private String email;
 
-    public Proprietario() {}
+    public Proprietario() {
+    }
 
     public Proprietario(String cpf, String nome, String email, String telefone) {
         this.cpf = cpf;
@@ -78,15 +79,15 @@ public class Proprietario implements Serializable {
     @Override
     public boolean equals(Object obj) {
 
-        if( (obj == null) || !(obj instanceof Proprietario))
+        if ((obj == null) || !(obj instanceof Proprietario))
             return false;
 
         Proprietario objeto = (Proprietario) obj;
 
         return ((objeto.getId() == (this.getId())) &&
-                (objeto.getCpf().equals(this.getCpf()))  &&
-                (objeto.getNome().equals(this.getNome()))  &&
-                (objeto.getEmail().equals(this.getEmail()))  &&
+                (objeto.getCpf().equals(this.getCpf())) &&
+                (objeto.getNome().equals(this.getNome())) &&
+                (objeto.getEmail().equals(this.getEmail())) &&
                 (objeto.getTelefone().equals(this.getTelefone())));
     }
 

@@ -15,7 +15,8 @@ public class Usuario {
     private String email;
     private String senha;
 
-    public Usuario() { }
+    public Usuario() {
+    }
 
 
     public Usuario(String crmv, String cpf, String nome, String email, String senha) {
@@ -98,15 +99,15 @@ public class Usuario {
     @Override
     public boolean equals(Object obj) {
 
-        if( (obj == null) || !(obj instanceof Usuario))
+        if ((obj == null) || !(obj instanceof Usuario))
             return false;
 
         Usuario objeto = (Usuario) obj;
 
         return ((objeto.getCrmv().equals(this.getCrmv())) &&
-                (objeto.getCpf().equals(this.getCpf()))  &&
-                (objeto.getNome().equals(this.getNome()))  &&
-                (objeto.getEmail().equals(this.getEmail()))  &&
+                (objeto.getCpf().equals(this.getCpf())) &&
+                (objeto.getNome().equals(this.getNome())) &&
+                (objeto.getEmail().equals(this.getEmail())) &&
                 (objeto.getSenha().equals(this.getSenha())));
     }
 

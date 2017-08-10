@@ -71,17 +71,22 @@ public class RepositorioUsuario {
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            return new Usuario(
-                    cursor.getInt(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_ID)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CPF)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_NOME)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_SENHA)));
+            return getUsuarioFromCursor(cursor);
 
         }
         cursor.close();
         return null;
+    }
+
+
+    private Usuario getUsuarioFromCursor(Cursor cursor) {
+        return new Usuario(
+                cursor.getInt(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_ID)),
+                cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CRMV)),
+                cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_CPF)),
+                cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_NOME)),
+                cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_EMAIL)),
+                cursor.getString(cursor.getColumnIndex(SQLiteManager.USUARIO_COL_SENHA)));
     }
 
     public List<Usuario> buscarTodosUsuarios() {
@@ -118,7 +123,6 @@ public class RepositorioUsuario {
         return usuarios;
     }
 
-
     public boolean atualizarUsuario(Usuario usuario) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -138,13 +142,15 @@ public class RepositorioUsuario {
 
     }
 
-    public void removerUsuario(Usuario usuario) {
+    public int removerUsuario(Usuario usuario) {
         bancoDados = gerenciador.getWritableDatabase();
-        bancoDados.delete(SQLiteManager.TABELA_USUARIO,
+        int linhasAfetadas = bancoDados.delete(SQLiteManager.TABELA_USUARIO,
                 SQLiteManager.USUARIO_COL_ID + " = ? ",
                 new String[]{String.valueOf(usuario.getId())});
 
         bancoDados.close();
+
+        return linhasAfetadas;
     }
 
 }

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -29,17 +31,19 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarUsuarioActivity extends AppCompatActivity {
 
-    private EditText edtNome;
-    private EditText edtCpf;
-    private EditText edtRegistro;
-    private EditText edtEmail;
-    private EditText edtSenha;
+    protected EditText edtNome;
+    protected EditText edtCpf;
+    protected EditText edtRegistro;
+    protected EditText edtEmail;
+    protected EditText edtSenha;
+    protected TextView txtAlterSenha;
+    protected Button btnSalvar;
 
-    private String nome;
-    private String cpf;
-    private String registro;
-    private String email;
-    private String senha;
+    protected String nome;
+    protected String cpf;
+    protected String registro;
+    protected String email;
+    protected String senha;
 
 
     @Override
@@ -52,6 +56,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         edtRegistro = (EditText) findViewById(R.id.edtRegistro);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
+        txtAlterSenha = (TextView) findViewById(R.id.txt_alter_senha);
+        btnSalvar = (Button) findViewById(R.id.btn_salvar_cadastro);
 
         edtCpf.addTextChangedListener(Mascara.insert(Mascara.CPF_MASK, edtCpf));
     }
@@ -72,11 +78,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        if (!ValidaFormulario.validarCpf(cpf)) {
-            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
-            return;
-        }
-
         Usuario usuario = new Usuario(registro, cpf, nome, email, senha);
 
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario(getBaseContext());
@@ -90,7 +91,6 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
             CadastrarUsuarioActivity.this.finish();
-
         } else {
             Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cadastro_usuario), Toast.LENGTH_SHORT).show();
         }
@@ -118,12 +118,14 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         if (cpf.isEmpty()) {
             this.edtNome.setError(getString(R.string.msg_erro_campo));
             valido = false;
-        } else if (cpf.length() < 14) {
-            this.edtCpf.setError(getString(R.string.msg_erro_cpf_1));
+        } else if (!ValidaFormulario.validarCpf(cpf)) {
+            this.edtCpf.setError(getString(R.string.msg_erro_cpf_2));
             valido = false;
+            Toast.makeText(CadastrarUsuarioActivity.this, getString(R.string.msg_erro_cpf_2), Toast.LENGTH_LONG).show();
         } else {
             this.edtCpf.setError(null);
         }
+
 
         if (registro.isEmpty()) {
             this.edtRegistro.setError(getString(R.string.msg_erro_campo));

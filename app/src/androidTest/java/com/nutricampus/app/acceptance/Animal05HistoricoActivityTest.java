@@ -3,10 +3,10 @@ package com.nutricampus.app.acceptance;
 import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -44,10 +44,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
 
-/**
- * Created by jorge on 25/07/17.
- */
-
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -58,7 +54,7 @@ public class Animal05HistoricoActivityTest {
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void HistoricoAnimal1() throws  Exception {
+    public void historicoAnimal1() throws Exception {
         prepararTeste();
         onView(withText("Florinda")).perform(longClick());
         closeKeyboard();
@@ -92,7 +88,7 @@ public class Animal05HistoricoActivityTest {
 
     }
 
-    public void prepararTeste()throws Exception{
+    public void prepararTeste() throws Exception {
         doLogout();
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
@@ -138,12 +134,14 @@ public class Animal05HistoricoActivityTest {
             }
         };
     }
+
     public void doLogout() throws Exception {
         if (getActivityInstance() instanceof MainActivity) {
             new SharedPreferencesManager(mActivityTestRule.getActivity()).logoutUser();
             currentActivity.finish();
         }
     }
+
     public Activity getActivityInstance() {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -156,6 +154,7 @@ public class Animal05HistoricoActivityTest {
 
         return currentActivity;
     }
+
     public void closeKeyboard() throws Exception {
         try {
             Thread.sleep(1000);

@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="@string/titulo_conta"
+        android:key="@string/pref_conta"
+        android:icon="@drawable/account" />
+
+    <SwitchPreference
+        android:title="@string/titulo_sincronizacao"
+        android:summary="@string/sumario_sincronizacao"
+        android:key="@string/pref_sincronizar"
+        android:icon="@drawable/synchronize"/>
+
+</PreferenceScreen>

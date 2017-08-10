@@ -72,6 +72,6 @@
         android:drawableStart="@drawable/save"
         android:onClick="salvar"
         android:text="@string/save"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
 </LinearLayout>

@@ -58,7 +58,7 @@ public class GMail {
         for (Object toEmail : toEmailList) {
             Log.i(TAG, "toEmail: " + toEmail);
             emailMessage.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress((String)toEmail));
+                    new InternetAddress((String) toEmail));
         }
 
         emailMessage.setSubject(emailSubject);

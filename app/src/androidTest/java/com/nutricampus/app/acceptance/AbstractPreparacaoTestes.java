@@ -1,6 +1,7 @@
 package com.nutricampus.app.acceptance;
 
 import android.app.Activity;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -24,7 +25,9 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -33,6 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.fail;
 
 
 @java.lang.SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
@@ -70,38 +74,39 @@ abstract class AbstractPreparacaoTestes {
     }
 
     public void realizaLogin() throws Exception {
-        doLogout();
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.input_usuario), isDisplayed()));
-        appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
+        if (getActivityInstance() instanceof MainActivity) {
+            espera(2500);
+        } else {
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_senha), isDisplayed()));
-        appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+            doLogout();
+            espera(500);
+            substituiTexto(R.id.input_usuario, "admin");
+            substituiTexto(R.id.input_senha, "admin");
+            closeKeyboard();
+            clicarBotao(R.id.btn_login, false);
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_login), withText("Entrar"), isDisplayed()));
-        appCompatButton.perform(click());
-
-        Thread.sleep(500);
+            espera(500);
+        }
     }
 
-    public void abrirMenu() throws InterruptedException {
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-        Thread.sleep(500);
+    public void abrirMenu() {
+        onView(allOf(withContentDescription("Open"),
+                withParent(withId(R.id.toolbar)),
+                isDisplayed()))
+                .perform(click());
+        espera(500);
     }
 
     public void clicarItemMenu(int posicao) {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.material_drawer_recycler_view),
-                        withParent(allOf(withId(R.id.material_drawer_slider_layout),
-                                withParent(withId(R.id.material_drawer_layout)))),
-                        isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(posicao, click()));
+        onView(allOf(withId(R.id.material_drawer_recycler_view),
+                withParent(allOf(withId(R.id.material_drawer_slider_layout),
+                        withParent(withId(R.id.material_drawer_layout)))),
+                isDisplayed()))
+                .perform(actionOnItemAtPosition(posicao, click()));
+    }
+
+    public void clicarItemMenuComTexto(String texto) {
+        onView(withText(texto)).perform(click());
     }
 
     public Activity getActivityInstance() {
@@ -119,10 +124,71 @@ abstract class AbstractPreparacaoTestes {
 
     public void closeKeyboard() {
         try {
+            Espresso.closeSoftKeyboard();
             Thread.sleep(1300);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void espera() {
+        espera(1500);
+    }
+
+    public void espera(int tempo) {
+        try {
+            Thread.sleep(tempo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void validaToast(String mensagem) {
+        try {
+            new ToastMatcher().isToastMessageDisplayedWithText(mensagem);
+            espera(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Toast não identificado");
+        }
+    }
+
+
+    public void clicarFloatingButton(int id) throws Exception {
+        onView(withId(id)).perform(click());
+
+        espera(600);
+    }
+
+    public void clicarIconePesquisa() {
+        onView(allOf(withId(R.id.action_search), withContentDescription("faw_search"),
+                isDisplayed())).perform(click());
+    }
+
+    public void clicarBotao(int id, boolean scroll) {
+        espera(500);
+        ViewInteraction appCompatButton = onView(withId(id));
+
+        if (scroll)
+            appCompatButton.perform(scrollTo(), click());
+        else
+            appCompatButton.perform(click());
+
+    }
+
+    public void clicarBotao(int id, String texto) {
+        espera(500);
+        onView(allOf(withId(id), withText(texto), isDisplayed())).perform(click());
+    }
+
+    public void longClickElemento(String texto) {
+        onView(withText(texto)).perform(longClick());
+    }
+
+    public void substituiTexto(int id, String texto) {
+        onView(withId(id)).perform(replaceText(texto), closeSoftKeyboard());
     }
 }

@@ -114,7 +114,6 @@ public class RepositorioProducaoDeLeite {
     }
 
 
-
     public boolean atualizarProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
 
@@ -128,6 +127,7 @@ public class RepositorioProducaoDeLeite {
 
     }
 
+    /*
     public int removerProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
         bancoDados = gerenciador.getWritableDatabase();
         int result = bancoDados.delete(SQLiteManager.TABELA_PRODUCAO_DE_LEITE,
@@ -135,6 +135,34 @@ public class RepositorioProducaoDeLeite {
                 new String[]{String.valueOf(producaoDeLeite.getId())});
 
         bancoDados.close();
+        return result;
+    }*/
+
+    public int removerProducaoDeLeite(ProducaoDeLeite producaoDeLeite) {
+        return excluirRegistros(producaoDeLeite.getId(), 1);
+    }
+
+    public int removerProducaoDeLeite(int idAnimal) {
+        return excluirRegistros(idAnimal, 2);
+    }
+
+
+    private int excluirRegistros(int id, int tipo) {
+        bancoDados = gerenciador.getWritableDatabase();
+        String coluna;
+
+        //tipo = 1 (ID DadosCompl) | tipo = 2 (ID Animal)
+        if (tipo == 1)
+            coluna = SQLiteManager.PRODUCAO_DE_LEITE_ID;
+        else
+            coluna = SQLiteManager.PRODUCAO_DE_LEITE_ID_ANIMAL;
+
+        int result = bancoDados.delete(SQLiteManager.TABELA_PRODUCAO_DE_LEITE,
+                coluna + " = ? ",
+                new String[]{String.valueOf(id)});
+
+        bancoDados.close();
+
         return result;
     }
 

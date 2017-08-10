@@ -109,8 +109,8 @@ public class RepositorioPropriedadeTesteIntegracao {
         List<Propriedade> propriedadesList = repositorio.buscarPropriedadesPorNome(nome, idUsuario);
 
         boolean contem = true;
-        for(Propriedade p : propriedadesList) {
-            if(!p.getNome().contains("Faz")) {
+        for (Propriedade p : propriedadesList) {
+            if (!p.getNome().contains("Faz")) {
                 contem = false;
                 break;
             }

@@ -96,7 +96,8 @@ public class RepositorioUsuarioTesteIntegracao {
     public void testarAtualizacaoDeDadosComId() {
 
         boolean result;
-        Usuario usuarioEncontrado, usuarioDadosAlterados;
+        Usuario usuarioEncontrado;
+        Usuario usuarioDadosAlterados;
 
         Usuario usuarioAdicionado = new Usuario("0123", "111.111.111-11", "usuario", "usuario@email.com", "123456");
         repositorio.inserirUsuario(usuarioAdicionado);

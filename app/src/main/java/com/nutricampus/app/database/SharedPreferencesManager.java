@@ -34,6 +34,7 @@ public class SharedPreferencesManager {
     private static final String KEY_SENHA = PREF_NAME + "senha";
     private static final String KEY_EMAIL = PREF_NAME + "email";
     private static final String KEY_ID_USUARIO = PREF_NAME + "idUsuario";
+    private static final String KEY_CRMVNC = PREF_NAME + "crmvNC";
     private static final String KEY_LOGADO = "logado";
 
     public SharedPreferencesManager(Context context) {
@@ -103,7 +104,16 @@ public class SharedPreferencesManager {
         editor.commit();
     }
 
-    public void createLoginSession(int id, String name, String email, String senha){
+    public String getCrmvNC() {
+        return pref.getString(KEY_CRMVNC, "");
+    }
+
+    public void setCrmvNC(String keyCrmvNC) {
+        editor.putString(KEY_CRMVNC, keyCrmvNC);
+        editor.commit();
+    }
+
+    public void createLoginSession(int id, String name, String email, String senha, String crmv) {
         // Storing login value as TRUE
         editor.putBoolean(KEY_LOGADO, true);
 
@@ -114,13 +124,15 @@ public class SharedPreferencesManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_SENHA, senha);
         editor.putString(KEY_ID_USUARIO, Integer.toString(id));
+        editor.putString(KEY_CRMVNC, crmv);
 
         // commit changes
         editor.commit();
     }
-    public void checkLogin(){
+
+    public void checkLogin() {
         // Check login status
-        if(!this.isLoggedIn()){
+        if (!this.isLoggedIn()) {
             // user is not logged in redirect him to Login Activity
             Intent i = new Intent(context, LoginActivity.class);
             // Closing all the Activities
@@ -136,7 +148,7 @@ public class SharedPreferencesManager {
     }
 
 
-    public void logoutUser(){
+    public void logoutUser() {
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
@@ -153,7 +165,7 @@ public class SharedPreferencesManager {
         context.startActivity(i);
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return pref.getBoolean(KEY_LOGADO, false);
     }
 }

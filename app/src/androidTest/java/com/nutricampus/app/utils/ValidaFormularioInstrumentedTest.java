@@ -33,6 +33,7 @@ public class ValidaFormularioInstrumentedTest {
         assertTrue("Construtor não é privado", Modifier.isPrivate(constructor.getModifiers()));
 
     }
+
     @Before
     public void init() {
         this.appContext = InstrumentationRegistry.getTargetContext();

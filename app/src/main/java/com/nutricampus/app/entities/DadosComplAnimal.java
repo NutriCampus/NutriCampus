@@ -16,8 +16,10 @@ public class DadosComplAnimal implements Serializable {
     private int idAnimal;
     private float pesoVivo;
 
-    /** O eec (Escore de Condição Corporal) mede, em uma escala de 1 a 5, a quantidade de
-     gordura presente no corpo do animal.*/
+    /**
+     * O eec (Escore de Condição Corporal) mede, em uma escala de 1 a 5, a quantidade de
+     * gordura presente no corpo do animal.
+     */
     private int eec;
 
     private float caminadaHorizontal;
@@ -157,7 +159,9 @@ public class DadosComplAnimal implements Serializable {
         return isCio;
     }
 
-    public void setCio(boolean cio) { isCio = cio; }
+    public void setCio(boolean cio) {
+        isCio = cio;
+    }
 
     @Override
     public String toString() {

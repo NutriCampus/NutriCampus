@@ -44,7 +44,7 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class DadosComplementaresFragment extends Fragment
-        implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_ANIMAL = "animal";
 
@@ -105,11 +105,11 @@ public class DadosComplementaresFragment extends Fragment
         inputData.setOnClickListener(this);
         inicializaCampoData();
 
-        if(animal != null) {
+        if (animal != null) {
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(getActivity());
             this.dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(animal.getId());
 
-            if(dadosComplAnimal != null) {
+            if (dadosComplAnimal != null) {
                 inputPeso.setText(String.valueOf(dadosComplAnimal.getPesoVivo()));
                 inputData.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));
                 inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
@@ -138,6 +138,7 @@ public class DadosComplementaresFragment extends Fragment
         if (inputData.getText().toString().equals("")) {
             data = Calendar.getInstance();
             data.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DATE));
+
             inputData.setText(Conversor.dataFormatada(data));
         } else {
             this.data.setTime(Conversor.stringToDate(inputData.getText().toString()));
@@ -177,12 +178,12 @@ public class DadosComplementaresFragment extends Fragment
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.input_data_complementar) {
+        if (v.getId() == R.id.input_data_complementar) {
             showDatePickerDialog(v);
             return;
         }
 
-        if(v.getId() == R.id.btn_hist_registros) {
+        if (v.getId() == R.id.btn_hist_registros) {
             Intent it = new Intent(getActivity(), ListaDadosComplActivity.class);
             it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
             startActivity(it);
@@ -202,12 +203,12 @@ public class DadosComplementaresFragment extends Fragment
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
 
         int eec;
-        if(rb == null)
+        if (rb == null)
             eec = 0;
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
 
-        if(dadosComplAnimal == null) {
+        if (dadosComplAnimal == null) {
             dadosComplAnimal = new DadosComplAnimal(
                     data,
                     Float.parseFloat(inputPeso.getText().toString()),
@@ -234,7 +235,7 @@ public class DadosComplementaresFragment extends Fragment
         }
 
         Activity activity = getActivity();
-        if(activity instanceof SalvarDadosAnimal) {
+        if (activity instanceof SalvarDadosAnimal) {
             SalvarDadosAnimal listener = (SalvarDadosAnimal) activity;
             listener.salvar(dadosComplAnimal);
         }
