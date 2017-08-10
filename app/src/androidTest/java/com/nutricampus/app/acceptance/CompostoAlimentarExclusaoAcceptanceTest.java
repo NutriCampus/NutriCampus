@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
@@ -94,10 +94,6 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
         clicarBotao(android.R.id.title, "Excluir");
         clicarBotao(android.R.id.button1, "Sim");
 
-        verificaExistentenciaListView();
-    }
-
-    private void verificaExistentenciaListView() {
         try {
             ViewInteraction linearLayout = onView(
                     allOf(childAtPosition(
@@ -107,11 +103,12 @@ public class CompostoAlimentarExclusaoAcceptanceTest extends AbstractPreparacaoT
                                             2)),
                             0),
                             isDisplayed()));
-            linearLayout.check(matches(isDisplayed()));
+            linearLayout.check(doesNotExist());
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
-            fail("Não existe essa view");
+            fail("ListView com resultados encontrado, contudo não deveria existir essa view.");
         }
     }
+
 
 }
