@@ -25,6 +25,13 @@ Explicação para a supressão de warnings:
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastroProleActivity extends AbstractDataPickerActivity {
 
+    protected EditText inputId;
+    protected CheckBox checkNatimorto;
+    protected EditText inputPeso;
+    protected Button buttonSalvar;
+
+    protected int idAnimalMatriz;
+
     protected void init() {
         inputId = (EditText) findViewById(R.id.input_id_prole);
         checkNatimorto = (CheckBox) findViewById(R.id.check_natimorto);
@@ -32,13 +39,6 @@ public class CadastroProleActivity extends AbstractDataPickerActivity {
         buttonSalvar = (Button) findViewById(R.id.btn_salvar_prole);
         inputData = (EditText) findViewById(R.id.input_data_nascimento);
     }
-
-    protected EditText inputId;
-    protected CheckBox checkNatimorto;
-    protected EditText inputPeso;
-    protected Button buttonSalvar;
-
-    protected int idAnimalMatriz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

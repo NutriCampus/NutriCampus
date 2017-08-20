@@ -258,5 +258,9 @@
     <string name="campo_fdn">fdn (%)</string>
     <string name="campo_ms">ms (%)</string>
     <string name="msg_erro_gravar_composto">Erro ao gravar composto</string>
+    <string name="titulo_lista_grupos">Grupos</string>
+    <string name="title_activity_cadastrar_grupo">Novo Grupo</string>
+    <string name="campo_observacao">Observações</string>
+    <string name="titulo_editar_grupo">Editar Grupo</string>
 
 </resources>

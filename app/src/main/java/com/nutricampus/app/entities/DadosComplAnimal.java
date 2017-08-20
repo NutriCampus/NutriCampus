@@ -28,7 +28,6 @@ public class DadosComplAnimal implements Serializable {
     private int idGrupo;
 
     public DadosComplAnimal() {
-
     }
 
     public DadosComplAnimal(Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,

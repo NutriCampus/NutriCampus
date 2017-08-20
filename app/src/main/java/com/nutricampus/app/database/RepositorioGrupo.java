@@ -122,9 +122,8 @@ public class RepositorioGrupo {
         return (retorno > 0);
     }
 
-    public List<Grupo> buscarTodosGrupos(String identificador) {
-        return this.getListaGrupos("SELECT * FROM " + SQLiteManager.TABELA_GRUPO +
-                " WHERE " + SQLiteManager.GRUPO_COL_IDENTIFICADOR + " LIKE '%" + identificador + "%'");
+    public List<Grupo> buscarTodosGrupos() {
+        return this.getListaGrupos("SELECT * FROM " + SQLiteManager.TABELA_GRUPO);
     }
 
     public List<Grupo> buscarPorUsuario(int idUsuario) {

@@ -20,6 +20,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ConfigActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
+import com.nutricampus.app.activities.ListaGrupoActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -94,6 +95,9 @@ public class ActionBarManager {
                         switch ((int) drawerItem.getIdentifier()) {
                             case 1:
                                 intent = new Intent(activity, ListaPropriedadesActivity.class);
+                                break;
+                            case 2:
+                                intent = new Intent(activity, ListaGrupoActivity.class);
                                 break;
                             case 3:
                                 intent = new Intent(activity, ListaAnimaisActivity.class);

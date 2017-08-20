@@ -1,10 +1,12 @@
 package com.nutricampus.app.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by felipe on 19/08/17.
  */
 
-public class Grupo {
+public class Grupo implements Serializable {
 
     private int id;
     private String identificador;

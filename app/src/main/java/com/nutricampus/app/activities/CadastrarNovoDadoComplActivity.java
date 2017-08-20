@@ -67,10 +67,6 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         inputCaminhadaHorizontal = (EditText) findViewById(R.id.input_caminhada_horizontal);
         inputSemanaLactacao = (EditText) findViewById(R.id.input_semana_lactacao);
         inputIdPropriedade = (EditText) findViewById(R.id.input_id_propriedade);
-        ckbPastando = (CheckBox) findViewById(R.id.ckb_pastando);
-        ckbLactacao = (CheckBox) findViewById(R.id.ckb_lactacao);
-        ckbCio = (CheckBox) findViewById(R.id.ckb_cio);
-        ckbGestante = (CheckBox) findViewById(R.id.ckb_gestante);
         radioGroup = (RadioGroup) findViewById(R.id.rgEec);
         btnSalvar = (Button) findViewById(R.id.btn_salvar);
         txtGrupo = (TextView) findViewById(R.id.txtGrupos);

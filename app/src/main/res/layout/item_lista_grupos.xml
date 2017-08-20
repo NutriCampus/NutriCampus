@@ -3,23 +3,23 @@
     android:padding="@dimen/padding_basico"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ItensListaAnimal">
+    android:id="@+id/ItensListaGrupos">
 
     <TextView
-        android:id="@+id/lista_dados_id"
+        android:id="@+id/lista_grupo_id"
         android:text=""
         android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
     <TextView
-        android:id="@+id/lista_dados_data"
+        android:id="@+id/lista_grupo_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:paddingLeft="@dimen/padding_list"
         android:paddingTop="@dimen/padding_list"
-        android:text="@string/campo_data"
+        android:text="@string/campo_nome"
         android:textAlignment="viewStart"
         android:textSize="20sp" />
 
