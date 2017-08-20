@@ -8,16 +8,42 @@
     android:background="#e4e4e4"
     tools:context="com.nutricampus.app.activities.ListaGrupoActivity">
 
-    <ListView
-        android:id="@+id/listaGrupo"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/caixa_arredondada"
+        android:orientation="vertical"
         android:layout_margin="@dimen/margin_form"
+        android:id="@+id/resultado_busca_prole">
+
+        <TextView
+            android:id="@+id/text_quantidade_encontrados"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="23dp"
+            android:textAlignment="center"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/linha"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLinha"
+            android:layout_marginBottom="10dp" />
+
+        <ListView
+            android:id="@+id/listaGrupo"
+            android:background="@drawable/caixa_arredondada"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:choiceMode="multipleChoice"
         android:listSelector="@color/colorItemListSelected"
         android:longClickable="true" />
 
+    </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_add_grupo"
         android:layout_width="wrap_content"
@@ -25,5 +51,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add_light" />
-
 </android.support.design.widget.CoordinatorLayout>

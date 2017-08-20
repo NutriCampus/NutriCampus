@@ -62,7 +62,7 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
-        closeKeyboard();
+        fecharTeclado();
         espera(2000);
 
         ViewInteraction linearLayout3 = onView(
@@ -88,7 +88,7 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
-        closeKeyboard();
+        fecharTeclado();
         espera(2000);
 
         ViewInteraction linearLayout3 = onView(
@@ -113,7 +113,7 @@ public class ProprietarioBuscarActivityTest extends AbstractPreparacaoTestes {
                 allOf(withId(R.id.input_pesquisa), isDisplayed()));
         appCompatEditText41.perform(pressImeActionButton());
 
-        closeKeyboard();
+        fecharTeclado();
         espera(2000);
 
         ViewInteraction linearLayout = onView(

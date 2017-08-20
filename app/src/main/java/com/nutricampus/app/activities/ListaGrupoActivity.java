@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
@@ -64,7 +65,7 @@ public class ListaGrupoActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(ListaGrupoActivity.this, CadastrarGrupoActivity.class);
                 startActivity(intent);
-                ListaGrupoActivity.this.finish();
+                //ListaGrupoActivity.this.finish();
 
             }
         });
@@ -89,6 +90,20 @@ public class ListaGrupoActivity extends AppCompatActivity {
 
         ListaGrupoAdapter adapter = new ListaGrupoAdapter(this, listaDeGrupos);
         listViewGrupo.setAdapter(adapter);
+
+
+        TextView mensagemQuantidade = (TextView) findViewById(R.id.text_quantidade_encontrados);
+        View linha = findViewById(R.id.linha);
+
+        mensagemQuantidade.setText(getResources().getQuantityString(
+                R.plurals.msg_registros_encontrados,
+                adapter.getCount(),
+                adapter.getCount()));
+
+        if (listaDeGrupos.isEmpty())
+            linha.setVisibility(View.GONE);
+        else
+            linha.setVisibility(View.VISIBLE);
     }
 
     @Override

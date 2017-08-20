@@ -440,7 +440,7 @@ public class ProleActivityTest {
 //                                        0),
 //                                isDisplayed()));
 //                textView4.check(matches(withText("Procure uma propriedade")));
-//                closeKeyboard();
+//                fecharTeclado();
 
     }
 

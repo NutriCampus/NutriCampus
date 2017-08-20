@@ -47,7 +47,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         realizaLogin();
         abrirMenu();
         clicarItemMenu(3);
-        closeKeyboard();
+        fecharTeclado();
         clicarFloatingButtonPropriedade();
     }
 
@@ -86,7 +86,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
                         isDisplayed()))
                 .perform(click());
 
-        closeKeyboard();
+        fecharTeclado();
 
         preencheCampos();
 
@@ -110,7 +110,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         preencheCampos();
 
-        closeKeyboard();
+        fecharTeclado();
         clicarBotao(R.id.btn_salvar_propriedade, true);
 
         validaToast("Campos inválidos");
@@ -135,7 +135,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         onView(withId(R.id.input_estado))
                 .perform(typeTextIntoFocusedView("e"));
 
-        closeKeyboard();
+        fecharTeclado();
         espera(1000);
 
         onView(withText("Pernambuco"))
@@ -144,7 +144,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
 
         onView(withId(R.id.input_estado))
                 .check(matches(withText("Pernambuco")));
-        closeKeyboard();
+        fecharTeclado();
 
         onView(withId(R.id.input_cidade))
                 .perform(scrollTo())
@@ -153,7 +153,7 @@ public class PropriedadeCadastroAcceptanceTest extends AbstractPreparacaoTestes 
         onView(withId(R.id.input_cidade))
                 .perform(typeTextIntoFocusedView("ran"));
 
-        closeKeyboard();
+        fecharTeclado();
 
         espera(1000);
         onView(withText("Garanhuns"))

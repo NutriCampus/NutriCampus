@@ -90,10 +90,10 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
                                 1),
                         isDisplayed()));
         textView10.check(matches(withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedades vinculados a ele(a)?")));
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(android.R.id.button2, "Não");
-        closeKeyboard();
+        fecharTeclado();
 
         longClickElemento("ProprietarioTeste1");
 

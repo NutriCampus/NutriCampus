@@ -52,7 +52,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
         abrirMenu();
         clicarItemMenu(3);
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
 
         espera(500);
 
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btn_salvar_propriedade, true);
 
@@ -104,11 +104,11 @@ public class PropriedadeEdicaoAcceptanceTest extends AbstractPreparacaoTestes {
                 isDisplayed
                         ()))
                 .perform(click());
-        closeKeyboard();
+        fecharTeclado();
 
         espera(1000);
 
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btn_salvar_propriedade, true);
 

@@ -49,6 +49,7 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
             return;
         }
 
+
         Grupo prole = getObjeto();
 
         RepositorioGrupo repositorio = new RepositorioGrupo(this);
@@ -64,6 +65,11 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
 
     }
 
+    protected boolean isNomeUnico(String nome) {
+        RepositorioGrupo repositorio = new RepositorioGrupo(this);
+        return (repositorio.buscarGrupo(nome) == null);
+    }
+
     public boolean validarDados() {
         boolean valido = true;
 
@@ -72,6 +78,11 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
 
         for (TextView view : ValidaFormulario.camposTextosVazios(campos)) {
             view.setError(getString(R.string.msg_erro_campo));
+            valido = false;
+        }
+
+        if (!isNomeUnico(inputNome.getText().toString())) {
+            inputNome.setError(getString(R.string.msg_nome_existente));
             valido = false;
         }
 

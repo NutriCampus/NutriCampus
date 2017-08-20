@@ -77,14 +77,14 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         floatingActionButton.perform(click());
-        closeKeyboard();
+        fecharTeclado();
 
         Thread.sleep(1000);
 
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
                         childAtPosition(
@@ -93,19 +93,19 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 1),
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText23 = onView(
                 allOf(withId(R.id.input_identificador), isDisplayed()));
         appCompatEditText23.perform(replaceText("Mimosa"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText55 = onView(
                 allOf(withId(R.id.input_data_nascimento), isDisplayed()));
         appCompatEditText55.perform(replaceText("17/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
                         childAtPosition(
@@ -115,7 +115,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction editText2 = onView(
                 allOf(withId(R.id.input_semana_lactacao),
                         childAtPosition(
@@ -125,7 +125,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText2.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText25 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
         appCompatEditText25.perform(replaceText("600"), closeSoftKeyboard());
@@ -134,33 +134,33 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText0 = onView(
                 allOf(withId(R.id.input_data_complementar), isDisplayed()));
         appCompatEditText0.perform(replaceText("22/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatEditText27 = onView(
                 allOf(withId(R.id.input_caminhada_vertical), isDisplayed()));
         appCompatEditText27.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText28 = onView(
                 allOf(withId(R.id.input_caminhada_horizontal), isDisplayed()));
         appCompatEditText28.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
         appCompatCheckBox.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
         appCompatRadioButton.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         appCompatButton10.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
@@ -171,7 +171,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
@@ -182,30 +182,30 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         floatingActionButton.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         Thread.sleep(2000);
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText23 = onView(
                 allOf(withId(R.id.input_identificador), isDisplayed()));
         appCompatEditText23.perform(replaceText("Flor"), closeSoftKeyboard());
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText55 = onView(
                 allOf(withId(R.id.input_data_nascimento), isDisplayed()));
         appCompatEditText55.perform(replaceText("17/07/2013"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
@@ -216,7 +216,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction editText2 = onView(
                 allOf(withId(R.id.input_semana_lactacao),
                         childAtPosition(
@@ -226,7 +226,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText2.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText25 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
         appCompatEditText25.perform(replaceText("500"), closeSoftKeyboard());
@@ -234,19 +234,19 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText01 = onView(
                 allOf(withId(R.id.input_data_complementar), isDisplayed()));
         appCompatEditText01.perform(replaceText("22/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText27 = onView(
                 allOf(withId(R.id.input_caminhada_vertical), isDisplayed()));
         appCompatEditText27.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText28 = onView(
                 allOf(withId(R.id.input_caminhada_horizontal), isDisplayed()));
         appCompatEditText28.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
@@ -254,20 +254,20 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         appCompatCheckBox.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
         Thread.sleep(1000);
 
         appCompatRadioButton.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         Thread.sleep(1000);
 
         appCompatButton10.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
@@ -280,7 +280,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         textView4.check(matches(withText("Procure uma propriedade")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
@@ -303,14 +303,14 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
 
         floatingActionButton.perform(click());
 
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         Thread.sleep(1000);
 
         appCompatSpinner4.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 2"),
                         childAtPosition(
@@ -321,20 +321,20 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         appCompatCheckedTextView2.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText23 = onView(
                 allOf(withId(R.id.input_identificador), isDisplayed()));
         appCompatEditText23.perform(replaceText("Mimosa"), closeSoftKeyboard());
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText55 = onView(
                 allOf(withId(R.id.input_data_nascimento), isDisplayed()));
         appCompatEditText55.perform(replaceText("17/12/2015"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
                         childAtPosition(
@@ -344,7 +344,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction editText2 = onView(
                 allOf(withId(R.id.input_semana_lactacao),
                         childAtPosition(
@@ -354,7 +354,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText2.check(matches(withText("")));
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText25 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
         appCompatEditText25.perform(replaceText("500"), closeSoftKeyboard());
@@ -362,40 +362,40 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText01 = onView(
                 allOf(withId(R.id.input_data_complementar), isDisplayed()));
         appCompatEditText01.perform(replaceText("22/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatEditText27 = onView(
                 allOf(withId(R.id.input_caminhada_vertical), isDisplayed()));
         appCompatEditText27.perform(replaceText("2"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText28 = onView(
                 allOf(withId(R.id.input_caminhada_horizontal), isDisplayed()));
         appCompatEditText28.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
         Thread.sleep(1000);
 
         appCompatCheckBox.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
         Thread.sleep(1000);
 
         appCompatRadioButton.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         Thread.sleep(1000);
 
         appCompatButton10.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
@@ -406,7 +406,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
@@ -419,14 +419,14 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         floatingActionButton.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         pressBack();
 
         Thread.sleep(1500);
         clicarBotao(R.id.btnConfimarDados, true);
 
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
@@ -437,7 +437,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         textView.check(matches(withText("Procure uma propriedade")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
@@ -450,13 +450,13 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         floatingActionButton.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         Thread.sleep(1000);
 
         appCompatSpinner4.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
                         childAtPosition(
@@ -467,16 +467,16 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         Thread.sleep(1000);
 
         appCompatCheckedTextView2.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         pressBack();
         Thread.sleep(1500);
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         swipeUp();
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 1"),
                         childAtPosition(
@@ -498,7 +498,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         floatingActionButton.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
@@ -511,21 +511,21 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 1),
                         isDisplayed()));
         appCompatCheckedTextView2.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText23 = onView(
                 allOf(withId(R.id.input_identificador), isDisplayed()));
         appCompatEditText23.perform(replaceText("Mimosa"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatEditText55 = onView(
                 allOf(withId(R.id.input_data_nascimento), isDisplayed()));
         appCompatEditText55.perform(replaceText("17/07/2013"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
-        closeKeyboard();
+        fecharTeclado();
+        fecharTeclado();
         ViewInteraction editText = onView(
                 allOf(withId(R.id.input_peso_vivo),
                         childAtPosition(
@@ -536,7 +536,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         editText.check(matches(withText("")));
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText25 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
         appCompatEditText25.perform(replaceText("500"), closeSoftKeyboard());
@@ -545,31 +545,31 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText01 = onView(
                 allOf(withId(R.id.input_data_complementar), isDisplayed()));
         appCompatEditText01.perform(replaceText("22/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText27 = onView(
                 allOf(withId(R.id.input_caminhada_vertical), isDisplayed()));
         appCompatEditText27.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText28 = onView(
                 allOf(withId(R.id.input_caminhada_horizontal), isDisplayed()));
         appCompatEditText28.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
         appCompatCheckBox.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
         appCompatRadioButton.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         appCompatButton10.perform(scrollTo(), click());
@@ -582,7 +582,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         editText.check(matches(withText("500")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Before
