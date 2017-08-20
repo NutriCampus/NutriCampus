@@ -23,47 +23,46 @@ public class DadosComplAnimal implements Serializable {
     private float caminadaHorizontal;
     private float caminhadaVertical;
     private int semanaLactacao;
-    private boolean isPastando;
-    private boolean isLactacao;
-    private boolean isGestante;
-    private boolean isCio;
+    private int idGrupo;
 
     public DadosComplAnimal() {
 
     }
 
-
     public DadosComplAnimal(Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,
-                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
-                            boolean isLactacao, boolean isGestante, boolean isCio) {
-        this(data, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao, isPastando,
-                isLactacao, isGestante, isCio);
+                            float caminhadaVertical, int semanaLactacao) {
+
+        this(data, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao);
         this.idAnimal = idAnimal;
     }
 
     public DadosComplAnimal(int id, Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,
-                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
-                            boolean isLactacao, boolean isGestante, boolean isCio) {
+                            float caminhadaVertical, int semanaLactacao) {
 
-        this(data, idAnimal, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao, isPastando,
-                isLactacao, isGestante, isCio);
+        this(data, idAnimal, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao);
         this.id = id;
     }
 
     public DadosComplAnimal(Calendar data, float pesoVivo, int eec, float caminadaHorizontal,
-                            float caminhadaVertical, int semanaLactacao, boolean isPastando,
-                            boolean isLactacao, boolean isGestante, boolean isCio) {
+                            float caminhadaVertical, int semanaLactacao) {
+
         this.data = data;
         this.pesoVivo = pesoVivo;
         this.eec = eec;
         this.caminadaHorizontal = caminadaHorizontal;
         this.caminhadaVertical = caminhadaVertical;
         this.semanaLactacao = semanaLactacao;
-        this.isPastando = isPastando;
-        this.isLactacao = isLactacao;
-        this.isGestante = isGestante;
-        this.isCio = isCio;
     }
+
+    public DadosComplAnimal(int id, Calendar data, int idAnimal, float pesoVivo, int eec, float caminadaHorizontal,
+                            float caminhadaVertical, int semanaLactacao, int idGrupo) {
+
+        this(id, data, idAnimal, pesoVivo, eec, caminadaHorizontal, caminhadaVertical, semanaLactacao);
+        this.idGrupo = idGrupo;
+
+    }
+
+
 
     public int getId() {
         return id;
@@ -129,35 +128,13 @@ public class DadosComplAnimal implements Serializable {
         this.semanaLactacao = semanaLactacao;
     }
 
-    public boolean isPastando() {
-        return isPastando;
+    public int getIdGrupo() {
+        return idGrupo;
     }
 
-    public void setPastando(boolean pastando) {
-        isPastando = pastando;
+    public void setIdGrupo(int idGrupo) {
+        this.idGrupo = idGrupo;
     }
-
-    public boolean isLactacao() {
-        return isLactacao;
-    }
-
-    public void setLactacao(boolean lactacao) {
-        isLactacao = lactacao;
-    }
-
-    public boolean isGestante() {
-        return isGestante;
-    }
-
-    public void setGestante(boolean gestante) {
-        isGestante = gestante;
-    }
-
-    public boolean isCio() {
-        return isCio;
-    }
-
-    public void setCio(boolean cio) { isCio = cio; }
 
     @Override
     public String toString() {
@@ -170,10 +147,6 @@ public class DadosComplAnimal implements Serializable {
                 ", caminadaHorizontal=" + caminadaHorizontal +
                 ", caminhadaVertical=" + caminhadaVertical +
                 ", semanaLactacao=" + semanaLactacao +
-                ", Pastando?=" + isPastando +
-                ", Lactacao?=" + isLactacao +
-                ", Gestante?=" + isGestante +
-                ", Cio?=" + isCio +
                 '}';
     }
 }

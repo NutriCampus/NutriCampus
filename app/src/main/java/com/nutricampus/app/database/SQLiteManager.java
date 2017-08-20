@@ -24,7 +24,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 7;
+    private static final int VERSAO_BANCO = 8;
 
     /* Modo de acesso ao banco de dados
      *
@@ -89,10 +89,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String DADOS_COMPL_COL_CAMINHADA_HORIZONTAL = "caminhadaHorizontal";
     public static final String DADOS_COMPL_COL_CAMINHADA_VERTICAL = "caminhadaVertical";
     public static final String DADOS_COMPL_COL_SEMANA_LACTACAO = "semanaLactacao";
-    public static final String DADOS_COMPL_COL_IS_PASTANDO = "isPastando";
-    public static final String DADOS_COMPL_COL_IS_LACTACAO = "isLactacao";
-    public static final String DADOS_COMPL_COL_IS_GESTANTE = "isGestante";
-    public static final String DADOS_COMPL_COL_IS_CIO = "isCio";
+    public static final String DADOS_COMPL_COL_ID_GRUPO = "id_grupo";
 
     //Producao de leite
     public static final String TABELA_PRODUCAO_DE_LEITE = "producaoDeLeite";
@@ -128,14 +125,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String COMPOSTOS_ALIMENTARES_FDA = "FDA";
     public static final String COMPOSTOS_ALIMENTARES_DESCRICAO = "descricao";
 
+    //Grupo
+    public static final String TABELA_GRUPO = "grupos";
+    public static final String GRUPO_COL_ID = "_id";
+    public static final String GRUPO_COL_IDENTIFICADOR = "identificador";
+    public static final String GRUPO_COL_OBSERVACAO = "observacao";
+    public static final String GRUPO_COL_ID_USUARIO = "id_usuario";
+
+
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_ANIMAL + "(" +
             ANIMAL_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + ", " +
-            ANIMAL_COL_ID_PROPRIEDADE + " INTEGER NOT NULL," +
+            ANIMAL_COL_ID_PROPRIEDADE + " " + INTEGER_NOT_NULL + ", " +
             ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + ", " +
             ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + ", " +
-            ANIMAL_COL_ID_USUARIO + " INTEGER NOT NULL " + ", " +
+            ANIMAL_COL_ID_USUARIO + " " + INTEGER_NOT_NULL + ", " +
             "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ")" +
             "FOREIGN KEY(" + ANIMAL_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
 
@@ -158,11 +163,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " TEXT, " +
             DADOS_COMPL_COL_CAMINHADA_VERTICAL + " TEXT, " +
             DADOS_COMPL_COL_SEMANA_LACTACAO + " INTEGER, " +
-            DADOS_COMPL_COL_IS_PASTANDO + " TEXT, " +
-            DADOS_COMPL_COL_IS_LACTACAO + " TEXT, " +
-            DADOS_COMPL_COL_IS_GESTANTE + " TEXT, " +
-            DADOS_COMPL_COL_IS_CIO + " TEXT, " +
-            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
+            DADOS_COMPL_COL_ID_GRUPO + " " + INTEGER_NOT_NULL + ", " +
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ")" +
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_GRUPO + ") REFERENCES " + TABELA_GRUPO + "(" + GRUPO_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = "CREATE TABLE IF NOT EXISTS " + TABELA_PRODUCAO_DE_LEITE + "(" +
             PRODUCAO_DE_LEITE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -219,6 +222,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
             COMPOSTOS_ALIMENTARES_FDA + " " + REAL_NOT_NULL + " , " +
             COMPOSTOS_ALIMENTARES_DESCRICAO + " " + TEXT_NOT_NULL + " );";
 
+    private static final String SQL_CREATE_TABELA_GRUPO = "CREATE TABLE IF NOT EXISTS " + TABELA_GRUPO + "(" +
+            GRUPO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            GRUPO_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + "," +
+            GRUPO_COL_OBSERVACAO + " TEXT, " +
+            GRUPO_COL_ID_USUARIO + " " + INTEGER_NOT_NULL + ", " +
+            "FOREIGN KEY(" + GRUPO_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
+
+
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
     }
@@ -234,6 +245,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_COMPOSTOS_ALIMENTARES);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_GRUPO);
     }
 
     @Override
@@ -246,10 +258,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_COMPOSTOS_ALIMENTARES);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_GRUPO);
 
         this.onCreate(sqLiteDatabase);
 
     }
-
 
 }

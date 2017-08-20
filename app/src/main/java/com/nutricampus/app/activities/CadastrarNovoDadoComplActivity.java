@@ -1,6 +1,8 @@
 package com.nutricampus.app.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -54,22 +56,17 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
     EditText inputCaminhadaHorizontal;
     @BindView(R.id.input_semana_lactacao)
     EditText inputSemanaLactacao;
-    @BindView(R.id.ckb_pastando)
-    CheckBox ckbPastando;
-    @BindView(R.id.ckb_lactacao)
-    CheckBox ckbLactacao;
-    @BindView(R.id.ckb_cio)
-    CheckBox ckbCio;
-    @BindView(R.id.ckb_gestante)
-    CheckBox ckbGestante;
     @BindView(R.id.rgEec)
     RadioGroup radioGroup;
     @BindView(R.id.btn_salvar)
     Button btnSalvar;
     @BindView(R.id.input_id_propriedade)
     EditText inputIdPropriedade;
+    @BindView(R.id.txtGrupos)
+    TextView txtGrupo;
 
     protected Animal animal;
+    protected String grupoSelecionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +80,19 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra("animal");
 
+        txtGrupo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                escolherGrupo();
+            }
+        });
+
         inicializaCampoData(inputData);
 
         inputIdentificador.setText(animal.getIndentificador());
         inputIdentificador.setFocusable(false);
+
+
 
     }
 
@@ -138,11 +144,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
                 eec,
                 caminhadaHorizontal,
                 caminhadaVertical,
-                Integer.parseInt(inputSemanaLactacao.getText().toString()),
-                ckbPastando.isChecked(),
-                ckbLactacao.isChecked(),
-                ckbGestante.isChecked(),
-                ckbCio.isChecked()
+                Integer.parseInt(inputSemanaLactacao.getText().toString())
         );
 
         dadosComplAnimal.setAnimal(animal.getId());
@@ -207,6 +209,50 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
         startActivity(it);
         finish();
+    }
+
+    public void escolherGrupo() {
+
+        ArrayList<String> listGrupos= new ArrayList<>();
+        listGrupos.add("Geral");
+        listGrupos.add("Pastando");
+        listGrupos.add("Lactação");
+        listGrupos.add("Cio");
+        listGrupos.add("Gestante");
+
+        //Adicionar grupos vindos do repositorio
+        //listGrupos.addAll(RepositorioGrupos.buscarTodos());
+
+        final String[] grupos = new String[listGrupos.size()];
+
+        for(int i = 0; i < grupos.length; i++) {
+            grupos[i] = listGrupos.get(i);
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarNovoDadoComplActivity.this);
+        builder.setTitle("Selecione um grupo");
+        int grupoChecked = -1;
+        builder.setSingleChoiceItems(grupos, grupoChecked, new DialogInterface
+                .OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(CadastrarNovoDadoComplActivity.this,
+                        grupos[item], Toast.LENGTH_SHORT).show();
+
+                grupoSelecionado = grupos[item];
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                txtGrupo.setText("Grupo selecionado: " + grupoSelecionado);
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 

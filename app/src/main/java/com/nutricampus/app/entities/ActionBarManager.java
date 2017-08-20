@@ -72,7 +72,7 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(0).withName("Início").withIcon(FontAwesome.Icon.faw_inbox),
                         new SectionDrawerItem().withName("Controle"),
                         new SecondaryDrawerItem().withIdentifier(1).withSelectable(false).withName("Propriedades").withIcon(FontAwesome.Icon.faw_home),
-                        new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
+                        new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupo").withIcon(FontAwesome.Icon.faw_object_group),
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
                         new SectionDrawerItem().withName("Relatórios"),

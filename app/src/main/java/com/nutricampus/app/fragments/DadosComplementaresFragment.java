@@ -1,7 +1,9 @@
 package com.nutricampus.app.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -44,18 +45,15 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class DadosComplementaresFragment extends Fragment
-        implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_ANIMAL = "animal";
 
+    private TextView txtGrupo;
     private EditText inputData;
     private EditText inputPeso;
     private EditText inputCaminhadaVertical;
     private EditText inputCaminhadaHorizontal;
-    private CheckBox ckbPastando;
-    private CheckBox ckbLactacao;
-    private CheckBox ckbCio;
-    private CheckBox ckbGestante;
     private RadioGroup radioGroup;
     private Button btnSalvar;
     private Button btnHistRegistros;
@@ -64,6 +62,7 @@ public class DadosComplementaresFragment extends Fragment
     private Calendar data;
     private Animal animal;
     private DadosComplAnimal dadosComplAnimal;
+    private String grupoSelecionado = "";
 
     public static DadosComplementaresFragment newInstance(Animal animal) {
         Bundle args = new Bundle();
@@ -95,32 +94,30 @@ public class DadosComplementaresFragment extends Fragment
         inputCaminhadaVertical = (EditText) layout.findViewById(R.id.input_caminhada_vertical);
         inputCaminhadaHorizontal = (EditText) layout.findViewById(R.id.input_caminhada_horizontal);
         inputSemanaLact = (EditText) layout.findViewById(R.id.input_semana_lactacao);
-        ckbPastando = (CheckBox) layout.findViewById(R.id.ckb_pastando);
-        ckbLactacao = (CheckBox) layout.findViewById(R.id.ckb_lactacao);
-        ckbCio = (CheckBox) layout.findViewById(R.id.ckb_cio);
-        ckbGestante = (CheckBox) layout.findViewById(R.id.ckb_gestante);
         radioGroup = (RadioGroup) layout.findViewById(R.id.rgEec);
         btnSalvar = (Button) layout.findViewById(R.id.btn_salvar);
         btnHistRegistros = (Button) layout.findViewById(R.id.btn_hist_registros);
+        txtGrupo = (TextView) layout.findViewById(R.id.txtGrupos);
 
+        txtGrupo.setOnClickListener(this);
         btnSalvar.setOnClickListener(this);
         inputData.setOnClickListener(this);
         inicializaCampoData();
 
-        if(animal != null) {
+        if (animal != null) {
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(getActivity());
             this.dadosComplAnimal = repositorioDadosComplAnimal.buscarDadosComplAnimal(animal.getId());
 
-            if(dadosComplAnimal != null) {
+            if (dadosComplAnimal != null) {
                 inputPeso.setText(String.valueOf(dadosComplAnimal.getPesoVivo()));
                 inputData.setText(Conversor.dataFormatada(dadosComplAnimal.getData()));
                 inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
                 inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
                 inputSemanaLact.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
-                ckbPastando.setChecked(dadosComplAnimal.isPastando());
-                ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
-                ckbGestante.setChecked(dadosComplAnimal.isGestante());
-                ckbCio.setChecked(dadosComplAnimal.isCio());
+
+                txtGrupo.setText("Grupo selecionado: " + ((dadosComplAnimal.getIdGrupo() == 1) ? "Geral" : ""));
+                //txtGrupo.setText("Grupo selecionado: Geral" + repositorioGrupo().buscarGrupo(dadosComplAnimal.getIdGrupo()).getIdentificador());
+
                 if (dadosComplAnimal.getEec() == 0)
                     ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
                 else
@@ -174,18 +171,23 @@ public class DadosComplementaresFragment extends Fragment
     }
 
     public interface SalvarDadosAnimal {
-        void salvar(DadosComplAnimal dadosComplAnimal);
+        void salvar(DadosComplAnimal dadosComplAnimal, String grupoSelecionado);
     }
 
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.input_data_complementar) {
+        if (v.getId() == R.id.txtGrupos) {
+            escolherGrupo();
+            return;
+        }
+
+        if (v.getId() == R.id.input_data_complementar) {
             showDatePickerDialog(v);
             return;
         }
 
-        if(v.getId() == R.id.btn_hist_registros) {
+        if (v.getId() == R.id.btn_hist_registros) {
             Intent it = new Intent(getActivity(), ListaDadosComplActivity.class);
             it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, animal);
             startActivity(it);
@@ -205,23 +207,19 @@ public class DadosComplementaresFragment extends Fragment
         RadioButton rb = (RadioButton) radioGroup.findViewById(idRadioButton);
 
         int eec;
-        if(rb == null)
+        if (rb == null)
             eec = 0;
         else
             eec = Integer.parseInt(String.valueOf(rb.getText()));
 
-        if(dadosComplAnimal == null) {
+        if (dadosComplAnimal == null) {
             dadosComplAnimal = new DadosComplAnimal(
                     data,
                     Float.parseFloat(inputPeso.getText().toString()),
                     eec,
                     caminhadaHorizontal,
                     caminhadaVertical,
-                    Integer.parseInt(inputSemanaLact.getText().toString()),
-                    ckbPastando.isChecked(),
-                    ckbLactacao.isChecked(),
-                    ckbGestante.isChecked(),
-                    ckbCio.isChecked()
+                    Integer.parseInt(inputSemanaLact.getText().toString())
             );
         } else {
             dadosComplAnimal.setData(data);
@@ -230,16 +228,12 @@ public class DadosComplementaresFragment extends Fragment
             dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
             dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
             dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLact.getText().toString()));
-            dadosComplAnimal.setPastando(ckbPastando.isChecked());
-            dadosComplAnimal.setLactacao(ckbLactacao.isChecked());
-            dadosComplAnimal.setGestante(ckbGestante.isChecked());
-            dadosComplAnimal.setCio(ckbCio.isChecked());
         }
 
         Activity activity = getActivity();
-        if(activity instanceof SalvarDadosAnimal) {
+        if (activity instanceof SalvarDadosAnimal) {
             SalvarDadosAnimal listener = (SalvarDadosAnimal) activity;
-            listener.salvar(dadosComplAnimal);
+            listener.salvar(dadosComplAnimal, grupoSelecionado);
         }
 
     }
@@ -269,4 +263,55 @@ public class DadosComplementaresFragment extends Fragment
 
         return valido;
     }
+
+    public void escolherGrupo() {
+
+        ArrayList<String> listGrupos= new ArrayList<>();
+        listGrupos.add("Geral");
+        listGrupos.add("Pastando");
+        listGrupos.add("Lactação");
+        listGrupos.add("Cio");
+        listGrupos.add("Gestante");
+
+        //Adicionar grupos vindos do repositorio
+        //listGrupos.addAll(RepositorioGrupos.buscarTodos());
+
+        final String[] grupos = new String[listGrupos.size()];
+
+        for(int i = 0; i < grupos.length; i++) {
+            grupos[i] = listGrupos.get(i);
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Selecione um grupo");
+
+        int grupoChecked;
+        if(animal == null)
+            grupoChecked = -1;
+        else {
+            grupoChecked = dadosComplAnimal.getIdGrupo();
+        }
+
+        builder.setSingleChoiceItems(grupos, grupoChecked - 1, new DialogInterface
+                .OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(getActivity(),
+                        grupos[item], Toast.LENGTH_SHORT).show();
+
+                grupoSelecionado = grupos[item];
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                txtGrupo.setText("Grupo selecionado: " + grupoSelecionado);
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }

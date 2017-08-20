@@ -43,10 +43,10 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         inputCaminhadaHorizontal.setText(String.valueOf(dadosComplAnimal.getCaminadaHorizontal()));
         inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
         inputSemanaLactacao.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
-        ckbPastando.setChecked(dadosComplAnimal.isPastando());
-        ckbLactacao.setChecked(dadosComplAnimal.isLactacao());
-        ckbGestante.setChecked(dadosComplAnimal.isGestante());
-        ckbCio.setChecked(dadosComplAnimal.isCio());
+
+        txtGrupo.setText("Grupo selecionado: " + ((dadosComplAnimal.getIdGrupo() == 1) ? "Geral" : ""));
+        //txtGrupo.setText("Grupo selecionado: Geral" + repositorioGrupo().buscarGrupo(dadosComplAnimal.getIdGrupo()).getIdentificador());
+
 
         if (dadosComplAnimal.getEec() == 0)
             ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
@@ -83,10 +83,10 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
         dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
         dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLactacao.getText().toString()));
-        dadosComplAnimal.setPastando(ckbPastando.isChecked());
-        dadosComplAnimal.setLactacao(ckbLactacao.isChecked());
-        dadosComplAnimal.setGestante(ckbGestante.isChecked());
-        dadosComplAnimal.setCio(ckbCio.isChecked());
+        //dadosComplAnimal.setPastando(ckbPastando.isChecked());
+        //dadosComplAnimal.setLactacao(ckbLactacao.isChecked());
+        //dadosComplAnimal.setGestante(ckbGestante.isChecked());
+        //dadosComplAnimal.setCio(ckbCio.isChecked());
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarDadosComplActivity.this);
         boolean atualDadosCompl = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplAnimal);

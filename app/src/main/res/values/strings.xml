@@ -122,6 +122,7 @@
     <string name="campo_peso_vivo">Peso (Kg)</string>
     <string name="campo_add_registro">Novo Registro Geral</string>
     <string name="campo_historico">Histórico de dados</string>
+    <string name="campo_grupo">Grupo</string>
 
     <string name="campo_identificador">Identificador</string>
     <string name="campo_data_nascimento">Data de nascimento</string>

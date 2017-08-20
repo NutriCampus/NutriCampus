@@ -32,8 +32,6 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
         Intent intent = getIntent();
         Animal dadosAnimal = (Animal) intent.getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
 
-        Log.e("FGP", "idProp: " + dadosAnimal.getIdPropriedade());
-
         inicializarViewPager(dadosAnimal, EditarAnimalActivity.this, null);
 
     }
@@ -68,7 +66,7 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
     }
 
     @Override
-    public void salvar(DadosComplAnimal dadosComplAnimal) {
+    public void salvar(DadosComplAnimal dadosComplAnimal, String grupoSelecionado) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(EditarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarAnimalActivity.this);
 
@@ -107,6 +105,5 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
             Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
             return;
         }
-
     }
 }

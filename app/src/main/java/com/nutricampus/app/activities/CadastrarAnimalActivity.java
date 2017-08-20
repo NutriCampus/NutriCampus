@@ -94,7 +94,7 @@ public class CadastrarAnimalActivity extends AppCompatActivity
     }
 
     @Override
-    public void salvar(DadosComplAnimal dadosComplAnimal) {
+    public void salvar(DadosComplAnimal dadosComplAnimal, String grupoSelecionado) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(CadastrarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarAnimalActivity.this);
 
@@ -111,7 +111,6 @@ public class CadastrarAnimalActivity extends AppCompatActivity
             return;
         }
 
-
         int idAnimal = repositorioAnimal.inserirAnimal(animal);
 
         if (idAnimal > 0) {
@@ -121,7 +120,19 @@ public class CadastrarAnimalActivity extends AppCompatActivity
             return;
         }
 
+        int idGrupo = 1;
+        /*
+            //Setar grupo em dadosCompl
+            RepositorioGrupos repositorioGrupos = new RepositorioGrupos(CadastrarAnimalActivity.this);
+            idGrupo = repositorioGrupos.buscar(grupoSelecionado).getId();
+            dadosComplAnimal.setIdGrupo(idGrupo);
+        */
+
         dadosComplAnimal.setAnimal(idAnimal);
+        dadosComplAnimal.setIdGrupo(
+                (grupoSelecionado.equals("") ? 1 : idGrupo)
+        );
+
         int idDadosComp = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
 
         if (idDadosComp > 0) {
