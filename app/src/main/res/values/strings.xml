@@ -18,7 +18,7 @@
     <string name="entrar">Entrar</string>
     <string name="recuperar_senha">Recuperar senha</string>
 
-    <string name="alter_senha">Caso altere a senha, ocorrerá logout..</string>
+    <string name="alter_senha">Caso altere a senha, ocorrerá logout em sua conta.</string>
     <string name="menu_adicionar">Adicionar</string>
     <string name="menu_adicionar_propriedade">Adicionar uma propriedade</string>
     <string name="menu_adicionar_animal">Adicionar um animal</string>
@@ -61,6 +61,7 @@
     <string name="msg_erro_busca">Animal não encontrado</string>
 
 
+    <string name="msg_sucesso_excluir_usuario">Usuário excluido com sucesso</string>
     <string name="msg_sucesso">"%1$s %2$s cadastrado com sucesso!"</string>
     <string name="msg_sucesso_atualizar">"%1$s %2$s atualizado com sucesso!"</string>
     <string name="msg_sucesso_atualizar_registro">Registro atualizado com sucesso</string>
@@ -86,6 +87,7 @@
     <string name="msg_excluir_confirmar_propriedade">Tem certeza que deseja remover a propriedade %1$s, isso excluirá animais vinculados a ela?</string>
     <string name="msg_excluir_confirmar_propritario">Tem certeza que deseja remover o(a) proprietário(a) %1$s, isso excluirá as propriedades vinculados a ele(a)?</string>
     <string name="msg_excluir_confirmar_composto_alimentar">Tem certeza que deseja remover o Composto %1$s?</string>
+
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
     <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
@@ -116,13 +118,16 @@
     <string name="campo_peso_vivo">Peso (Kg)</string>
     <string name="campo_add_registro">Novo Registro Geral</string>
     <string name="campo_historico">Histórico de dados</string>
+    <string name="campo_grupo">Grupo</string>
 
     <string name="campo_identificador">Identificador</string>
     <string name="campo_data_nascimento">Data de nascimento</string>
     <string name="campo_nenhum_animal">Nenhum animal cadastrado</string>
     <string name="campo_nenhuma_propriedade">Nenhuma propriedade cadastrada</string>
+
     <string name="campo_nenhum_proprietario">Nenhum proprietário cadastrado</string>
     <string name="campo_nenhum_composto">Nenhum composto cadastrado</string>
+
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>

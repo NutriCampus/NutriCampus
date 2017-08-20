@@ -33,10 +33,9 @@ public class Animal implements Serializable {
 
     }
 
-
-    public Animal(int id, String identificador, int id_propriedade,
-                  Calendar dataDeNascimento, boolean isAtivo, int id_usuario) {
-        this(identificador, id_propriedade, dataDeNascimento, isAtivo, id_usuario);
+    public Animal(int id, String identificador, int idPropriedade,
+                  Calendar dataDeNascimento, boolean isAtivo, int idUsuario) {
+        this(identificador, idPropriedade, dataDeNascimento, isAtivo, idUsuario);
         this.id = id;
     }
 

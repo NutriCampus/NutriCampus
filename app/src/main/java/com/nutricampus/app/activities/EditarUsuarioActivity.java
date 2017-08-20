@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,23 +86,31 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
                                 repositorioPropriedade.buscarPropriedadesPorUsuario(usuario.getId());
 
                         int result = repositorioUsuario.removerUsuario(usuario);
+                        List<Animal> listAnimal;
 
                         if (result > 0) {
-                            Toast.makeText(EditarUsuarioActivity.this, "Usuário excluido com sucesso", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditarUsuarioActivity.this,
+                                    getString(R.string.msg_sucesso_excluir_usuario),
+                                    Toast.LENGTH_LONG).show();
 
                             if (!(propriedades.isEmpty())) {
                                 for (Propriedade p : propriedades) {
-                                    List<Animal> listAnimal = repositorioAnimal.buscarPorPropridade(p.getId());
-                                    for (Animal a : listAnimal) {
+
+                                    int idProprietario = p.getIdProprietario();
+                                    listAnimal = repositorioAnimal.buscarPorPropridade(p.getId());
+                                    for(Animal a : listAnimal) {
+                                        Log.e("FGP", ">>>> " + a);
                                         repositorioDadosComplAnimal.removerDadosCompl(a.getId());
                                         repositorioProle.removerProle(a.getId());
                                         repositorioProducaoDeLeite.removerProducaoDeLeite(a.getId());
                                         repositorioAnimal.removerAnimal(a);
                                     }
 
-                                    int idProprietario = p.getIdProprietario();
-                                    repositorioPropriedade.removerPropriedadePorProprietario(idProprietario);
-                                    repositorioProprietario.removerProprietario(idProprietario);
+                                    if(!(repositorioPropriedade.propriedadesOfProprietario(idProprietario).size() > 1)) {
+                                        repositorioProprietario.removerProprietario(idProprietario);
+                                    }
+                                    //repositorioPropriedade.removerPropriedadePorProprietario(idProprietario);
+
                                     repositorioPropriedade.removerPropriedade(p);
                                 }
                             }

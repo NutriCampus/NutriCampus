@@ -57,7 +57,7 @@ public class RepositorioAnimal {
             }
 
         } catch (Exception e) {
-            Log.i("RepositorioAnimal", e.toString());
+            Log.i("RepositorioGrupo", e.toString());
             return Collections.emptyList();
         } finally {
             bancoDados.close();

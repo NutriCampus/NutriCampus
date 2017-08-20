@@ -2,6 +2,7 @@ package com.nutricampus.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
     }
 
     @Override
-    public void salvar(DadosComplAnimal dadosComplAnimal) {
+    public void salvar(DadosComplAnimal dadosComplAnimal, String grupoSelecionado) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(EditarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarAnimalActivity.this);
 
@@ -104,6 +105,5 @@ public class EditarAnimalActivity extends CadastrarAnimalActivity {
             Toast.makeText(EditarAnimalActivity.this, getString(R.string.msg_erro_atualizar_registro), Toast.LENGTH_LONG).show();
             return;
         }
-
     }
 }
