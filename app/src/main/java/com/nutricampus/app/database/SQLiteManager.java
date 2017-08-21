@@ -120,6 +120,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String COMPOSTOS_ALIMENTARES_FDA = "FDA";
     public static final String COMPOSTOS_ALIMENTARES_DESCRICAO = "descricao";
 
+    //Dieta
+    public static final String TABELA_DIETA = "dieta";
+    public static final String DIETA_ID = "_id";
+    public static final String DIETA_IDENTIFICADOR = "identificador";
+    public static final String DIETA_PB = "pb";
+    public static final String DIETA_PROPRIEDADE_ID = "propriedade";
+    //Dieta ANIMAIS
+    public static final String TABELA_DIETA_ANIMAL = "dietaAnimais";
+    public static final String DIETA_ANIMAL_ID_FK = "idDieta";
+    public static final String DIETA_ANIMAL_ID = "idAnimal";
+    //Dieta COMPOSTOS
+    public static final String TABELA_DIETA_COMPOSTO = "dietaCompostos";
+    public static final String DIETA_COMPOSTO_ID_FK = "idDieta";
+    public static final String DIETA_COMPOSTO_ID = "idComposto";
+    public static final String DIETA_COMPOSTO_PORCENTAGEM = "porcentagem";
+
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = CREATE_TABLE + TABELA_ANIMAL + "(" +
             ANIMAL_COL_ID + KEY_COLUMN +
@@ -211,6 +227,21 @@ public class SQLiteManager extends SQLiteOpenHelper {
             COMPOSTOS_ALIMENTARES_FDA + " " + REAL_NOT_NULL + " , " +
             COMPOSTOS_ALIMENTARES_DESCRICAO + " " + TEXT_NOT_NULL + " );";
 
+    private static final String SQL_CREATE_TABELA_DIETA = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA + "(" +
+            DIETA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            DIETA_IDENTIFICADOR + " INTEGER NOT NULL," +
+            DIETA_PROPRIEDADE_ID + " INTEGER NOT NULL," +
+            DIETA_PB + " " + REAL_NOT_NULL + " );";
+
+    private static final String SQL_CREATE_TABELA_DIETA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA_ANIMAL + "(" +
+            DIETA_ANIMAL_ID_FK + " INTEGER NOT NULL, " +
+            DIETA_ANIMAL_ID + " INTEGER NOT NULL" + " );";
+
+    private static final String SQL_CREATE_TABELA_DIETA_COMPOSTO = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA_COMPOSTO + "(" +
+            DIETA_COMPOSTO_ID_FK + " INTEGER NOT NULL, " +
+            DIETA_COMPOSTO_ID + " INTEGER NOT NULL" + "," +
+            DIETA_COMPOSTO_PORCENTAGEM + " " + REAL_NOT_NULL + " );";
+
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
     }
@@ -226,6 +257,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_COMPOSTOS_ALIMENTARES);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA_ANIMAL);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA_COMPOSTO);
     }
 
     @Override
@@ -238,6 +272,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_COMPOSTOS_ALIMENTARES);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA_ANIMAL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA_COMPOSTO);
         this.onCreate(sqLiteDatabase);
     }
 

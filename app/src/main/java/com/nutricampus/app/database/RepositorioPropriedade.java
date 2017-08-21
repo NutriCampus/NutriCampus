@@ -166,7 +166,7 @@ public class RepositorioPropriedade {
     }
 
     /**
-     * Busca pelas propriedades que contem 'o valor de <b>nome</b> e pertencem ao usuario <b>usuario</b>
+     * Busca pelas propriedadesBD que contem 'o valor de <b>nome</b> e pertencem ao usuario <b>usuario</b>
      *
      * @param nome      Nome da propriedade
      * @param idUsuario id do usuario logado no app

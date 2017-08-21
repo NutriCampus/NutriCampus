@@ -209,7 +209,25 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
-        </activity>>
+        </activity>
+        <activity
+            android:name=".activities.ListaDietasActivity"
+            android:label="@string/titulo_dieta"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EditarDietaActivity"
+            android:label="@string/titulo_editar_dieta"
+            android:parentActivityName=".activities.ListaDietasActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaDietasActivity" />
+        </activity>
     </application>
 
 </manifest>
