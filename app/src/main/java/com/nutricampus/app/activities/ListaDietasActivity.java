@@ -171,7 +171,7 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
     private Intent getIntent(Dieta dieta, boolean isEdit) {
         Intent intent = null;
         if (isEdit) {
-            //intent = new Intent(this, EditarDietaActivity.class);
+            intent = new Intent(this, EditarDietaActivity.class);
         } else {
             //intent = new Intent(this, VisualizarDietaActivity.class);
         }
