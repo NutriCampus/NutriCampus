@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,11 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ListaDadosComplActivity;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.utils.Conversor;
 import com.nutricampus.app.utils.ValidaFormulario;
 
@@ -62,6 +66,8 @@ public class DadosComplementaresFragment extends Fragment
     private DadosComplAnimal dadosComplAnimal;
     private String grupoSelecionado = "";
 
+    private RepositorioGrupo repositorioGrupo;
+
     public static DadosComplementaresFragment newInstance(Animal animal) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_ANIMAL, animal);
@@ -75,6 +81,7 @@ public class DadosComplementaresFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         animal = (Animal) getArguments().getSerializable(EXTRA_ANIMAL);
+        repositorioGrupo = new RepositorioGrupo(getActivity());
     }
 
     @Override
@@ -115,8 +122,10 @@ public class DadosComplementaresFragment extends Fragment
                 inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
                 inputSemanaLact.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
 
-                txtGrupo.setText("Grupo selecionado: " + ((dadosComplAnimal.getIdGrupo() == 1) ? "Geral" : ""));
-                //txtGrupo.setText("Grupo selecionado: Geral" + repositorioGrupo().buscarGrupo(dadosComplAnimal.getIdGrupo()).getIdentificador());
+                Log.e("FGP", " <> " + dadosComplAnimal.getIdGrupo());
+
+                txtGrupo.setText("Grupo selecionado: " + repositorioGrupo.buscarGrupo(
+                        dadosComplAnimal.getIdGrupo()).getIdentificador());
 
                 if (dadosComplAnimal.getEec() == 0)
                     ((RadioButton) radioGroup.getChildAt(dadosComplAnimal.getEec())).setChecked(true);
@@ -226,6 +235,7 @@ public class DadosComplementaresFragment extends Fragment
             dadosComplAnimal.setCaminadaHorizontal(caminhadaHorizontal);
             dadosComplAnimal.setCaminhadaVertical(caminhadaVertical);
             dadosComplAnimal.setSemanaLactacao(Integer.parseInt(inputSemanaLact.getText().toString()));
+            dadosComplAnimal.setIdGrupo(repositorioGrupo.buscarGrupo(grupoSelecionado).getId());
         }
 
         Activity activity = getActivity();
@@ -264,20 +274,23 @@ public class DadosComplementaresFragment extends Fragment
 
     public void escolherGrupo() {
 
-        ArrayList<String> listGrupos= new ArrayList<>();
-        listGrupos.add("Geral");
-        listGrupos.add("Pastando");
-        listGrupos.add("Lactação");
-        listGrupos.add("Cio");
-        listGrupos.add("Gestante");
+        ArrayList<Grupo> listGrupos= new ArrayList<>();
+        listGrupos.clear();
 
         //Adicionar grupos vindos do repositorio
-        //listGrupos.addAll(RepositorioGrupos.buscarTodos());
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(getActivity()).getIdUsuario());
+        if (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty()) {
+            repositorioGrupo.inserirGrupo(new Grupo("Pastando", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Lactação", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Cio", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Gestante", "", idUsuario));
+        }
+        listGrupos.addAll((ArrayList)repositorioGrupo.buscarPorUsuario(idUsuario));
 
         final String[] grupos = new String[listGrupos.size()];
 
         for(int i = 0; i < grupos.length; i++) {
-            grupos[i] = listGrupos.get(i);
+            grupos[i] = listGrupos.get(i).getIdentificador();
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

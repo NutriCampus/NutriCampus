@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +19,11 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.ValidaFormulario;
@@ -41,7 +45,7 @@ Explicação para a supressão de warnings:
 */
 @java.lang.SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
-        implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
+        implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     protected EditText inputIdentificador;
     protected EditText inputPesoVivo;
@@ -58,7 +62,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
     protected TextView txtGrupo;
 
     protected Animal animal;
-    protected String grupoSelecionado;
+    protected String grupoSelecionado = "";
 
     protected void init() {
         inputIdentificador = (EditText) findViewById(R.id.input_identificador);
@@ -84,21 +88,25 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         Intent intent = getIntent();
         animal = (Animal) intent.getSerializableExtra("animal");
 
-        txtGrupo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                escolherGrupo();
-            }
-        });
+        txtGrupo.setOnClickListener(CadastrarNovoDadoComplActivity.this);
 
         inicializaCampoData(inputData);
 
         inputIdentificador.setText(animal.getIndentificador());
         inputIdentificador.setFocusable(false);
+    }
 
+    @Override
+    public void onClick(View v) {
 
+        if (v.getId() == R.id.txtGrupos) {
+            escolherGrupo();
+            return;
+        }
 
     }
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
@@ -153,7 +161,25 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
 
         DadosComplAnimal dadosComplAnimal = getDadosComplAnimal();
 
+        int idGrupo = 1;
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(CadastrarNovoDadoComplActivity.this).getIdUsuario());
+
+        //Setar grupo em dadosCompl
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(CadastrarNovoDadoComplActivity.this);
+        Grupo grupo = repositorioGrupo.buscarGrupo(grupoSelecionado);
+
+        if (grupo == null && (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty())) {
+            Toast.makeText(CadastrarNovoDadoComplActivity.this, getString(R.string.msg_erro_grupo), Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            if (grupo != null)
+                idGrupo = grupo.getId();
+        }
+
         dadosComplAnimal.setAnimal(animal.getId());
+        dadosComplAnimal.setIdGrupo(
+                (grupoSelecionado.equals("") ? 1 : idGrupo)
+        );
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarNovoDadoComplActivity.this);
         int idDadosCompl = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
@@ -219,22 +245,27 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
 
     public void escolherGrupo() {
 
-        ArrayList<String> listGrupos= new ArrayList<>();
-        listGrupos.add("Geral");
-        listGrupos.add("Pastando");
-        listGrupos.add("Lactação");
-        listGrupos.add("Cio");
-        listGrupos.add("Gestante");
+        ArrayList<Grupo> listGrupos= new ArrayList<>();
+        listGrupos.clear();
 
         //Adicionar grupos vindos do repositorio
-        //listGrupos.addAll(RepositorioGrupos.buscarTodos());
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(CadastrarNovoDadoComplActivity.this);
+        int idUsuario = Integer.parseInt(
+                new SharedPreferencesManager(CadastrarNovoDadoComplActivity.this).getIdUsuario());
+
+        if (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty()) {
+            repositorioGrupo.inserirGrupo(new Grupo("Pastando", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Lactação", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Cio", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Gestante", "", idUsuario));
+        }
+        listGrupos.addAll((ArrayList)repositorioGrupo.buscarPorUsuario(idUsuario));
 
         final String[] grupos = new String[listGrupos.size()];
 
         for(int i = 0; i < grupos.length; i++) {
-            grupos[i] = listGrupos.get(i);
+            grupos[i] = listGrupos.get(i).getIdentificador();
         }
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarNovoDadoComplActivity.this);
         builder.setTitle("Selecione um grupo");
@@ -260,6 +291,5 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 
 }

@@ -1,7 +1,10 @@
 package com.nutricampus.app.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
@@ -9,10 +12,15 @@ import android.widget.Toast;
 
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.utils.Conversor;
+
+import java.util.ArrayList;
 
 
 /*
@@ -25,13 +33,20 @@ Explicação para a supressão de warnings:
 public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
 
     private DadosComplAnimal dadosComplAnimal;
+    private RepositorioGrupo repositorioGrupo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        repositorioGrupo = new RepositorioGrupo(EditarDadosComplActivity.this);
+
         super.animal = (Animal) getIntent().getSerializableExtra(DadosAnimalFragment.EXTRA_ANIMAL);
         dadosComplAnimal = (DadosComplAnimal) getIntent().getSerializableExtra(ListaDadosComplActivity.EXTRA_DADOS_COMPL);
+        Grupo grupo = repositorioGrupo.buscarGrupo(dadosComplAnimal.getIdGrupo());
+
+        if (grupo != null)
+            grupoSelecionado = grupo.getIdentificador();
 
         preencherCampos();
     }
@@ -44,8 +59,9 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         inputCaminhadaVertical.setText(String.valueOf(dadosComplAnimal.getCaminhadaVertical()));
         inputSemanaLactacao.setText(String.valueOf(dadosComplAnimal.getSemanaLactacao()));
 
-        txtGrupo.setText("Grupo selecionado: " + ((dadosComplAnimal.getIdGrupo() == 1) ? "Geral" : ""));
-        //txtGrupo.setText("Grupo selecionado: Geral" + repositorioGrupo().buscarGrupo(dadosComplAnimal.getIdGrupo()).getIdentificador());
+
+        txtGrupo.setText("Grupo selecionado: " + repositorioGrupo.buscarGrupo(
+                dadosComplAnimal.getIdGrupo()).getIdentificador());
 
 
         if (dadosComplAnimal.getEec() == 0)
@@ -66,6 +82,22 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         DadosComplAnimal dadosComplementares = getDadosComplAnimal();
         dadosComplementares.setAnimal(dadosComplAnimal.getAnimal());
         dadosComplementares.setId(dadosComplAnimal.getId());
+
+        int idGrupo = 1;
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(EditarDadosComplActivity.this).getIdUsuario());
+        Grupo grupo = repositorioGrupo.buscarGrupo(grupoSelecionado);
+
+        if (grupo == null && (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty())) {
+            Toast.makeText(EditarDadosComplActivity.this, getString(R.string.msg_erro_grupo), Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            if(grupo != null)
+                idGrupo = grupo.getId();
+        }
+
+        dadosComplementares.setIdGrupo(
+                (grupoSelecionado.equals("") ? 1 : idGrupo)
+        );
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarDadosComplActivity.this);
         boolean atualDadosCompl = repositorioDadosComplAnimal.atualizarDadosCompl(dadosComplementares);
@@ -99,5 +131,54 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         it.putExtra(DadosAnimalFragment.EXTRA_ANIMAL, super.animal);
         startActivity(it);
         finish();
+    }
+
+    @Override
+    public void escolherGrupo() {
+
+        ArrayList<Grupo> listGrupos= new ArrayList<>();
+        listGrupos.clear();
+
+        //Adicionar grupos vindos do repositorio
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(EditarDadosComplActivity.this).getIdUsuario());
+
+        listGrupos.addAll((ArrayList)repositorioGrupo.buscarPorUsuario(idUsuario));
+
+        final String[] grupos = new String[listGrupos.size()];
+
+        for(int i = 0; i < grupos.length; i++) {
+            grupos[i] = listGrupos.get(i).getIdentificador();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditarDadosComplActivity.this);
+        builder.setTitle("Selecione um grupo");
+
+        int grupoChecked;
+        if(animal == null)
+            grupoChecked = -1;
+        else {
+            grupoChecked = dadosComplAnimal.getIdGrupo();
+        }
+
+        builder.setSingleChoiceItems(grupos, grupoChecked - 1, new DialogInterface
+                .OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(EditarDadosComplActivity.this,
+                        grupos[item], Toast.LENGTH_SHORT).show();
+
+                grupoSelecionado = grupos[item];
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                txtGrupo.setText("Grupo selecionado: " + grupoSelecionado);
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

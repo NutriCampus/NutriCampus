@@ -60,6 +60,7 @@
     <string name="msg_erro_duplicidade_animal">Animal já cadastrado nesta propriedade</string>
     <string name="msg_erro_busca_dados_compl">Para buscar é preciso um identificador e uma propriedade</string>
     <string name="msg_erro_busca">Animal não encontrado</string>
+    <string name="msg_erro_grupo">Nenhum grupo cadastrado</string>
 
 
     <string name="msg_sucesso_excluir_usuario">Usuário excluido com sucesso</string>
