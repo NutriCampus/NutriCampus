@@ -212,6 +212,7 @@
         </activity>
         <activity
             android:name=".activities.CadastrarDietaActivity"
+            android:label="@string/menu_nova_dieta"
             android:parentActivityName=".activities.ListaDietasActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -220,6 +221,7 @@
         </activity>
         <activity
             android:name=".activities.VisualizarDietaActivity"
+            android:label="@string/menu_visualizar_dieta"
             android:parentActivityName=".activities.ListaDietasActivity"
             android:screenOrientation="portrait">
             <meta-data

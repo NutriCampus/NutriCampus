@@ -127,21 +127,21 @@ public class Dieta {
         //System.out.println("PORCENTAGEM PROTEICA: " + porcentagemProteica);
 
         //Fragmentando valores, caso seja mais de 1
-        if (fonteEnergetica.size() > 1) {
+        if (fonteEnergetica.size() >= 1) {
             for (int i = 0; i < fonteEnergetica.size(); i++) {
                 fonteEnergetica.get(i).porcentagem = porcentagem2 * porcentagemEnergetica;
             }
-        } else {
+        }/* else {
             fonteEnergetica.get(0).porcentagem = porcentagemEnergetica;
-        }
+        }*/
         //Fragmentando valores, caso seja mais de 1
-        if (fonteProteica.size() > 1) {
+        if (fonteProteica.size() >= 1) {
             for (int i = 0; i < fonteProteica.size(); i++) {
                 fonteProteica.get(i).porcentagem = porcentagem1 * porcentagemProteica;
             }
-        } else {
+        }/* else {
             fonteProteica.get(0).porcentagem = porcentagemProteica;
-        }
+        }*/
         //Setando array principal
         for (int i = 0; i < fonteProteica.size(); i++) {
             double vr = Math.round((fonteProteica.get(i).porcentagem) * 100.0 * 100.0) / 100.0;
