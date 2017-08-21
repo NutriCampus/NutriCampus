@@ -68,8 +68,8 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(ListaDietasActivity.this, CadastrarDietaActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(ListaDietasActivity.this, CadastrarDietaActivity.class);
+                startActivity(intent);
 
             }
         });
