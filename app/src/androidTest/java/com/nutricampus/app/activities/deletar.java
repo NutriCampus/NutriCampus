@@ -24,7 +24,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -35,20 +34,24 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AAA {
+public class deletar {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void aAA() {
+    public void deletar() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.input_usuario), isDisplayed()));
-        appCompatEditText.perform(replaceText("admin"), closeSoftKeyboard());
+        appCompatEditText.perform(click());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.input_senha), isDisplayed()));
+                allOf(withId(R.id.input_usuario), isDisplayed()));
         appCompatEditText2.perform(replaceText("admin"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.input_senha), isDisplayed()));
+        appCompatEditText3.perform(replaceText("admin"), closeSoftKeyboard());
 
         pressBack();
 
@@ -82,22 +85,22 @@ public class AAA {
                 allOf(withId(R.id.btn_add_dieta), isDisplayed()));
         floatingActionButton.perform(click());
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.input_dieta_identificador), isDisplayed()));
-        appCompatEditText3.perform(replaceText("Dieta1"), closeSoftKeyboard());
-
         ViewInteraction appCompatEditText4 = onView(
+                allOf(withId(R.id.input_dieta_identificador), isDisplayed()));
+        appCompatEditText4.perform(replaceText("Rrrr"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.input_dieta_pb), isDisplayed()));
-        appCompatEditText4.perform(replaceText("20"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("20"), closeSoftKeyboard());
 
         pressBack();
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.btn_add_animais_dieta), withText("Gerenciar Animais")));
+                allOf(withId(R.id.btn_add_grupo_dieta), withText("Gerenciar Grupos")));
         appCompatButton2.perform(scrollTo(), click());
 
         ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("vaca1"),
+                allOf(withId(android.R.id.text1), withText("Pastando"),
                         childAtPosition(
                                 allOf(withId(R.id.select_dialog_listview),
                                         withParent(withId(R.id.contentPanel))),
@@ -105,22 +108,30 @@ public class AAA {
                         isDisplayed()));
         appCompatCheckedTextView.perform(click());
 
-        ViewInteraction appCompatCheckedTextView2 = onView(
-                allOf(withId(android.R.id.text1), withText("vaca3"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                1),
-                        isDisplayed()));
-        appCompatCheckedTextView2.perform(click());
-
         ViewInteraction appCompatButton3 = onView(
-                allOf(withId(android.R.id.button1), withText("Pronto")));
+                allOf(withId(android.R.id.button2), withText("Resetar")));
         appCompatButton3.perform(scrollTo(), click());
 
         ViewInteraction appCompatButton4 = onView(
-                allOf(withId(R.id.btn_add_compostos_dieta), withText("Gerenciar Compostos")));
+                allOf(withId(R.id.btn_add_animais_dieta), withText("Gerenciar Animais")));
         appCompatButton4.perform(scrollTo(), click());
+
+        ViewInteraction appCompatCheckedTextView2 = onView(
+                allOf(withId(android.R.id.text1), withText("vaca1"),
+                        childAtPosition(
+                                allOf(withId(R.id.select_dialog_listview),
+                                        withParent(withId(R.id.contentPanel))),
+                                0),
+                        isDisplayed()));
+        appCompatCheckedTextView2.perform(click());
+
+        ViewInteraction appCompatButton5 = onView(
+                allOf(withId(android.R.id.button1), withText("Pronto")));
+        appCompatButton5.perform(scrollTo(), click());
+
+        ViewInteraction appCompatButton6 = onView(
+                allOf(withId(R.id.btn_add_compostos_dieta), withText("Gerenciar Compostos")));
+        appCompatButton6.perform(scrollTo(), click());
 
         ViewInteraction appCompatCheckedTextView3 = onView(
                 allOf(withId(android.R.id.text1), withText("Farelo Soja"),
@@ -132,99 +143,41 @@ public class AAA {
         appCompatCheckedTextView3.perform(click());
 
         ViewInteraction appCompatCheckedTextView4 = onView(
-                allOf(withId(android.R.id.text1), withText("Fubá"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                1),
-                        isDisplayed()));
-        appCompatCheckedTextView4.perform(click());
-
-        ViewInteraction appCompatCheckedTextView5 = onView(
                 allOf(withId(android.R.id.text1), withText("Farinha de Trigo"),
                         childAtPosition(
                                 allOf(withId(R.id.select_dialog_listview),
                                         withParent(withId(R.id.contentPanel))),
                                 2),
                         isDisplayed()));
-        appCompatCheckedTextView5.perform(click());
-
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(android.R.id.button1), withText("Pronto")));
-        appCompatButton5.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton6 = onView(
-                allOf(withId(R.id.btn_calcular_dieta), withText("Calcular")));
-        appCompatButton6.perform(scrollTo(), click());
+        appCompatCheckedTextView4.perform(click());
 
         ViewInteraction appCompatButton7 = onView(
-                allOf(withId(android.R.id.button1), withText("Salvar")));
+                allOf(withId(android.R.id.button1), withText("Pronto")));
         appCompatButton7.perform(scrollTo(), click());
-
-        ViewInteraction textView = onView(
-                allOf(withText("Dieta"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_container),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        textView.check(matches(withText("Dieta")));
-
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.btn_add_dieta), isDisplayed()));
-        floatingActionButton2.perform(click());
-
-        pressBack();
 
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.btn_calcular_dieta), withText("Calcular")));
         appCompatButton8.perform(scrollTo(), click());
 
-        ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.input_dieta_identificador), isDisplayed()));
-        appCompatEditText5.perform(click());
-
-        ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.input_dieta_identificador), isDisplayed()));
-        appCompatEditText6.perform(replaceText("Ddd1"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.input_dieta_pb), isDisplayed()));
-        appCompatEditText7.perform(replaceText("20"), closeSoftKeyboard());
-
-        pressBack();
-
         ViewInteraction appCompatButton9 = onView(
-                allOf(withId(R.id.btn_add_animais_dieta), withText("Gerenciar Animais")));
+                allOf(withId(android.R.id.button1), withText("Salvar")));
         appCompatButton9.perform(scrollTo(), click());
 
-        ViewInteraction appCompatCheckedTextView6 = onView(
-                allOf(withId(android.R.id.text1), withText("vaca1"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                0),
+        ViewInteraction linearLayout = onView(
+                allOf(childAtPosition(
+                        allOf(withId(R.id.listaDietas),
+                                withParent(withId(R.id.resultado_busca_propriedades))),
+                        0),
                         isDisplayed()));
-        appCompatCheckedTextView6.perform(click());
+        linearLayout.perform(click());
 
-        ViewInteraction appCompatCheckedTextView7 = onView(
-                allOf(withId(android.R.id.text1), withText("vaca3"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                1),
-                        isDisplayed()));
-        appCompatCheckedTextView7.perform(click());
+        ViewInteraction textView = onView(
+                allOf(withId(android.R.id.title), withText("Excluir"), isDisplayed()));
+        textView.perform(click());
 
         ViewInteraction appCompatButton10 = onView(
-                allOf(withId(android.R.id.button1), withText("Pronto")));
+                allOf(withId(android.R.id.button1), withText("Sim")));
         appCompatButton10.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton11 = onView(
-                allOf(withId(R.id.btn_calcular_dieta), withText("Calcular")));
-        appCompatButton11.perform(scrollTo(), click());
 
     }
 

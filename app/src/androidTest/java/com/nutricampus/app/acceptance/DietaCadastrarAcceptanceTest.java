@@ -210,23 +210,43 @@ public class DietaCadastrarAcceptanceTest {
                 allOf(withId(R.id.btn_add_animais_dieta), withText("Gerenciar Animais")));
         appCompatButton2.perform(scrollTo(), click());
 
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("_mimosa1"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                0),
-                        isDisplayed()));
-        appCompatCheckedTextView.perform(click());
+        try {
+            ViewInteraction appCompatCheckedTextView = onView(
+                    allOf(withId(android.R.id.text1), withText("_mimosa1"),
+                            childAtPosition(
+                                    allOf(withId(R.id.select_dialog_listview),
+                                            withParent(withId(R.id.contentPanel))),
+                                    0),
+                            isDisplayed()));
+            appCompatCheckedTextView.perform(click());
 
-        ViewInteraction appCompatCheckedTextView2 = onView(
-                allOf(withId(android.R.id.text1), withText("_mimosa2"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                1),
-                        isDisplayed()));
-        appCompatCheckedTextView2.perform(click());
+            ViewInteraction appCompatCheckedTextView2 = onView(
+                    allOf(withId(android.R.id.text1), withText("_mimosa2"),
+                            childAtPosition(
+                                    allOf(withId(R.id.select_dialog_listview),
+                                            withParent(withId(R.id.contentPanel))),
+                                    1),
+                            isDisplayed()));
+            appCompatCheckedTextView2.perform(click());
+        } catch (Exception e) {
+            ViewInteraction appCompatCheckedTextView = onView(
+                    allOf(withId(android.R.id.text1), withText("vaca1"),
+                            childAtPosition(
+                                    allOf(withId(R.id.select_dialog_listview),
+                                            withParent(withId(R.id.contentPanel))),
+                                    0),
+                            isDisplayed()));
+            appCompatCheckedTextView.perform(click());
+
+            ViewInteraction appCompatCheckedTextView2 = onView(
+                    allOf(withId(android.R.id.text1), withText("vaca2"),
+                            childAtPosition(
+                                    allOf(withId(R.id.select_dialog_listview),
+                                            withParent(withId(R.id.contentPanel))),
+                                    1),
+                            isDisplayed()));
+            appCompatCheckedTextView2.perform(click());
+        }
 
         ViewInteraction appCompatButton3 = onView(
                 allOf(withId(android.R.id.button1), withText("Pronto")));
