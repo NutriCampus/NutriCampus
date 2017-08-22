@@ -17,12 +17,8 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
-import com.nutricampus.app.activities.ConfigActivity;
-import com.nutricampus.app.activities.GerarPDFActivity;
+import com.nutricampus.app.activities.EditarUsuarioActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
-import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
-import com.nutricampus.app.activities.ListaDietasActivity;
-import com.nutricampus.app.activities.ListaGrupoActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 
@@ -37,7 +33,7 @@ public class ActionBarManager {
     private Toolbar toolbar;
     private Drawer mActionBar;
 
-    private SharedPreferencesManager session;
+    SharedPreferencesManager session;
 
     public ActionBarManager(Activity activity, Toolbar toolbar) {
         this.activity = activity;
@@ -56,7 +52,7 @@ public class ActionBarManager {
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(session.getUsuario()).withEmail(session.getEmail())
+                        new ProfileDrawerItem().withName(session.getUsuarioNC()).withEmail(session.getEmailNC())
                         //.withIcon(getResources().getDrawable(R.drawable.profile))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -79,7 +75,7 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
                         new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Geração").withIcon(FontAwesome.Icon.faw_bar_chart),
+                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
                         new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
                         new SectionDrawerItem().withName("Licença"),
                         new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
@@ -94,27 +90,17 @@ public class ActionBarManager {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Intent intent = null;
-                        switch ((int) drawerItem.getIdentifier()) {
+                        switch ((int) drawerItem.getIdentifier()){
                             case 1:
                                 intent = new Intent(activity, ListaPropriedadesActivity.class);
-                                break;
-                            case 2:
-                                intent = new Intent(activity, ListaGrupoActivity.class);
                                 break;
                             case 3:
                                 intent = new Intent(activity, ListaAnimaisActivity.class);
                                 break;
-                            case 4:
-                                intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
-                                break;
-                            case 6:
-                                intent = new Intent(activity, ListaDietasActivity.class);
-                            case 5:
-                                intent = new Intent(activity, GerarPDFActivity.class);
-                                break;
                             case 11:
-                                intent = new Intent(activity, ConfigActivity.class);
+                                intent = new Intent(activity, EditarUsuarioActivity.class);
                                 break;
+
                             case 12: // Sair
                                 session.logoutUser();
                                 activity.finish();
