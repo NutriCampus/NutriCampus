@@ -20,7 +20,7 @@ public class DadosComplAnimal implements Serializable {
      * O eec (Escore de Condição Corporal) mede, em uma escala de 1 a 5, a quantidade de
      * gordura presente no corpo do animal.
      */
-    private int eec;
+    private int eec=0;
 
     private float caminadaHorizontal;
     private float caminhadaVertical;

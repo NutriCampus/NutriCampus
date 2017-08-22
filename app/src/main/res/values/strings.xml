@@ -275,8 +275,9 @@
 
     <string name="identificador_dieta">Identificador Dieta</string>
     <string name="proteina_bruta">Proteina Bruta da Dieta (em %)</string>
-    <string name="adicionar_animais">Adicionar Animais</string>
-    <string name="adicionar_compostos">Adicionar Compostos</string>
+    <string name="adicionar_grupos">Gerenciar Grupos</string>
+    <string name="adicionar_animais">Gerenciar Animais</string>
+    <string name="adicionar_compostos">Gerenciar Compostos</string>
     <string name="calcular">Calcular</string>
 
 </resources>
