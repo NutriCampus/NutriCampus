@@ -267,13 +267,15 @@ public class CadastrarDietaActivity extends AppCompatActivity {
             Toast.makeText(this, "Adicione pelo menos 2 Compostos", Toast.LENGTH_SHORT).show();
             return;
         }
+        Propriedade p = propriedadesBD.get(spinnerProprietarios.getSelectedItemPosition());
+        ArrayList<Animal> arrFinal;
 
-        ArrayList<Animal> arrFinal;//= new ArrayList<>();
         if (isGrupo) {
             ArrayList<Integer> idsAnimais = new ArrayList<>();
             arrFinal = new ArrayList<>();
             RepositorioDadosComplAnimal rep = new RepositorioDadosComplAnimal(this);
             RepositorioAnimal repAnimal = new RepositorioAnimal(this);
+
 
             /*Obter todos os DADOS COMPLEMENTARES que possuem esse grupo,
              já q a relação do grupo é com DADOS COMPLEMENTARES*/
@@ -285,7 +287,12 @@ public class CadastrarDietaActivity extends AppCompatActivity {
                     //Verifico se id de animal já foi adicionado, caso não, adiciono do arrau principal
                     if (!idsAnimais.contains(dadosComplAnimals.get(j).getAnimal())) {
                         Animal animal = repAnimal.buscarAnimalId(dadosComplAnimals.get(j).getAnimal());
-                        arrFinal.add(animal);
+                        //Só adiciono animal que seja da mesma propriedade que a propriedade q está selecionada na tela
+                        if (animal.getPropriedade() == p.getId()) {
+                            arrFinal.add(animal);
+                        }
+
+                        //Adiciono mesmo sendo de propriedades diferentes. Evitar mais comparações desnecessárias
                         idsAnimais.add(dadosComplAnimals.get(j).getAnimal());
                     }
                 }
@@ -295,7 +302,7 @@ public class CadastrarDietaActivity extends AppCompatActivity {
         }
 
         Dieta d = new Dieta(identificador.getText().toString(), pbD, arrFinal, arrCompostos);
-        d.propriedade = propriedadesBD.get(spinnerProprietarios.getSelectedItemPosition());
+        d.propriedade = p;
 
         showDieta(d);
     }

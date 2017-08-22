@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             REPpropriedade.inserirPropriedade(propriedade1);
             REPpropriedade.inserirPropriedade(propriedade2);
             Animal animal1 = new Animal(1, "vaca1", 1, Calendar.getInstance(), true, 1);
-            Animal animal2 = new Animal(2, "vaca2", 1, Calendar.getInstance(), true, 1);
+            Animal animal2 = new Animal(2, "vaca2", 2, Calendar.getInstance(), true, 1);
             Animal animal3 = new Animal(3, "vaca3", 1, Calendar.getInstance(), true, 1);
             Animal animal4 = new Animal(4, "vaca4", 1, Calendar.getInstance(), true, 1);
             Animal animal5 = new Animal(6, "_mimosa1", 2, Calendar.getInstance(), true, 1);
