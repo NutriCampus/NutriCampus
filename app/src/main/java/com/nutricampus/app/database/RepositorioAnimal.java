@@ -57,7 +57,7 @@ public class RepositorioAnimal {
             }
 
         } catch (Exception e) {
-            Log.i("RepositorioAnimal", e.toString());
+            Log.i("RepositorioGrupo", e.toString());
             return Collections.emptyList();
         } finally {
             bancoDados.close();
@@ -72,6 +72,32 @@ public class RepositorioAnimal {
         String colunasWhere = SQLiteManager.ANIMAL_COL_IDENTIFICADOR + "= ? AND " +
                 SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE + "= ?";
         String[] valoresWhere = new String[]{identificador, String.valueOf(idPropriedade)};
+
+
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_ANIMAL, new String[]{
+                        SQLiteManager.ANIMAL_COL_ID,
+                        SQLiteManager.ANIMAL_COL_IDENTIFICADOR,
+                        SQLiteManager.ANIMAL_COL_ID_PROPRIEDADE,
+                        SQLiteManager.ANIMAL_COL_DATA_NASCIMENTO,
+                        SQLiteManager.ANIMAL_COL_IS_ATIVO,
+                        SQLiteManager.ANIMAL_COL_ID_USUARIO},
+                colunasWhere,
+                valoresWhere, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+            return getDadosFromCursor(cursor);
+        }
+        cursor.close();
+        return null;
+    }
+
+    public Animal buscarAnimalId(int idAnimal) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        String colunasWhere = SQLiteManager.ANIMAL_COL_ID + " = ?";
+        String[] valoresWhere = new String[]{String.valueOf(idAnimal)};
 
 
         Cursor cursor = bancoDados.query(SQLiteManager.TABELA_ANIMAL, new String[]{

@@ -82,7 +82,7 @@ abstract class AbstractPreparacaoTestes {
             espera(500);
             substituiTexto(R.id.input_usuario, "admin");
             substituiTexto(R.id.input_senha, "admin");
-            closeKeyboard();
+            fecharTeclado();
             clicarBotao(R.id.btn_login, false);
 
             espera(500);
@@ -122,14 +122,9 @@ abstract class AbstractPreparacaoTestes {
         return currentActivity;
     }
 
-    public void closeKeyboard() {
-        try {
-            Espresso.closeSoftKeyboard();
-            Thread.sleep(1300);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void fecharTeclado() {
+        Espresso.closeSoftKeyboard();
+        espera(1300);
     }
 
 

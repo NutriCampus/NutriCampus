@@ -51,7 +51,7 @@ public class Animal04AtivoInativoActivityTest extends AbstractPreparacaoTestes {
         appCompatTextView6.perform(click());
         pressBack();
 
-        closeKeyboard();
+        fecharTeclado();
 
         Thread.sleep(1500);
         onView(withId(R.id.switch_ativo)).perform(click());
@@ -69,7 +69,7 @@ public class Animal04AtivoInativoActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         appCompatButton10.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(

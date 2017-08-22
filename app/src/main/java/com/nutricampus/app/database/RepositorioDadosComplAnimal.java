@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.nutricampus.app.entities.DadosComplAnimal;
-import com.nutricampus.app.utils.Conversor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,6 +70,11 @@ public class RepositorioDadosComplAnimal {
                 " WHERE (" + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + idAnimal + ")");
     }
 
+    public List<DadosComplAnimal> buscarTodosDadosComplByIdGrupo(int idGrupo) {
+        return this.getListaDadosComplAnimal(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL +
+                " WHERE (" + SQLiteManager.DADOS_COMPL_COL_ID_GRUPO + " = " + idGrupo + ")");
+
+    }
 
     public DadosComplAnimal buscarDadosComplAnimal(int idAnimal) {
         bancoDados = gerenciador.getReadableDatabase();
@@ -87,10 +91,7 @@ public class RepositorioDadosComplAnimal {
                         SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL,
                         SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL,
                         SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO,
-                        SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO,
-                        SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO,
-                        SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE,
-                        SQLiteManager.DADOS_COMPL_COL_IS_CIO},
+                        SQLiteManager.DADOS_COMPL_COL_ID_GRUPO},
                 colunasWhere,
                 valoresWhere, null, null, null, null);
 
@@ -162,11 +163,7 @@ public class RepositorioDadosComplAnimal {
                 cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL)),
                 cursor.getFloat(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL)),
                 cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO)),
-                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO)))),
-                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO)))),
-                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE)))),
-                Conversor.intToBoolean(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_IS_CIO)))));
-
+                cursor.getInt(cursor.getColumnIndex(SQLiteManager.DADOS_COMPL_COL_ID_GRUPO)));
     }
 
     private ContentValues getContentValues(DadosComplAnimal dadosComplAnimal) {
@@ -178,10 +175,7 @@ public class RepositorioDadosComplAnimal {
         dados.put(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_HORIZONTAL, dadosComplAnimal.getCaminadaHorizontal());
         dados.put(SQLiteManager.DADOS_COMPL_COL_CAMINHADA_VERTICAL, dadosComplAnimal.getCaminhadaVertical());
         dados.put(SQLiteManager.DADOS_COMPL_COL_SEMANA_LACTACAO, dadosComplAnimal.getSemanaLactacao());
-        dados.put(SQLiteManager.DADOS_COMPL_COL_IS_PASTANDO, dadosComplAnimal.isPastando());
-        dados.put(SQLiteManager.DADOS_COMPL_COL_IS_LACTACAO, dadosComplAnimal.isLactacao());
-        dados.put(SQLiteManager.DADOS_COMPL_COL_IS_GESTANTE, dadosComplAnimal.isGestante());
-        dados.put(SQLiteManager.DADOS_COMPL_COL_IS_CIO, dadosComplAnimal.isCio());
+        dados.put(SQLiteManager.DADOS_COMPL_COL_ID_GRUPO, dadosComplAnimal.getIdGrupo());
 
         return dados;
     }

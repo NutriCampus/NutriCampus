@@ -38,9 +38,9 @@ import static org.hamcrest.Matchers.is;
 public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Test
-    public void AnimalAtualizarActivityTest1() throws Exception {
+    public void atualizarActivityTest1() throws Exception {
         onView(withText("Flor")).perform(longClick());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatTextView6 = onView(
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(longClick());
@@ -49,32 +49,32 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText32 = onView(
                 allOf(withId(R.id.input_peso_vivo), isDisplayed()));
         appCompatEditText32.perform(replaceText("600"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText0 = onView(
                 allOf(withId(R.id.input_data_complementar), isDisplayed()));
         appCompatEditText0.perform(replaceText("22/07/2017"), closeSoftKeyboard());
-        closeKeyboard();
-        closeKeyboard();
+        fecharTeclado();
+        fecharTeclado();
         ViewInteraction appCompatEditText34 = onView(
                 allOf(withId(R.id.input_caminhada_vertical), isDisplayed()));
         appCompatEditText34.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText35 = onView(
                 allOf(withId(R.id.input_caminhada_horizontal), isDisplayed()));
         appCompatEditText35.perform(replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatEditText36 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText36.perform(scrollTo(), replaceText("1"), closeSoftKeyboard());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton11 = onView(
                 allOf(withId(R.id.btn_salvar), withText("Atualizar")));
         appCompatButton11.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(
@@ -85,11 +85,11 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
                                 0),
                         isDisplayed()));
         textView4.check(matches(withText("Procure uma propriedade")));
-        closeKeyboard();
+        fecharTeclado();
     }
 
     @Test
-    public void AnimalAtualizarActivityTest2() throws Exception {//Cadastro Total(Inserindo nova propriedade)
+    public void atualizarActivityTest2() throws Exception {//Cadastro Total(Inserindo nova propriedade)
         onView(withText("Flor")).perform(longClick());
 
         ViewInteraction appCompatTextView6 = onView(
@@ -112,7 +112,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
@@ -133,11 +133,11 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatTextView6 = onView(
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatSpinner4 = onView(
                 allOf(withId(R.id.spinnerPropriedade), isDisplayed()));
         appCompatSpinner4.perform(click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatCheckedTextView2 = onView(
                 allOf(withId(android.R.id.text1), withText("Propriedade 2"),
                         childAtPosition(
@@ -150,12 +150,12 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         appCompatButton10.perform(scrollTo(), click());
 
-        closeKeyboard();
+        fecharTeclado();
 
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
@@ -172,7 +172,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void animalEditarActivityTest4() throws Exception {//Alterando animal para ativo ou inativo
         onView(withText("Flor")).perform(longClick());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatTextView6 = onView(
                 allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
         appCompatTextView6.perform(click());
@@ -184,11 +184,11 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
         clicarBotao(R.id.btnConfimarDados, true);
 
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.btn_salvar)));
         appCompatButton10.perform(scrollTo(), click());
-        closeKeyboard();
+        fecharTeclado();
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Procure uma propriedade"),
                         childAtPosition(

@@ -19,14 +19,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
     private static final String FOREIGN_KEY_INIT = "FOREIGN KEY(";
     private static final String FOREIGN_KEY_REF = ") REFERENCES ";
-    private static final String DELETE_CASCADE = " ON DELETE CASCADE";
+    public static final String INTEGER_NOT_NULL = "INTEGER NOT NULL";
 
     public static final String SELECT_TODOS = "SELECT * FROM ";
     public static final String ORDER_BY = " ORDER BY ";
 
     /* Nome do Banco de Dados */
     private static final String NOME_BANCO = "NutriCampusBD";
-    private static final int VERSAO_BANCO = 7;
+    private static final int VERSAO_BANCO = 8;
 
     /* Constantes para criação de tabelas */
     protected static Context context;
@@ -81,10 +81,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String DADOS_COMPL_COL_CAMINHADA_HORIZONTAL = "caminhadaHorizontal";
     public static final String DADOS_COMPL_COL_CAMINHADA_VERTICAL = "caminhadaVertical";
     public static final String DADOS_COMPL_COL_SEMANA_LACTACAO = "semanaLactacao";
-    public static final String DADOS_COMPL_COL_IS_PASTANDO = "isPastando";
-    public static final String DADOS_COMPL_COL_IS_LACTACAO = "isLactacao";
-    public static final String DADOS_COMPL_COL_IS_GESTANTE = "isGestante";
-    public static final String DADOS_COMPL_COL_IS_CIO = "isCio";
+    public static final String DADOS_COMPL_COL_ID_GRUPO = "id_grupo";
 
     //Producao de leite
     public static final String TABELA_PRODUCAO_DE_LEITE = "producaoDeLeite";
@@ -120,17 +117,39 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static final String COMPOSTOS_ALIMENTARES_FDA = "FDA";
     public static final String COMPOSTOS_ALIMENTARES_DESCRICAO = "descricao";
 
+    //Grupo
+    public static final String TABELA_GRUPO = "grupos";
+    public static final String GRUPO_COL_ID = "_id";
+    public static final String GRUPO_COL_IDENTIFICADOR = "identificador";
+    public static final String GRUPO_COL_OBSERVACAO = "observacao";
+    public static final String GRUPO_COL_ID_USUARIO = "id_usuario";
+
+    //Dieta
+    public static final String TABELA_DIETA = "dieta";
+    public static final String DIETA_ID = "_id";
+    public static final String DIETA_IDENTIFICADOR = "identificador";
+    public static final String DIETA_PB = "pb";
+    public static final String DIETA_PROPRIEDADE_ID = "propriedade";
+    //Dieta ANIMAIS
+    public static final String TABELA_DIETA_ANIMAL = "dietaAnimais";
+    public static final String DIETA_ANIMAL_ID_FK = "idDieta";
+    public static final String DIETA_ANIMAL_ID = "idAnimal";
+    //Dieta COMPOSTOS
+    public static final String TABELA_DIETA_COMPOSTO = "dietaCompostos";
+    public static final String DIETA_COMPOSTO_ID_FK = "idDieta";
+    public static final String DIETA_COMPOSTO_ID = "idComposto";
+    public static final String DIETA_COMPOSTO_PORCENTAGEM = "porcentagem";
+
     /* SQL de criação de tabelas. */
     private static final String SQL_CREATE_TABELA_ANIMAL = CREATE_TABLE + TABELA_ANIMAL + "(" +
             ANIMAL_COL_ID + KEY_COLUMN +
             ANIMAL_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + ", " +
-            ANIMAL_COL_ID_PROPRIEDADE + " INTEGER NOT NULL," +
+            ANIMAL_COL_ID_PROPRIEDADE + " " + INTEGER_NOT_NULL + ", " +
             ANIMAL_COL_DATA_NASCIMENTO + " " + TEXT_NOT_NULL + ", " +
             ANIMAL_COL_IS_ATIVO + " " + TEXT_NOT_NULL + ", " +
-            ANIMAL_COL_ID_USUARIO + " INTEGER NOT NULL " + ", " +
-            FOREIGN_KEY_INIT + ANIMAL_COL_ID_PROPRIEDADE + FOREIGN_KEY_REF + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ")" +
-            FOREIGN_KEY_INIT + ANIMAL_COL_ID_USUARIO + FOREIGN_KEY_REF + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
-
+            ANIMAL_COL_ID_USUARIO + " " + INTEGER_NOT_NULL + ", " +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_PROPRIEDADE + ") REFERENCES " + TABELA_PROPRIEDADE + "(" + PROPRIEDADE_COL_ID + ")" +
+            "FOREIGN KEY(" + ANIMAL_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PROLE = CREATE_TABLE + TABELA_PROLE + "(" +
             PROLE_ID + KEY_COLUMN +
@@ -150,11 +169,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             DADOS_COMPL_COL_CAMINHADA_HORIZONTAL + " TEXT, " +
             DADOS_COMPL_COL_CAMINHADA_VERTICAL + " TEXT, " +
             DADOS_COMPL_COL_SEMANA_LACTACAO + " INTEGER, " +
-            DADOS_COMPL_COL_IS_PASTANDO + " TEXT, " +
-            DADOS_COMPL_COL_IS_LACTACAO + " TEXT, " +
-            DADOS_COMPL_COL_IS_GESTANTE + " TEXT, " +
-            DADOS_COMPL_COL_IS_CIO + " TEXT, " +
-            FOREIGN_KEY_INIT + DADOS_COMPL_COL_ID_ANIMAL + FOREIGN_KEY_REF + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + "));";
+            DADOS_COMPL_COL_ID_GRUPO + " " + INTEGER_NOT_NULL + ", " +
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_ANIMAL + ") REFERENCES " + TABELA_ANIMAL + "(" + ANIMAL_COL_ID + ")" +
+            "FOREIGN KEY(" + DADOS_COMPL_COL_ID_GRUPO + ") REFERENCES " + TABELA_GRUPO + "(" + GRUPO_COL_ID + "));";
 
     private static final String SQL_CREATE_TABELA_PRODUCAO_DE_LEITE = CREATE_TABLE + TABELA_PRODUCAO_DE_LEITE + "(" +
             PRODUCAO_DE_LEITE_ID + KEY_COLUMN +
@@ -211,6 +228,29 @@ public class SQLiteManager extends SQLiteOpenHelper {
             COMPOSTOS_ALIMENTARES_FDA + " " + REAL_NOT_NULL + " , " +
             COMPOSTOS_ALIMENTARES_DESCRICAO + " " + TEXT_NOT_NULL + " );";
 
+    private static final String SQL_CREATE_TABELA_GRUPO = "CREATE TABLE IF NOT EXISTS " + TABELA_GRUPO + "(" +
+            GRUPO_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            GRUPO_COL_IDENTIFICADOR + " " + TEXT_NOT_NULL + "," +
+            GRUPO_COL_OBSERVACAO + " TEXT, " +
+            GRUPO_COL_ID_USUARIO + " " + INTEGER_NOT_NULL + ", " +
+            "FOREIGN KEY(" + GRUPO_COL_ID_USUARIO + ") REFERENCES " + TABELA_USUARIO + "(" + USUARIO_COL_ID + "));";
+
+    private static final String SQL_CREATE_TABELA_DIETA = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA + "(" +
+            DIETA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            DIETA_IDENTIFICADOR + " INTEGER NOT NULL," +
+            DIETA_PROPRIEDADE_ID + " INTEGER NOT NULL," +
+            DIETA_PB + " " + REAL_NOT_NULL + " );";
+
+    private static final String SQL_CREATE_TABELA_DIETA_ANIMAL = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA_ANIMAL + "(" +
+            DIETA_ANIMAL_ID_FK + " INTEGER NOT NULL, " +
+            DIETA_ANIMAL_ID + " INTEGER NOT NULL" + " );";
+
+    private static final String SQL_CREATE_TABELA_DIETA_COMPOSTO = "CREATE TABLE IF NOT EXISTS " + TABELA_DIETA_COMPOSTO + "(" +
+            DIETA_COMPOSTO_ID_FK + " INTEGER NOT NULL, " +
+            DIETA_COMPOSTO_ID + " INTEGER NOT NULL" + "," +
+            DIETA_COMPOSTO_PORCENTAGEM + " " + REAL_NOT_NULL + " );";
+
+
     public SQLiteManager(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
     }
@@ -226,6 +266,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PROLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(SQL_CREATE_TABELA_COMPOSTOS_ALIMENTARES);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_GRUPO);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA_ANIMAL);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABELA_DIETA_COMPOSTO);
     }
 
     @Override
@@ -238,6 +282,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_PRODUCAO_DE_LEITE);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_ANIMAL);
         sqLiteDatabase.execSQL(DROP_TABLE + TABELA_COMPOSTOS_ALIMENTARES);
+
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_GRUPO);
+
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA_ANIMAL);
+        sqLiteDatabase.execSQL(DROP_TABLE + TABELA_DIETA_COMPOSTO);
         this.onCreate(sqLiteDatabase);
     }
 

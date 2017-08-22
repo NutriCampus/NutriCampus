@@ -82,7 +82,7 @@ public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
 
     private void clicarExcluir() {
 
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.acao_delete, false);
         espera(500);
@@ -102,7 +102,7 @@ public class UsuarioExcluirActivityTest extends AbstractPreparacaoTestes {
         espera(1000);
         substituiTexto(R.id.input_usuario, "abcdef");
         substituiTexto(R.id.input_senha, "abcdef");
-        closeKeyboard();
+        fecharTeclado();
         clicarBotao(R.id.btn_login, false);
     }
 

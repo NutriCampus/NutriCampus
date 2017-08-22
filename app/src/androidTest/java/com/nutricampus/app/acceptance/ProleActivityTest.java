@@ -416,10 +416,6 @@ public class ProleActivityTest {
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
         closeKeyboard();
 
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
-        appCompatCheckBox.perform(scrollTo(), click());
-        closeKeyboard();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
@@ -440,7 +436,7 @@ public class ProleActivityTest {
 //                                        0),
 //                                isDisplayed()));
 //                textView4.check(matches(withText("Procure uma propriedade")));
-//                closeKeyboard();
+//                fecharTeclado();
 
     }
 

@@ -13,8 +13,11 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.AbasPagerAdapter;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.fragments.DadosComplementaresFragment;
@@ -94,7 +97,7 @@ public class CadastrarAnimalActivity extends AppCompatActivity
     }
 
     @Override
-    public void salvar(DadosComplAnimal dadosComplAnimal) {
+    public void salvar(DadosComplAnimal dadosComplAnimal, String grupoSelecionado) {
         RepositorioAnimal repositorioAnimal = new RepositorioAnimal(CadastrarAnimalActivity.this);
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarAnimalActivity.this);
 
@@ -111,7 +114,6 @@ public class CadastrarAnimalActivity extends AppCompatActivity
             return;
         }
 
-
         int idAnimal = repositorioAnimal.inserirAnimal(animal);
 
         if (idAnimal > 0) {
@@ -121,7 +123,26 @@ public class CadastrarAnimalActivity extends AppCompatActivity
             return;
         }
 
+        int idGrupo = 1;
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(CadastrarAnimalActivity.this).getIdUsuario());
+
+        //Setar grupo em dadosCompl
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(CadastrarAnimalActivity.this);
+        Grupo grupo = repositorioGrupo.buscarGrupo(grupoSelecionado);
+
+        if (grupo == null && (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty())) {
+            Toast.makeText(CadastrarAnimalActivity.this, getString(R.string.msg_erro_grupo), Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            if (grupo != null)
+                idGrupo = grupo.getId();
+        }
+
         dadosComplAnimal.setAnimal(idAnimal);
+        dadosComplAnimal.setIdGrupo(
+                ("".equals(grupoSelecionado) ? 1 : idGrupo)
+        );
+
         int idDadosComp = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);
 
         if (idDadosComp > 0) {

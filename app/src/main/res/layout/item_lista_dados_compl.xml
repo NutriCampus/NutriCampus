@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/lista_dados_data"
-        android:layout_width="336dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:paddingLeft="@dimen/padding_list"

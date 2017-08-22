@@ -96,7 +96,7 @@ public class SharedPreferencesManager {
     }
 
     public String getIdUsuario() {
-        return pref.getString(KEY_ID_USUARIO, "");
+        return pref.getString(KEY_ID_USUARIO, "0");
     }
 
     public void setIdUsuario(String keyIdNC) {

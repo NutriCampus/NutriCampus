@@ -76,7 +76,7 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Test
     public void atualizarSemModificarDados() throws InterruptedException {
-        closeKeyboard();
+        fecharTeclado();
         espera(500);
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
@@ -87,12 +87,12 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void atualizarComCamposVazios() throws InterruptedException {
 
-        closeKeyboard();
+        fecharTeclado();
         substituiTexto(R.id.edtNome, "");
         substituiTexto(R.id.edtEmail, "");
         substituiTexto(R.id.edtSenha, "");
 
-        closeKeyboard();
+        fecharTeclado();
 
         clicarBotao(R.id.btn_salvar_cadastro, true);
 
@@ -102,7 +102,7 @@ public class UsuarioAtualizarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void atualizarSenhaCadastrada() {
 
-        closeKeyboard();
+        fecharTeclado();
 
         substituiTexto(R.id.edtSenha, "123457");
         usuario.setSenha("123457");

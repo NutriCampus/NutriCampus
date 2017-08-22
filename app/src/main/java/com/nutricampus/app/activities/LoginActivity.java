@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.database.RepositorioUsuario;
 import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Usuario;
 
 
@@ -41,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         if (repo.buscarUsuario(admin, admin) == null) {
             repo.inserirUsuario(new Usuario(1, admin, "", admin, "admin@mail.com", admin));
         }
-
-
     }
 
     private void init() {

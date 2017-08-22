@@ -21,6 +21,8 @@ public class CompostosAlimentares {
     private double fda;
     private String descricao;
 
+    public double porcentagem;
+
     public CompostosAlimentares() {
     }
 

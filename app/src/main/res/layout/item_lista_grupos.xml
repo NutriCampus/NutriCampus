@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/padding_basico"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ItensListaGrupos">
+
+    <TextView
+        android:id="@+id/lista_grupo_id"
+        android:text=""
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <TextView
+        android:id="@+id/lista_grupo_nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:paddingLeft="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/campo_nome"
+        android:textAlignment="viewStart"
+        android:textSize="20sp" />
+
+</RelativeLayout>

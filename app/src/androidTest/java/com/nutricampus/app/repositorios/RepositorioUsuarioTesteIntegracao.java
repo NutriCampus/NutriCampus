@@ -132,7 +132,8 @@ public class RepositorioUsuarioTesteIntegracao {
     @Test
     public void testarRemocaoUsuario() {
         String crmv = "0123";
-        Usuario usuarioEncontrado, usuarioAdicionado;
+        Usuario usuarioEncontrado,
+                usuarioAdicionado;
 
         usuarioAdicionado = new Usuario(crmv, "111.111.111-11", "usuario", "usuario@email.com", "123456");
         repositorio.inserirUsuario(usuarioAdicionado);
