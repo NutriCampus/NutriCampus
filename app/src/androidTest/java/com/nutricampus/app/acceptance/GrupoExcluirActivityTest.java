@@ -43,8 +43,8 @@ public class GrupoExcluirActivityTest extends AbstractPreparacaoTestes {
 
     @Before
     public void setUp() throws Exception {
-        criarGrupo();
         realizaLogin();
+        criarGrupo();
         abrirMenu();
         clicarItemMenu(4);
     }
@@ -59,9 +59,12 @@ public class GrupoExcluirActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void excluirGrupoComAnimais() throws Exception {
         espera(500);
-        longClickElemento("Especial");
+        longClickElemento("Test Especial");
         espera(1000);
-        clicarExcluir();
+
+        clicarBotao(android.R.id.title, "Excluir");
+        espera(500);
+        clicarBotao(android.R.id.button1, "Sim");
         espera(500);
         validaToast("Registro removido com sucesso");
         espera(1000);
@@ -72,24 +75,16 @@ public class GrupoExcluirActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void excluirGrupoSemAnimais() throws Exception {
         espera(500);
-        longClickElemento("Especial");
+        longClickElemento("Test Especial");
         espera(1000);
-        clicarExcluir();
+        clicarBotao(android.R.id.title, "Excluir");
+        espera(500);
+        clicarBotao(android.R.id.button1, "Sim");
         espera(500);
         validaToast("Registro removido com sucesso");
         espera(1000);
         checaView();
         espera(500);
-    }
-
-    private void clicarExcluir() {
-
-        fecharTeclado();
-
-        clicarBotao(R.id.acao_delete, false);
-        espera(500);
-
-        clicarBotao(android.R.id.button1, true);
     }
 
     public void checaView() {

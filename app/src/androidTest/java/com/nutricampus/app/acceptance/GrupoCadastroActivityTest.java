@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -36,8 +38,12 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes {
 
     @After
     public void deletaDadosPosTestes() {
-        if(repositorioGrupo.buscarGrupo("Test Especial") != null)
-            repositorioGrupo.removerGrupo(repositorioGrupo.buscarGrupo("Test Especial"));
+        List<Grupo> list = repositorioGrupo.buscarTodosGrupos();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getIdentificador().contains("Test"))
+                repositorioGrupo.removerGrupo(list.get(i));
+        }
+
     }
 
     @Test
@@ -57,7 +63,7 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes {
     public void cadastrarGrupoNovo() throws Exception {
         espera(500);
         onView(withId(R.id.btn_add_grupo)).perform(click());
-        substituiTexto(R.id.input_nome_grupo, "Tratamento");
+        substituiTexto(R.id.input_nome_grupo, "Test Tratamento");
         substituiTexto(R.id.input_observacao, "Grupos de animais em tratamento");
         espera(1000);
         clicarBotao(R.id.btn_salvar_grupo, false);
@@ -67,7 +73,7 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes {
     }
 
     private void preencheCampos() throws Exception {
-        substituiTexto(R.id.input_nome_grupo, "Especial");
+        substituiTexto(R.id.input_nome_grupo, "Test Especial");
         substituiTexto(R.id.input_observacao, "Grupos de animais em condicoes especiais");
     }
 

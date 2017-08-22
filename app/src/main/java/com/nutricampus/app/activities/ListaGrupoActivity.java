@@ -87,14 +87,6 @@ public class ListaGrupoActivity extends AppCompatActivity {
 
         int idUsuario = Integer.parseInt(new SharedPreferencesManager(this).getIdUsuario());
 
-        List<Grupo> list = repositorioGrupo.buscarPorUsuario(idUsuario);
-        if (list.isEmpty()) {
-          repositorioGrupo.inserirGrupo(new Grupo("Pastando", "", idUsuario));
-          repositorioGrupo.inserirGrupo(new Grupo("Lactação", "", idUsuario));
-          repositorioGrupo.inserirGrupo(new Grupo("Cio", "", idUsuario));
-          repositorioGrupo.inserirGrupo(new Grupo("Gestante", "", idUsuario));
-        }
-
         listaDeGrupos = repositorioGrupo.buscarPorUsuario(idUsuario);
 
         ListaGrupoAdapter adapter = new ListaGrupoAdapter(this, listaDeGrupos);

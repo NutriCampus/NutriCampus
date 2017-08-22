@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.ActionBarManager;
+import com.nutricampus.app.entities.Grupo;
 
 /*
 Explicação para a supressão de warnings:
@@ -38,7 +40,19 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         actionBar = new ActionBarManager(this, toolbar);
+        cadastraGruposPadrao();
+    }
 
+    private void cadastraGruposPadrao(){
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(this).getIdUsuario());
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(this);
+
+        if (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty()) {
+            repositorioGrupo.inserirGrupo(new Grupo("Pastando", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Lactação", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Cio", "", idUsuario));
+            repositorioGrupo.inserirGrupo(new Grupo("Gestante", "", idUsuario));
+        }
     }
 
     @Override

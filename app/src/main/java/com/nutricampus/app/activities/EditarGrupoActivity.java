@@ -35,10 +35,11 @@ public class EditarGrupoActivity extends CadastrarGrupoActivity {
             return;
         }
 
-
         String nomeAtual = inputNome.getText().toString();
-        if ( !isNomeUnico(nomeAtual) && !(nomeAtual.equals(grupo.getIdentificador()))) {
+        if ( !isNomeUnico(nomeAtual) ) {
             inputNome.setError(getString(R.string.msg_nome_existente));
+            Toast.makeText(EditarGrupoActivity.this, R.string.msg_nome_existente, Toast.LENGTH_LONG).show();
+
             return;
         }
 

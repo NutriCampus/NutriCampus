@@ -252,12 +252,6 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
         int idUsuario = Integer.parseInt(
                 new SharedPreferencesManager(CadastrarNovoDadoComplActivity.this).getIdUsuario());
 
-        if (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty()) {
-            repositorioGrupo.inserirGrupo(new Grupo("Pastando", "", idUsuario));
-            repositorioGrupo.inserirGrupo(new Grupo("Lactação", "", idUsuario));
-            repositorioGrupo.inserirGrupo(new Grupo("Cio", "", idUsuario));
-            repositorioGrupo.inserirGrupo(new Grupo("Gestante", "", idUsuario));
-        }
         listGrupos.addAll((ArrayList)repositorioGrupo.buscarPorUsuario(idUsuario));
 
         final String[] grupos = new String[listGrupos.size()];

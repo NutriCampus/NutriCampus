@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -42,26 +44,30 @@ public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Before
     public void setUp() throws Exception {
-        criarGrupo();
         realizaLogin();
+        criarGrupo();
         abrirMenu();
         clicarItemMenu(4);
     }
 
     @After
     public void deletaDadosPosTestes() {
-        repositorioGrupo.removerGrupoUsuario(1);
+        List<Grupo> list = repositorioGrupo.buscarTodosGrupos();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getIdentificador().contains("Test"))
+                repositorioGrupo.removerGrupo(list.get(i));
+        }
 
     }
 
     @Test
     public void atualizarGrupoNaoExistente() throws Exception {
         espera(500);
-        longClickElemento("Especial");
+        longClickElemento("Test Especial");
         espera(1000);
         clicarBotao(android.R.id.title, "Editar");
         espera(500);
-        substituiTexto(R.id.input_nome_grupo, "Vacinacao");
+        substituiTexto(R.id.input_nome_grupo, "Test Vacinacao");
         substituiTexto(R.id.input_observacao, "Grupos de animais em vacinacao");
         espera(1000);
         clicarBotao(R.id.btn_salvar_grupo, false);
@@ -73,17 +79,17 @@ public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void atualizarParaGrupoJaExistente() throws Exception {
         espera(500);
-        longClickElemento("Especial");
+        longClickElemento("Test Especial");
         espera(1000);
         clicarBotao(android.R.id.title, "Editar");
         espera(500);
-        substituiTexto(R.id.input_nome_grupo, "Tratamento");
+        substituiTexto(R.id.input_nome_grupo, "Test Tratamento");
         substituiTexto(R.id.input_observacao, "Grupos de animais em tratamento");
         espera(500);
         clicarBotao(R.id.btn_salvar_grupo, false);
         espera(500);
-        onView(withId(R.id.input_nome_grupo)).check(matches(withText("Tratamento")));
-        //validaToast("Nome já cadastrado");
+
+        validaToast("Nome já cadastrado");
         espera(1000);
     }
 }

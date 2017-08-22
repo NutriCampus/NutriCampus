@@ -48,8 +48,8 @@ public class GrupoBuscarActivityTest extends AbstractPreparacaoTestes {
 
     @Before
     public void setUp() throws Exception {
-        criarGrupo();
         realizaLogin();
+        criarGrupo();
         abrirMenu();
         clicarItemMenu(4);
     }
@@ -66,15 +66,7 @@ public class GrupoBuscarActivityTest extends AbstractPreparacaoTestes {
     @Test
     public void buscarGruposCadastrados() throws Exception {
         espera(500);
-        ViewInteraction listView = onView(
-                allOf(withId(R.id.listaGrupo),
-                        childAtPosition(
-                                allOf(withId(R.id.resultado_busca_prole),
-                                        childAtPosition(
-                                                withId(R.id.telaListaDadosCompl),
-                                                0)),
-                                2),
-                        isDisplayed()));
+        ViewInteraction listView = onView(withId(R.id.listaGrupo));
         listView.check(matches(isDisplayed()));
         espera(500);
 
