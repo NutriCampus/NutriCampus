@@ -147,10 +147,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        fecharTeclado();
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
-        appCompatCheckBox.perform(scrollTo(), click());
+
         fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
@@ -248,13 +245,6 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
         fecharTeclado();
 
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
-
-        Thread.sleep(1000);
-
-        appCompatCheckBox.perform(scrollTo(), click());
-        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
@@ -375,13 +365,7 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         ViewInteraction appCompatEditText29 = onView(
                 withId(R.id.input_semana_lactacao));
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
-        fecharTeclado();
 
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
-        Thread.sleep(1000);
-
-        appCompatCheckBox.perform(scrollTo(), click());
         fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
@@ -561,10 +545,6 @@ public class Animal01CadastroActivityTest extends AbstractPreparacaoTestes {
         appCompatEditText29.perform(scrollTo(), replaceText("2"), closeSoftKeyboard());
         fecharTeclado();
 
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.ckb_lactacao), withText("Lactação")));
-        appCompatCheckBox.perform(scrollTo(), click());
-        fecharTeclado();
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.rb1), withText("1"),
                         withParent(withId(R.id.rgEec))));
