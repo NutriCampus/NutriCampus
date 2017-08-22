@@ -264,7 +264,13 @@
             android:parentActivityName=".activities.ListaGrupoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dialog" />
-        <activity android:name=".activities.GerarPDFActivity"></activity>
+        <activity android:name=".activities.GerarPDFActivity">
+            android:parentActivityName=".activities.ListaDietasActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaDietasActivity" />
+        </activity>
     </application>
 
 </manifest>
