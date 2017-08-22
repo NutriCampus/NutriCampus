@@ -7,9 +7,7 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioGrupo;
-import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Grupo;
 
 import org.junit.After;
@@ -18,8 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
