@@ -10,10 +10,8 @@ import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.CompostoComPorcentagem;
 import com.nutricampus.app.entities.CompostosAlimentares;
 import com.nutricampus.app.entities.Dieta;
-import com.nutricampus.app.utils.Conversor;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 

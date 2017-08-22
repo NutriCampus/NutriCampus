@@ -7,19 +7,22 @@
         android:icon="@drawable/ic_crud_novo"
         app:showAsAction="always"/>-->
 
-    <item android:id="@+id/menu_opc_cont_visualizar_dieta"
+    <item
+        android:id="@+id/menu_opc_cont_visualizar_dieta"
         android:title="@string/menu_visualizar_dieta"
         android:icon="@drawable/ic_crud_novo"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
-    <item android:id="@+id/menu_opc_cont_excluir"
+    <item
+        android:id="@+id/menu_opc_cont_excluir"
         android:title="@string/menu_excluir"
         android:icon="@drawable/ic_crud_excluir"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
-    <item android:id="@+id/menu_opc_cont_editar"
+    <item
+        android:id="@+id/menu_opc_cont_editar"
         android:title="@string/menu_editar"
         android:icon="@drawable/ic_crud_excluir"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

@@ -19,7 +19,6 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.ListaDietaAdapter;
 import com.nutricampus.app.database.RepositorioDieta;
 import com.nutricampus.app.database.SharedPreferencesManager;
-import com.nutricampus.app.entities.CompostosAlimentares;
 import com.nutricampus.app.entities.Dieta;
 
 import java.util.List;
@@ -169,7 +168,7 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
     }
 
     private Intent getIntent(Dieta dieta, boolean isEdit) {
-        Intent intent = null;
+        Intent intent;
         if (isEdit) {
             intent = new Intent(this, EditarDietaActivity.class);
         } else {

@@ -6,14 +6,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
-import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDieta;
-import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.Dieta;
-import com.nutricampus.app.entities.Propriedade;
-
-import java.util.ArrayList;
 
 @SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class EditarDietaActivity extends CadastrarDietaActivity {

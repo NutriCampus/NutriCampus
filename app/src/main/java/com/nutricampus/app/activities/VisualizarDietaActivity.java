@@ -6,12 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-
-import com.nutricampus.app.R;
-import com.nutricampus.app.database.RepositorioAnimal;
-import com.nutricampus.app.entities.Animal;
-import com.nutricampus.app.entities.Propriedade;
 
 @SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class VisualizarDietaActivity extends EditarDietaActivity {

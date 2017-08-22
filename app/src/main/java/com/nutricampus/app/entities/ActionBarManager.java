@@ -20,8 +20,8 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ConfigActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
-import com.nutricampus.app.activities.ListaGrupoActivity;
 import com.nutricampus.app.activities.ListaDietasActivity;
+import com.nutricampus.app.activities.ListaGrupoActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
 

@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nutricampus.app.R;
-import com.nutricampus.app.entities.CompostosAlimentares;
 import com.nutricampus.app.entities.Dieta;
 
 import java.util.List;
