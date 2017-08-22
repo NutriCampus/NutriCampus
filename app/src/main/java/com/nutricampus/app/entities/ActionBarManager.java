@@ -109,6 +109,7 @@ public class ActionBarManager {
                                 break;
                             case 6:
                                 intent = new Intent(activity, ListaDietasActivity.class);
+                                break;
                             case 5:
                                 intent = new Intent(activity, GerarPDFActivity.class);
                                 break;

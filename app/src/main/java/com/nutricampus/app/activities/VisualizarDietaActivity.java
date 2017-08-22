@@ -43,6 +43,7 @@ public class VisualizarDietaActivity extends EditarDietaActivity {
         pb.setEnabled(false);
         spinnerProprietarios.setEnabled(false);
         btnAddAnimal.setText("Ver Animais");
+        btnAddGrupo.setVisibility(View.GONE);
         btnAddComposto.setText("Ver Compostos");
         btnCalcular.setVisibility(View.GONE);
 

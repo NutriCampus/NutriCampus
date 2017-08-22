@@ -71,6 +71,11 @@ public class RepositorioDadosComplAnimal {
                 " WHERE (" + SQLiteManager.DADOS_COMPL_COL_ID_ANIMAL + " = " + idAnimal + ")");
     }
 
+    public List<DadosComplAnimal> buscarTodosDadosComplByIdGrupo(int idGrupo) {
+        return this.getListaDadosComplAnimal(SQLiteManager.SELECT_TODOS + SQLiteManager.TABELA_DADOS_COMPL +
+                " WHERE (" + SQLiteManager.DADOS_COMPL_COL_ID_GRUPO + " = " + idGrupo + ")");
+
+    }
 
     public DadosComplAnimal buscarDadosComplAnimal(int idAnimal) {
         bancoDados = gerenciador.getReadableDatabase();

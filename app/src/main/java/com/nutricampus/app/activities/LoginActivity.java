@@ -13,6 +13,7 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.database.RepositorioProprietario;
 import com.nutricampus.app.database.RepositorioUsuario;
@@ -20,6 +21,7 @@ import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.CompostosAlimentares;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 import com.nutricampus.app.entities.Usuario;
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             RepositorioAnimal REPAnimal = new RepositorioAnimal(this);
             RepositorioCompostosAlimentares REPCompAliment = new RepositorioCompostosAlimentares(this);
             RepositorioDadosComplAnimal REPdados = new RepositorioDadosComplAnimal(this);
+            RepositorioGrupo REPgrupo = new RepositorioGrupo(this);
 
 
             Proprietario proprietario1 = new Proprietario(1, "111.111.111-11", "Proprietario1", "email1", "1111");
@@ -85,14 +88,14 @@ public class LoginActivity extends AppCompatActivity {
             REPAnimal.inserirAnimal(animal6);
             REPAnimal.inserirAnimal(animal7);
             REPAnimal.inserirAnimal(animal8);
-            DadosComplAnimal dadosComplAnimal1 = new DadosComplAnimal(Calendar.getInstance(), 1, 1000, 100, 10, 1, 4);
-            DadosComplAnimal dadosComplAnimal2 = new DadosComplAnimal(Calendar.getInstance(), 2, 2000, 200, 20, 2, 4);
-            DadosComplAnimal dadosComplAnimal3 = new DadosComplAnimal(Calendar.getInstance(), 3, 3000, 300, 30, 3, 4);
-            DadosComplAnimal dadosComplAnimal4 = new DadosComplAnimal(Calendar.getInstance(), 4, 4000, 400, 40, 4, 4);
-            DadosComplAnimal dadosComplAnimal5 = new DadosComplAnimal(Calendar.getInstance(), 5, 5000, 500, 50, 5, 4);
-            DadosComplAnimal dadosComplAnimal6 = new DadosComplAnimal(Calendar.getInstance(), 6, 6000, 600, 60, 6, 4);
-            DadosComplAnimal dadosComplAnimal7 = new DadosComplAnimal(Calendar.getInstance(), 7, 7000, 700, 70, 7, 4);
-            DadosComplAnimal dadosComplAnimal8 = new DadosComplAnimal(Calendar.getInstance(), 8, 8000, 800, 80, 8, 4);
+            DadosComplAnimal dadosComplAnimal1 = new DadosComplAnimal(1, Calendar.getInstance(), 1, 1000, 1, 10, 100, 4, 1);
+            DadosComplAnimal dadosComplAnimal2 = new DadosComplAnimal(2, Calendar.getInstance(), 2, 2000, 1, 20, 200, 4, 1);
+            DadosComplAnimal dadosComplAnimal3 = new DadosComplAnimal(3, Calendar.getInstance(), 3, 3000, 2, 30, 300, 4, 2);
+            DadosComplAnimal dadosComplAnimal4 = new DadosComplAnimal(4, Calendar.getInstance(), 4, 4000, 2, 40, 400, 4, 2);
+            DadosComplAnimal dadosComplAnimal5 = new DadosComplAnimal(5, Calendar.getInstance(), 5, 5000, 3, 50, 500, 4, 3);
+            DadosComplAnimal dadosComplAnimal6 = new DadosComplAnimal(6, Calendar.getInstance(), 6, 6000, 3, 60, 600, 4, 3);
+            DadosComplAnimal dadosComplAnimal7 = new DadosComplAnimal(7, Calendar.getInstance(), 7, 7000, 4, 70, 700, 4, 4);
+            DadosComplAnimal dadosComplAnimal8 = new DadosComplAnimal(8, Calendar.getInstance(), 8, 8000, 4, 80, 800, 4, 4);
             REPdados.inserirDadosComplAnimal(dadosComplAnimal1);
             REPdados.inserirDadosComplAnimal(dadosComplAnimal2);
             REPdados.inserirDadosComplAnimal(dadosComplAnimal3);
@@ -109,6 +112,11 @@ public class LoginActivity extends AppCompatActivity {
             REPCompAliment.inserirCompostoAlimentar(compostosAlimentares2);
             REPCompAliment.inserirCompostoAlimentar(compostosAlimentares3);
             REPCompAliment.inserirCompostoAlimentar(compostosAlimentares4);
+
+            REPgrupo.inserirGrupo(new Grupo(1, "Pastando", "", 1));
+            REPgrupo.inserirGrupo(new Grupo(2, "Lactação", "", 1));
+            REPgrupo.inserirGrupo(new Grupo(3, "Cio", "", 1));
+            REPgrupo.inserirGrupo(new Grupo(4, "Gestante", "", 1));
         }
 
     }
