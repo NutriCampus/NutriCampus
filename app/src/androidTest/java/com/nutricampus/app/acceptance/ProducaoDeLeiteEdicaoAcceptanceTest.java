@@ -72,11 +72,6 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         return currentActivity;
     }
 
-    @Before
-    public void preparaDados() {
-
-    }
-
     @Test
     public void producaoDeLeiteEdicaoTA1() {
         String nome1 = "nomeAdmin proprietario",

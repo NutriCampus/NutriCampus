@@ -44,7 +44,7 @@
 
 -keep class org.spongycastle.** { *; }
 -dontwarn org.spongycastle.**
-d
+
 -keep class com.itextpdf.** { *; }
 
 -keep class javax.xml.crypto.dsig.** { *; }

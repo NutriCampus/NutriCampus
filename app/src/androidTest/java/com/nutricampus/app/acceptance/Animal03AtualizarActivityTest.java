@@ -38,7 +38,7 @@ import static org.hamcrest.Matchers.is;
 public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
 
     @Test
-    public void AnimalAtualizarActivityTest1() throws Exception {
+    public void atualizarActivityTest1() throws Exception {
         onView(withText("Flor")).perform(longClick());
         fecharTeclado();
         ViewInteraction appCompatTextView6 = onView(
@@ -89,7 +89,7 @@ public class Animal03AtualizarActivityTest extends AbstractPreparacaoTestes {
     }
 
     @Test
-    public void AnimalAtualizarActivityTest2() throws Exception {//Cadastro Total(Inserindo nova propriedade)
+    public void atualizarActivityTest2() throws Exception {//Cadastro Total(Inserindo nova propriedade)
         onView(withText("Flor")).perform(longClick());
 
         ViewInteraction appCompatTextView6 = onView(

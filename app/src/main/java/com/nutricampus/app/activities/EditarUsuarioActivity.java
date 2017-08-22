@@ -106,7 +106,7 @@ public class EditarUsuarioActivity extends CadastrarUsuarioActivity {
                                         repositorioAnimal.removerAnimal(a);
                                     }
 
-                                    if(!(repositorioPropriedade.propriedadesOfProprietario(idProprietario).size() > 1)) {
+                                    if(repositorioPropriedade.propriedadesOfProprietario(idProprietario).size() <= 1) {
                                         repositorioProprietario.removerProprietario(idProprietario);
                                     }
                                     //repositorioPropriedade.removerPropriedadePorProprietario(idProprietario);

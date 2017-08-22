@@ -50,25 +50,28 @@ Explicação para a supressão de warnings:
 public class ListaAnimaisActivity extends AbstractListComPesquisa
         implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.spinnerPropriedade)
-    Spinner spinnerPropriedade;
-    @BindView(R.id.listaAnimais)
-    ListView listAnimais;
-    @BindView(R.id.text_quantidades_encontrados)
-    TextView registrosEncontrados;
-    @BindView(R.id.linha)
-    View linha;
-    @BindView(R.id.input_id_propriedade)
-    EditText inputIdPropriedade;
+    private Spinner spinnerPropriedade;
+    private ListView listAnimais;
+    private TextView registrosEncontrados;
+    private View linha;
+    private EditText inputIdPropriedade;
 
     private Propriedade propriedade;
-    
+
+    private void init(){
+        inputIdPropriedade = (EditText) findViewById(R.id.input_id_propriedade);
+        linha = findViewById(R.id.linha);
+        registrosEncontrados = (TextView) findViewById(R.id.text_quantidades_encontrados);
+        listAnimais = (ListView) findViewById(R.id.listaAnimais);
+        spinnerPropriedade = (Spinner) findViewById(R.id.spinnerPropriedade);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_animais);
 
-        ButterKnife.bind(this);
+        init();
 
         listAnimais.setEmptyView(findViewById(android.R.id.empty));
         listAnimais.setOnItemClickListener(this);

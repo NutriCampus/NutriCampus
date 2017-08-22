@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -128,9 +127,9 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
     }
 
     protected DadosComplAnimal getDadosComplAnimal() {
-        float caminhadaHorizontal = inputCaminhadaHorizontal.getText().toString().equals("") ? 0.0f :
+        float caminhadaHorizontal = "".equals(inputCaminhadaHorizontal.getText().toString()) ? 0.0f :
                 Float.parseFloat(inputCaminhadaHorizontal.getText().toString());
-        float caminhadaVertical = inputCaminhadaVertical.getText().toString().equals("") ? 0.0f :
+        float caminhadaVertical = "".equals(inputCaminhadaVertical.getText().toString()) ? 0.0f :
                 Float.parseFloat(inputCaminhadaVertical.getText().toString());
 
         //Atribuir o valor de EEC
@@ -178,7 +177,7 @@ public class CadastrarNovoDadoComplActivity extends AbstractDataPickerActivity
 
         dadosComplAnimal.setAnimal(animal.getId());
         dadosComplAnimal.setIdGrupo(
-                (grupoSelecionado.equals("") ? 1 : idGrupo)
+                ("".equals(grupoSelecionado) ? 1 : idGrupo)
         );
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(CadastrarNovoDadoComplActivity.this);

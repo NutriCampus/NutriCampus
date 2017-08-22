@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.nutricampus.app.entities.DadosComplAnimal;
-import com.nutricampus.app.utils.Conversor;
 
 import java.util.ArrayList;
 import java.util.Calendar;

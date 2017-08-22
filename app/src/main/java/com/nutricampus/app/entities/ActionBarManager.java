@@ -78,9 +78,9 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(2).withSelectable(false).withName("Grupos").withIcon(FontAwesome.Icon.faw_object_group),
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
-                        new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Geração").withIcon(FontAwesome.Icon.faw_bar_chart),
-                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
+                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Relatório").withIcon(FontAwesome.Icon.faw_bar_chart),
                         new SectionDrawerItem().withName("Licença"),
                         new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
                         new DividerDrawerItem(),
@@ -107,10 +107,10 @@ public class ActionBarManager {
                             case 4:
                                 intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
                                 break;
-                            case 6:
+                            case 5:
                                 intent = new Intent(activity, ListaDietasActivity.class);
                                 break;
-                            case 5:
+                            case 6:
                                 intent = new Intent(activity, GerarPDFActivity.class);
                                 break;
                             case 11:

@@ -23,7 +23,6 @@ import static junit.framework.Assert.assertTrue;
 
 
 public class ValidaFormularioInstrumentedTest {
-    private Context appContext;
     private TextView nome;
     private TextView sobrenome;
 
@@ -36,7 +35,7 @@ public class ValidaFormularioInstrumentedTest {
 
     @Before
     public void init() {
-        this.appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext = InstrumentationRegistry.getTargetContext();
 
         nome = new TextView(appContext);
         sobrenome = new TextView(appContext);

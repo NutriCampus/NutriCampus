@@ -243,7 +243,7 @@ public class CadastrarDietaActivity extends AppCompatActivity {
             try {
                 pbD = Double.parseDouble(pb.getText().toString());
                 if (pbD <= 0) {
-                    throw new Exception();
+                    throw new NumberFormatException("PBD menor ou igual a zero");
                 }
             } catch (Exception e) {
                 Toast.makeText(this, "Adicione um valor maior que zero", Toast.LENGTH_SHORT).show();
@@ -327,7 +327,7 @@ public class CadastrarDietaActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                // Não necessário
             }
         });
         // Create the AlertDialog object and return it

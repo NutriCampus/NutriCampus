@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
@@ -96,7 +95,7 @@ public class EditarDadosComplActivity extends CadastrarNovoDadoComplActivity {
         }
 
         dadosComplementares.setIdGrupo(
-                (grupoSelecionado.equals("") ? 1 : idGrupo)
+                ("".equals(grupoSelecionado) ? 1 : idGrupo)
         );
 
         RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(EditarDadosComplActivity.this);

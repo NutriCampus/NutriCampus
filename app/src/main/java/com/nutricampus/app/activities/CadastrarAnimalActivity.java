@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -141,7 +140,7 @@ public class CadastrarAnimalActivity extends AppCompatActivity
 
         dadosComplAnimal.setAnimal(idAnimal);
         dadosComplAnimal.setIdGrupo(
-                (grupoSelecionado.equals("") ? 1 : idGrupo)
+                ("".equals(grupoSelecionado) ? 1 : idGrupo)
         );
 
         int idDadosComp = repositorioDadosComplAnimal.inserirDadosComplAnimal(dadosComplAnimal);

@@ -4,9 +4,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,20 +36,22 @@ public class GerarPDFActivity extends AppCompatActivity {
     private static final String PATH_APP = "NutriCampus";
     private static final String GERAR = "Relatorios";
 
-    private Button button;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gerar_pdf);
 
-        button = (Button) findViewById(R.id.btnGerarPdf);
+        Button button = (Button) findViewById(R.id.btnGerarPdf);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gerarPdfOnClick(view);
             }
         });
+
+        // Retira a exceção causada: FileUriExposedException
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
     }
 
     public void gerarPdfOnClick(View v) {
@@ -97,9 +100,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
