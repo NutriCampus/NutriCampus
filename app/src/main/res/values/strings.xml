@@ -283,5 +283,6 @@
     <string name="adicionar_animais">Gerenciar Animais</string>
     <string name="adicionar_compostos">Gerenciar Compostos</string>
     <string name="calcular">Calcular</string>
+    <string name="titulo_relatorios">Geração de Relatórios</string>
 
 </resources>

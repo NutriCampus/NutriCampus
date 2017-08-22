@@ -1,12 +1,13 @@
 package com.nutricampus.app.acceptance;
 
 import android.support.test.InstrumentationRegistry;
-
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
+
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.entities.Grupo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +15,17 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @SuppressWarnings("squid:S2925") //  SonarQube ignora o sleep())
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 
 
-public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes{
+public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes {
     private RepositorioGrupo repositorioGrupo;
     private Grupo grupo;
+
     @Before
     public void setUp() throws Exception {
         realizaLogin();
@@ -33,10 +33,13 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes{
         abrirMenu();
         clicarItemMenu(4);
     }
+
     @After
     public void deletaDadosPosTestes() {
-        repositorioGrupo.removerGrupoUsuario(1);
-        }
+        if(repositorioGrupo.buscarGrupo("Test Especial") != null)
+            repositorioGrupo.removerGrupo(repositorioGrupo.buscarGrupo("Test Especial"));
+    }
+
     @Test
     public void cadastrarGrupoJaExistente() throws Exception {
         espera(500);
@@ -45,9 +48,11 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes{
         espera(1000);
         clicarBotao(R.id.btn_salvar_grupo, false);
         espera(500);
-        onView(withId(R.id.input_nome_grupo)).check(matches(withText("Especial")));
+
+        validaToast("Nome já cadastrado");
         espera(500);
     }
+
     @Test
     public void cadastrarGrupoNovo() throws Exception {
         espera(500);
@@ -60,13 +65,15 @@ public class GrupoCadastroActivityTest extends AbstractPreparacaoTestes{
         validaToast("Cadastro realizado com sucesso");
         espera(500);
     }
+
     private void preencheCampos() throws Exception {
         substituiTexto(R.id.input_nome_grupo, "Especial");
         substituiTexto(R.id.input_observacao, "Grupos de animais em condicoes especiais");
     }
+
     public void criarGrupo() {
         repositorioGrupo = new RepositorioGrupo(InstrumentationRegistry.getTargetContext());
-        grupo = new Grupo("Especial", "GrupoCiadoParaTeste", 1);
+        grupo = new Grupo("Test Especial", "GrupoCiadoParaTeste", 1);
         repositorioGrupo.inserirGrupo(grupo);
     }
 }

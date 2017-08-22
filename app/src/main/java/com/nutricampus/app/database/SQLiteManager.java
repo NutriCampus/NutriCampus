@@ -19,7 +19,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
     private static final String FOREIGN_KEY_INIT = "FOREIGN KEY(";
     private static final String FOREIGN_KEY_REF = ") REFERENCES ";
-    private static final String DELETE_CASCADE = " ON DELETE CASCADE";
     public static final String INTEGER_NOT_NULL = "INTEGER NOT NULL";
 
     public static final String SELECT_TODOS = "SELECT * FROM ";

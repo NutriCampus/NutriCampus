@@ -4,9 +4,11 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
+
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.entities.Grupo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -27,16 +28,18 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 
 
-public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes{
+public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes {
     private RepositorioGrupo repositorioGrupo;
-    private Grupo grupo1,grupo2;
+    private Grupo grupo1, grupo2;
+
     public void criarGrupo() {
         repositorioGrupo = new RepositorioGrupo(InstrumentationRegistry.getTargetContext());
-        grupo1 = new Grupo("Especial", "GrupoCriadoParaTeste", 1);
-        grupo2 = new Grupo("Tratamento", "GrupoCriadoParaTeste2", 1);
+        grupo1 = new Grupo("Test Especial", "GrupoCriadoParaTeste", 1);
+        grupo2 = new Grupo("Test Tratamento", "GrupoCriadoParaTeste2", 1);
         repositorioGrupo.inserirGrupo(grupo2);
         repositorioGrupo.inserirGrupo(grupo1);
     }
+
     @Before
     public void setUp() throws Exception {
         criarGrupo();
@@ -44,19 +47,19 @@ public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes{
         abrirMenu();
         clicarItemMenu(4);
     }
+
     @After
     public void deletaDadosPosTestes() {
-         repositorioGrupo.removerGrupoUsuario(1);
+        repositorioGrupo.removerGrupoUsuario(1);
 
     }
+
     @Test
     public void atualizarGrupoNaoExistente() throws Exception {
         espera(500);
         longClickElemento("Especial");
         espera(1000);
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
         espera(500);
         substituiTexto(R.id.input_nome_grupo, "Vacinacao");
         substituiTexto(R.id.input_observacao, "Grupos de animais em vacinacao");
@@ -66,14 +69,13 @@ public class GrupoAtualizarActivityTest extends AbstractPreparacaoTestes{
         validaToast("Registro atualizado com sucesso");
         espera(1000);
     }
+
     @Test
     public void atualizarParaGrupoJaExistente() throws Exception {
         espera(500);
         longClickElemento("Especial");
         espera(1000);
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.title), withText("Editar"), isDisplayed()));
-        appCompatTextView.perform(click());
+        clicarBotao(android.R.id.title, "Editar");
         espera(500);
         substituiTexto(R.id.input_nome_grupo, "Tratamento");
         substituiTexto(R.id.input_observacao, "Grupos de animais em tratamento");
