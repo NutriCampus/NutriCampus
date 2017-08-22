@@ -97,6 +97,34 @@ public class RepositorioCompostosAlimentares {
         return null;
     }
 
+    public CompostosAlimentares buscarCompostoAlimentarId(int id) {
+        bancoDados = gerenciador.getReadableDatabase();
+
+        Cursor cursor = bancoDados.query(SQLiteManager.TABELA_COMPOSTOS_ALIMENTARES, new String[]{
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_ID,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_TIPO,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_IDENTIFICADOR,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_MS,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_FDN,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_EE,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_MM,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_CNF,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_PB,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_NDT,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_FDA,
+                        SQLiteManager.COMPOSTOS_ALIMENTARES_DESCRICAO},
+                SQLiteManager.COMPOSTOS_ALIMENTARES_ID + "= ?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return getDadosFromCursor(cursor);
+        }
+
+        cursor.close();
+        return null;
+    }
+
     public List<CompostosAlimentares> buscarCompostosAlimentares(int id) {
 
         bancoDados = gerenciador.getReadableDatabase();

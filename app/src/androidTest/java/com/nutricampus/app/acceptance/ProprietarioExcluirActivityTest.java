@@ -82,7 +82,7 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
 
 
         ViewInteraction textView10 = onView(
-                allOf(withId(android.R.id.message), withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedades vinculados a ele(a)?"),
+                allOf(withId(android.R.id.message), withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedadesBD vinculados a ele(a)?"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.scrollView),
@@ -91,6 +91,7 @@ public class ProprietarioExcluirActivityTest extends AbstractPreparacaoTestes {
                         isDisplayed()));
         textView10.check(matches(withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedades vinculados a ele(a)?")));
         fecharTeclado();
+        textView10.check(matches(withText("Tem certeza que deseja remover o(a) proprietário(a) \"Jorge Veloso\", isso excluirá as propriedadesBD vinculados a ele(a)?")));
 
         clicarBotao(android.R.id.button2, "Não");
         fecharTeclado();
