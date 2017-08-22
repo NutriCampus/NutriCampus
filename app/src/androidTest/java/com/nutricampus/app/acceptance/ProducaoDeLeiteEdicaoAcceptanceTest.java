@@ -129,10 +129,10 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
 
             RepositorioDadosComplAnimal repositorioDadosComplAnimal = new RepositorioDadosComplAnimal(InstrumentationRegistry.getTargetContext());
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), idAnimal1, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal1, 100, 150, 50, 60, 5
             ));
             repositorioDadosComplAnimal.inserirDadosComplAnimal(new DadosComplAnimal(
-                    Calendar.getInstance(), idAnimal2, 100, 150, 50, 60, 5, true, true, true, true
+                    Calendar.getInstance(), idAnimal2, 100, 150, 50, 60, 5
             ));
         }
         idAnimal1 = repoAnimal.buscarAnimal(animal1, idPropriedade1).getId();
