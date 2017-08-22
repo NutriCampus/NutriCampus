@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -13,8 +14,11 @@ import com.nutricampus.app.R;
 import com.nutricampus.app.adapters.AbasPagerAdapter;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.SharedPreferencesManager;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.fragments.DadosAnimalFragment;
 import com.nutricampus.app.fragments.DadosComplementaresFragment;
@@ -121,12 +125,19 @@ public class CadastrarAnimalActivity extends AppCompatActivity
         }
 
         int idGrupo = 1;
-        /*
-            //Setar grupo em dadosCompl
-            RepositorioGrupos repositorioGrupos = new RepositorioGrupos(CadastrarAnimalActivity.this);
-            idGrupo = repositorioGrupos.buscar(grupoSelecionado).getId();
-            dadosComplAnimal.setIdGrupo(idGrupo);
-        */
+        int idUsuario = Integer.parseInt(new SharedPreferencesManager(CadastrarAnimalActivity.this).getIdUsuario());
+
+        //Setar grupo em dadosCompl
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(CadastrarAnimalActivity.this);
+        Grupo grupo = repositorioGrupo.buscarGrupo(grupoSelecionado);
+
+        if (grupo == null && (repositorioGrupo.buscarPorUsuario(idUsuario).isEmpty())) {
+            Toast.makeText(CadastrarAnimalActivity.this, getString(R.string.msg_erro_grupo), Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            if (grupo != null)
+                idGrupo = grupo.getId();
+        }
 
         dadosComplAnimal.setAnimal(idAnimal);
         dadosComplAnimal.setIdGrupo(

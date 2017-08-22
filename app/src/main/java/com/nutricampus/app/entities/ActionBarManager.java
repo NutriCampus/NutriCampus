@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.nutricampus.app.R;
 import com.nutricampus.app.activities.ConfigActivity;
+import com.nutricampus.app.activities.GerarPDFActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
 import com.nutricampus.app.activities.ListaDietasActivity;
@@ -78,7 +79,7 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(3).withSelectable(false).withName("Animais").withIcon(FontAwesome.Icon.faw_paw),
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
                         new SectionDrawerItem().withName("Relatórios"),
-                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Estatísticas").withIcon(FontAwesome.Icon.faw_bar_chart),
+                        new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Geração").withIcon(FontAwesome.Icon.faw_bar_chart),
                         new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
                         new SectionDrawerItem().withName("Licença"),
                         new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
@@ -108,6 +109,8 @@ public class ActionBarManager {
                                 break;
                             case 6:
                                 intent = new Intent(activity, ListaDietasActivity.class);
+                            case 5:
+                                intent = new Intent(activity, GerarPDFActivity.class);
                                 break;
                             case 11:
                                 intent = new Intent(activity, ConfigActivity.class);
