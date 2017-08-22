@@ -26,6 +26,7 @@
     <string name="menu_historico">Ver histórico de dados</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
+    <string name="menu_relatorio">Relatório</string>
 
     <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>

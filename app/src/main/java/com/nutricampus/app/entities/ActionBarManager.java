@@ -80,7 +80,7 @@ public class ActionBarManager {
                         new SecondaryDrawerItem().withIdentifier(4).withSelectable(false).withName("Compostos Alimentares").withIcon(FontAwesome.Icon.faw_list),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(5).withSelectable(false).withName("Cálculo de Dieta").withIcon(FontAwesome.Icon.faw_calculator),
-                        new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Relatório").withIcon(FontAwesome.Icon.faw_bar_chart),
+                        //new SecondaryDrawerItem().withIdentifier(6).withSelectable(false).withName("Relatório").withIcon(FontAwesome.Icon.faw_bar_chart),
                         new SectionDrawerItem().withName("Licença"),
                         new SecondaryDrawerItem().withIdentifier(7).withSelectable(false).withName("Assinatura").withIcon(FontAwesome.Icon.faw_shopping_cart),
                         new DividerDrawerItem(),
@@ -107,12 +107,13 @@ public class ActionBarManager {
                             case 4:
                                 intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
                                 break;
+
                             case 5:
                                 intent = new Intent(activity, ListaDietasActivity.class);
                                 break;
-                            case 6:
-                                intent = new Intent(activity, GerarPDFActivity.class);
-                                break;
+                            //case 6:
+                              //  intent = new Intent(activity, GerarPDFActivity.class);
+                                //break;
                             case 11:
                                 intent = new Intent(activity, ConfigActivity.class);
                                 break;
