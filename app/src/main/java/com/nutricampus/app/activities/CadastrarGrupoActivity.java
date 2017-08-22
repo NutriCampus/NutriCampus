@@ -49,6 +49,11 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
             return;
         }
 
+        String nomeAtual = inputNome.getText().toString();
+        if ( !isNomeUnico(nomeAtual) ) {
+            inputNome.setError(getString(R.string.msg_nome_existente));
+            return;
+        }
 
         Grupo prole = getObjeto();
 
@@ -78,11 +83,6 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
 
         for (TextView view : ValidaFormulario.camposTextosVazios(campos)) {
             view.setError(getString(R.string.msg_erro_campo));
-            valido = false;
-        }
-
-        if (!isNomeUnico(inputNome.getText().toString())) {
-            inputNome.setError(getString(R.string.msg_nome_existente));
             valido = false;
         }
 

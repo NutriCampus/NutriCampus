@@ -1,6 +1,7 @@
 package com.nutricampus.app.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,10 +36,18 @@ public class EditarGrupoActivity extends CadastrarGrupoActivity {
             return;
         }
 
-        Grupo prole = getObjeto();
+
+        String nomeAtual = inputNome.getText().toString();
+        if ( !isNomeUnico(nomeAtual) && !(nomeAtual.equals(grupo.getIdentificador()))) {
+            inputNome.setError(getString(R.string.msg_nome_existente));
+            return;
+        }
+
+
+        Grupo grupoEditado = getObjeto();
 
         RepositorioGrupo repositorio = new RepositorioGrupo(this);
-        boolean result = repositorio.atualizarGrupo(prole);
+        boolean result = repositorio.atualizarGrupo(grupoEditado);
 
         if (result) {
             Toast.makeText(EditarGrupoActivity.this, R.string.msg_sucesso_atualizar_registro, Toast.LENGTH_LONG).show();

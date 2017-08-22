@@ -21,6 +21,7 @@ import com.nutricampus.app.activities.ConfigActivity;
 import com.nutricampus.app.activities.GerarPDFActivity;
 import com.nutricampus.app.activities.ListaAnimaisActivity;
 import com.nutricampus.app.activities.ListaCompostosAlimentaresActivity;
+import com.nutricampus.app.activities.ListaDietasActivity;
 import com.nutricampus.app.activities.ListaGrupoActivity;
 import com.nutricampus.app.activities.ListaPropriedadesActivity;
 import com.nutricampus.app.database.SharedPreferencesManager;
@@ -106,6 +107,8 @@ public class ActionBarManager {
                             case 4:
                                 intent = new Intent(activity, ListaCompostosAlimentaresActivity.class);
                                 break;
+                            case 6:
+                                intent = new Intent(activity, ListaDietasActivity.class);
                             case 5:
                                 intent = new Intent(activity, GerarPDFActivity.class);
                                 break;

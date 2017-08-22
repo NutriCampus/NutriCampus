@@ -82,6 +82,7 @@
     <string name="msg_excluir_propriedade_sucesso">Propriedade removida com sucesso </string>
     <string name="msg_excluir_proprietario_sucesso">Proprietário removido com sucesso </string>
     <string name="msg_excluir_composto_sucesso">Composto removido com sucesso </string>
+    <string name="msg_excluir_dieta_sucesso">Dieta removida com sucesso </string>
     <string name="msg_excluir_animal_sucesso">Animal removido com sucesso </string>
     <string name="msg_excluir_propriedade_falha">Falha ao tentar remover a propriedade</string>
     <string name="msg_excluir_proprietario_falha">Falha ao tentar remover o proprietátio</string>
@@ -90,6 +91,7 @@
     <string name="msg_excluir_confirmar_propritario">Tem certeza que deseja remover o(a) proprietário(a) %1$s, isso excluirá as propriedades vinculados a ele(a)?</string>
     <string name="msg_excluir_confirmar_composto_alimentar">Tem certeza que deseja remover o Composto %1$s?</string>
 
+    <string name="msg_excluir_confirmar_dieta">Tem certeza que deseja remover a Dieta %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
 
     <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
@@ -129,7 +131,7 @@
 
     <string name="campo_nenhum_proprietario">Nenhum proprietário cadastrado</string>
     <string name="campo_nenhum_composto">Nenhum composto cadastrado</string>
-
+    <string name="campo_nenhuma_dieta">Nenhuma dieta cadastrada</string>
     <string name="campo_escolha_ativo">Animal está ativo?</string>
     <string name="campo_confirmacao_dados">Confirmar dados</string>
     <string name="campo_data">Data</string>
@@ -195,6 +197,10 @@
     <string name="titulo_recuperar_senha">Recuperar senha</string>
     <string name="titulo_novo_usuario">Novo usuário</string>
     <string name="titulo_novo_composto">Novo composto</string>
+    <string name="titulo_dieta">Dieta</string>
+    <string name="titulo_nova_dieta">Nova dieta</string>
+    <string name="titulo_visualizar_dieta">Visualizar dieta</string>
+    <string name="titulo_editar_dieta">Editar dieta</string>
     <string name="titulo_novo_proprietario">Novo proprietário</string>
     <string name="titulo_nova_producao_leite">Novo registro</string>
     <string name="titulo_nova_prole">Nova Prole</string>
@@ -246,6 +252,7 @@
     <string name="campo_tipo">Tipo</string>
     <string name="msg_compostos_erro_preenchimento">Preencha todos os campos</string>
     <string name="menu_visualizar_composto">Visualizar composto</string>
+    <string name="menu_visualizar_dieta">Visualizar</string>
     <string name="titulo_editar_composto">Editar composto</string>
     <string name="titulo_visualizar_composto">Visualizar composto</string>
     <string name="msg_excluir_composto_falha">Falha ao tentar remover o composto</string>
@@ -260,9 +267,16 @@
     <string name="campo_fdn">fdn (%)</string>
     <string name="campo_ms">ms (%)</string>
     <string name="msg_erro_gravar_composto">Erro ao gravar composto</string>
+
     <string name="titulo_lista_grupos">Grupos</string>
     <string name="title_activity_cadastrar_grupo">Novo Grupo</string>
     <string name="campo_observacao">Observações</string>
     <string name="titulo_editar_grupo">Editar Grupo</string>
+
+    <string name="identificador_dieta">Identificador Dieta</string>
+    <string name="proteina_bruta">Proteina Bruta da Dieta (em %)</string>
+    <string name="adicionar_animais">Adicionar Animais</string>
+    <string name="adicionar_compostos">Adicionar Compostos</string>
+    <string name="calcular">Calcular</string>
 
 </resources>

@@ -211,6 +211,43 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
+            android:name=".activities.CadastrarDietaActivity"
+            android:label="@string/titulo_nova_dieta"
+            android:parentActivityName=".activities.ListaDietasActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaDietasActivity" />
+        </activity>
+        <activity
+            android:name=".activities.VisualizarDietaActivity"
+            android:label="@string/menu_visualizar_dieta"
+            android:parentActivityName=".activities.ListaDietasActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaDietasActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ListaDietasActivity"
+            android:label="@string/titulo_dieta"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EditarDietaActivity"
+            android:label="@string/titulo_editar_dieta"
+            android:parentActivityName=".activities.ListaDietasActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ListaDietasActivity" />
+        </activity>
+
+        <activity
             android:name=".activities.ListaGrupoActivity"
             android:label="@string/titulo_lista_grupos"
             android:parentActivityName=".activities.MainActivity"
