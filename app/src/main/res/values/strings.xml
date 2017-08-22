@@ -93,6 +93,9 @@
 
     <string name="msg_excluir_confirmar_dieta">Tem certeza que deseja remover a Dieta %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
+    <string name="msg_excluir_confirmar_conta">Tem certeza que deseja remover sua conta, isso excluirá todas as informações inseridas no sistema </string>
+
+
 
     <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
 
@@ -213,6 +216,7 @@
     <string name="titulo_editar_producao">Editar produção de leite</string>
     <string name="titulo_producao">Produção de leite</string>
     <string name="titulo_lista_animais">Animais</string>
+    <string name="titulo_editar_conta">Configurações de Conta</string>
 
     <string name="cadastrar_proprietario"> Cadastrar Proprietario</string>
     <string name="campo_buscar_proprietario_nome">Buscar Proprietário (CPF)</string>

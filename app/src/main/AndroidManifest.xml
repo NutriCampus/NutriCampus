@@ -68,14 +68,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity
-            android:name=".activities.EditarProprietarioActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
+        <activity android:name=".activities.EditarProprietarioActivity" />
         <activity
             android:name=".activities.CadastroProducaoLeiteActivity"
             android:label="@string/titulo_editar_producao"
@@ -137,34 +130,6 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.CadastrarCompostosAlimentaresActivity"
-            android:label="@string/titulo_novo_composto"
-            android:parentActivityName=".activities.ListaCompostosAlimentaresActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ListaCompostosAlimentaresActivity" />
-        </activity>
-        <activity
-            android:name=".activities.ListaCompostosAlimentaresActivity"
-            android:label="@string/titulo_lista_compostos_alimentares"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.EditarCompostoActivity"
-            android:label="@string/titulo_editar_composto"
-            android:parentActivityName=".activities.ListaPropriedadesActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.VisualizarCompostoActivity"
-            android:label="@string/titulo_visualizar_composto"
-            android:parentActivityName=".activities.ListaPropriedadesActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.EditarAnimalActivity"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
@@ -188,85 +153,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity
-            android:name=".activities.ListaProprietariosActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.ConfigActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.EditarUsuarioActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.CadastrarDietaActivity"
-            android:label="@string/titulo_nova_dieta"
-            android:parentActivityName=".activities.ListaDietasActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ListaDietasActivity" />
-        </activity>
-        <activity
-            android:name=".activities.VisualizarDietaActivity"
-            android:label="@string/menu_visualizar_dieta"
-            android:parentActivityName=".activities.ListaDietasActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ListaDietasActivity" />
-        </activity>
-        <activity
-            android:name=".activities.ListaDietasActivity"
-            android:label="@string/titulo_dieta"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.EditarDietaActivity"
-            android:label="@string/titulo_editar_dieta"
-            android:parentActivityName=".activities.ListaDietasActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ListaDietasActivity" />
-        </activity>
 
         <activity
-            android:name=".activities.ListaGrupoActivity"
-            android:label="@string/titulo_lista_grupos"
+            android:name=".activities.EditarUsuarioActivity"
+            android:label="@string/titulo_editar_conta"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.CadastrarGrupoActivity"
-            android:label="@string/title_activity_cadastrar_grupo"
-            android:parentActivityName=".activities.ListaGrupoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dialog" />
-        <activity
-            android:name=".activities.EditarGrupoActivity"
-            android:label="@string/titulo_editar_grupo"
-            android:parentActivityName=".activities.ListaGrupoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dialog" />
-        <activity android:name=".activities.GerarPDFActivity"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
