@@ -15,11 +15,15 @@ import android.widget.Toast;
 import com.nutricampus.app.R;
 import com.nutricampus.app.database.RepositorioAnimal;
 import com.nutricampus.app.database.RepositorioCompostosAlimentares;
+import com.nutricampus.app.database.RepositorioDadosComplAnimal;
 import com.nutricampus.app.database.RepositorioDieta;
+import com.nutricampus.app.database.RepositorioGrupo;
 import com.nutricampus.app.database.RepositorioPropriedade;
 import com.nutricampus.app.entities.Animal;
 import com.nutricampus.app.entities.CompostosAlimentares;
+import com.nutricampus.app.entities.DadosComplAnimal;
 import com.nutricampus.app.entities.Dieta;
+import com.nutricampus.app.entities.Grupo;
 import com.nutricampus.app.entities.Propriedade;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class CadastrarDietaActivity extends AppCompatActivity {
     public EditText identificador = null;
     public EditText pb = null;
     public TextView detalhes = null;
+    public Button btnAddGrupo = null;
     public Button btnAddAnimal = null;
     public Button btnAddComposto = null;
     public Button btnCalcular = null;
@@ -42,18 +47,22 @@ public class CadastrarDietaActivity extends AppCompatActivity {
     public List<Propriedade> propriedadesBD = null;
     public List<CompostosAlimentares> compostosBD = null;
     public List<Animal> animaisBD = null;
+    public List<Grupo> gruposBD = null;
 
     public ArrayList<Animal> arrAnimais = new ArrayList<>();
     public ArrayList<CompostosAlimentares> arrCompostos = new ArrayList<>();
+    public ArrayList<Grupo> arrGrupos = new ArrayList<>();
 
     public ArrayList<Integer> mSelectedItemsAnimal = new ArrayList<>();
     public ArrayList<Integer> mSelectedItemsComposto = new ArrayList<>();
+    public ArrayList<Integer> mSelectedItemsGrupo = new ArrayList<>();
 
     protected void init() {
         setContentView(R.layout.activity_cadastrar_dieta);
 
         identificador = (EditText) findViewById(R.id.input_dieta_identificador);
         pb = (EditText) findViewById(R.id.input_dieta_pb);
+        btnAddGrupo = (Button) findViewById(R.id.btn_add_grupo_dieta);
         btnAddAnimal = (Button) findViewById(R.id.btn_add_animais_dieta);
         btnAddComposto = (Button) findViewById(R.id.btn_add_compostos_dieta);
         btnCalcular = (Button) findViewById(R.id.btn_calcular_dieta);
@@ -62,8 +71,10 @@ public class CadastrarDietaActivity extends AppCompatActivity {
 
         RepositorioPropriedade repositorioPropriedade = new RepositorioPropriedade(this);
         RepositorioCompostosAlimentares repositorioCompostos = new RepositorioCompostosAlimentares(this);
+        RepositorioGrupo repositorioGrupo = new RepositorioGrupo(this);
         propriedadesBD = repositorioPropriedade.buscarTodasPropriedades();
         compostosBD = repositorioCompostos.buscarTodosCompostos("");
+        gruposBD = repositorioGrupo.buscarTodosGrupos();
 
         if (propriedadesBD.size() < 1) {
             Toast.makeText(this, "Cadastre pelo menos uma propriedade", Toast.LENGTH_SHORT).show();
@@ -154,6 +165,8 @@ public class CadastrarDietaActivity extends AppCompatActivity {
                         /*for (int i = 0; i < arrAnimais.size(); i++) {
                             System.out.println(arrAnimais.get(i).getIndentificador());
                         }*/
+                        arrGrupos.clear();
+                        mSelectedItemsGrupo.clear();
 
                     }
                 }).setNegativeButton("Resetar", new DialogInterface.OnClickListener() {
@@ -230,29 +243,67 @@ public class CadastrarDietaActivity extends AppCompatActivity {
             try {
                 pbD = Double.parseDouble(pb.getText().toString());
                 if (pbD <= 0) {
-                    throw new Exception();
+                    throw new NumberFormatException("PBD menor ou igual a zero");
                 }
             } catch (Exception e) {
                 Toast.makeText(this, "Adicione um valor maior que zero", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        if (arrAnimais.size() < 1) {
-            Toast.makeText(this, "Adicione pelo menos 1 Animal", Toast.LENGTH_SHORT).show();
+        boolean isGrupo = false;
+        if (arrGrupos.size() >= 1 && arrAnimais.size() == 0) {
+            isGrupo = true;
+            /*Toast.makeText(this, "Adicione pelo menos 1 Grupo", Toast.LENGTH_SHORT).show();
+            return;*/
+        } else if (arrGrupos.size() == 0 && arrAnimais.size() >= 1) {
+            isGrupo = false;
+            /*Toast.makeText(this, "Adicione pelo menos 1 Animal", Toast.LENGTH_SHORT).show();
+            return;*/
+        } else if (arrGrupos.size() == 0 && arrAnimais.size() == 0 || arrGrupos.size() >= 1 && arrAnimais.size() >= 1) {
+            Toast.makeText(this, "Adicione apenas animais ou apenas grupos", Toast.LENGTH_SHORT).show();
             return;
         }
         if (arrCompostos.size() < 2) {
             Toast.makeText(this, "Adicione pelo menos 2 Compostos", Toast.LENGTH_SHORT).show();
             return;
         }
+        Propriedade p = propriedadesBD.get(spinnerProprietarios.getSelectedItemPosition());
+        ArrayList<Animal> arrFinal;
 
-        Dieta d = new Dieta(identificador.getText().toString(), pbD, arrAnimais, arrCompostos);
-        d.propriedade = propriedadesBD.get(spinnerProprietarios.getSelectedItemPosition());
+        if (isGrupo) {
+            ArrayList<Integer> idsAnimais = new ArrayList<>();
+            arrFinal = new ArrayList<>();
+            RepositorioDadosComplAnimal rep = new RepositorioDadosComplAnimal(this);
+            RepositorioAnimal repAnimal = new RepositorioAnimal(this);
 
 
-        /*for (int i = 0; i < d.arrayObjetoDieta.size(); i++) {
-            d.arrayObjetoDieta.get(i).print();
-        }*/
+            /*Obter todos os DADOS COMPLEMENTARES que possuem esse grupo,
+             já q a relação do grupo é com DADOS COMPLEMENTARES*/
+            for (int i = 0; i < arrGrupos.size(); i++) {
+                List<DadosComplAnimal> dadosComplAnimals = rep.buscarTodosDadosComplByIdGrupo(arrGrupos.get(i).getId());
+
+                //Para cada DADO COMPLEMENTAR, pego o animal correspondente
+                for (int j = 0; j < dadosComplAnimals.size(); j++) {
+                    //Verifico se id de animal já foi adicionado, caso não, adiciono do arrau principal
+                    if (!idsAnimais.contains(dadosComplAnimals.get(j).getAnimal())) {
+                        Animal animal = repAnimal.buscarAnimalId(dadosComplAnimals.get(j).getAnimal());
+                        //Só adiciono animal que seja da mesma propriedade que a propriedade q está selecionada na tela
+                        if (animal.getPropriedade() == p.getId()) {
+                            arrFinal.add(animal);
+                        }
+
+                        //Adiciono mesmo sendo de propriedades diferentes. Evitar mais comparações desnecessárias
+                        idsAnimais.add(dadosComplAnimals.get(j).getAnimal());
+                    }
+                }
+            }
+        } else {
+            arrFinal = arrAnimais;
+        }
+
+        Dieta d = new Dieta(identificador.getText().toString(), pbD, arrFinal, arrCompostos);
+        d.propriedade = p;
+
         showDieta(d);
     }
 
@@ -276,7 +327,7 @@ public class CadastrarDietaActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                // Não necessário
             }
         });
         // Create the AlertDialog object and return it
@@ -284,5 +335,58 @@ public class CadastrarDietaActivity extends AppCompatActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
 
+    }
+
+    public void addGrupos(View view) {
+        final String[] grupos = new String[gruposBD.size()];
+        boolean[] ativos = new boolean[gruposBD.size()];
+        for (int i = 0; i < gruposBD.size(); i++) {
+            grupos[i] = gruposBD.get(i).getIdentificador();
+            ativos[i] = false;
+        }
+
+        for (int i = 0; i < mSelectedItemsGrupo.size(); i++) {
+            int j = mSelectedItemsGrupo.get(i);
+            ativos[j] = true;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set the dialog title
+        builder.setTitle("Selecione os Grupos")
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(grupos, ativos,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which,
+                                                boolean isChecked) {
+                                if (isChecked) {
+                                    mSelectedItemsGrupo.add(which);
+                                    arrGrupos.add(gruposBD.get(which));
+                                } else if (mSelectedItemsGrupo.contains(which)) {
+                                    mSelectedItemsGrupo.remove(Integer.valueOf(which));
+                                    arrGrupos.remove(gruposBD.get(which));
+                                }
+                            }
+                        })
+                // Set the action buttons
+                .setPositiveButton("Pronto", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        /*for (int i = 0; i < arrGrupos.size(); i++) {
+                            System.out.println(arrGrupos.get(i).getIdentificador());
+                        }*/
+                        mSelectedItemsAnimal.clear();
+                        arrAnimais.clear();
+
+                    }
+                }).setNegativeButton("Resetar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                arrGrupos.clear();
+                mSelectedItemsGrupo.clear();
+            }
+        });
+        builder.create().show();
     }
 }

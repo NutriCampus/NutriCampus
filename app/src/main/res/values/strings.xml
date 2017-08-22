@@ -26,6 +26,7 @@
     <string name="menu_historico">Ver histórico de dados</string>
     <string name="menu_excluir">Excluir</string>
     <string name="menu_editar">Editar</string>
+    <string name="menu_relatorio">Relatório</string>
 
     <string name="link_novo_cadastro">Não é cadastrado? <b>Crie sua conta</b></string>
     <string name="link_esqueceu_senha">Esqueceu sua senha?</string>
@@ -93,6 +94,9 @@
 
     <string name="msg_excluir_confirmar_dieta">Tem certeza que deseja remover a Dieta %1$s?</string>
     <string name="msg_excluir_confirmar_animal">Tem certeza que deseja remover, isso excluirá o histórico do animal </string>
+    <string name="msg_excluir_confirmar_conta">Tem certeza que deseja remover sua conta, isso excluirá todas as informações inseridas no sistema </string>
+
+
 
     <string name="msg_atualizar_usuario">Ao atualizar a senha será feito logoff, deseja continuar ?</string>
 
@@ -213,6 +217,7 @@
     <string name="titulo_editar_producao">Editar produção de leite</string>
     <string name="titulo_producao">Produção de leite</string>
     <string name="titulo_lista_animais">Animais</string>
+    <string name="titulo_editar_conta">Configurações de Conta</string>
 
     <string name="cadastrar_proprietario"> Cadastrar Proprietario</string>
     <string name="campo_buscar_proprietario_nome">Buscar Proprietário (CPF)</string>
@@ -275,8 +280,10 @@
 
     <string name="identificador_dieta">Identificador Dieta</string>
     <string name="proteina_bruta">Proteina Bruta da Dieta (em %)</string>
-    <string name="adicionar_animais">Adicionar Animais</string>
-    <string name="adicionar_compostos">Adicionar Compostos</string>
+    <string name="adicionar_grupos">Gerenciar Grupos</string>
+    <string name="adicionar_animais">Gerenciar Animais</string>
+    <string name="adicionar_compostos">Gerenciar Compostos</string>
     <string name="calcular">Calcular</string>
+    <string name="titulo_relatorios">Geração de Relatórios</string>
 
 </resources>

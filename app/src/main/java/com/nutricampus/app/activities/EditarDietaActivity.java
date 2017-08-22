@@ -80,7 +80,7 @@ public class EditarDietaActivity extends CadastrarDietaActivity {
             try {
                 pbD = Double.parseDouble(pb.getText().toString());
                 if (pbD <= 0) {
-                    throw new Exception();
+                    throw new NumberFormatException("PDB menor ou igual a 0");
                 }
             } catch (Exception e) {
                 Toast.makeText(this, "Adicione um valor maior que zero", Toast.LENGTH_SHORT).show();

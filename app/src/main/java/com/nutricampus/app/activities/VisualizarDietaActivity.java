@@ -9,14 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 
 @SuppressWarnings({"squid:S1172", "squid:MaximumInheritanceDepth"})
 public class VisualizarDietaActivity extends EditarDietaActivity {
-    /*
-        public EditText identificador = null;
-    public EditText pb = null;
-    public Button btnAddAnimal = null;
-    public Button btnAddComposto = null;
-    public Button btnCalcular = null;
-    public Spinner spinnerProprietarios = null;
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +25,7 @@ public class VisualizarDietaActivity extends EditarDietaActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -43,6 +35,7 @@ public class VisualizarDietaActivity extends EditarDietaActivity {
         pb.setEnabled(false);
         spinnerProprietarios.setEnabled(false);
         btnAddAnimal.setText("Ver Animais");
+        btnAddGrupo.setVisibility(View.GONE);
         btnAddComposto.setText("Ver Compostos");
         btnCalcular.setVisibility(View.GONE);
 
@@ -96,6 +89,7 @@ public class VisualizarDietaActivity extends EditarDietaActivity {
                 .setPositiveButton("Pronto", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        // Nada se fazer quando clicado
                     }
                 });
         builder.create().show();

@@ -52,6 +52,8 @@ public class CadastrarGrupoActivity extends AppCompatActivity {
         String nomeAtual = inputNome.getText().toString();
         if ( !isNomeUnico(nomeAtual) ) {
             inputNome.setError(getString(R.string.msg_nome_existente));
+            Toast.makeText(CadastrarGrupoActivity.this, R.string.msg_nome_existente, Toast.LENGTH_LONG).show();
+
             return;
         }
 

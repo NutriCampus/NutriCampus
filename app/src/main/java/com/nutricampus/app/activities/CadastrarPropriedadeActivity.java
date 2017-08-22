@@ -56,6 +56,11 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
     protected Spinner spinnerProprietario;
     protected Button buttonAddProprietario;
 
+
+    private int voltarCadAnimal;
+    private int voltarProprietarios;
+    protected SharedPreferencesManager session;
+
     protected void init() {
         inputId = (EditText) findViewById(R.id.input_id_propriedade);
         inputIdProprietario = (EditText) findViewById(R.id.input_id_proprietario);
@@ -71,11 +76,6 @@ public class CadastrarPropriedadeActivity extends AppCompatActivity implements A
         buttonSalvar = (Button) findViewById(R.id.btn_salvar_propriedade);
         buttonAddProprietario = (Button) findViewById(R.id.btn_add_proprietario);
     }
-
-    private int voltarCadAnimal;
-    private int voltarProprietarios;
-    SharedPreferencesManager session;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

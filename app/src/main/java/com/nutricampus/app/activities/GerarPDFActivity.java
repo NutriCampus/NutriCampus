@@ -4,9 +4,11 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,12 +19,27 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.nutricampus.app.R;
+import com.nutricampus.app.database.RepositorioDadosComplAnimal;
+import com.nutricampus.app.database.RepositorioGrupo;
+import com.nutricampus.app.database.RepositorioProducaoDeLeite;
+import com.nutricampus.app.database.RepositorioPropriedade;
+import com.nutricampus.app.database.RepositorioProprietario;
+import com.nutricampus.app.database.RepositorioUsuario;
+import com.nutricampus.app.database.SharedPreferencesManager;
+import com.nutricampus.app.entities.Animal;
+import com.nutricampus.app.entities.DadosComplAnimal;
+import com.nutricampus.app.entities.Dieta;
+import com.nutricampus.app.entities.Grupo;
+import com.nutricampus.app.entities.Propriedade;
+import com.nutricampus.app.entities.Proprietario;
+import com.nutricampus.app.entities.Usuario;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 /**
  * Created by Felipe on 21/08/2017.
@@ -34,24 +51,44 @@ public class GerarPDFActivity extends AppCompatActivity {
 
     private static final String PATH_APP = "NutriCampus";
     private static final String GERAR = "Relatorios";
-
-    private Button button;
+    private static Dieta dieta;
+    SharedPreferencesManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gerar_pdf);
 
-        button = (Button) findViewById(R.id.btnGerarPdf);
+        session = new SharedPreferencesManager(this);
+
+        Button button = (Button) findViewById(R.id.btnGerarPdf);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gerarPdfOnClick(view);
             }
         });
+
+        // Retira a exceção causada: FileUriExposedException
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+    }
+
+    public static void getDieta(Dieta d) {
+        dieta = d;
     }
 
     public void gerarPdfOnClick(View v) {
+
+        ArrayList<Animal> animais = dieta.arrayAnimais;
+        Animal animal = animais.get(0);
+        Propriedade propriedade = new RepositorioPropriedade(this).buscarPropriedade(animal.getIdPropriedade());
+        Proprietario proprietario = new RepositorioProprietario(this).buscarProprietario(propriedade.getIdProprietario());
+        Usuario usuario = new RepositorioUsuario(this).buscarUsuario(session.getCrmvNC(), session.getSenha());
+
+        DadosComplAnimal dadosComplAnimal = new RepositorioDadosComplAnimal(this).buscarDadosComplAnimal(animal.getId());
+        int idGrupo = dadosComplAnimal.getIdGrupo();
+        Grupo grupo = new RepositorioGrupo(this).buscarGrupo(idGrupo);
 
         Document document = new Document(PageSize.LETTER);
 
@@ -80,11 +117,11 @@ public class GerarPDFActivity extends AppCompatActivity {
 
             //Criar o documento
             document.open();
-            document.addAuthor("Zé");
+            document.addAuthor("NutriCampus");
             document.addCreator("Create");
             document.addSubject("Teste");
             document.addCreationDate();
-            document.addTitle("IRRU");
+            document.addTitle("Relatorio de Dieta");
 
             XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
             String htmltoPdf = "" +
@@ -107,7 +144,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\t<strong>Data e hora:</strong></td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\t22/08/2017 08:30:00</td>\n" +
+                    "\t\t\t\t\t\t\t22/08/2017 19:00:00</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
@@ -115,7 +152,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\t<strong>Respons&aacute;vel:</strong></td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tThalita Barbosa</td>\n" +
+                    "\t\t\t\t\t\t\t"+usuario.getNome()+"</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
@@ -123,7 +160,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;</td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tCRMV/CRZ: xxxxx-x</td>\n" +
+                    "\t\t\t\t\t\t\tCRMV/CRZ:" + usuario.getCrmv() + "</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
@@ -135,7 +172,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\t<strong>Dieta:</strong></td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tAnimais em Lacta&ccedil;&atilde;o</td>\n" +
+                    "\t\t\t\t\t\t\t"+dieta.identificador+"</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
@@ -143,17 +180,17 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\t<strong>Propriedade:</strong></td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tFazenda De Serra Talhada</td>\n" +
+                    "\t\t\t\t\t\t\t"+propriedade.getNome()+"</td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tJos&eacute; da Silva Melo</td>\n" +
+                    "\t\t\t\t\t\t\t"+proprietario.getNome()+"</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t&nbsp;</td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\tSerra Talhada - PE</td>\n" +
+                    "\t\t\t\t\t\t\t"+propriedade.getCidade() +" - " + propriedade.getEstado() +"</td>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
-                    "\t\t\t\t\t\t\t(81) 9 9921-7675</td>\n" +
+                    "\t\t\t\t\t\t\t"+proprietario.getTelefone()+"</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
                     "\t\t\t\t</tbody>\n" +
                     "\t\t\t</table>\n" +
@@ -161,7 +198,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t<caption>\n" +
                     "\t\t\t\t\t<br />\n" +
                     "\t\t\t\t\t<br />\n" +
-                    "\t\t\t\t\t<strong>Tabela 1. Caracter&iacute;sticas do Grupo X</strong></caption>\n" +
+                    "\t\t\t\t\t<strong>Tabela 1. Caracter&iacute;sticas do Grupo "+grupo.getIdentificador()+"</strong></caption>\n" +
                     "\t\t\t\t<tbody>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td>\n" +
@@ -173,13 +210,13 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\tPeso vivo:</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
-                    "\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n" +
+                    "\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dadosComplAnimal.getPesoVivo()+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
                     "\t\t\t\t\t\t\tEscore de Condi&ccedil;&atilde;o Corporal:</td>\n" +
                     "\t\t\t\t\t\t<td>\n" +
-                    "\t\t\t\t\t\t\t5</td>\n" +
+                    "\t\t\t\t\t\t\t"+dadosComplAnimal.getEec()+"</td>\n" +
                     "\t\t\t\t\t</tr>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td style=\"text-align: left;\">\n" +
@@ -218,7 +255,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t<br />\n" +
                     "\t\t\t\t\t<br />\n" +
                     "\t\t\t\t\t<br />\n" +
-                    "\t\t\t\t\t<strong>Tabela 1. Composi&ccedil;&atilde;o Alimentar (Volumoso)</strong></caption>\n" +
+                    "\t\t\t\t\t<strong>Tabela 2. Composi&ccedil;&atilde;o Alimentar (Volumoso)</strong></caption>\n" +
                     "\t\t\t\t<tbody>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td>\n" +
@@ -238,6 +275,14 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t\t\t<td>\n" +
                     "\t\t\t\t\t\t\t<span style=\"font-size:12px;\">100</span></td>\n" +
                     "\t\t\t\t\t</tr>\n" +
+                    "\t\t\t\t\t<tr>\n" +
+                    "\t\t\t\t\t\t<td>\n" +
+                    "\t\t\t\t\t\t\tBagaço de cana</td>\n" +
+                    "\t\t\t\t\t\t<td>\n" +
+                    "\t\t\t\t\t\t\t<span style=\"font-size:12px;\">50,31</span></td>\n" +
+                    "\t\t\t\t\t\t<td>\n" +
+                    "\t\t\t\t\t\t\t<span style=\"font-size:12px;\">98</span></td>\n" +
+                    "\t\t\t\t\t</tr>\n" +
                     "\t\t\t\t</tbody>\n" +
                     "\t\t\t</table>\n" +
                     "\t\t\t<br />\n" +
@@ -246,7 +291,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t\t<caption>\n" +
                     "\t\t\t\t\t<br />\n" +
                     "\t\t\t\t\t<br />\n" +
-                    "\t\t\t\t\t<strong>Tabela 1. NRC 2001</strong></caption>\n" +
+                    "\t\t\t\t\t<strong>Tabela 3. NRC 2001</strong></caption>\n" +
                     "\t\t\t\t<tbody>\n" +
                     "\t\t\t\t\t<tr>\n" +
                     "\t\t\t\t\t\t<td colspan=\"3\">\n" +
@@ -317,7 +362,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                     "\t\t\t<p>\n" +
                     "\t\t\t\t&nbsp;</p>\n" +
                     "\t\t\t<p>\n" +
-                    "\t\t\t\t<strong>Tabela 2. Composi&ccedil;&atilde;o Alimentar (Concentrado)</strong></p>\n" +
+                    "\t\t\t\t<strong>Tabela 4. Composi&ccedil;&atilde;o Alimentar (Concentrado)</strong></p>\n" +
                     "\t\t</div>\n" +
                     "\t\t<div style=\"text-align: center;\">\n" +
                     "\t\t\t<table align=\"center\" border=\"1\" cellpadding=\"1\" cellspacing=\"1\" height=\"93\" id=\"comp_alimentar\" width=\"644\">\n" +
@@ -372,9 +417,7 @@ public class GerarPDFActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
 

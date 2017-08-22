@@ -25,4 +25,10 @@
         android:icon="@drawable/ic_crud_excluir"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/menu_opc_cont_Relatorio"
+        android:title="@string/menu_relatorio"
+        android:icon="@drawable/ic_crud_excluir"
+        app:showAsAction="always" />
+
 </menu>

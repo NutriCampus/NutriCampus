@@ -28,7 +28,7 @@ public final class Conversor {
     }
 
     public static boolean stringToBoolean(String s) {
-        return (s.equals("true"));
+        return ("true".equals(s));
     }
 
     public static Date stringToDate(String string) {

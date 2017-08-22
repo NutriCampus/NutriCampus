@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,6 +87,7 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Dieta dieta;
         switch (item.getItemId()) {
             case R.id.menu_opc_cont_visualizar_dieta:
                 if (info != null)
@@ -98,8 +100,12 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
                     abreTelaEditar(info.position);
                 return true;
             case R.id.menu_opc_cont_excluir:
-                Dieta dieta = (Dieta) listDietas.getItemAtPosition(info.position);
+                dieta = (Dieta) listDietas.getItemAtPosition(info.position);
                 confirmarExcluir(dieta);
+                return true;
+            case R.id.menu_opc_cont_Relatorio:
+                dieta = (Dieta) listDietas.getItemAtPosition(info.position);
+                gerarRelatorio(dieta);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -188,5 +194,12 @@ public class ListaDietasActivity extends AbstractListComPesquisa {
     private void abreTelaVisualizar(int position) {
         Dieta item = (Dieta) listDietas.getItemAtPosition(position);
         startActivity(getIntent(item, false));
+    }
+
+    private void gerarRelatorio(Dieta dieta) {
+        Intent intent = new Intent(ListaDietasActivity.this, GerarPDFActivity.class);
+        GerarPDFActivity.getDieta(dieta);
+
+        startActivity(intent);
     }
 }

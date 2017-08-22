@@ -24,7 +24,6 @@ import com.nutricampus.app.entities.ProducaoDeLeite;
 import com.nutricampus.app.entities.Propriedade;
 import com.nutricampus.app.entities.Proprietario;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,11 +69,6 @@ public class ProducaoDeLeiteEdicaoAcceptanceTest {
         });
 
         return currentActivity;
-    }
-
-    @Before
-    public void preparaDados() {
-
     }
 
     @Test

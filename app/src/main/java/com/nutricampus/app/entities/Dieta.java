@@ -1,5 +1,6 @@
 package com.nutricampus.app.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * For project NutriCampus.
  * Contact: <paulomatew@gmail.com>
  */
-public class Dieta {
+public class Dieta implements Serializable {
     public int id = 0;
     public Propriedade propriedade = null;
     public String identificador = null;

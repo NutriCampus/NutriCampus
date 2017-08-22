@@ -39,7 +39,7 @@ public class ListaProleActivity extends AbstractListagem {
         registerForContextMenu(listView);
         carregaListView();
 
-        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listView.showContextMenuForChild(view);
